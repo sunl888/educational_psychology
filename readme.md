@@ -1,0 +1,1 @@
+Tiny is simple CMS!
