@@ -17,8 +17,10 @@ class CreatePermissionTables extends Migration
 
         Schema::create($tableNames['permissions'], function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('guard_name');
+            $table->string('display_name')->nullable();
+            $table->string('description')->nullable();
             $table->unsignedInteger('parent_id')->default(0)->index();
             $table->boolean('is_menu')->default(true);
             $table->timestamps();
@@ -26,8 +28,10 @@ class CreatePermissionTables extends Migration
 
         Schema::create($tableNames['roles'], function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('guard_name');
+            $table->string('display_name')->nullable();
+            $table->string('description')->nullable();
             $table->timestamps();
         });
 
