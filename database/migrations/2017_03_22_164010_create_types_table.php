@@ -19,7 +19,7 @@ class CreateTypesTable extends Migration
                 $table->char('name', 30);
                 $table->string('description')->nullable()->comment('类型描述');
                 $table->integer('order')->default(0)->index()->comment('排序字段');
-                $table->string('class_name', 50)->index();
+                $table->string('model_name')->index();
             }
         );
     }
