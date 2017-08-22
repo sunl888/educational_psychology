@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePasswordResetsTable extends Migration
+class CreateCategoryPostTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,10 @@ class CreatePasswordResetsTable extends Migration
     public function up()
     {
         Schema::create(
-            'password_resets', function (Blueprint $table) {
-                $table->string('email', 100)->index();
-                $table->string('token', 100)->index();
-                $table->timestamp('created_at')->nullable();
+            'category_post', function (Blueprint $table) {
+                $table->unsignedBigInteger('category_id');
+                $table->unsignedBigInteger('post_id');
+                $table->primary(['category_id', 'post_id']);
             }
         );
     }
@@ -29,6 +29,6 @@ class CreatePasswordResetsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('password_resets');
+        Schema::dropIfExists('category_post');
     }
 }
