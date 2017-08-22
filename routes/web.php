@@ -14,3 +14,4 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/admin/{path?}', 'AdminController@index')->where('path', '[\/\w\.-]*')->name('admin');
