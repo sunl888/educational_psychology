@@ -23,6 +23,7 @@ class CreatePermissionTables extends Migration
             $table->string('description')->nullable();
             $table->unsignedInteger('parent_id')->default(0)->index();
             $table->boolean('is_menu')->default(true);
+            $table->integer('order')->default(0)->index()->comment('排序字段');
             $table->timestamps();
         });
 
@@ -32,6 +33,7 @@ class CreatePermissionTables extends Migration
             $table->string('guard_name');
             $table->string('display_name')->nullable();
             $table->string('description')->nullable();
+            $table->integer('order')->default(0)->index()->comment('排序字段');
             $table->timestamps();
         });
 
