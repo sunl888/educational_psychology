@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\PostContent;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,14 +12,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(PermissionsTableSeeder::class);
-        $this->call(RolesTableSeeder::class);
-        $this->call(UsersTableSeeder::class);
-        $this->call(CategoriesTableSeeder::class);
-        $this->call(TypesTableSeeder::class);
-        $this->call(LinksTableSeeder::class);
-        $this->call(PostsTableSeeder::class);
-        $this->call(CategoryPostTableSeeder::class);
-        $this->call(SettingsTableSeeder::class);
+        factory(\App\Models\Category::class, 5)->create()->each(function ($category) {
+            $category->children()->saveMany(factory(\App\Models\Category::class, random_int(0, 3))->make(['parent_id' => $category->id]));
+        });
+
+        factory(App\Models\User::class, 10)->create()->each(function ($user) {
+            factory(App\Models\Post::class, random_int(0, 10))->create(['user_id' => $user->id])->each(function ($post) {
+                $post->postContent()->save(factory(PostContent::class)->make());
+            });
+        });
     }
 }
