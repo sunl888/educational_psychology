@@ -13,10 +13,12 @@ class Category extends BaseModel
     protected $casts = [
         'is_nav' => 'boolean',
     ];
-    protected $fillable = ['type', 'image', 'parent_id', 'cate_name',
+    protected $fillable = ['type', 'parent_id', 'cate_name',
         'description', 'url', 'is_target_blank', 'cate_slug', 'is_nav', 'order',
         'page_template', 'list_template', 'content_template'];
 
+
+    const TYPE_POST = 'post', TYPE_PAGE = 'page', TYPE_LINK = 'link';
 
     public function posts()
     {
@@ -106,16 +108,8 @@ class Category extends BaseModel
      */
     public function scopeByType($query, $type = null)
     {
-        switch ($type) {
-            case 'post': // 为了兼容
-                $query->where('type', 0);
-                break;
-            case 'page':
-                $query->where('type', 1);
-                break;
-            case 'ext_link':
-                $query->where('type', 2);
-                break;
+        if (in_array($type, [static::TYPE_POST, static::TYPE_LINK, static::TYPE_PAGE])) {
+            $query->where('type', $type);
         }
         return $query;
     }
@@ -148,7 +142,7 @@ class Category extends BaseModel
      */
     public function isExtLink()
     {
-        return $this->type == 2;
+        return $this->type == static::TYPE_LINK;
     }
 
     /**
@@ -158,7 +152,7 @@ class Category extends BaseModel
      */
     public function isPage()
     {
-        return $this->type == 1;
+        return $this->type == static::TYPE_PAGE;
     }
 
     /**
@@ -168,7 +162,7 @@ class Category extends BaseModel
      */
     public function isPostList()
     {
-        return $this->type == 0;
+        return $this->type == static::TYPE_POST;
     }
 
     /**
