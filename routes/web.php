@@ -12,6 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
 });
-Route::get('/admin/{path?}', 'AdminController@index')->where('path', '[\/\w\.-]*')->name('admin');
+
+Route::group(['namespace' => 'Frontend\Web', 'as' => 'frontend.'], __DIR__ . '/frontend/web.php');
+
+Route::group(['namespace' => 'Backend\Web', 'as' => 'backend.'], __DIR__ . '/backend/web.php');

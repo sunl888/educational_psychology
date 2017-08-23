@@ -13,6 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::group(['namespace' => 'Frontend\Api', 'as' => 'frontend.'], __DIR__ . '/frontend/api.php');
+
+Route::group(['namespace' => 'Backend\Api', 'as' => 'backend.', 'prefix' => 'backend'], __DIR__ . '/backend/api.php');
