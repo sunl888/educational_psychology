@@ -22,12 +22,11 @@ class Category extends BaseModel
 
     public function posts()
     {
-        return $this->belongsToMany(Post::class);
+        return $this->hasMany(Post::class);
     }
 
     /**
      * 文章列表
-     *
      * @param  $query
      * @return mixed
      */
@@ -67,7 +66,7 @@ class Category extends BaseModel
 
     public function children()
     {
-        return $this->hasMany(Category::class, 'parent_id', 'id')->ordered()->ancient();
+        return $this->hasMany(Category::class, 'parent_id', 'id');
     }
 
     /**
@@ -168,20 +167,20 @@ class Category extends BaseModel
     /**
      * 获取当前分类下的热门文章
      *
-     * @param  $num
+     * @param  $limit
      * @param  null $exceptPost
      * @return mixed
      */
-    public function getHotPosts($num, $exceptPost = null)
+    public function getHotPosts($limit, $exceptPost = null)
     {
-        $posts = $this->posts()->post()->publish()->orderBy('views_count', 'desc')->recent()->limit($num)->get();
+        $query = $this->posts()->publishPost();
         if ($exceptPost != null) {
             if (is_numeric($exceptPost)) {
-                return $posts->where('id', '!=', $exceptPost);
+                $query->where('id', '!=', $exceptPost);
             } elseif ($exceptPost instanceof Post) {
-                return $posts->where('id', '!=', $exceptPost->id);
+                $query->where('id', '!=', $exceptPost->id);
             }
         }
-        return $posts;
+        return $query->orderBy('views_count', 'desc')->recent()->limit($limit)->get();
     }
 }

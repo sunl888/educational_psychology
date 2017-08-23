@@ -10,6 +10,9 @@ class PostContent extends BaseModel
      * @var string
      */
     protected $primaryKey = 'post_id';
+
+    public $incrementing = false;
+
     protected $fillable = ['content'];
 
     public function post()

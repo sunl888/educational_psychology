@@ -10,10 +10,12 @@ class Post extends BaseModel
 {
     use SoftDeletes, Listable;
 
-    protected $fillable = ['title', 'user_id', 'author_info', 'excerpt', 'type', 'views_count', 'cover', 'status', 'template', 'top', 'published_at'];
+    protected $fillable = ['title', 'user_id', 'author_info', 'excerpt', 'type', 'views_count', 'cover', 'status', 'template', 'top', 'published_at', 'category_id'];
     protected $dates = ['deleted_at', 'top', 'published_at', 'created_at', 'updated_at'];
     protected static $allowSearchFields = ['title', 'author_info', 'excerpt'];
-    protected static $allowSortFields = ['title', 'status', 'views_count', 'top', 'order', 'published_at'];
+    protected static $allowSortFields = ['title', 'status', 'views_count', 'top', 'order', 'published_at', 'category_id'];
+
+    const STATUS_PUBLISH = 'publish', STATUS_DRAFT = 'draft';
 
     public function scopeRecent($query)
     {
@@ -25,11 +27,10 @@ class Post extends BaseModel
         return $this->belongsTo(User::class);
     }
 
-    public function categories()
+    public function category()
     {
-        return $this->belongsToMany(Category::class)->ordered()->recent();
+        return $this->belongsTo(Category::class);
     }
-
 
     public function scopeApplyFilter($query, $data)
     {
@@ -60,29 +61,40 @@ class Post extends BaseModel
         return $query->ordered()->recent();
     }
 
-    public function scopePost($query)
+    public function scopeByType($query, $type)
     {
-        return $query->where('type', 'post');
+        if (in_array($type, [Category::TYPE_POST, Category::TYPE_PAGE]))
+            return $query->where('type', $type);
+        return $query;
     }
 
-    public function scopePage($query)
+    public function scopeByStatus($query, $status)
     {
-        return $query->where('type', 'page');
+        if (in_array($status, [static::STATUS_PUBLISH, static::STATUS_DRAFT]))
+            return $query->where('status', $status);
+        return $query;
     }
 
-    public function scopePublish($query)
+    /**
+     * 获取已发布或草稿的文章的查询作用域
+     * @param $query
+     * @return mixed
+     */
+    public function scopePublishOrDraft($query)
     {
-        return $query->where('status', 'publish');
+        return $query->where('status', static::STATUS_PUBLISH)->orWhere('status', static::STATUS_DRAFT);
     }
 
-    public function scopeDraft($query)
+    /**
+     * 已发布文章的查询作用域
+     * @param $query
+     * @return mixed
+     */
+    public function scopePublishPost($query)
     {
-        return $query->where('status', 'draft');
-    }
-
-    public function scopePublishAndDraft($query)
-    {
-        return $query->where('status', 'publish')->orWhere('status', 'draft');
+        return $query->where(function ($query) {
+            $query->byType(Category::TYPE_POST)->byStatus(static::STATUS_PUBLISH);
+        });
     }
 
     public function scopeOrderByTop($query)
@@ -96,39 +108,27 @@ class Post extends BaseModel
         $this->views_count++;
     }
 
-    public function content()
+    /**
+     * 一对一关联 post_content 表
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function postContent()
     {
         return $this->hasOne(PostContent::class);
     }
 
-    public function saveCategories($categories)
-    {
-        if ($categories instanceof Collection) {
-            $categories = $categories->pluck('id');
-        } elseif (is_string($categories)) {
-            $categories = explode(',', $categories);
-        }
-        $this->categories()->sync($categories);
-    }
-
     /**
      * 添加附加表数据
-     *
      * @param $data
      */
     public function addition($data)
     {
         if (isset($data['content'])) {
-            $this->content()->updateOrCreate(
+            $this->postContent()->updateOrCreate(
                 [], [
                     'content' => $data['content']
                 ]
             );
-        }
-
-        // 处理分类
-        if (!empty($data['category_ids'])) {
-            $this->saveCategories($data['category_ids']);
         }
     }
 
@@ -140,18 +140,22 @@ class Post extends BaseModel
         return !is_null($this->top);
     }
 
-    public function getNextPost(Category $category)
+    /**
+     * 获取下一篇文章
+     * @return mixed
+     */
+    public function getNextPost()
     {
-        return $category->posts()->post()->publish()->where('post_id', '>', $this->id)->first();
+        return $this->category->posts()->publishPost()->where('id', '>', $this->id)->first();
     }
 
     public function isPublish()
     {
-        return $this->status == 'publish';
+        return $this->status == static::STATUS_PUBLISH;
     }
 
     public function isDraft()
     {
-        return $this->type == 'draft';
+        return $this->status == static::STATUS_DRAFT;
     }
 }

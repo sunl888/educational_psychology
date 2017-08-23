@@ -25,4 +25,5 @@ class Link extends BaseModel implements InterfaceTypeable
     {
         return $query->where('is_visible', $isVisible)->ordered();
     }
+
 }
