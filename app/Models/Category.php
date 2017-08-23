@@ -13,19 +13,20 @@ class Category extends BaseModel
     protected $casts = [
         'is_nav' => 'boolean',
     ];
-    protected $fillable = ['type', 'image', 'parent_id', 'cate_name',
+    protected $fillable = ['type', 'parent_id', 'cate_name',
         'description', 'url', 'is_target_blank', 'cate_slug', 'is_nav', 'order',
         'page_template', 'list_template', 'content_template'];
 
 
+    const TYPE_POST = 'post', TYPE_PAGE = 'page', TYPE_LINK = 'link';
+
     public function posts()
     {
-        return $this->belongsToMany(Post::class);
+        return $this->hasMany(Post::class);
     }
 
     /**
      * 文章列表
-     *
      * @param  $query
      * @return mixed
      */
@@ -65,7 +66,7 @@ class Category extends BaseModel
 
     public function children()
     {
-        return $this->hasMany(Category::class, 'parent_id', 'id')->ordered()->ancient();
+        return $this->hasMany(Category::class, 'parent_id', 'id');
     }
 
     /**
@@ -106,16 +107,8 @@ class Category extends BaseModel
      */
     public function scopeByType($query, $type = null)
     {
-        switch ($type) {
-            case 'post': // 为了兼容
-                $query->where('type', 0);
-                break;
-            case 'page':
-                $query->where('type', 1);
-                break;
-            case 'ext_link':
-                $query->where('type', 2);
-                break;
+        if (in_array($type, [static::TYPE_POST, static::TYPE_LINK, static::TYPE_PAGE])) {
+            $query->where('type', $type);
         }
         return $query;
     }
@@ -148,7 +141,7 @@ class Category extends BaseModel
      */
     public function isExtLink()
     {
-        return $this->type == 2;
+        return $this->type == static::TYPE_LINK;
     }
 
     /**
@@ -158,7 +151,7 @@ class Category extends BaseModel
      */
     public function isPage()
     {
-        return $this->type == 1;
+        return $this->type == static::TYPE_PAGE;
     }
 
     /**
@@ -168,26 +161,26 @@ class Category extends BaseModel
      */
     public function isPostList()
     {
-        return $this->type == 0;
+        return $this->type == static::TYPE_POST;
     }
 
     /**
      * 获取当前分类下的热门文章
      *
-     * @param  $num
+     * @param  $limit
      * @param  null $exceptPost
      * @return mixed
      */
-    public function getHotPosts($num, $exceptPost = null)
+    public function getHotPosts($limit, $exceptPost = null)
     {
-        $posts = $this->posts()->post()->publish()->orderBy('views_count', 'desc')->recent()->limit($num)->get();
+        $query = $this->posts()->publishPost();
         if ($exceptPost != null) {
             if (is_numeric($exceptPost)) {
-                return $posts->where('id', '!=', $exceptPost);
+                $query->where('id', '!=', $exceptPost);
             } elseif ($exceptPost instanceof Post) {
-                return $posts->where('id', '!=', $exceptPost->id);
+                $query->where('id', '!=', $exceptPost->id);
             }
         }
-        return $posts;
+        return $query->orderBy('views_count', 'desc')->recent()->limit($limit)->get();
     }
 }

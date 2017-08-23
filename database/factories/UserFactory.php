@@ -2,24 +2,24 @@
 
 use Faker\Generator as Faker;
 
-/*
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
-|
-| This directory should contain each of the model factory definitions for
-| your application. Factories provide a convenient way to generate new
-| model instances for testing / seeding your application's database.
-|
-*/
-
-$factory->define(App\User::class, function (Faker $faker) {
-    static $password;
+$factory->define(App\Models\User::class, function (Faker $faker) {
+    static $password, $avatarsPath = null;
+    if (is_null($avatarsPath)) {
+        $avatarsConfig = config('tiny.avatars');
+        $storage = Storage::disk($avatarsConfig['disk']);
+        $avatarsPath = $storage->path($avatarsConfig['path']);
+        $storage->exists($avatarsPath) || $storage->makeDirectory($avatarsConfig['path']);
+    }
 
     return [
-        'name' => $faker->name,
+        'user_name' => $faker->userName,
+        'nick_name' => $faker->name(),
         'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
+        'avatar' => $faker->image($avatarsPath, 480, 480, 'people', false),
+        'password' => $password ?: $password = bcrypt(config('tiny.default_user_password')),
+        'is_locked' => false,
         'remember_token' => str_random(10),
+        'created_at' => \Carbon\Carbon::now(),
+        'updated_at' => \Carbon\Carbon::now(),
     ];
 });

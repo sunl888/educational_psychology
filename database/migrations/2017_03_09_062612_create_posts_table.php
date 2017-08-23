@@ -24,9 +24,10 @@ class CreatePostsTable extends Migration
                 $table->string('excerpt', 512)->nullable();
                 // 文章封面
                 $table->string('cover')->nullable()->comment('文章封面');
-                $table->char('status', 10)->default('publish')->comment('文章状态：publish发布 draft草稿');
+            $table->unsignedInteger('category_id')->index()->comment('分类 id');
+            $table->char('status', 10)->default('publish')->comment('文章状态：publish 发布 draft 草稿');
                 // 类型
-                $table->char('type', 10)->default('post')->comment('类型: post文章 page单页');
+            $table->char('type', 10)->default('post')->comment('类型: post 文章 page 单页');
                 // 浏览量
                 $table->unsignedInteger('views_count')->default(0)->index();
                 // 文章置顶
