@@ -13,7 +13,7 @@ export default new Router({
       {
         path: 'user/list',
         name: 'userList',
-        component: require('./views/UserList.vue'),
+        component: require('./views/user/UserList.vue'),
       }
     ]
   }]
