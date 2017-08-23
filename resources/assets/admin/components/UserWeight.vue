@@ -2,12 +2,18 @@
   <div class="m-info">
     <a href="#" target="_blank">
       <i class="user-pic" style="background-image: url(http://static.hdslb.com/images/member/noface.gif)"></i>
-      <span class="user-name">ty6666</span>
+      <span class="user-name">{{name}}</span>
     </a>
   </div>
 </template>
 
 <script>
+export default{
+  name: 'UserWeight',
+  props: {
+    name: String
+  }
+};
 </script>
 
 <style scoped lang="less">
