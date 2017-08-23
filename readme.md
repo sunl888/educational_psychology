@@ -1,1 +1,1 @@
-Tiny is simple CMS!
+Tiny is a simple CMS!

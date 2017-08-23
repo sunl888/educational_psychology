@@ -2,8 +2,10 @@ import Vue from 'vue';
 import axios from 'axios';
 import router from './router';
 import App from './App.vue';
+import iView from 'iview';
+import 'iview/dist/styles/iview.css';
 let token = document.head.querySelector('meta[name="csrf-token"]');
-
+Vue.use(iView);
 if (token) {
   axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {

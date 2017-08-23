@@ -1,0 +1,34 @@
+<template>
+  <div class="no_data">
+    <p>{{tip}}</p>
+    <div class="img"></div>
+  </div>
+</template>
+<script>
+export default {
+  name: 'NoData',
+  props: {
+    tip: {
+      type: String,
+      default: '没有数据("▔□▔)/'
+    }
+  }
+};
+</script>
+<style lang="less" scoped>
+.no_data{
+    height: 270px;
+    >p{
+        margin-top: 90px;
+        text-align: center;
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+    >.img{
+      width: 234px;
+      height: 177px;
+      background: url(https://s1.hdslb.com/bfs/static/member/err-no-list.png) no-repeat bottom;
+      margin: 0 auto;
+    }
+}
+</style>
