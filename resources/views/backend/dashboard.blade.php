@@ -10,6 +10,6 @@
     </head>
     <body>
         <div id="app"></div>
-        <script src="{{asset(mix('js/admin/app.js'))}}"></script>
+        <script src="{{asset(mix('js/backend/app.js'))}}"></script>
     </body>
 </html>

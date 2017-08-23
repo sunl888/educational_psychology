@@ -6,7 +6,7 @@ export default new Router({
   mode: 'history',
   base: __dirname,
   routes: [{
-    path: '/admin',
+    path: '/backend',
     name: 'home',
     component: require('./views/Home.vue'),
     children: [

@@ -7,9 +7,9 @@
   </div>
 </template>
 <script>
-  import TTable from '../components/t-table';
-  import UserWeight from '../components/UserWeight.vue';
-  import TTableWrapper from '../components/t-table-wrapper';
+  import TTable from '../../components/t-table';
+  import UserWeight from '../../components/UserWeight.vue';
+  import TTableWrapper from '../../components/t-table-wrapper';
   export default {
     components: { TTable, UserWeight, TTableWrapper },
     data () {
