@@ -7,6 +7,14 @@ export default new Router({
   base: __dirname,
   routes: [{
     path: '/admin',
+    name: 'home',
     component: require('./views/Home.vue'),
+    children: [
+      {
+        path: 'user/list',
+        name: 'userList',
+        component: require('./views/UserList.vue'),
+      }
+    ]
   }]
 });
