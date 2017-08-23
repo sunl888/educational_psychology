@@ -3,16 +3,18 @@
     <table border="0" cellspacing="0" cellpadding="0" class="ttable">
       <thead>
         <tr>
-          <th v-for="col in columns">{{col.title}}</th>
+          <th v-for="col in columns" :key="col.key" :width="col.width ? col.width : 'auto'">{{col.title}}</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in data">
-          <td v-for="col in columns">
-            <template v-if="!col.render">
-              {{item[col.key]}}
-            </template>
-            <TableRenderItem v-else :render="col.render" :params="item"></TableRenderItem>
+        <tr v-for="(item,index) in data" :key="index">
+          <td v-for="col in columns" :key="col.key">
+            <div class="td-item" :class="col.type">
+              <template v-if="!col.render">
+                {{item[col.key]}}
+              </template>
+              <TableRenderItem v-else :render="col.render" :params="item"></TableRenderItem>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -65,11 +67,18 @@
       font-size: 14px;
       color: #666;
       >tr {
-        height: 40px;
+        height: auto;
+        min-height: 40px;
+        .td-item{
+          padding: 10px 0;
+          &.gray{
+            color: #999;
+          }
+        }
       }
     }
     tr {
-      height: 60px;
+      height: 65px;
       &:hover{
         background-color: #f8f9fb;
         transition: background-color .2s;
