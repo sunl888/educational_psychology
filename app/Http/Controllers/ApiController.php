@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Tiny\Response;
+use App\Support\Response;
 
 class ApiController extends Controller
 {

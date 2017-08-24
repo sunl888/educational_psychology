@@ -17,7 +17,7 @@ class UsersController extends ApiController
 
     /**
      * 当前登录的用户信息
-     * @return \App\Tiny\Response
+     * @return \App\Support\Response
      */
     public function me()
     {
@@ -26,7 +26,7 @@ class UsersController extends ApiController
 
     /**
      * 用户列表
-     * @return \App\Tiny\Response
+     * @return \App\Support\Response
      */
     public function index()
     {
@@ -46,7 +46,7 @@ class UsersController extends ApiController
     /**
      * 显示指定用户信息
      * @param User $user
-     * @return \App\Tiny\Response
+     * @return \App\Support\Response
      */
     public function show(User $user)
     {
@@ -61,7 +61,7 @@ class UsersController extends ApiController
     /**
      * 删除指定用户
      * @param User $user
-     * @return \App\Tiny\Response
+     * @return \App\Support\Response
      */
     public function destroy(User $user)
     {

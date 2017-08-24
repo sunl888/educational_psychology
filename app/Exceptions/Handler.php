@@ -5,9 +5,12 @@ namespace App\Exceptions;
 use App\Exceptions\Contract\MessageBagErrors;
 use App\Exceptions\Debug\WantJsonRequest;
 use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Lang;
 
 class Handler extends ExceptionHandler
 {
@@ -53,8 +56,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-
-
         if (config('app.debug')) {
             $request = new WantJsonRequest($request);
         }
@@ -70,7 +71,7 @@ class Handler extends ExceptionHandler
      */
     protected function invalidJson($request, ValidationException $exception)
     {
-        return response()->json($this->errorFormat($exception), $exception->status);
+        return response()->json($this->errorFormat(new ResourceException(null, $exception->errors())), $exception->status);
     }
 
     /**
@@ -156,4 +157,21 @@ class Handler extends ExceptionHandler
     {
         return $this->isHttpException($exception) ? $exception->getStatusCode() : 500;
     }
+
+    /**
+     * Convert an authentication exception into an unauthenticated response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Auth\AuthenticationException  $exception
+     * @return \Illuminate\Http\Response
+     */
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        if ($request->expectsJson()) {
+            $e = new HttpException(401, Lang::get('auth.please_login_first'), null, [], 401);
+            return response()->json($this->errorFormat($e), $e->getStatusCode());
+        }
+        return redirect()->guest('login');
+    }
+
 }

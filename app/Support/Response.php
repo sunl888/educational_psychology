@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Tiny;
+namespace App\Support;
 
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Contracts\Support\Responsable;
