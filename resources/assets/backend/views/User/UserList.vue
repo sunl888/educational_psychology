@@ -1,7 +1,7 @@
 <template>
   <div>
     <TTableWrapper title="用户列表">
-      <span slot="option"><Button icon="plus-round" type="primary">添加</Button></span>
+      <span slot="option"><Button @click="$router.push({name: 'addUser'})" icon="plus-round" type="primary">添加</Button></span>
       <TTable :columns="userCol" :data="userList" />
     </TTableWrapper>
   </div>
