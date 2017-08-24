@@ -18,11 +18,14 @@ export default{
 
 <style scoped lang="less">
   .m-info {
-    padding-left: 30px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 200px;
+    float: left;
+    >a{
+      display: block;
+    }
     .user-pic {
       display: inline-block;
       width: 30px;
@@ -33,6 +36,9 @@ export default{
       margin-right: 8px;
     }
     .user-name {
+      display: inline-block;
+      line-height: 30px;
+      height: 30px;
       color: #222;
     }
   }
