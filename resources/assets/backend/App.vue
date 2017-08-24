@@ -1,6 +1,10 @@
 <template>
     <router-view class="height-100p"></router-view>
 </template>
+<script>
+export default {
+};
+</script>
 
 <style lang="less">
   body, html {
