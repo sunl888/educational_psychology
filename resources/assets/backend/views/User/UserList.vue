@@ -1,15 +1,15 @@
 <template>
   <div>
     <TTableWrapper title="用户列表">
-      <span slot="option"><Button icon="plus-round" type="primary">添加</Button></span>
+      <span slot="option"><Button @click="$router.push({name: 'addUser'})" icon="plus-round" type="primary">添加</Button></span>
       <TTable :columns="userCol" :data="userList" />
     </TTableWrapper>
   </div>
 </template>
 <script>
-  import TTable from '../components/t-table';
-  import UserWeight from '../components/UserWeight.vue';
-  import TTableWrapper from '../components/t-table-wrapper';
+  import TTable from '../../components/t-table';
+  import UserWeight from '../../components/UserWeight.vue';
+  import TTableWrapper from '../../components/t-table-wrapper';
   export default {
     components: { TTable, UserWeight, TTableWrapper },
     data () {
