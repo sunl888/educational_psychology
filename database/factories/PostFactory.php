@@ -8,10 +8,10 @@ $factory->define(Post::class, function (Faker $faker) {
     static $imagesPath = null, $categories = null;
 
     if (is_null($imagesPath)) {
-        $imagesConfig = config('tiny.images');
-        $storage = Storage::disk($imagesConfig['disk']);
-        $imagesPath = $storage->path($imagesConfig['path']);
-        $storage->exists($imagesPath) || $storage->makeDirectory($imagesConfig['path']);
+        $imagesConfig = config('images');
+        $storage = Storage::disk($imagesConfig['source_disk']);
+        $imagesPath = $storage->path($imagesConfig['source_path_prefix']);
+        $storage->exists($imagesPath) || $storage->makeDirectory($imagesConfig['source_path_prefix']);
     }
 
     if (is_null($categories)) {

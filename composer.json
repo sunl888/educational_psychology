@@ -9,10 +9,13 @@
         "fideloper/proxy": "~3.3",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
-        "spatie/laravel-glide": "^3.2",
+      "league/fractal": "^0.17.0",
+      "league/glide": "^1.2",
+      "league/glide-laravel": "^1.0",
         "spatie/laravel-permission": "dev-laravel-55"
     },
     "require-dev": {
+      "barryvdh/laravel-debugbar": "^2.4",
         "barryvdh/laravel-ide-helper": "^2.4",
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",

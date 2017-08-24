@@ -11,8 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-});
+
+Route::get('img/{path}', 'ImagesController@show')->where('path', '[\/\w\.-]+')->name('image');
 
 Route::group(['namespace' => 'Frontend\Web', 'as' => 'frontend.'], __DIR__ . '/frontend/web.php');
 
