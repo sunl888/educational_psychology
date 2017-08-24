@@ -11,7 +11,8 @@ use League\Glide\ServerFactory;
 use Log;
 use League\Fractal\Manager as FractalManager;
 use Storage;
-
+use Carbon\Carbon;
+use Schema;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -31,9 +32,8 @@ class AppServiceProvider extends ServiceProvider
                 Log::info('sql', [$sql, $query->time]);
             });
         }
-        $this->app->singleton('api.transformer', function () {
-
-        });
+        Carbon::setLocale('zh');
+        Schema::defaultStringLength(191);
     }
 
     /**

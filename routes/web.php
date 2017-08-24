@@ -14,6 +14,6 @@
 
 Route::get('img/{path}', 'ImagesController@show')->where('path', '[\/\w\.-]+')->name('image');
 
-Route::group(['namespace' => 'Frontend\Web', 'as' => 'frontend.'], __DIR__ . '/frontend/web.php');
+Route::group(['namespace' => 'Frontend\Web', 'as' => 'frontend.web.'], __DIR__ . '/frontend/web.php');
 
-Route::group(['namespace' => 'Backend\Web', 'as' => 'backend.'], __DIR__ . '/backend/web.php');
+Route::group(['namespace' => 'Backend\Web', 'as' => 'backend.web.'], __DIR__ . '/backend/web.php');
