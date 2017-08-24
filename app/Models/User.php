@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Image;
+use App\Models\Traits\Listable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Auth\Authenticatable;
@@ -17,7 +19,7 @@ class User extends BaseModel implements
     AuthorizableContract,
     CanResetPasswordContract
 {
-    use Notifiable, HasRoles;
+    use Notifiable, HasRoles, Listable;
     use Authenticatable, Authorizable, CanResetPassword;
 
     /**
@@ -26,7 +28,7 @@ class User extends BaseModel implements
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'user_name', 'nick_name', 'email', 'password', 'avatar'
     ];
 
     /**
@@ -38,8 +40,24 @@ class User extends BaseModel implements
         'password', 'remember_token',
     ];
 
+    protected static $allowSortFields = ['id', 'user_name', 'nick_name', 'created_at', 'is_locked'];
+    protected static $allowSearchFields = ['id', 'user_name', 'nick_name', 'email'];
+
+    protected $casts = [
+        'is_locked' => 'boolean'
+    ];
+
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function getAvatarUrlAttribute()
+    {
+        return route(config('images.route_name'), $this->attributes['avatar']);
+    }
+
+    public function isLocked(){
+        return $this->is_locked;
     }
 }
