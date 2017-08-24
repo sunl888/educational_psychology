@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+
 use Faker\Generator as Faker;
 use Illuminate\Support\ServiceProvider;
 use App\FakerProviders\Internet;
+use App\FakerProviders\Image;
 use DB;
 use League\Glide\Responses\LaravelResponseFactory;
 use League\Glide\ServerFactory;
@@ -13,6 +15,7 @@ use League\Fractal\Manager as FractalManager;
 use Storage;
 use Carbon\Carbon;
 use Schema;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -25,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment() !== 'production') {
             $faker = app(Faker::class);
             $faker->addProvider(new Internet($faker));
-
+            $faker->addProvider(new Image($faker));
             DB::listen(function ($query) {
                 $sql = str_replace('?', '%s', $query->sql);
                 $sql = sprintf($sql, ...$query->bindings);

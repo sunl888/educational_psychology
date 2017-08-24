@@ -2,7 +2,7 @@
 
 namespace App\FakerProviders;
 
-use \Faker\Provider\zh_CN\Internet as BaseInternet;
+use Faker\Provider\zh_CN\Internet as BaseInternet;
 
 class Internet extends BaseInternet
 {

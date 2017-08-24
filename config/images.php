@@ -24,5 +24,6 @@ return [
             'fit' => 'crop',
         ]
     ],
+    'upload_key' => 'image',
     'route_name' => 'image'
 ];

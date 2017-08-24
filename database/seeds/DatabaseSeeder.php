@@ -21,5 +21,7 @@ class DatabaseSeeder extends Seeder
                 $post->postContent()->save(factory(PostContent::class)->make());
             });
         });
+
+        DB::table('users')->where('id', 1)->update(['user_name' => 'tiny', 'email' => 'tiny@test.com']);
     }
 }

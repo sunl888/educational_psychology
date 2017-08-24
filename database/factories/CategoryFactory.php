@@ -8,7 +8,7 @@ $factory->define(App\Models\Category::class, function (Faker $faker) {
         'type' => $faker->randomElement([Category::TYPE_POST, Category::TYPE_PAGE, Category::TYPE_LINK]),
         'parent_id' => 0,
         'cate_name' => $faker->word,
-        'description' => $faker->text(200),
+        'description' => $faker->text(190),
         'url' => function (array $category) use ($faker) {
             switch ($category) {
                 case Category::TYPE_LINK:

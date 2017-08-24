@@ -22,7 +22,7 @@ class LoginController extends ApiController
 
     public function __construct()
     {
-        $this->middleware('auth')->except('logout');
+        $this->middleware('guest')->except('logout');
     }
 
     /**
@@ -100,17 +100,15 @@ class LoginController extends ApiController
         );
     }
 
-    protected function parseUserName($userName)
-    {
-        if (false === strpos($userName, '@')) {
-            $this->userName = 'user_name';
-        } else {
-            $this->userName = 'email';
-        }
-        return $this->userName;
-    }
 
     public function username(){
+        if(!$this->userName){
+            if (false === strpos(request($this->loginKey()), '@')) {
+                $this->userName = 'user_name';
+            } else {
+                $this->userName = 'email';
+            }
+        }
         return $this->userName;
     }
 
@@ -127,10 +125,8 @@ class LoginController extends ApiController
         if(!isset($credentials[$this->loginKey()])){
             $credentials[$this->loginKey()] = null;
         }
-        $user = $credentials[$this->loginKey()];
-        $userName = $this->parseUserName($user);
         return [
-            $userName => $user,
+            $this->username() => $credentials[$this->loginKey()],
             'password' => $credentials['password']
         ];
 
