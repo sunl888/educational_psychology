@@ -19,14 +19,16 @@
         </tr>
       </tbody>
     </table>
+    <NoData v-if="data.length === 0"/>
   </div>
 </template>
 
 <script>
+  import NoData from '../NoData.vue';
   import TableRenderItem from './TableRenderItem.vue';
   export default {
     name: 'TTable',
-    components: { TableRenderItem },
+    components: { TableRenderItem, NoData },
     props: {
       data: Array,
       columns: Array
@@ -71,6 +73,7 @@
         min-height: 40px;
         .td-item{
           padding: 10px 0;
+          overflow: hidden;
           &.gray{
             color: #999;
           }
