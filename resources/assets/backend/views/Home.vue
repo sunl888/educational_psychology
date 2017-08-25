@@ -84,7 +84,7 @@ export default {
         margin: 0 auto;
         >.router_view{
           min-height: 100%;
-          width: 940px;
+          width: 980px;
           margin: 0 auto;
           padding-top: 30px;
         }
