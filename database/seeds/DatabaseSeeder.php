@@ -23,5 +23,8 @@ class DatabaseSeeder extends Seeder
         });
 
         DB::table('users')->where('id', 1)->update(['user_name' => 'tiny', 'email' => 'tiny@test.com']);
+
+        $this->call(PermissionsTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
     }
 }
