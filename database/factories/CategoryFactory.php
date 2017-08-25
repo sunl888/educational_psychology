@@ -10,7 +10,7 @@ $factory->define(App\Models\Category::class, function (Faker $faker) {
         'cate_name' => $faker->word,
         'description' => $faker->text(190),
         'url' => function (array $category) use ($faker) {
-            switch ($category) {
+            switch ($category['type']) {
                 case Category::TYPE_LINK:
                     return $faker->url;
                     break;
@@ -20,7 +20,7 @@ $factory->define(App\Models\Category::class, function (Faker $faker) {
             }
         },
         'cate_slug' => function (array $category) use ($faker) {
-            switch ($category) {
+            switch ($category['type']) {
                 case Category::TYPE_LINK:
                     return $faker->unique()->slug;
                     break;
@@ -31,7 +31,7 @@ $factory->define(App\Models\Category::class, function (Faker $faker) {
         },
 
         'is_target_blank' => function (array $category) use ($faker) {
-            switch ($category) {
+            switch ($category['type']) {
                 case Category::TYPE_LINK:
                     return $faker->boolean;
                     break;
@@ -68,7 +68,5 @@ $factory->define(App\Models\Category::class, function (Faker $faker) {
                     break;
             }
         },
-
-
     ];
 });
