@@ -18,8 +18,10 @@ export default {
 <style lang="less" scoped>
 .no_data{
     height: 270px;
+    width: 235px;
+    margin: 0 auto;
     >p{
-        margin-top: 90px;
+        margin-top: 60px;
         text-align: center;
         font-size: 16px;
         margin-bottom: 20px;
