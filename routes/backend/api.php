@@ -9,7 +9,7 @@ Route::resource('users', 'UsersController', [
     'except'=> ['create', 'edit']
 ]);
 
-Route::get('me', 'UserController@me');
+Route::get('me', 'UsersController@me');
 
 Route::resource('roles', 'RolesController', [
     'except'=> ['create', 'edit']
