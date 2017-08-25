@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
         factory(\App\Models\Category::class, 5)->create()->each(function ($category) {
             $category->children()->saveMany(factory(\App\Models\Category::class, random_int(0, 3))->make(['parent_id' => $category->id]));
         });
-
+        
         factory(App\Models\User::class, 10)->create()->each(function ($user) {
             factory(App\Models\Post::class, random_int(0, 10))->create(['user_id' => $user->id])->each(function ($post) {
                 $post->postContent()->save(factory(PostContent::class)->make());
