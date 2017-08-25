@@ -12,6 +12,7 @@
         "league/fractal": "^0.17.0",
         "league/glide": "^1.2",
         "league/glide-laravel": "^1.0",
+        "mews/purifier": "^2.0",
         "spatie/laravel-permission": "dev-laravel-55"
     },
     "require-dev": {

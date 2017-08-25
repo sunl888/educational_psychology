@@ -53,7 +53,7 @@ class User extends BaseModel implements
 
     public function getAvatarUrlAttribute()
     {
-        return route(config('images.route_name'), $this->attributes['avatar']);
+        return $this->getImageUrl($this->attributes['avatar']);
     }
 
     public function isLocked()

@@ -34,27 +34,14 @@ class Post extends BaseModel
 
     public function scopeApplyFilter($query, $data)
     {
-        $data = $data->only('q', 'status', 'orders', 'only_trashed');
-        $query->orderByTop();
-        $query->post();
+        $data = $data->only('status', 'only_trashed');
 
-        if (isset($data['q'])) {
-            $query->withSimpleSearch($data['q']);
-        }
+        $query->orderByTop()
+            ->byType(Category::TYPE_POST)
+            ->withSimpleSearch()
+            ->withSort()
+            ->byStatus(isset($data['status']) ? $data['status'] : null);
 
-        if (isset($data['orders'])) {
-            $query->withSort($data['orders']);
-        }
-
-        switch ($data['status']) {
-            case 'publish':
-                $query->publish();
-                break;
-            case 'draft':
-                $query->draft();
-            default:
-                $query->publishAndDraft();
-        }
         if (isset($data['only_trashed']) && $data['only_trashed']) {
             $query->onlyTrashed();
         }
@@ -72,7 +59,8 @@ class Post extends BaseModel
     {
         if (in_array($status, [static::STATUS_PUBLISH, static::STATUS_DRAFT]))
             return $query->where('status', $status);
-        return $query;
+        else
+            return $query->publishOrDraft();
     }
 
     /**
@@ -117,20 +105,6 @@ class Post extends BaseModel
         return $this->hasOne(PostContent::class);
     }
 
-    /**
-     * 添加附加表数据
-     * @param $data
-     */
-    public function addition($data)
-    {
-        if (isset($data['content'])) {
-            $this->postContent()->updateOrCreate(
-                [], [
-                    'content' => $data['content']
-                ]
-            );
-        }
-    }
 
     /**
      * 文章是否置顶
@@ -157,5 +131,10 @@ class Post extends BaseModel
     public function isDraft()
     {
         return $this->status == static::STATUS_DRAFT;
+    }
+
+    public function getCoverUrlAttribute()
+    {
+        return $this->getImageUrl($this->attributes['cover']);
     }
 }

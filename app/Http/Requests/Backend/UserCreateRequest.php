@@ -21,13 +21,13 @@ class UserCreateRequest extends Request
     public function rules()
     {
         return [
-            'user_name' => 'required|unique:users',
-            'nick_name' => 'required|string|max:30',
-            'password' => 'required|string|min:5|max:20',
-            'email' => 'required|email|unique:users',
+            'user_name' => ['bail', 'required', 'unique:users'],
+            'nick_name' => ['required', 'string', 'between:2,30'],
+            'password' => ['required', 'string', 'between:5,20'],
+            'email' => ['bail', 'required', 'email', 'unique:users'],
             'avatar' => ['bail', 'nullable', new ImageName(), new ImageNameExist()],
-            'roles' => 'required|array',
-            'permissions' => 'nullable|array',
+            'roles' => ['required', 'array'],
+            'permissions' => ['nullable', 'array'],
         ];
     }
 }

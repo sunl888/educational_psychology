@@ -16,14 +16,12 @@ class RolesController extends ApiController
 
     /**
      * 显示指定角色
-     *
-     * @param  Role $role
+     * @param Role $role
+     * @return \App\Support\TransformerResponse
      */
     public function show(Role $role)
     {
-        $permissionIds = $role->perms->pluck('id');
-        return $this->response()->item($role, new RoleTransformer())
-            ->addMeta('permission_ids', $permissionIds);
+        return $this->response()->item($role, new RoleTransformer());
     }
 
     /**

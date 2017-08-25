@@ -5,6 +5,7 @@ namespace App\Http\Requests\Backend;
 use App\Http\Requests\Request;
 use App\Rules\ImageName;
 use App\Rules\ImageNameExist;
+use Illuminate\Validation\Rule;
 
 class UserUpdateRequest extends Request
 {
@@ -20,14 +21,15 @@ class UserUpdateRequest extends Request
      */
     public function rules()
     {
+        $user = $this->route('user');
         return [
-            'user_name' => 'nullable|unique:users',
-            'nick_name' => 'nullable|string|max:30',
-            'password' => 'nullable|string|min:5|max:20',
-            'email' => 'nullable|email|unique:users',
+            'user_name' => ['bail', 'nullable', Rule::unique('users')->ignore($user->id)],
+            'nick_name' => ['nullable', 'string', 'between:2,30'],
+            'password' => ['nullable', 'string', 'between:5,20'],
+            'email' => ['bail', 'nullable', 'email', Rule::unique('users')->ignore($user->id)],
             'avatar' => ['bail', 'nullable', new ImageName(), new ImageNameExist()],
-            'roles' => 'nullable|array',
-            'permissions' => 'nullable|array',
+            'roles' => ['required', 'array'],
+            'permissions' => ['nullable', 'array'],
         ];
     }
 }

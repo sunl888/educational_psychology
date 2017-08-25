@@ -9,4 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 class BaseModel extends Model
 {
     use Sortable;
+
+    protected function getImageUrl($image){
+        return route(config('images.route_name'), $image);
+    }
 }

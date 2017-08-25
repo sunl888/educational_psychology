@@ -11,7 +11,7 @@ use DB;
 
 class UserService
 {
-    public function create(array $data)
+    public function create(array &$data)
     {
         $data['password'] = Hash::make($data['password']);
         $user = null;
@@ -36,7 +36,7 @@ class UserService
         return $user;
     }
 
-    public function update(User $user, array $data)
+    public function update(User $user, array &$data)
     {
         if (!empty($data['password'])) {
             $data['password'] = Hash::make($data['password']);
@@ -44,7 +44,7 @@ class UserService
             unset($data['password']);
         }
 
-        $user = $user->fill($data)->save();
+        $user->fill($data)->save();
 
         if (!empty($data['roles'])) {
             try {

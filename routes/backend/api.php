@@ -15,3 +15,6 @@ Route::resource('roles', 'RolesController', [
     'except'=> ['create', 'edit']
 ]);
 
+Route::resource('posts', 'PostsController', [
+    'except'=> ['create', 'edit']
+]);

@@ -7,24 +7,20 @@ use League\Fractal\TransformerAbstract;
 
 class PostTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = ['content', 'categories'];
+    protected $availableIncludes = ['user', 'post_content', 'categories'];
 
     public function transform(Post $post)
     {
         return [
             'id' => $post->id,
-            'user' => $post->user,
-            'author_info' => $post->author_info,
             'title' => $post->title,
             'excerpt' => $post->excerpt,
-            'cover' => $post->cover,
-            'cover_urls' => $post->cover_urls,
+            'cover_url' => $post->cover_url,
             'status' => $post->status,
             'type' => $post->type,
             'views_count' => $post->views_count,
-            'comments_num' => $post->comments_num,
             'template' => $post->template,
-            'url' => $post->present()->getUrl(),
+            // 'url' => $post->present()->getUrl(),
             'top' => !is_null($post->top),
             'top_time' => is_null($post->top)?null:$post->top->toDateTimeString(),
             'published_at' => $post->published_at->toDateTimeString(),
@@ -33,9 +29,19 @@ class PostTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeContent(Post $post)
+    public function includeUser(Post $post)
     {
-        $content = $post->content;
+        $user = $post->user;
+        if (is_null($user)) {
+            return $this->null();
+        } else {
+            return $this->item($user, new UserTransformer());
+        }
+    }
+
+    public function includePostContent(Post $post)
+    {
+        $content = $post->postContent;
         if (is_null($content)) {
             return $this->null();
         } else {
