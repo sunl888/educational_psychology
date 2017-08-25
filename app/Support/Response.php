@@ -3,36 +3,31 @@
 
 namespace App\Support;
 
-use Illuminate\Contracts\Pagination\Paginator;
+
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Collection;
 use Illuminate\Http\Response as IlluminateResponse;
-use League\Fractal\Manager as FractalManager;
-use League\Fractal\Pagination\IlluminatePaginatorAdapter;
-use League\Fractal\Resource\Item;
-use League\Fractal\Resource\ResourceInterface;
-use League\Fractal\Scope;
-use League\Fractal\Resource\Collection as FractalCollection;
+
+/**
+ * Class Response
+ * @method TransformerResponse item($item, $transformer)
+ * @method TransformerResponse collection(\Illuminate\Support\Collection $collection, $transformer)
+ * @method TransformerResponse paginator(\Illuminate\Contracts\Pagination\Paginator $paginator, $transformer)
+ * @method \League\Fractal\Manager getFractalManager()
+ * @method void setFractalManager(\League\Fractal\Manager $fractalManager)
+ * @method TransformerResponse setMeta(array $meta)
+ * @method TransformerResponse addMeta($key, $value)
+ * @method void getMeta()
+ * @package App\Support
+ */
 
 class Response implements Responsable
 {
     protected $status;
     protected $headers;
     protected $content;
-    /**
-     * @var FractalManager
-     */
-    protected static $fractalManager;
 
-    public static function setFractalManager(FractalManager $fractalManager)
-    {
-        static::$fractalManager = $fractalManager;
-    }
+    protected $resource = null;
 
-    public static function getFractalManager()
-    {
-        return static::$fractalManager;
-    }
 
     public function setContent($content){
         $this->content = $content;
@@ -61,49 +56,15 @@ class Response implements Responsable
     /**
      * @return Response
      */
-    public function item($item, $transformer, $meta = []){
-        $resource = new Item($item, $transformer);
-        $resource->setMeta($meta);
-        $this->setContent($this->fractalCreateData($resource));
-        return $this;
-    }
-
-    /**
-     * @return Response
-     */
-    public function collection(Collection $collection, $transformer, $meta = []){
-        $resource = new FractalCollection($collection, $transformer);
-        $resource->setMeta($meta);
-        $this->setContent($this->fractalCreateData($resource));
-        return $this;
-    }
-
-    /**
-     * @return Response
-     */
-    public function paginator(Paginator $paginator, $transformer, $meta = []){
-        $collection = $paginator->getCollection();
-        $resource = new FractalCollection($collection, $transformer);
-        $resource->setPaginator(new IlluminatePaginatorAdapter($paginator));
-        $resource->setMeta($meta);
-        $this->setContent($this->fractalCreateData($resource));
-        return $this;
-    }
-
-    private function fractalCreateData(ResourceInterface $resource, $scopeIdentifier = null, Scope $parentScopeInstance = null){
-        if(!isset(static::$fractalManager)) {
-            static::setFractalManager(app(FractalManager::class));
-        }
-        return static::$fractalManager->createData($resource, $scopeIdentifier, $parentScopeInstance)->toArray();
-    }
-
-    /**
-     * @return Response
-     */
     public function noContent()
     {
         $this->setContent(null);
         $this->setStatus(204);
         return $this;
+    }
+
+    public function __call($methodName, $arguments)
+    {
+        return (new TransformerResponse($this))->$methodName(...$arguments);
     }
 }

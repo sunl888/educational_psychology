@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Backend\Api;
 
 
+use App\Exceptions\ResourceException;
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
-use Symfony\Component\HttpFoundation\File\Exception\UploadException;
 
 class ImageController extends ApiController
 {
@@ -27,7 +27,7 @@ class ImageController extends ApiController
                 'image' => ltrim(strstr($hashName, '/'), '/')
             ];
         }
-        throw new UploadException();
+        throw new ResourceException('图片上传失败', [$config['upload_key'] => '图片上传失败']);
     }
 
     protected function hashName(UploadedFile $image)

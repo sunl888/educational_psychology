@@ -50,9 +50,13 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
             $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
         }
-
-        $this->app->singleton(FractalManager::class, function () {
-            return new FractalManager();
+        $this->app->singleton(FractalManager::class, function ($app) {
+            $manager = new FractalManager();
+            $request = $app->make('request');
+            if ($request->has('include')) {
+                $manager->parseIncludes($request->get('include'));
+            }
+            return $manager;
         });
 
         $this->app->singleton(\League\Glide\Server::class, function ($app) {

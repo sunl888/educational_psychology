@@ -2,8 +2,8 @@
 
 namespace App\Transformers\Backend;
 
-use App\Models\Permission;
 use League\Fractal\TransformerAbstract;
+use Spatie\Permission\Models\Permission;
 
 class PermissionTransformer extends TransformerAbstract
 {
@@ -16,8 +16,9 @@ class PermissionTransformer extends TransformerAbstract
             'description' => $permission->description,
             'parent_id' => $permission->parent_id,
             'is_menu' => $permission->is_menu,
-            'icon' => $permission->icon,
-            'order' => $permission->orders,
+            // todo
+            // 'icon' => $permission->icon,
+            'order' => $permission->order,
             'created_at' => $permission->created_at->toDateTimeString(),
             'updated_at' => $permission->updated_at->toDateTimeString()
         ];

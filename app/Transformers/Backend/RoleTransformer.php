@@ -2,8 +2,8 @@
 
 namespace App\Transformers\Backend;
 
-use App\Models\Role;
 use League\Fractal\TransformerAbstract;
+use Spatie\Permission\Models\Role;
 
 class RoleTransformer extends TransformerAbstract
 {

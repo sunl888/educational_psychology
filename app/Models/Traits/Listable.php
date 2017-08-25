@@ -43,19 +43,21 @@ trait Listable
     //protected static $allowSearchFields = [];
 
     /**
-     * 例子：?q=ty
-     *
-     * @param  $query
-     * @param  null $keywords
+     * 例子：?keywords=ty&
+     * @param $query
+     * @param null $keywords
+     * @param null $searchScope
      * @return mixed
      */
-    public function scopeWithSimpleSearch($query, $keywords = null)
+    public function scopeWithSimpleSearch($query, $keywords = null, $searchScope = [])
     {
-        $keywords = is_null($keywords) ? request('q', null) : $keywords;
-        if (!empty($keywords) && !empty(static::$allowSearchFields)) {
+        $keywords = is_null($keywords) ? request('keywords', null) : $keywords;
+        $searchScope = empty($searchScope) ? request('search_scope', []) : $searchScope;
+        $searchScope = empty($searchScope) ? static::$allowSearchFields : array_intersect(static::$allowSearchFields, $searchScope);
+        if (!empty($keywords) && !empty($searchScope)) {
             $query->where(
-                function ($query) use ($keywords) {
-                    foreach (static::$allowSearchFields as $field) {
+                function ($query) use ($keywords, $searchScope) {
+                    foreach ($searchScope as $field) {
                         $query->orWhere($field, 'like', '%' . $keywords . '%');
                     }
                 }

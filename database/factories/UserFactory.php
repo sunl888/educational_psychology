@@ -17,7 +17,7 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'avatar' => $faker->image($imagesPath, 480, 480, 'people', false),
         'password' => $password ?: $password = bcrypt(config('tiny.default_user_password')),
-        'is_locked' => false,
+        'locked_at' => $faker->optional(0.9, null)->dateTime,
         'remember_token' => str_random(10),
         'created_at' => \Carbon\Carbon::now(),
         'updated_at' => \Carbon\Carbon::now(),

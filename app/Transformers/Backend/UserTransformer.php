@@ -7,7 +7,7 @@ use League\Fractal\TransformerAbstract;
 
 class UserTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = ['roles'];
+    protected $availableIncludes = ['roles', 'permissions'];
 
     public function transform(User $user)
     {
@@ -16,7 +16,7 @@ class UserTransformer extends TransformerAbstract
             'user_name' => $user->user_name,
             'nick_name' => $user->nick_name,
             'email' => $user->email,
-            'is_locked' => $user->is_locked,
+            'locked_at' => $user->locked_at,
             'avatar_url' => $user->avatar_url,
             'created_at' => $user->created_at->toDateTimeString(),
             'updated_at' => $user->updated_at->toDateTimeString()
@@ -27,5 +27,11 @@ class UserTransformer extends TransformerAbstract
     {
         $roles = $user->roles;
         return $this->collection($roles, new RoleTransformer());
+    }
+
+    public function includePermissions(User $user)
+    {
+        $permissions = $user->permissions;
+        return $this->collection($permissions, new PermissionTransformer());
     }
 }

@@ -6,7 +6,7 @@ use App\Http\Requests\Request;
 use App\Rules\ImageName;
 use App\Rules\ImageNameExist;
 
-class UserCreateRequest extends Request
+class UserUpdateRequest extends Request
 {
     public function authorize()
     {
@@ -21,12 +21,12 @@ class UserCreateRequest extends Request
     public function rules()
     {
         return [
-            'user_name' => 'required|unique:users',
-            'nick_name' => 'required|string|max:30',
-            'password' => 'required|string|min:5|max:20',
-            'email' => 'required|email|unique:users',
+            'user_name' => 'nullable|unique:users',
+            'nick_name' => 'nullable|string|max:30',
+            'password' => 'nullable|string|min:5|max:20',
+            'email' => 'nullable|email|unique:users',
             'avatar' => ['bail', 'nullable', new ImageName(), new ImageNameExist()],
-            'roles' => 'required|array',
+            'roles' => 'nullable|array',
             'permissions' => 'nullable|array',
         ];
     }

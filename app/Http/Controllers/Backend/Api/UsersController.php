@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Backend\Api;
 
 use App\Http\Controllers\ApiController;
+use App\Http\Requests\Backend\UserCreateRequest;
+use App\Http\Requests\Backend\UserUpdateRequest;
 use App\Models\User;
+use App\Services\UserService;
 use App\Transformers\Backend\UserTransformer;
-use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Http\Request;
 
 class UsersController extends ApiController
 {
@@ -17,7 +20,7 @@ class UsersController extends ApiController
 
     /**
      * 当前登录的用户信息
-     * @return \App\Support\Response
+     * @return \App\Support\TransformerResponse
      */
     public function me()
     {
@@ -26,7 +29,7 @@ class UsersController extends ApiController
 
     /**
      * 用户列表
-     * @return \App\Support\Response
+     * @return \App\Support\TransformerResponse
      */
     public function index()
     {
@@ -34,28 +37,29 @@ class UsersController extends ApiController
             ->withSort()
             ->recent()
             ->paginate($this->perPage());
-        return $this->response()->paginator($users, new UserTransformer(),
-            User::getAllowSortFieldsMeta() + User::getAllowSearchFieldsMeta());
+        return $this->response()->paginator($users, new UserTransformer())->setMeta(User::getAllowSortFieldsMeta() + User::getAllowSearchFieldsMeta());
     }
 
-    public function store()
+    public function store(UserCreateRequest $request, UserService $userService)
     {
-
+        $userService->create($request->validated());
+        return $this->response()->noContent();
     }
 
     /**
      * 显示指定用户信息
      * @param User $user
-     * @return \App\Support\Response
+     * @return \App\Support\TransformerResponse
      */
     public function show(User $user)
     {
         return $this->response()->item($user, new UserTransformer());
     }
 
-    public function update(User $user, Request $request)
+    public function update(User $user, UserUpdateRequest $request, UserService $userService)
     {
-
+        $userService->update($user, $request->validated());
+        return $this->response()->noContent();
     }
 
     /**

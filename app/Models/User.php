@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Traits\Image;
 use App\Models\Traits\Listable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Arr;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -28,7 +29,7 @@ class User extends BaseModel implements
      * @var array
      */
     protected $fillable = [
-        'user_name', 'nick_name', 'email', 'password', 'avatar'
+        'user_name', 'nick_name', 'email', 'password', 'avatar', 'locked_at'
     ];
 
     /**
@@ -40,12 +41,10 @@ class User extends BaseModel implements
         'password', 'remember_token',
     ];
 
-    protected static $allowSortFields = ['id', 'user_name', 'nick_name', 'created_at', 'is_locked'];
+    protected static $allowSortFields = ['id', 'user_name', 'nick_name', 'created_at', 'locked_at'];
     protected static $allowSearchFields = ['id', 'user_name', 'nick_name', 'email'];
 
-    protected $casts = [
-        'is_locked' => 'boolean'
-    ];
+    protected $dates = ['locked_at'];
 
     public function posts()
     {
@@ -57,7 +56,8 @@ class User extends BaseModel implements
         return route(config('images.route_name'), $this->attributes['avatar']);
     }
 
-    public function isLocked(){
-        return $this->is_locked;
+    public function isLocked()
+    {
+        return $this->locked_at != null;
     }
 }
