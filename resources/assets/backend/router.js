@@ -39,6 +39,11 @@ export default new Router({
           path: 'article/list',
           name: 'articleList',
           component: require('./views/article/ArticleList.vue')
+        },
+        {
+          path: 'article/edit',
+          name: 'editArticle',
+          component: require('./views/article/Article.vue')
         }
       ]
     }
