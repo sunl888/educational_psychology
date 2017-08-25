@@ -12,7 +12,7 @@ if (token) {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 Vue.prototype.$http = axios.create({
-  baseURL: '/api/admin/',
+  baseURL: '/api/backend/',
   timeout: 5000,
   responseType: 'json',
   headers: {
