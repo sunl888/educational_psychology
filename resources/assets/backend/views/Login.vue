@@ -34,6 +34,11 @@ export default {
   methods: {
     login () {
       this.loading = true;
+      this.$http.post('auth/login', this.loginInfo).then(res => {
+        // 登录成功
+      }).finally(() => {
+        this.loading = false;
+      });
     }
   }
 };
