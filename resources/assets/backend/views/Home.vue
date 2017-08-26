@@ -80,8 +80,8 @@ export default {
       padding-top: 50px;
       padding-left: 220px;
       >.content{
-        width: 1000px;
         margin: 0 auto;
+        width: 1000px;
         >.router_view{
           min-height: 100%;
           width: 980px;
