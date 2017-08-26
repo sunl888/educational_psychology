@@ -31,7 +31,7 @@ export default {
     overflow: hidden;
     >.title{
       font-weight: 400;
-      line-height: 1;
+      line-height: 32px;
       font-size: 20px;
       float: left;
     }
