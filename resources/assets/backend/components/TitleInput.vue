@@ -15,12 +15,12 @@ export default {
     };
   },
   watch: {
-    'value' () {
-      this.currentValue = this.value;
+    'value' (curVal) {
+      this.currentValue = curVal;
     },
-    'currentValue' () {
+    'currentValue' (curVal) {
       this.textareaCalcStyle = calcTextareaHeight(this.$refs.textarea);
-      this.$emit('input', this.currentValue);
+      this.$emit('input', curVal);
     }
   }
 };
