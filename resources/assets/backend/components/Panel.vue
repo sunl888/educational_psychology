@@ -4,7 +4,7 @@
       <h1>{{title}}</h1>
     </header>
     <main class="body_wrapper">
-      <div class="body">
+      <div class="body" :class="{'full': full}">
         <slot></slot>
       </div>
     </main>
@@ -27,6 +27,10 @@ export default{
     size: {
       type: String,
       default: 'large'
+    },
+    full: {
+      type: Boolean,
+      default: false
     }
   }
 };
@@ -43,7 +47,10 @@ export default{
         h1{
           height: 45px;
           font-size: 16px;
-          line-height: 24px;
+          line-height: 45px;
+          font-weight: normal;
+          padding: 0;
+          padding-left: 15px;
         }
       } 
     }
@@ -69,6 +76,11 @@ export default{
         padding: 40px 15px;
         float: inherit;
         margin: 0 auto;
+        overflow: hidden;
+        &.full{
+          width: 100%;
+          padding: 20px 15px;
+        }
       }
     }
   }
