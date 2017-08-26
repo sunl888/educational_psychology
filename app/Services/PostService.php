@@ -41,7 +41,6 @@ class PostService
         // 创建文章时 如果没有传入 type 字段，type 默认设置为 Category::TYPE_POST
         if (!isset($data['type']))
             $data['type'] = Category::TYPE_POST;
-
         $post = Post::create($data);
         $this->updateOrCreatePostContent($post, $data);
         return $post;

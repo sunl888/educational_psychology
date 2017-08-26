@@ -18,3 +18,19 @@ Route::resource('roles', 'RolesController', [
 Route::resource('posts', 'PostsController', [
     'except'=> ['create', 'edit']
 ]);
+// 真删除指定的文章
+Route::delete('posts/{post}/real', 'PostsController@realDestroy');
+// 恢复指定的被软删除的文章
+Route::post('posts/{post}/restore', 'PostsController@restore');
+
+Route::resource('categories', 'CategoriesController', [
+    'except'=> ['create', 'edit']
+]);
+
+Route::resource('banners', 'BannersController', [
+    'except'=> ['create', 'edit']
+]);
+
+Route::resource('links', 'LinksController', [
+    'except'=> ['create', 'edit']
+]);

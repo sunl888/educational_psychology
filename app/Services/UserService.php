@@ -11,8 +11,16 @@ use DB;
 
 class UserService
 {
+    private function filterData(array &$data)
+    {
+        if (isset($data['nick_name']))
+            $data['nick_name'] = e($data['nick_name']);
+        return $data;
+    }
+
     public function create(array &$data)
     {
+        $this->filterData($data);
         $data['password'] = Hash::make($data['password']);
         $user = null;
         DB::transaction(function () use (&$data, &$user) {
@@ -38,10 +46,9 @@ class UserService
 
     public function update(User $user, array &$data)
     {
-        if (!empty($data['password'])) {
+        $this->filterData($data);
+        if (isset($data['password'])) {
             $data['password'] = Hash::make($data['password']);
-        } else {
-            unset($data['password']);
         }
 
         $user->fill($data)->save();

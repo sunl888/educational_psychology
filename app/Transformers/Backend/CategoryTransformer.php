@@ -13,7 +13,7 @@ class CategoryTransformer extends TransformerAbstract
             'id' => $category->id,
             'type' => $category->type,
             'image' => $category->image,
-            'image_urls' => $category->image_urls,
+            'image_url' => $category->image_url,
             'parent_id' => $category->parent_id,
             'cate_name' => $category->cate_name,
             'description' => $category->description,

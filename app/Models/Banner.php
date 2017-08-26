@@ -8,7 +8,7 @@ use App\Models\Traits\Typeable;
 class Banner extends BaseModel implements InterfaceTypeable
 {
     use Typeable, Listable;
-    protected $fillable = ['url', 'title', 'picture', 'type_id', 'order', 'is_visible'];
+    protected $fillable = ['url', 'title', 'image', 'type_id', 'order', 'is_visible'];
     protected static $allowSortFields = ['type_id', 'order', 'is_visible'];
     protected static $allowSearchFields = ['title', 'url'];
     protected $casts = [
@@ -24,6 +24,11 @@ class Banner extends BaseModel implements InterfaceTypeable
     public function scopeIsVisible($query, $isVisible = true)
     {
         return $query->where('is_visible', $isVisible)->ordered();
+    }
+
+    public function getImageUrlAttribute()
+    {
+        return $this->getImageUrl($this->attributes['image']);
     }
 
 }

@@ -9,7 +9,6 @@ use App\Models\User;
 use App\Services\UserService;
 use App\Transformers\Backend\UserTransformer;
 use Auth;
-use Illuminate\Http\Request;
 
 class UsersController extends ApiController
 {

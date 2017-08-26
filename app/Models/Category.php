@@ -183,4 +183,9 @@ class Category extends BaseModel
         }
         return $query->orderBy('views_count', 'desc')->recent()->limit($limit)->get();
     }
+
+    public function getImageUrlAttribute()
+    {
+        return $this->getImageUrl($this->attributes['image']);
+    }
 }

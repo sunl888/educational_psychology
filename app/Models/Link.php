@@ -26,4 +26,9 @@ class Link extends BaseModel implements InterfaceTypeable
         return $query->where('is_visible', $isVisible)->ordered();
     }
 
+    public function getLogoUrlAttribute()
+    {
+        return $this->getImageUrl($this->attributes['logo']);
+    }
+
 }

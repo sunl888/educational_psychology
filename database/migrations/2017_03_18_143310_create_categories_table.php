@@ -17,12 +17,13 @@ class CreateCategoriesTable extends Migration
             'categories', function (Blueprint $table) {
             $table->increments('id');
             $table->char('type', 10)->comment('分类类型 post: 列表栏目 page: 单页栏目 link: 外部链接');
+            $table->string('image')->nullable()->comment('分类图片');
             // 父级id
             $table->unsignedInteger('parent_id')->default(0)->comment('父级id');
             // 分类名
             $table->string('cate_name')->comment('分类名');
             // 分类描述
-            $table->string('description')->comment('分类描述');
+            $table->string('description', 512)->comment('分类描述');
             // 外部链接
             $table->string('url')->nullable()->comment('外部链接');
             // 链接是否在新窗口打开

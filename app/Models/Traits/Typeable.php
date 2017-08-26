@@ -12,13 +12,13 @@ trait Typeable
             $typeId = $type->id;
         } elseif (is_array($type)) {
             $typeId = $type['id'];
-        } elseif (is_null($type)) {
-            $typeId = null;
         } else {
             $typeId = intval($type);
         }
-
-        return $query->where('type_id', $typeId);
+        if($typeId){
+            $query->where('type_id', $typeId);
+        }
+        return $query;
     }
 
     public function type()

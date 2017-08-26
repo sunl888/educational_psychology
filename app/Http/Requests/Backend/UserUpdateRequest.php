@@ -23,7 +23,7 @@ class UserUpdateRequest extends Request
     {
         $user = $this->route('user');
         return [
-            'user_name' => ['bail', 'nullable', Rule::unique('users')->ignore($user->id)],
+            'user_name' => ['bail', 'nullable', 'alpha_num', Rule::unique('users')->ignore($user->id)],
             'nick_name' => ['nullable', 'string', 'between:2,30'],
             'password' => ['nullable', 'string', 'between:5,20'],
             'email' => ['bail', 'nullable', 'email', Rule::unique('users')->ignore($user->id)],

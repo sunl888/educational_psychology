@@ -10,6 +10,7 @@ use App\Models\Post;
 use App\Services\PostService;
 use App\Transformers\Backend\PostTransformer;
 use Illuminate\Http\Request;
+use Auth;
 
 class PostsController extends ApiController
 {
@@ -33,7 +34,9 @@ class PostsController extends ApiController
 
     public function store(PostCreateRequest $request, PostService $postService)
     {
-        $postService->create($request->validated());
+        $data = $request->validated();
+        $data['user_id'] = Auth::id();
+        $postService->create($data);
         return $this->response()->noContent();
     }
 
@@ -43,4 +46,42 @@ class PostsController extends ApiController
         return $this->response()->noContent();
     }
 
+    public function show(Post $post)
+    {
+        return $this->response()->item($post, new PostTransformer());
+    }
+
+    /**
+     * 软删除
+     * @param Post $post
+     * @return \App\Support\Response
+     */
+    public function destroy(Post $post)
+    {
+        $post->delete();
+        return $this->response()->noContent();
+    }
+
+    /**
+     * 真删除
+     * @param $postId
+     * @return \App\Support\Response
+     */
+    public function realDestroy($postId)
+    {
+        Post::where('id', $postId)->forceDelete();
+        return $this->response()->noContent();
+    }
+
+
+    /**
+     * 恢复软删除
+     * @param $postId
+     * @return mixed
+     */
+    public function restore($postId)
+    {
+        Post::withTrashed()->where('id', $postId)->restore();
+        return $this->response()->noContent();
+    }
 }

@@ -18,7 +18,7 @@ class CreateBannersTable extends Migration
                 $table->increments('id');
                 $table->string('url')->nullable();
                 $table->string('title')->nullable();
-                $table->string('picture');
+                $table->string('image');
                 $table->unsignedInteger('type_id')->nullable()->index();
                 $table->integer('order')->default(0)->index()->comment('排序字段');
                 $table->boolean('is_visible')->default(true);
