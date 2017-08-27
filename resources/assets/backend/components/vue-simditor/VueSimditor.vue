@@ -21,7 +21,9 @@ export default {
   },
   watch: {
     value (curVal) {
-      this.currentValue = curVal;
+      if (this.currentValue !== curVal) {
+        this.currentValue = curVal;
+      }
     },
     currentValue (curVal, oldVal) {
       this.$emit('input', curVal);
