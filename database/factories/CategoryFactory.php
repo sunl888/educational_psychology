@@ -4,10 +4,18 @@ use Faker\Generator as Faker;
 use App\Models\Category;
 
 $factory->define(App\Models\Category::class, function (Faker $faker) {
+    static $imagesPath = null;
+    if (is_null($imagesPath)) {
+        $imagesConfig = config('images');
+        $storage = Storage::disk($imagesConfig['source_disk']);
+        $imagesPath = $storage->path($imagesConfig['source_path_prefix']);
+        $storage->exists($imagesPath) || $storage->makeDirectory($imagesConfig['source_path_prefix']);
+    }
     return [
         'type' => $faker->randomElement([Category::TYPE_POST, Category::TYPE_PAGE, Category::TYPE_LINK]),
         'parent_id' => 0,
         'cate_name' => $faker->word,
+        'image' => $faker->image($imagesPath, 640, 480, null, false),
         'description' => $faker->text(190),
         'url' => function (array $category) use ($faker) {
             switch ($category['type']) {

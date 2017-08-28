@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Http\Requests;
+
+use App\Models\Type;
+
+class TypeCreateRequest extends Request
+{
+
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'name' => ['required', 'alpha_num', 'between:1,30'],
+            'description' => ['nullable', 'string', 'between:2,190'],
+            'order' => ['nullable', 'integer'],
+            // model_name 指定 Model 类名 表示是该 Model 的类别, 这里只需要传入对应的别名，别名参考 Type::$modelMapWithType
+            'model_name' => ['in:' . implode(',', array_keys(Type::$modelMapWithType))]
+        ];
+    }
+}

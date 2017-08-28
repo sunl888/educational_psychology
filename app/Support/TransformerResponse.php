@@ -108,7 +108,8 @@ class TransformerResponse implements Responsable
 
         if($this->shouldEagerLoad($this->resource->getData())){
             $eagerLoads = $this->mergeEagerLoads($this->transformer, static::$fractalManager->getRequestedIncludes());
-            $this->resource->getData()->load($eagerLoads);
+            if(!empty($eagerLoads))
+                $this->resource->getData()->load($eagerLoads);
         }
         return static::$fractalManager->createData($this->resource, $scopeIdentifier, $parentScopeInstance)->toArray();
     }

@@ -39,13 +39,4 @@ class Type extends BaseModel
         }
     }
 
-    public static function createType(array $data)
-    {
-        if (isset(self::$modelMapWithType[$data['model_name']])) {
-            $data['model_name'] = self::$modelMapWithType[$data['model_name']];
-            return static::create($data);
-        } else {
-            return false;
-        }
-    }
 }

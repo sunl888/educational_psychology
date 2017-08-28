@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Backend\Api;
 
 
 use App\Http\Controllers\ApiController;
-use App\Http\Requests\CategoryCreateRequest;
-use App\Http\Requests\CategoryUpdateRequest;
+use App\Http\Requests\Backend\CategoryCreateRequest;
+use App\Http\Requests\Backend\CategoryUpdateRequest;
 use App\Models\Category;
 use App\Services\CategoryService;
 use App\Transformers\Backend\CategoryTransformer;
+use Illuminate\Http\Request;
 
 class CategoriesController extends ApiController
 {
@@ -36,9 +37,10 @@ class CategoriesController extends ApiController
         return $this->response()->noContent();
     }
 
-    public function index()
+    public function index(Request $request)
     {
-
+        $topicCategory = Category::byType($request->get('type'))->topCategories()->get();
+        return $this->response()->collection($topicCategory, new CategoryTransformer());
     }
 
     public function destroy(Category $category)

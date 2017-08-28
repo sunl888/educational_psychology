@@ -3,7 +3,7 @@
 namespace App\Exceptions;
 
 use App\Exceptions\Contract\MessageBagErrors;
-use App\Exceptions\Debug\WantJsonRequest;
+use App\Exceptions\Debug\WantsJsonRequest;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -57,7 +57,7 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if (config('app.debug')) {
-            $request = new WantJsonRequest($request);
+            $request = new WantsJsonRequest($request);
         }
         return parent::render($request, $exception);
     }

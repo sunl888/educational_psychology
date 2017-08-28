@@ -49,7 +49,7 @@ class PostService
     public function update(Post $post, array &$data)
     {
         $this->filterData($data);
-        $post->fill($data)->save();
+        $post->update($data);
         $this->updateOrCreatePostContent($post, $data);
         return $post;
     }

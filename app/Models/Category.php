@@ -188,4 +188,23 @@ class Category extends BaseModel
     {
         return $this->getImageUrl($this->attributes['image']);
     }
+
+    /*protected $children = null;
+
+    public function hasChildren()
+    {
+        return !is_null($this->children) && $this->children->isNotEmpty();
+    }
+
+
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    public function setChildren($children)
+    {
+
+        $this->children = $children;
+    }*/
 }

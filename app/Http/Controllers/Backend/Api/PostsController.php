@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Backend\Api;
 
 
 use App\Http\Controllers\ApiController;
-use App\Http\Requests\PostCreateRequest;
-use App\Http\Requests\PostUpdateRequest;
+use App\Http\Requests\Backend\PostCreateRequest;
+use App\Http\Requests\Backend\PostUpdateRequest;
 use App\Models\Post;
 use App\Services\PostService;
 use App\Transformers\Backend\PostTransformer;

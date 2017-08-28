@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         factory(\App\Models\Category::class, 5)->create()->each(function ($category) {
-            $category->children()->saveMany(factory(\App\Models\Category::class, random_int(0, 3))->make(['parent_id' => $category->id]));
+            factory(\App\Models\Category::class, random_int(0, 3))->create(['parent_id' => $category->id]);
         });
 
         factory(App\Models\User::class, 10)->create()->each(function ($user) {

@@ -5,7 +5,7 @@ namespace App\Exceptions\Debug;
 
 use Illuminate\Http\Request;
 
-class WantJsonRequest
+class WantsJsonRequest
 {
     protected $request;
 

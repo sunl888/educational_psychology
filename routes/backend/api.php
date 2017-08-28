@@ -34,3 +34,11 @@ Route::resource('banners', 'BannersController', [
 Route::resource('links', 'LinksController', [
     'except'=> ['create', 'edit']
 ]);
+
+Route::resource('settings', 'SettingsController', [
+    'except'=> ['create', 'edit']
+]);
+
+Route::resource('types', 'TypesController', [
+    'except'=> ['create', 'edit', 'show']
+]);

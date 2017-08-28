@@ -11,8 +11,8 @@ class Internet extends BaseInternet
      */
     public function domainWord()
     {
-        // 这里将原来 lastName 改为 asciify 解决了中文 domainWord 问题
-        $lastName = $this->generator->format('asciify');
+        // 这里将原来 lastName 改为 md5 解决了中文 domainWord 问题
+        $lastName = $this->generator->format('md5');
 
         $lastName = strtolower(static::transliterate($lastName));
 

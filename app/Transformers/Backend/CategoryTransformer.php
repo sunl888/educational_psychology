@@ -4,10 +4,20 @@ namespace App\Transformers\Backend;
 
 use App\Models\Category;
 use League\Fractal\TransformerAbstract;
+use League\Fractal\Manager as FractalManager;
 
 class CategoryTransformer extends TransformerAbstract
 {
+    protected $defaultIncludes = ['children'];
+    protected $availableIncludes = ['children'];
+
     public function transform(Category $category)
+    {
+        $data = $this->transformData($category);
+        return $data;
+    }
+
+    public function transformData($category)
     {
         return [
             'id' => $category->id,
@@ -28,5 +38,13 @@ class CategoryTransformer extends TransformerAbstract
             'created_at' => $category->created_at->toDateTimeString(),
             'updated_at' => $category->updated_at->toDateTimeString()
         ];
+    }
+
+    public function includeChildren(Category $category)
+    {
+        $transformer = new static;
+        $transformer->setAvailableIncludes([]);
+        $transformer->setDefaultIncludes([]);
+        return $this->collection($category->children, $transformer);
     }
 }

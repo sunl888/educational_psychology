@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use App\Models\Banner;
+use App\Models\Setting;
 
-class BannerService
+class SettingService
 {
     private function filterData(array &$data)
     {
@@ -16,15 +16,15 @@ class BannerService
     public function create(array &$data)
     {
         $this->filterData($data);
-        $banner = Banner::create($data);
-        return $banner;
+        $setting = Setting::create($data);
+        return $setting;
     }
 
-    public function update(Banner $banner, array &$data)
+    public function update(Setting $setting, array &$data)
     {
         $this->filterData($data);
-        $banner->update($data);
-        return $banner;
+        $setting->update($data);
+        return $setting;
     }
 
 }

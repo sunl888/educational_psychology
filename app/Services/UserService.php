@@ -51,7 +51,7 @@ class UserService
             $data['password'] = Hash::make($data['password']);
         }
 
-        $user->fill($data)->save();
+        $user->update($data);
 
         if (!empty($data['roles'])) {
             try {

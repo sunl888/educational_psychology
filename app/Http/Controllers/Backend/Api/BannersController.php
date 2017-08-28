@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Backend\Api;
 
 
 use App\Http\Controllers\ApiController;
-use App\Http\Requests\BannerCreateRequest;
-use App\Http\Requests\BannerUpdateRequest;
+use App\Http\Requests\Backend\BannerCreateRequest;
+use App\Http\Requests\Backend\BannerUpdateRequest;
 use App\Models\Banner;
 use App\Services\BannerService;
 use App\Transformers\Backend\BannerTransformer;

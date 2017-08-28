@@ -15,8 +15,10 @@ trait Typeable
         } else {
             $typeId = intval($type);
         }
-        if($typeId){
+        if ($typeId) {
             $query->where('type_id', $typeId);
+        } else {
+            $query->whereNull('type_id');
         }
         return $query;
     }

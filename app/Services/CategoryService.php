@@ -41,7 +41,7 @@ class CategoryService
     public function update(Category $category, array &$data)
     {
         $this->filterData($data, $category);
-        $category->fill($data)->save();
+        $category->update($data);
         return $category;
     }
 

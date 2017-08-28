@@ -17,7 +17,6 @@ class SettingTransformer extends TransformerAbstract
             'name' => $setting->name,
             'value' => $setting->value,
             'description' => $setting->description,
-            'is_autoload' => $setting->is_autoload,
             'created_at' => $setting->created_at->toDateTimeString(),
             'updated_at' => $setting->updated_at->toDateTimeString()
         ];

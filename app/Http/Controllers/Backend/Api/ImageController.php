@@ -19,7 +19,7 @@ class ImageController extends ApiController
     {
         $config = config('images');
         $image = $request->file($config['upload_key']);
-        if ($image->isValid()) {
+        if (!is_null($image) && $image->isValid()) {
             $image->hashName($image);
             $hashName = $this->hashName($image);
             $image->storeAs($config['source_path_prefix'], $hashName, ['disk' => $config['source_disk']]);

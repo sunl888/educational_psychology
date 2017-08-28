@@ -25,7 +25,7 @@ class LinkService
     public function update(Link $link, array &$data)
     {
         $this->filterData($data);
-        $link->fill($data)->save();
+        $link->update($data);
         return $link;
     }
 

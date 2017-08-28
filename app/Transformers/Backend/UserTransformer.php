@@ -16,7 +16,7 @@ class UserTransformer extends TransformerAbstract
             'user_name' => $user->user_name,
             'nick_name' => $user->nick_name,
             'email' => $user->email,
-            'locked_at' => $user->locked_at->toDateTimeString(),
+            'locked_at' => is_null($user->locked_at) ? null : $user->locked_at->toDateTimeString(),
             'avatar_url' => $user->avatar_url,
             'created_at' => $user->created_at->toDateTimeString(),
             'updated_at' => $user->updated_at->toDateTimeString()
