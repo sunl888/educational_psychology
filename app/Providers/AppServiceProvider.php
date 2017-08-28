@@ -29,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
             $faker = app(Faker::class);
             $faker->addProvider(new Internet($faker));
             $faker->addProvider(new Image($faker));
+            
             DB::listen(function ($query) {
                 $sql = str_replace('?', '%s', $query->sql);
                 $sql = sprintf($sql, ...$query->bindings);

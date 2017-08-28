@@ -15,7 +15,6 @@ class Internet extends BaseInternet
         $lastName = $this->generator->format('md5');
 
         $lastName = strtolower(static::transliterate($lastName));
-
         // check if transliterate() didn't support the language and removed all letters
         if (trim($lastName, '._') === '') {
             throw new \Exception('domainWord failed with the selected locale. Try a different locale or activate the "intl" PHP extension.');
