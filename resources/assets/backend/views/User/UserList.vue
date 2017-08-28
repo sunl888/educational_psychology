@@ -73,7 +73,7 @@
                   style: {
                     marginRight: '5px'
                   }
-                }, '查看'),
+                }, '编辑'),
                 h('Button', {
                   props: {
                     type: 'error',
