@@ -10,7 +10,7 @@
       <slot :data="list"></slot>
     </main>
     <footer>
-      <Page :on-change="change" current.sync="currentPage" class="page" size="small" :total="total" show-sizer></Page>
+      <Page @on-page-size-change="(pageSize) => {perPage = pageSize}" :page-size="perPage" @on-change="change" :current.sync="currentPage" class="page" size="small" :total="total" show-sizer></Page>
     </footer>
   </div>
 </template>
@@ -19,9 +19,7 @@
 import listMixin from '../../mixins/list';
 export default {
   name: 'TTableWrapper',
-  mixins: [ listMixin ],
-  mounted () {
-  }
+  mixins: [ listMixin ]
 };
 </script>
 
