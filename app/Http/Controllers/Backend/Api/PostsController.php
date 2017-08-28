@@ -84,4 +84,9 @@ class PostsController extends ApiController
         Post::withTrashed()->where('id', $postId)->restore();
         return $this->response()->noContent();
     }
+
+    public function templates()
+    {
+        return config('tiny.templates');
+    }
 }
