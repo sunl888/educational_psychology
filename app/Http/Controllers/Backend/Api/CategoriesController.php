@@ -45,6 +45,7 @@ class CategoriesController extends ApiController
 
     public function destroy(Category $category)
     {
+        // todo 考虑关联数据问题
         $category->delete();
         return $this->response()->noContent();
     }
