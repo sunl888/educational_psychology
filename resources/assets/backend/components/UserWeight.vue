@@ -1,8 +1,8 @@
 <template>
   <div class="m-info">
     <a href="#" target="_blank">
-      <i class="user-pic" style="background-image: url(http://static.hdslb.com/images/member/noface.gif)"></i>
-      <span class="user-name">{{name}}</span>
+      <i class="user-pic" :style="{'background-image': `url(${avatar_url})`}"></i>
+      <span class="user-name">{{nick_name}}</span>
     </a>
   </div>
 </template>
@@ -11,7 +11,9 @@
 export default{
   name: 'UserWeight',
   props: {
-    name: String
+    avatar_url: String,
+    nick_name: String,
+    id: Number
   }
 };
 </script>
@@ -22,9 +24,10 @@ export default{
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 200px;
-    float: left;
     >a{
       display: block;
+      text-align: left;
+      padding-left: 50px;
     }
     .user-pic {
       display: inline-block;
