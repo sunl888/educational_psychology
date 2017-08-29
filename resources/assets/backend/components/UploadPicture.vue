@@ -14,8 +14,10 @@
       :on-exceeded-size="handleMaxSize"
       :on-error="handleError"
       :before-upload="handleBeforeUpload"
-      type="drag"
-      action="//jsonplaceholder.typicode.com/posts/">
+      name="image"
+      type="select"
+      :headers="{'X-Requested-With': 'XMLHttpRequest'}"
+      :action="action">
       <div class="icon">
           <Icon type="camera" size="40"></Icon>
       </div>
@@ -36,6 +38,7 @@
 </template>
 
 <script>
+import thttp from '../utils/thttp';
 export default {
   name: 'uploadPicture',
   data () {
@@ -43,7 +46,8 @@ export default {
       status: 'normal',
       percentage: 1,
       picUrl: '',
-      inputDom: null
+      inputDom: null,
+      action: thttp.config.baseURL + 'ajax_upload_image'
     };
   },
   methods: {
@@ -52,14 +56,16 @@ export default {
       this.percentage = 1;
       this.picUrl = '';
     },
-    handleSuccess (res, file) {
-      // 因为上传过程为实例，这里模拟添加 url
-      this.picUrl = 'https://o5wwk8baw.qnssl.com/7eb99afb9d5f317c912f08b5212fd69a/avatar';
+    handleSuccess (res) {
+      this.picUrl = res.image_url;
       this.status = 'finished';
+      this.$emit('on-success', res.image);
     },
     handleError (error, file) {
-      console.log(error);
-      this.handleSuccess();
+      if (error.status === 401) {
+        this.$router.replace({name: 'login', query: {redirect: this.$route.name}});
+      }
+      this.handleRemove();
     },
     handleFormatError (file) {
       this.$Notice.warning({
@@ -114,7 +120,9 @@ export default {
     transition: border-color .2s ease;
     >.ivu-upload{
       height: 100%;
+      width: 100%;
       border: 0;
+      cursor: pointer;
       background-color: transparent;
     }
     .icon{

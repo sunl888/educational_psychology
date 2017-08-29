@@ -28,7 +28,7 @@ thttp.install = (Vue, option) => {
       Vue.prototype.$message('请求超时');
     } else if (error.response.status === 401 && error.response.data.code === '401.1') {
       Vue.prototype.$Notice.warning({title: '请先登录', desc: false});
-      Vue.router.replace({name: 'login'});
+      Vue.router.replace({name: 'login', query: {redirect: this.$route.name}});
     } else if (error.response.status === 422) {
       let errorsTemp = error.response.data.errors;
       for (let index in errorsTemp) {

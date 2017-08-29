@@ -1,26 +1,25 @@
 <template>
   <div class="t_table_wrapper">
     <header>
-      <h1 class="title">{{title}}</h1>
+      <h1 class="title">{{title}}<span class="total">{{total}}</span></h1>
       <div class="option">
         <slot name="option"></slot>
       </div>
     </header>
     <main>
-      <slot></slot>
+      <slot :data="list"></slot>
     </main>
     <footer>
-      <Page class="page" size="small" :total="100" show-sizer></Page>
+      <Page @on-page-size-change="(pageSize) => {perPage = pageSize}" :page-size="perPage" @on-change="change" :current.sync="currentPage" class="page" size="small" :total="total" show-sizer></Page>
     </footer>
   </div>
 </template>
 
 <script>
+import listMixin from '../../mixins/list';
 export default {
   name: 'TTableWrapper',
-  props: {
-    title: String
-  }
+  mixins: [ listMixin ]
 };
 </script>
 
@@ -34,6 +33,11 @@ export default {
       line-height: 32px;
       font-size: 20px;
       float: left;
+      >.total{
+        font-size: 14px;
+        color: #888;
+        margin-left: 5px;
+      }
     }
     >.option{
       float: right;

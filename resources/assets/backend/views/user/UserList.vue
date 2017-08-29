@@ -1,8 +1,10 @@
 <template>
   <div>
-    <TTableWrapper title="用户列表">
+    <TTableWrapper title="用户列表" queryName="users?include=roles">
       <span slot="option"><Button @click="$router.push({name: 'addUser'})" icon="plus-round" type="primary">添加</Button></span>
-      <TTable :columns="userCol" :data="userList" />
+      <template scope="props">
+        <TTable :columns="userCol" :data="props.data" />
+      </template>
     </TTableWrapper>
   </div>
 </template>
@@ -10,33 +12,52 @@
   import TTable from '../../components/t-table';
   import UserWeight from '../../components/UserWeight.vue';
   import TTableWrapper from '../../components/t-table-wrapper';
+  import HoverableTime from '../../components/HoverableTime.vue';
   export default {
-    components: { TTable, UserWeight, TTableWrapper },
+    components: { TTable, UserWeight, TTableWrapper, HoverableTime },
     data () {
       return {
         userCol: [
           {
-            title: '用户',
-            key: 'name',
+            title: '昵称',
+            key: 'nick_name',
             render: (h, params) => {
               return h(UserWeight, {
-                props: {name: params.name}
+                props: params
               });
             },
             width: '200px'
           },
           {
+            title: '用户名',
+            key: 'user_name',
+            width: '160px'
+          },
+          {
+            title: 'email',
+            key: 'email',
+            type: 'gray',
+            style: {'text-align': 'left'},
+            width: '230px'
+          },
+          {
             title: '创建日期',
-            key: 'date',
-            type: 'gray'
+            key: 'created_at',
+            render: (h, params) => {
+              return h(HoverableTime, {
+                props: {time: params.created_at}
+              });
+            },
+            width: '100px'
           },
           {
             title: '状态',
-            key: 'status',
+            key: 'locked_at',
             render: (h, params) => {
+              const status = params.locked_at === null;
               return h('Tag', {
-                props: {color: 'green'}
-              }, params.status);
+                props: {color: status ? 'green' : 'red', type: 'border'}
+              }, status ? '正常' : '锁定');
             }
           },
           {
@@ -52,7 +73,7 @@
                   style: {
                     marginRight: '5px'
                   }
-                }, '查看'),
+                }, '编辑'),
                 h('Button', {
                   props: {
                     type: 'error',
@@ -61,20 +82,6 @@
                 }, '删除')
               ]);
             }
-          }
-        ],
-        userList: [
-          {
-            name: '王小明',
-            age: 18,
-            status: '正常',
-            date: '2016-10-03'
-          },
-          {
-            name: '张小刚',
-            age: 25,
-            status: '正常',
-            date: '2016-10-01'
           }
         ]
       };

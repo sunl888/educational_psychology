@@ -13,6 +13,7 @@ export default new Router({
     },
     {
       path: '/login',
+      name: 'login',
       component: require('./views/Login.vue')
     },
     {

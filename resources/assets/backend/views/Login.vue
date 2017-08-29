@@ -7,7 +7,7 @@
               <Input v-model="loginInfo.account" placeholder="请输入用户名或邮箱"></Input>
             </Form-item>
             <Form-item>
-              <Input v-model="loginInfo.password" type="password" placeholder="请输入密码" @keydown.enter="login"></Input>
+              <Input v-model="loginInfo.password" type="password" placeholder="请输入密码" @keydown.native.enter="login"></Input>
             </Form-item>
             <Form-item>
               <Button :loading="loading" class="login_btn" type="primary" long @click="login">确认提交</Button>
@@ -25,8 +25,8 @@ export default {
     return {
       loading: false,
       loginInfo: {
-        account: '',
-        password: '',
+        account: 'tiny',
+        password: 'test1234',
         remeber: true
       }
     };
@@ -35,8 +35,15 @@ export default {
     login () {
       this.loading = true;
       this.$http.post('auth/login', this.loginInfo).then(res => {
-        // 登录成功
-      }).finally(() => {
+        let redirectName = this.$route.query.redirect;
+        if (redirectName) {
+          this.$router.replace({name: redirectName});
+        } else {
+          this.$router.replace({name: 'home'});
+        }
+        this.loading = false;
+      }).catch(() => {
+        // todo finally
         this.loading = false;
       });
     }

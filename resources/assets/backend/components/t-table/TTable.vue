@@ -9,7 +9,7 @@
       <tbody>
         <tr v-for="(item,index) in data" :key="index">
           <td v-for="col in columns" :key="col.key">
-            <div class="td-item" :class="col.type">
+            <div class="td-item" :class="col.type" :style="col.style">
               <template v-if="!col.render">
                 {{item[col.key]}}
               </template>
