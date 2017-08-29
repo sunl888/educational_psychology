@@ -11,9 +11,12 @@ Route::resource('users', 'UsersController', [
 
 Route::get('me', 'UsersController@me');
 
+// 获取所有角色(不分页 用于添加用户时显示)
+Route::get('roles/all', 'RolesController@allRoles');
 Route::resource('roles', 'RolesController', [
     'except'=> ['create', 'edit']
 ]);
+Route::get('roles/{role}/permissions', 'RolesController@permissions');
 
 Route::resource('posts', 'PostsController', [
     'except'=> ['create', 'edit']

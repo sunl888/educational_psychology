@@ -2,8 +2,11 @@
 namespace App\Http\Controllers\Backend\Api;
 
 use App\Http\Controllers\ApiController;
-use App\Models\Permission;
+use App\Http\Requests\Backend\RoleCreateRequest;
+use App\Http\Requests\Backend\RoleUpdateRequest;
 use App\Models\Role;
+use App\Services\RoleService;
+use App\Transformers\Backend\PermissionTransformer;
 use App\Transformers\Backend\RoleTransformer;
 
 
@@ -26,18 +29,17 @@ class RolesController extends ApiController
 
     /**
      * 获取所有角色(不分页 用于添加用户时显示)
-     *
-     * @return \Dingo\Api\Http\Response
+     * @return \App\Support\TransformerResponse
      */
     public function allRoles()
     {
         $roles = Role::ordered()->recent()->get();
-        return $this->response->collection($roles, new RoleTransformer());
+        return $this->response()->collection($roles, new RoleTransformer());
     }
 
     /**
      * 角色列表
-     * @return \App\Support\Response
+     * @return \App\Support\TransformerResponse
      */
     public function index()
     {
@@ -46,64 +48,55 @@ class RolesController extends ApiController
             ->ordered()
             ->recent()
             ->paginate($this->perPage());
-        return $this->response()->paginator($roles, new RoleTransformer(), Role::getAllowSearchFieldsMeta() + Role::getAllowSortFieldsMeta());
+        return $this->response()->paginator($roles, new RoleTransformer())
+            ->setMeta(Role::getAllowSearchFieldsMeta() + Role::getAllowSortFieldsMeta());
     }
 
     /**
      * 获取指定角色下面的权限
-     *
-     * @param  Role $role
-     * @return \Dingo\Api\Http\Response
+     * @param Role $role
+     * @return \App\Support\TransformerResponse
      */
     public function permissions(Role $role)
     {
-        $permissions = $role->perms()->ordered()->recent()->get();
-        return $this->response->collection($permissions, new PermissionTransformer());
+        $permissions = $role->permissions()->ordered()->recent()->get();
+        return $this->response()->collection($permissions, new PermissionTransformer());
     }
+
 
     /**
      * 创建角色
-     *
-     * @param  RoleCreateRequest $request
-     * @return \Dingo\Api\Http\Response
+     * @param RoleCreateRequest $request
+     * @return mixed
      */
-    public function store(RoleCreateRequest $request)
+    public function store(RoleCreateRequest $request, RoleService $roleService)
     {
-        $role = Role::create($request->all());
-        if (!empty($data['permission_ids'])) {
-            $permissionIds = Permission::findOrfail($data['permission_ids'])->pluck('id');
-            $role->attachPermissions($permissionIds);
-        }
-        return $this->response->noContent();
+        $roleService->create($request->validated());
+        Role::create($request->all());
+        return $this->response()->noContent();
     }
 
     /**
      * 更新角色
-     *
-     * @param  Role              $role
-     * @param  RoleUpdateRequest $request
-     * @return \Dingo\Api\Http\Response
+     * @param Role $role
+     * @param RoleUpdateRequest $request
+     * @return mixed
      */
-    public function update(Role $role, RoleUpdateRequest $request)
+    public function update(Role $role, RoleUpdateRequest $request, RoleService $roleService)
     {
-        $request->performUpdate($role);
-        $permissionIds = $request->get('permission_ids');
-        if (!empty($permissionIds)) {
-            $permissionIds = Permission::findOrfail($permissionIds)->pluck('id');
-            $role->savePermissions($permissionIds);
-        }
-        return $this->response->noContent();
+        $roleService->update($role, $request->validated());
+        return $this->response()->noContent();
     }
 
     /**
      * 删除角色
-     *
-     * @param  Role $role
-     * @return \Dingo\Api\Http\Response
+     * @param Role $role
+     * @return mixed
      */
     public function destroy(Role $role)
     {
+        // todo 删除关联数据
         $role->delete();
-        return $this->response->noContent();
+        return $this->response()->noContent();
     }
 }

@@ -3,9 +3,11 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Listable;
+use App\Models\Traits\Sortable;
 use Spatie\Permission\Models\Permission as BasePermission;
 
 class Permission extends BasePermission
 {
-
+    use Listable, Sortable;
 }

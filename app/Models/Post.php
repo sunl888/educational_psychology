@@ -34,9 +34,9 @@ class Post extends BaseModel
 
     public function scopeApplyFilter($query, $data)
     {
-        $data = $data->only('status', 'only_trashed');
-
+        $data = $data->only('status', 'only_trashed', 'category_id');
         $query->orderByTop()
+            ->byCategory(isset($data['category_id']) ? $data['category_id'] : null)
             ->byType(Category::TYPE_POST)
             ->withSimpleSearch()
             ->withSort()
@@ -47,6 +47,20 @@ class Post extends BaseModel
         }
         return $query->ordered()->recent();
     }
+
+    public function scopeByCategory($query, $category)
+    {
+        if($category instanceof Category){
+            $category = $category->id;
+        }else{
+            $category = intval($category);
+        }
+        if($category)
+            $query->where('category_id', $category);
+        else
+            $query->whereNull('category_id');
+    }
+
 
     public function scopeByType($query, $type)
     {
