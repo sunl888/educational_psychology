@@ -32,7 +32,7 @@ export default new Router({
           component: require('./views/user/User.vue')
         },
         {
-          path: 'user/edit',
+          path: 'user/:id/edit',
           name: 'editUser',
           component: require('./views/user/User.vue')
         },
