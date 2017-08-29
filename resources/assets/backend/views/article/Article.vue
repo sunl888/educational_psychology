@@ -106,6 +106,7 @@ export default {
       margin-right: 30px;
       .type_panel, .cover{
         height: auto;
+        max-width: 650px;
         margin-bottom: 30px;
       }
     }

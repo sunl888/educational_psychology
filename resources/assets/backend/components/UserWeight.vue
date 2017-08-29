@@ -23,11 +23,11 @@ export default{
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 200px;
+    width: 130px;
+    display: inline-block;
     >a{
       display: block;
       text-align: left;
-      padding-left: 50px;
     }
     .user-pic {
       display: inline-block;

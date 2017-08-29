@@ -1,10 +1,11 @@
 <template>
-  <div class="upload_picture">
+  <div class="upload_picture" :style="{'line-height': height}">
     <Upload
       ref="uploader"
       v-show="status !== 'uploading'"
       :class="{'finished': status === 'finished'}"
       class="uploader"
+      :style="{height}"
       :show-upload-list="false"
       :on-success="handleSuccess"
       :on-progress="handleProgress"
@@ -19,7 +20,7 @@
       :headers="{'X-Requested-With': 'XMLHttpRequest'}"
       :action="action">
       <div class="icon">
-          <Icon type="camera" size="40"></Icon>
+          <Icon :style="{'line-height': height}" type="camera" size="40"></Icon>
       </div>
     </Upload>
     <template v-if="status === 'uploading'">
@@ -38,9 +39,23 @@
 </template>
 
 <script>
+// todo 添加查看大图perview功能
 import thttp from '../utils/thttp';
 export default {
   name: 'uploadPicture',
+  props: {
+    height: {
+      type: String,
+      default: '250px'
+    },
+    url: String
+  },
+  watch: {
+    'url' () {
+      this.status = 'finished';
+      this.picUrl = this.url;
+    }
+  },
   data () {
     return {
       status: 'normal',
@@ -98,15 +113,12 @@ export default {
 
 <style lang="less">
 .upload_picture{
-  line-height: 250px;
   background-color: hsla(0,0%,95%,.9);
   border: 2px dashed hsla(0,0%,40%,.2);
   position: relative;
   .icon .ivu-icon{
     color: #aaa!important;
     transition: color .2s ease;
-    position: relative;
-    top: 11px;
   }
   &:hover{
     .icon .ivu-icon{
@@ -116,7 +128,6 @@ export default {
   }
   .uploader{
     text-align: center;
-    height: 250px;
     transition: border-color .2s ease;
     >.ivu-upload{
       height: 100%;
@@ -125,15 +136,8 @@ export default {
       cursor: pointer;
       background-color: transparent;
     }
-    .icon{
-      line-height: 250px;
-    }
     &.finished{
-      position: absolute;
-      right: 45px;
-      height: 40px;
-      width: 44px;
-      bottom: -1px;
+      display: none;
     }
   }
   .progress{

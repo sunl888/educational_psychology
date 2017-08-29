@@ -4,7 +4,7 @@ export default{
     queryName: String,
     pageSize: {
       type: Number,
-      default: 20
+      default: 10
     }
   },
   data () {

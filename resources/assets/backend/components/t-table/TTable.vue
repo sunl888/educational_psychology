@@ -3,7 +3,7 @@
     <table border="0" cellspacing="0" cellpadding="0" class="ttable">
       <thead>
         <tr>
-          <th v-for="col in columns" :key="col.key" :width="col.width ? col.width : 'auto'">{{col.title}}</th>
+          <th v-for="col in columns" :key="col.key" :style="{width: col.width ? col.width : 'auto'}">{{col.title}}</th>
         </tr>
       </thead>
       <tbody>
