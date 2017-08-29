@@ -31,6 +31,9 @@ export default{
           this.delayTimer = null;
         }, 300);
       }
+    },
+    'queryName' () {
+      this.getList();
     }
   },
   methods: {

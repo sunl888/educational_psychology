@@ -10,18 +10,7 @@
     </main>
     <div class="option">
       <div class="left">
-        <Panel title="选择分类" full size="small" class="type_panel">
-          <Select class="p_type">
-            <Option>公司新闻</Option>
-            <Option>公司新闻</Option>
-          </Select>
-          <RadioTagGroup v-model="type">
-            <RadioTagItem :value="1" color="#2d8cf0">标签一</RadioTagItem>
-            <RadioTagItem :value="2" color="#f90">标签二</RadioTagItem>
-            <RadioTagItem :value="3" color="#f90">标签三</RadioTagItem>
-            <RadioTagItem :value="4" color="#f90">标签四</RadioTagItem>
-          </RadioTagGroup>
-        </Panel>
+        <CategorySelectPanel class="type_panel"></CategorySelectPanel>
         <Panel title="封面" full size="small" class="cover">
           <UploadPicture></UploadPicture>
         </Panel>
@@ -62,16 +51,16 @@ import TitleInput from '../../components/TitleInput.vue';
 import VueSimditor from '../../components/vue-simditor';
 import 'simditor/styles/simditor.css';
 import Panel from '../../components/Panel.vue';
-import { RadioTagGroup, RadioTagItem } from '../../components/radig-tag';
 import UploadPicture from '../../components/UploadPicture.vue';
 import fromMixin from '../../mixins/form';
+import CategorySelectPanel from '../../components/CategorySelectPanel.vue';
 export default {
   base: {
     title: '文章',
     url: 'posts'
   },
   mixins: [ fromMixin ],
-  components: { TitleInput, VueSimditor, Panel, RadioTagGroup, RadioTagItem, UploadPicture },
+  components: { TitleInput, VueSimditor, Panel, UploadPicture, CategorySelectPanel },
   data () {
     return {
       formData: {},
@@ -109,11 +98,6 @@ export default {
         max-width: 650px;
         margin-bottom: 30px;
       }
-    }
-    .p_type{
-      float: left;
-      width: 100px;
-      margin-right: 30px;
     }
   }
 }

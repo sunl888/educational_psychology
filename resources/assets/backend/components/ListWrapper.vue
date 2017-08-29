@@ -10,7 +10,7 @@
       <slot :data="list"></slot>
     </main>
     <footer>
-      <Page @on-page-size-change="(pageSize) => {perPage = pageSize}" :page-size="perPage" @on-change="change" :current.sync="currentPage" class="page" size="small" :total="total" show-sizer></Page>
+      <Page v-if="total > pageSize" @on-page-size-change="(pageSize) => {perPage = pageSize}" :page-size="perPage" @on-change="change" :current.sync="currentPage" class="page" size="small" :total="total" show-sizer></Page>
     </footer>
   </div>
 </template>

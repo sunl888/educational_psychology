@@ -4,7 +4,7 @@
     <div class="body">
       <a href="#"><h3>{{article.title}}</h3></a>
       <p class="describe">{{article.excerpt}}</p>
-      <UserWeight :id="article.user.data.id" :avatar_url="article.user.data.avatar_url" :nick_name="article.user.data.nick_name"></UserWeight>
+      <UserWeight v-if="article.user.data.length !== 0" :id="article.user.data.id" :avatar_url="article.user.data.avatar_url" :nick_name="article.user.data.nick_name"></UserWeight>
       <span class="info"><HoverableTime :time="article.published_at"></HoverableTime></span>
       <span class="info">阅读：{{article.views_count}}</span>
     </div>
