@@ -9,8 +9,8 @@
       <span class="info">阅读：{{article.views_count}}</span>
     </div>
     <div class="option">
-      <Button type="primary" size="large">编辑</Button>
-      <Button type="error" size="large" shape="circle" icon="android-delete"></Button>
+      <Button type="primary" size="large" @click="$emit('edit', article.id)">编辑</Button>
+      <Button type="error" size="large" shape="circle" icon="android-delete" @click="$emit('del', article.id)"></Button>
     </div>
   </div>
 </template>
