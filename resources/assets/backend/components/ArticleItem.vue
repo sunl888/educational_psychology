@@ -1,27 +1,29 @@
 <template>
   <div class="article_item">
-    <a href="#" class="cover">
-      <img src="https://i2.hdslb.com/bfs/archive/706a7c71b3a274ff4c3038be6b4d200df32b7a6e.png@320w_200h.webp" alt="">
-    </a>
+    <a href="#" class="cover" :style="{'background-image': `url(${article.cover_url})`}"></a>
     <div class="body">
-      <a href="#"><h3>这是一篇文章的标题。</h3></a>
-      <p class="describe">欢迎光临  空间，最后的前沿  专栏前几天我有幸被知乎看中，赏脸给了块一亩三分地，可以随便在上面打滚儿胡扯一通，兴奋了好久。欣喜若狂之余犯了难儿，不知道该怎么写专栏…</p>
-      <UserWeight name="一家专卖店"></UserWeight>
-      <span class="info time">2017-8-24 19:44:16</span>
-      <span class="info">阅读：180</span>
+      <a href="#"><h3>{{article.title}}</h3></a>
+      <p class="describe">{{article.excerpt}}</p>
+      <UserWeight v-if="article.user.data.length !== 0" :id="article.user.data.id" :avatar_url="article.user.data.avatar_url" :nick_name="article.user.data.nick_name"></UserWeight>
+      <span class="info"><HoverableTime :time="article.published_at"></HoverableTime></span>
+      <span class="info">阅读：{{article.views_count}}</span>
     </div>
     <div class="option">
-      <Button type="primary" size="large">编辑</Button>
-      <Button type="error" size="large" shape="circle" icon="android-delete"></Button>
+      <Button type="primary" size="large" @click="$emit('edit', article.id)">编辑</Button>
+      <Button type="error" size="large" shape="circle" icon="android-delete" @click="$emit('del', article.id)"></Button>
     </div>
   </div>
 </template>
 
 <script>
 import UserWeight from './UserWeight.vue';
+import HoverableTime from './HoverableTime.vue';
 export default {
   name: 'articleItem',
-  components: { UserWeight }
+  props: {
+    article: Object
+  },
+  components: { UserWeight, HoverableTime }
 };
 </script>
 <style lang="less" scoped>
@@ -35,11 +37,10 @@ export default {
   margin-bottom: 20px;
   .cover{
     float: left;
-    >img{
-      border-radius: 5px;
-      width: 170px;
-      display: block;
-    }
+    border-radius: 5px;
+    width: 170px;
+    height: 130px;
+    background-size: cover;
   }
   .body{
     padding-left: 190px;
@@ -56,16 +57,13 @@ export default {
       font-size: 18px;
     }
     .describe{
-      margin: 5px 0 10px 0; 
+      margin: 5px 0 20px 0; 
       color: #999;
     }
     .info{
       line-height: 30px;
       margin-right: 15px;
       float: right;
-      &.time{
-        color: #999;
-      }
       >.icon{
         font-size: 16px;
         margin-right: 5px;

@@ -1,20 +1,26 @@
 <template>
   <div>
-    <TTableWrapper title="用户列表" queryName="users?include=roles">
+    <ListWrapper ref="list" title="用户列表" queryName="users?include=roles">
       <span slot="option"><Button @click="$router.push({name: 'addUser'})" icon="plus-round" type="primary">添加</Button></span>
       <template scope="props">
         <TTable :columns="userCol" :data="props.data" />
       </template>
-    </TTableWrapper>
+    </ListWrapper>
   </div>
 </template>
 <script>
   import TTable from '../../components/t-table';
   import UserWeight from '../../components/UserWeight.vue';
-  import TTableWrapper from '../../components/t-table-wrapper';
+  import ListWrapper from '../../components/ListWrapper.vue';
   import HoverableTime from '../../components/HoverableTime.vue';
+  import del from '../../mixins/del';
   export default {
-    components: { TTable, UserWeight, TTableWrapper, HoverableTime },
+    components: { TTable, UserWeight, ListWrapper, HoverableTime },
+    base: {
+      title: '用户',
+      url: 'users'
+    },
+    mixins: [ del ],
     data () {
       return {
         userCol: [
@@ -26,12 +32,13 @@
                 props: params
               });
             },
-            width: '200px'
+            style: {'padding-left': '50px'},
+            width: '110px'
           },
           {
             title: '用户名',
             key: 'user_name',
-            width: '160px'
+            width: '160px',
           },
           {
             title: 'email',
@@ -72,13 +79,21 @@
                   },
                   style: {
                     marginRight: '5px'
+                  },
+                  on: {
+                    click: () => {
+                      this.$router.push({name: 'editUser', params: {id: params.id}});
+                    }
                   }
                 }, '编辑'),
                 h('Button', {
                   props: {
                     type: 'error',
                     size: 'small'
-                  }
+                  },
+                  on: {
+                    click: () => { this.del(params.id); }
+                  },
                 }, '删除')
               ]);
             }

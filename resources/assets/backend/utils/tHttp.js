@@ -26,9 +26,9 @@ thttp.install = (Vue, option) => {
   }, (error) => {
     if (error.code === 'ECONNABORTED') {
       Vue.prototype.$message('请求超时');
-    } else if (error.response.status === 401 && error.response.data.code === '401.1') {
+    } else if (error.response.status === 401) {
       Vue.prototype.$Notice.warning({title: '请先登录', desc: false});
-      Vue.router.replace({name: 'login', query: {redirect: this.$route.name}});
+      Vue.router.replace({name: 'login', query: {redirect: Vue.router.app.$route.name}});
     } else if (error.response.status === 422) {
       let errorsTemp = error.response.data.errors;
       for (let index in errorsTemp) {

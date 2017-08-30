@@ -32,7 +32,7 @@ export default new Router({
           component: require('./views/user/User.vue')
         },
         {
-          path: 'user/edit',
+          path: 'user/:id/edit',
           name: 'editUser',
           component: require('./views/user/User.vue')
         },
@@ -42,7 +42,7 @@ export default new Router({
           component: require('./views/article/ArticleList.vue')
         },
         {
-          path: 'article/edit',
+          path: 'article/:id/edit',
           name: 'editArticle',
           component: require('./views/article/Article.vue')
         }

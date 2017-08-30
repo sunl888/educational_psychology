@@ -8,7 +8,7 @@
           <Icon type="ios-paper"></Icon>
           内容管理
         </template>
-        <Menu-item name="1-1">文章管理</Menu-item>
+        <Menu-item name="articleList">文章管理</Menu-item>
         <Menu-item name="1-2">评论管理</Menu-item>
         <Menu-item name="1-3">举报管理</Menu-item>
       </Submenu>
@@ -87,6 +87,7 @@ export default {
           width: 980px;
           margin: 0 auto;
           padding-top: 30px;
+          padding-bottom: 50px;
         }
       }
     }

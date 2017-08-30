@@ -1,5 +1,5 @@
 <template>
-  <div class="t_table_wrapper">
+  <div class="list_wrapper">
     <header>
       <h1 class="title">{{title}}<span class="total">{{total}}</span></h1>
       <div class="option">
@@ -10,21 +10,21 @@
       <slot :data="list"></slot>
     </main>
     <footer>
-      <Page @on-page-size-change="(pageSize) => {perPage = pageSize}" :page-size="perPage" @on-change="change" :current.sync="currentPage" class="page" size="small" :total="total" show-sizer></Page>
+      <Page v-if="total > pageSize" @on-page-size-change="(pageSize) => {perPage = pageSize}" :page-size="perPage" @on-change="change" :current.sync="currentPage" class="page" size="small" :total="total" show-sizer></Page>
     </footer>
   </div>
 </template>
 
 <script>
-import listMixin from '../../mixins/list';
+import listMixin from '../mixins/list';
 export default {
-  name: 'TTableWrapper',
+  name: 'listWrapper',
   mixins: [ listMixin ]
 };
 </script>
 
 <style lang="less" scoped>
-.t_table_wrapper{
+.list_wrapper{
   >header{
     margin-bottom: 25px;
     overflow: hidden;
