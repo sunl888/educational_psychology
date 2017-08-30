@@ -29,10 +29,10 @@ class PostCreateRequest extends Request
     public function rules()
     {
         return [
-            'title' => ['required', 'string'],
+            'title' => ['required', 'string', 'between:1,100'],
             // 'slug' => ['bail', 'required', 'regex:/^[A-Za-z0-9\-\_]+$/', 'string', Rule::unique('posts')],
             'excerpt' => ['nullable', 'string'],
-            'content' => 'required|string',
+            'content' => ['required', 'string'],
             'cover' => ['bail', 'nullable', new ImageName(), new ImageNameExist()],
             'status' => ['nullable', Rule::in([Post::STATUS_PUBLISH, Post::STATUS_DRAFT])],
             'type' => ['nullable', Rule::in([Category::TYPE_POST, Category::TYPE_PAGE])],
@@ -40,7 +40,8 @@ class PostCreateRequest extends Request
             'order' => ['nullable', 'integer'],
             'template' => ['nullable', 'string', 'between:1,30'],
             'category_id' => ['bail', 'nullable', 'integer', 'exists:categories,id'],
-            'published_at' => ['nullabl', 'date']
+            'published_at' => ['nullabl', 'date'],
+            'top' => ['nullable']
         ];
     }
 
