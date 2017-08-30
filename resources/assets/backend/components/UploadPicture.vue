@@ -1,5 +1,5 @@
 <template>
-  <div class="upload_picture" :style="{'line-height': height}" :class="{'radius': height != '250px'}">
+  <div class="upload_picture" :style="{'line-height': height, 'min-height': height}" :class="{'radius': height != '250px'}">
     <Upload
       ref="uploader"
       v-show="status !== 'uploading'"
