@@ -11,6 +11,8 @@ class PostService
 {
     private function filterData(array &$data)
     {
+        //todo slug
+        $data['slug'] = '';
         if (isset($data['title']))
             $data['title'] = e($data['title']);
         if (isset($data['excerpt']))

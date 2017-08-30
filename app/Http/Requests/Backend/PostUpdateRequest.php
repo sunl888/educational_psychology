@@ -32,7 +32,7 @@ class PostUpdateRequest extends Request
         $post = $this->route('post');
         return [
             'title' => ['nullable', 'string', 'max:100'],
-            'slug' => ['bail', 'required', 'regex:/^[A-Za-z0-9\-\_]+$/', 'string', Rule::unique('posts')->ignore($post->id)],
+            // 'slug' => ['bail', 'required', 'regex:/^[A-Za-z0-9\-\_]+$/', 'string', Rule::unique('posts')->ignore($post->id)],
             'excerpt' => ['nullable', 'string'],
             'content' => 'required|string',
             'cover' => ['bail', 'nullable', new ImageName(), new ImageNameExist()],

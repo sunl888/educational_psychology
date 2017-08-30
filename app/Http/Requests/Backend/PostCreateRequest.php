@@ -30,7 +30,7 @@ class PostCreateRequest extends Request
     {
         return [
             'title' => ['required', 'string'],
-            'slug' => ['bail', 'required', 'regex:/^[A-Za-z0-9\-\_]+$/', 'string', Rule::unique('posts')],
+            // 'slug' => ['bail', 'required', 'regex:/^[A-Za-z0-9\-\_]+$/', 'string', Rule::unique('posts')],
             'excerpt' => ['nullable', 'string'],
             'content' => 'required|string',
             'cover' => ['bail', 'nullable', new ImageName(), new ImageNameExist()],
