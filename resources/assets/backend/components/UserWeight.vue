@@ -1,7 +1,7 @@
 <template>
   <div class="m-info">
     <a href="#" target="_blank">
-      <i class="user-pic" :style="{'background-image': `url(${avatar_url})`}"></i>
+      <i class="user-pic" :style="{'background-image': `url(${avatar_url}?p=avatar_xs)`}"></i>
       <span class="user-name">{{nick_name}}</span>
     </a>
   </div>

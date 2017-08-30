@@ -1,0 +1,122 @@
+<template>
+  <div class="column">
+    <Panel :title="title">
+      <Form :model="formData" :label-width="80">
+        <Form-item label="分类名">
+          <Input v-model="formData.cate_name" placeholder="请设置分类名"></Input>
+        </Form-item>
+        <Form-item label="栏目描述">
+          <Input v-model="formData.description" type="textarea" :rows="4" placeholder="请输入栏目描述"></Input>
+        </Form-item>
+        <Form-item label="父级栏目">
+          <Select v-model="formData.parent_id">
+            <Option :value="0" :key="0">作为父级栏目</Option>
+            <Option v-for="item in categories" :value="item.id" :key="item.id">{{ item.cate_name }}</Option>
+          </Select>
+        </Form-item>
+        <Form-item label="栏目图片">
+          <UploadPicture @on-success="uploadPic" :url="formData.image_url" height="180px" class="upload_picture" />
+        </Form-item>
+        <Form-item label="排序">
+          <InputNumber :min="0" v-model="formData.order"></InputNumber>
+        </Form-item>
+        <Form-item label="设为导航">
+          <i-switch v-model="formData.is_nav" size="large">
+            <span slot="open">导航</span>
+            <span slot="close">普通</span>
+          </i-switch>
+        </Form-item>
+        <Form-item label="栏目类型">
+          <Select v-model="formData.type">
+              <Option :value="0" :key="0">列表栏目</Option>
+              <Option :value="1" :key="1">单网页</Option>
+              <Option :value="2" :key="2">外部链接</Option>
+          </Select>
+        </Form-item>
+        <Form-item v-if="formData.type === 0" label="列表模版">
+          <Select v-model="formData.list_template">
+            <Option v-for="item in templates.list_templates" :value="item.file_name" :key="item.file_name">{{item.title}}({{item.file_name}})</Option>
+          </Select>
+        </Form-item>
+        <Form-item v-if="formData.type === 0" label="正文模版">
+          <Select v-model="formData.content_template">
+              <Option v-for="item in templates.content_templates" :value="item.file_name" :key="item.file_name">{{item.title}}({{item.file_name}})</Option>
+          </Select>
+        </Form-item>
+        <Form-item v-if="formData.type === 1" label="单页模版">
+          <Select v-model="formData.page_template">
+              <Option v-for="item in templates.page_templates" :value="item.file_name" :key="item.file_name">{{item.title}}({{item.file_name}})</Option>
+          </Select>
+        </Form-item>
+        <Form-item v-if="formData.type === 2" label="外部链接">
+          <Input v-model="formData.url" placeholder="请设置外部链接"></Input>
+        </Form-item>
+        <FormButtomGroup />
+      </Form>
+    </Panel>
+  </div>
+</template>
+
+<script>
+import Panel from '../../components/Panel.vue';
+import fromMixin from '../../mixins/form';
+import FormButtomGroup from '../../components/FormButtonGroup.vue';
+import UploadPicture from '../../components/UploadPicture.vue';
+export default {
+  base: {
+    title: '栏目',
+    url: 'categories'
+  },
+  components: { Panel, FormButtomGroup, UploadPicture },
+  mixins: [ fromMixin ],
+  methods: {
+    uploadPic (image) {
+      this.formData.image = image;
+    }
+  },
+  mounted () {
+    // 设置默认值
+    this.formData.type = 0;
+    this.formData.parent_id = 0;
+    this.$http.get('templates').then(res => {
+      this.templates = res.data;
+    });
+    this.$http.get('categories').then(res => {
+      this.categories = res.data.data;
+    });
+  },
+  data () {
+    return {
+      templates: {},
+      categories: [],
+      formData: {
+        'type': null,
+        'image': null,
+        'parent_id': null,
+        'cate_name': null,
+        'description': null,
+        'url': null,
+        'is_target_blank': null,
+        'cate_slug': null,
+        'is_nav': null,
+        'order': null,
+        'page_template': null,
+        'list_template': null,
+        'content_template': null
+      }
+    };
+  }
+};
+</script>
+
+<style lang="less" scoped>
+.column{
+  .upload_picture{
+    width: 180px;
+    margin-top: 10px;
+  }
+  .ivu-select{
+    width: 200px;
+  }
+}
+</style>
