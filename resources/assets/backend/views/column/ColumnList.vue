@@ -15,6 +15,10 @@ import TTable from '../../components/t-table';
 import HoverableTime from '../../components/HoverableTime.vue';
 import del from '../../mixins/del';
 export default {
+  base: {
+    title: '栏目',
+    url: 'categories'
+  },
   mounted () {
     this.$http.get('categories/visual_output').then(res => {
       this.categories = res.data.data;
