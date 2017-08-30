@@ -40,7 +40,7 @@ class PostCreateRequest extends Request
             'order' => ['nullable', 'integer'],
             'template' => ['nullable', 'string', 'between:1,30'],
             'category_id' => ['bail', 'nullable', 'integer', 'exists:categories,id'],
-            'published_at' => ['nullabl', 'date'],
+            'published_at' => ['nullable', 'date'],
             'top' => ['nullable']
         ];
     }
