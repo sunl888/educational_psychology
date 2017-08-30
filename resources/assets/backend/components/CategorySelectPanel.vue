@@ -42,7 +42,11 @@ export default {
     }
   },
   mounted () {
-    this.$http.get('categories').then(res => {
+    this.$http.get('categories', {
+      params: {
+        type: 'post'
+      }
+    }).then(res => {
       this.categories = res.data.data;
       this.currentPCateId = this.categories[0].id;
     });

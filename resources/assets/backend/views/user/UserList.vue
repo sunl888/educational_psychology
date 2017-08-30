@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ListWrapper ref="list" title="用户列表" queryName="users?include=roles">
+    <ListWrapper ref="list" title="用户列表" :queryName="$options.base.url + '?include=roles'">
       <span slot="option"><Button @click="$router.push({name: 'addUser'})" icon="plus-round" type="primary">添加</Button></span>
       <template scope="props">
         <TTable :columns="userCol" :data="props.data" />
