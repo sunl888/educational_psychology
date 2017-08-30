@@ -1,9 +1,9 @@
 <template>
   <div class="table-wrapper">
-    <table border="0" cellspacing="0" cellpadding="0" class="ttable">
+    <table v-if="data.length > 0" border="0" cellspacing="0" cellpadding="0" class="ttable">
       <thead>
         <tr>
-          <th v-for="col in columns" :key="col.key" :style="{width: col.width ? col.width : 'auto'}">{{col.title}}</th>
+          <th v-for="col in columns" :key="col.key" :style="{width: col.width ? col.width : 'auto', 'text-align': col.align}">{{col.title}}</th>
         </tr>
       </thead>
       <tbody>
@@ -45,6 +45,7 @@
   background: #fff;
   border-radius: 4px;
   box-shadow: 1px 1px 2px #dfe5ed;
+  overflow: hidden;
   .ttable{
     width: 100%;
     td, th {
@@ -87,6 +88,9 @@
         transition: background-color .2s;
       }
     }
+  }
+  .no_data{
+    margin: 120px auto 80px;
   }
 }
 </style>

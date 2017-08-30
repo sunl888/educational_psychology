@@ -18,7 +18,6 @@ export default {
         }
       }
     }
-    this.oldObj = {};
     return diffObj;
   }
 };
