@@ -20,6 +20,7 @@ class CategoryRepository extends BaseRepository
 
     public function filterData(array &$data, $category = null)
     {
+        // todo slug
         $filterValues = [
             Category::TYPE_LINK => ['cate_slug', 'page_template', 'list_template', 'content_template'],
             Category::TYPE_PAGE => ['url', 'is_target_blank', 'list_template', 'content_template'],

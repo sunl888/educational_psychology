@@ -40,7 +40,7 @@ class CategoryUpdateRequest extends Request
             'order' => ['nullable', 'integer'],
             'url' => ['required_if:type,' . Category::TYPE_LINK, 'url'],
             'is_target_blank' => ['required_if:type,' . Category::TYPE_LINK, 'boolean'],
-            'cate_slug' => ['bail', 'required_unless:type,' . Category::TYPE_LINK, 'string', 'between:2,30', Rule::unique('categories')->ignore($category->id)],
+            'cate_slug' => ['bail', 'nullable', 'string', 'between:2,30', Rule::unique('categories')->ignore($category->id)],
             'page_template' => ['nullable', 'alpha_dash', 'between:1,30'],
             'list_template' => ['nullable', 'alpha_dash', 'between:1,30'],
             'content_template' => ['nullable', 'alpha_dash', 'between:1,30']
