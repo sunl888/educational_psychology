@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 
+use App\Models\Category;
 use App\Models\Post;
 use Carbon\Carbon;
 
