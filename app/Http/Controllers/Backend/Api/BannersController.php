@@ -7,7 +7,7 @@ use App\Http\Controllers\ApiController;
 use App\Http\Requests\Backend\BannerCreateRequest;
 use App\Http\Requests\Backend\BannerUpdateRequest;
 use App\Models\Banner;
-use App\Services\BannerService;
+use App\Repositories\BannerRepository;
 use App\Transformers\Backend\BannerTransformer;
 use Illuminate\Http\Request;
 
@@ -29,15 +29,15 @@ class BannersController extends ApiController
         return $this->response()->paginator($banners, new BannerTransformer());
     }
 
-    public function store(BannerCreateRequest $request, BannerService $bannerService)
+    public function store(BannerCreateRequest $request, BannerRepository $bannerRepository)
     {
-        $bannerService->create($request->validated());
+        $bannerRepository->create($request->validated());
         return $this->response()->noContent();
     }
 
-    public function update(Banner $banner, BannerUpdateRequest $request, BannerService $bannerService)
+    public function update(Banner $banner, BannerUpdateRequest $request, BannerRepository $bannerRepository)
     {
-        $bannerService->update($banner, $request->validated());
+        $bannerRepository->update($request->validated(), $banner);
         return $this->response()->noContent();
     }
 

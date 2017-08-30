@@ -1,22 +1,32 @@
 <?php
 
-namespace App\Services;
+namespace App\Repositories;
 
-use App\Models\Category;
+
 use App\Models\Post;
 use Carbon\Carbon;
 
-
-class PostService
+class PostRepository extends BaseRepository
 {
-    private function filterData(array &$data)
+
+    /**
+     * Specify Model class name
+     *
+     * @return string
+     */
+    public function model()
+    {
+        return Post::class;
+    }
+
+    public function filterData(array &$data)
     {
         //todo slug
         $data['slug'] = '';
         if (isset($data['title']))
             $data['title'] = e($data['title']);
         if (isset($data['excerpt']))
-            $data['excerpt'] = e($data['title']);
+            $data['excerpt'] = e($data['excerpt']);
         if (isset($data['content']))
             $data['content'] = clean($data['content']);
         // 处理置顶
@@ -33,7 +43,7 @@ class PostService
         return $data;
     }
 
-    public function create(array $data)
+    public function preCreate(array &$data)
     {
         $this->filterData($data);
         // 创建文章时 如果没有传入 published_at 字段，将 published_at 设置为 Carbon::now()
@@ -43,17 +53,25 @@ class PostService
         // 创建文章时 如果没有传入 type 字段，type 默认设置为 Category::TYPE_POST
         if (!isset($data['type']))
             $data['type'] = Category::TYPE_POST;
-        $post = Post::create($data);
-        $this->updateOrCreatePostContent($post, $data);
-        return $post;
+        // 创建文章时 如果没有传入 status 字段，status 默认设置为 Post::STATUS_DRAFT
+        if (!isset($data['status']))
+            $data['status'] = Post::STATUS_DRAFT;
+        return $data;
     }
 
-    public function update(Post $post, array $data)
+    public function created(&$data, $post)
     {
-        $this->filterData($data);
-        $post->update($data);
         $this->updateOrCreatePostContent($post, $data);
-        return $post;
+    }
+
+    public function preUpdate(array &$data)
+    {
+        return $this->filterData($data);
+    }
+
+    public function updated(&$data, $post)
+    {
+        $this->updateOrCreatePostContent($post, $data);
     }
 
     /**
@@ -71,4 +89,5 @@ class PostService
             );
         }
     }
+
 }

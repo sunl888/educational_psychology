@@ -8,7 +8,7 @@ use App\Http\Controllers\ApiController;
 use App\Http\Requests\Backend\CategoryCreateRequest;
 use App\Http\Requests\Backend\CategoryUpdateRequest;
 use App\Models\Category;
-use App\Services\CategoryService;
+use App\Repositories\CategoryRepository;
 use App\Transformers\Backend\CategoryTransformer;
 use Illuminate\Http\Request;
 
@@ -25,15 +25,15 @@ class CategoriesController extends ApiController
         return $this->response()->item($category, new CategoryTransformer());
     }
 
-    public function store(CategoryCreateRequest $request, CategoryService $categoryService)
+    public function store(CategoryCreateRequest $request, CategoryRepository $categoryRepository)
     {
-        $categoryService->create($request->validated());
+        $categoryRepository->create($request->validated());
         return $this->response()->noContent();
     }
 
-    public function update(Category $category, CategoryUpdateRequest $request, CategoryService $categoryService)
+    public function update(Category $category, CategoryUpdateRequest $request, CategoryRepository $categoryRepository)
     {
-        $categoryService->update($category, $request->validated());
+        $categoryRepository->update($request->validated(), $category);
         return $this->response()->noContent();
     }
 

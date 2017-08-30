@@ -6,7 +6,7 @@ use App\Http\Controllers\ApiController;
 use App\Http\Requests\Backend\UserCreateRequest;
 use App\Http\Requests\Backend\UserUpdateRequest;
 use App\Models\User;
-use App\Services\UserService;
+use App\Repositories\UserRepository;
 use App\Transformers\Backend\UserTransformer;
 use Auth;
 
@@ -39,9 +39,9 @@ class UsersController extends ApiController
         return $this->response()->paginator($users, new UserTransformer())->setMeta(User::getAllowSortFieldsMeta() + User::getAllowSearchFieldsMeta());
     }
 
-    public function store(UserCreateRequest $request, UserService $userService)
+    public function store(UserCreateRequest $request, UserRepository $userRepository)
     {
-        $userService->create($request->validated());
+        $userRepository->create($request->validated());
         return $this->response()->noContent();
     }
 
@@ -55,9 +55,9 @@ class UsersController extends ApiController
         return $this->response()->item($user, new UserTransformer());
     }
 
-    public function update(User $user, UserUpdateRequest $request, UserService $userService)
+    public function update(User $user, UserUpdateRequest $request, UserRepository $userRepository)
     {
-        $userService->update($user, $request->validated());
+        $userRepository->update($request->validated(), $user);
         return $this->response()->noContent();
     }
 

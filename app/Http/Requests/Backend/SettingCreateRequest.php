@@ -26,7 +26,7 @@ class SettingCreateRequest extends Request
     public function rules()
     {
         return [
-            'name' => ['bail', 'required', 'between:1,30', 'unique:settings'],
+            'name' => ['bail', 'required', 'alpha_dash', 'between:1,30', 'unique:settings'],
             'value' => ['nullable', 'string'],
             'description' => ['nullable', 'string', 'between:2,190'],
             'type_id' => ['bail', 'nullable', 'integer', Rule::exists('types', 'id')->where('model_name', Setting::class)],

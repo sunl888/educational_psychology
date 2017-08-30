@@ -5,7 +5,7 @@ use App\Http\Controllers\ApiController;
 use App\Http\Requests\Backend\RoleCreateRequest;
 use App\Http\Requests\Backend\RoleUpdateRequest;
 use App\Models\Role;
-use App\Services\RoleService;
+use App\Repositories\RoleRepository;
 use App\Transformers\Backend\PermissionTransformer;
 use App\Transformers\Backend\RoleTransformer;
 use Illuminate\Http\Request;
@@ -70,9 +70,9 @@ class RolesController extends ApiController
      * @param RoleCreateRequest $request
      * @return mixed
      */
-    public function store(RoleCreateRequest $request, RoleService $roleService)
+    public function store(RoleCreateRequest $request, RoleRepository $roleRepository)
     {
-        $roleService->create($request->validated());
+        $roleRepository->create($request->validated());
         Role::create($request->all());
         return $this->response()->noContent();
     }
@@ -83,9 +83,9 @@ class RolesController extends ApiController
      * @param RoleUpdateRequest $request
      * @return mixed
      */
-    public function update(Role $role, RoleUpdateRequest $request, RoleService $roleService)
+    public function update(Role $role, RoleUpdateRequest $request, RoleRepository $roleRepository)
     {
-        $roleService->update($role, $request->validated());
+        $roleRepository->update($request->validated(), $role);
         return $this->response()->noContent();
     }
 

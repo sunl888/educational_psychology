@@ -7,7 +7,7 @@ use App\Http\Controllers\ApiController;
 use App\Http\Requests\Backend\PostCreateRequest;
 use App\Http\Requests\Backend\PostUpdateRequest;
 use App\Models\Post;
-use App\Services\PostService;
+use App\Repositories\PostRepository;
 use App\Transformers\Backend\PostTransformer;
 use Illuminate\Http\Request;
 use Auth;
@@ -32,17 +32,17 @@ class PostsController extends ApiController
         return $this->response()->paginator($posts, new PostTransformer());
     }
 
-    public function store(PostCreateRequest $request, PostService $postService)
+    public function store(PostCreateRequest $request, PostRepository $postRepository)
     {
         $data = $request->validated();
         $data['user_id'] = Auth::id();
-        $postService->create($data);
+        $postRepository->create($data);
         return $this->response()->noContent();
     }
 
-    public function update(Post $post, PostUpdateRequest $request, PostService $postService)
+    public function update(Post $post, PostUpdateRequest $request, PostRepository $postRepository)
     {
-        $postService->update($post, $request->validated());
+        $postRepository->update($request->validated(), $post);
         return $this->response()->noContent();
     }
 

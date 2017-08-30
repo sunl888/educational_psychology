@@ -11,7 +11,7 @@ use App\Http\Requests\Request;
 use App\Http\Requests\SettingCreateRequest;
 use App\Http\Requests\SettingUpdateRequest;
 use App\Models\Setting;
-use App\Services\SettingService;
+use App\Repositories\SettingRepository;
 use App\Transformers\Backend\SettingTransformer;
 
 class SettingsController extends ApiController
@@ -33,15 +33,15 @@ class SettingsController extends ApiController
             ->setMeta(Setting::getAllowSortFieldsMeta() + Setting::getAllowSearchFieldsMeta());
     }
 
-    public function store(SettingCreateRequest $request, SettingService $settingService)
+    public function store(SettingCreateRequest $request, SettingRepository $settingRepository)
     {
-        $settingService->create($request->validated());
+        $settingRepository->create($request->validated());
         return $this->response()->noContent();
     }
 
-    public function update(Setting $setting, SettingUpdateRequest $request, SettingService $settingService)
+    public function update(Setting $setting, SettingUpdateRequest $request, SettingRepository $settingRepository)
     {
-        $settingService->update($setting, $request->validated());
+        $settingRepository->update($request->validated(), $setting);
         return $this->response()->noContent();
     }
 

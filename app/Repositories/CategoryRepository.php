@@ -1,14 +1,24 @@
 <?php
 
-namespace App\Services;
+namespace App\Repositories;
 
 use App\Models\Category;
 use Illuminate\Support\Arr;
 
-
-class CategoryService
+class CategoryRepository extends BaseRepository
 {
-    private function filterData(array &$data, Category $category = null)
+
+    /**
+     * Specify Model class name
+     *
+     * @return string
+     */
+    public function model()
+    {
+        return Category::class;
+    }
+
+    public function filterData(array &$data, $category = null)
     {
         $filterValues = [
             Category::TYPE_LINK => ['cate_slug', 'page_template', 'list_template', 'content_template'],
@@ -28,21 +38,17 @@ class CategoryService
         if (isset($data['description']))
             $data['description'] = e($data['description']);
         return $data;
-
     }
 
-    public function create(array $data)
+    public function preCreate(array &$data)
     {
-        $this->filterData($data);
-        $category = Category::create($data);
-        return $category;
+        return $this->filterData($data);
     }
 
-    public function update(Category $category, array $data)
+
+    public function preUpdate(array &$data, $category)
     {
-        $this->filterData($data, $category);
-        $category->update($data);
-        return $category;
+        return $this->filterData($data, $category);
     }
 
 }
