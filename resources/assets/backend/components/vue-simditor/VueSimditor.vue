@@ -1,38 +1,60 @@
 <template>
   <div class="simditor_wrapper">
-    <textarea ref="editor" :placeholder="placeholder"></textarea>
+    <textarea ref="editor"></textarea>
   </div>
 </template>
 
 <script>
 import Simditor from 'simditor';
 export default {
+  name: 'vueSimditor',
   props: {
-    placeholder: {
-      type: String,
-      default: 'Balabala'
+    toolbar: {
+      type: Array,
+      default: () => ['title', 'bold', 'italic', 'underline', 'fontScale', 'color', 'ol', 'ul', '|', 'link', 'image', 'hr', '|', 'indent', 'outdent', 'alignment']
     },
-    value: String
+    value: {
+      type: String,
+      default: ''
+    }
   },
   data () {
     return {
+      editor: null,
       currentValue: this.value
     };
   },
+  mounted () {
+    this.editor = new Simditor({
+      textarea: this.$refs.editor,
+      placeholder: this.placeholder,
+      toolbar: this.toolbar,
+      pasteImage: true,
+      toolbarFloat: false
+    });
+    this.editor.on('decorate', (e, src) => {
+      this.currentValue = this.editor.getValue();
+    });
+    let simditorBody = this.$el.parentNode.querySelector('.simditor-body');
+    if (simditorBody !== undefined) {
+      simditorBody.oninput = () => {
+        this.currentValue = this.editor.getValue();
+      };
+    }
+    this.editor.setValue(this.value);
+  },
   watch: {
-    value (curVal) {
-      if (this.currentValue !== curVal) {
-        this.currentValue = curVal;
+    'value' (val) {
+      if (this.currentValue !== val) {
+        this.currentValue = val;
+        this.editor.setValue(val);
       }
     },
-    currentValue (curVal, oldVal) {
-      this.$emit('input', curVal);
+    'currentValue' (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.$emit('input', newVal);
+      }
     }
-  },
-  mounted () {
-    new Simditor({
-      textarea: this.$refs['editor']
-    });
   }
 };
 </script>

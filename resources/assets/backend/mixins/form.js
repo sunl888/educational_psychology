@@ -19,9 +19,7 @@ export default {
       }
       this.$http[method](url, diff.diff(this.formData)).then(res => {
         this.$Message.success(`${this.title}成功`);
-        if (typeof this.onSuccess === 'function') {
-          this.onSuccess();
-        }
+        this.$emit('on-success');
       }).catch(err => {
         this.errors = err.response.data.errors;
       });
@@ -30,12 +28,12 @@ export default {
   created () {
     if (this.$route.name.substring(0, 4) === 'edit') {
       this.id = this.$route.params.id;
-      this.$http.get(`${this.$options.base.url}/${this.id}`).then(res => {
+      this.$http.get(`${this.$options.base.url}/${this.id}`, {
+        params: this.$options.base.query
+      }).then(res => {
         this.formData = res.data.data;
         diff.save(this.formData);
-        if (typeof this.onData === 'function') {
-          this.onData(res.data);
-        }
+        this.$emit('on-data', this.formData);
       });
       this.title = `编辑${this.$options.base.title}`;
     } else {

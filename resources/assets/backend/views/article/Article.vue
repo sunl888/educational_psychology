@@ -4,42 +4,40 @@
     <main class="article_wrapper">
       <div class="cover_wrapper"></div>
       <div class="title_input_wrapper">
-        <TitleInput v-model="content" />
+        <TitleInput v-model="formData.title" />
       </div>
-      <VueSimditor />
+      <VueSimditor v-model="formData.content"/>
     </main>
     <div class="option">
       <div class="left">
-        <CategorySelectPanel class="type_panel"></CategorySelectPanel>
+        <CategorySelectPanel @change="cid => formData.category_id = cid" class="type_panel"></CategorySelectPanel>
         <Panel title="封面" full size="small" class="cover">
-          <UploadPicture></UploadPicture>
+          <UploadPicture :url="formData.cover_url" @on-success="(cover) => formData.cover = cover"></UploadPicture>
         </Panel>
       </div>
       <Panel title="发布" full size="small" width="300px">
-        <Form :model="formRight" label-position="top">
+        <Form :model="formData" label-position="top">
           <Form-item label="发布时间">
-              <Date-picker type="date" placeholder="选择发布时间" v-model="content"></Date-picker>
+              <Date-picker type="date" placeholder="选择发布时间" v-model="formData.published_at"></Date-picker>
           </Form-item>
           <Form-item label="正文模板">
-            <Select v-model="content" placeholder="请选择正文模板">
-              <Option value="beijing">北京市</Option>
-              <Option value="shanghai">上海市</Option>
-              <Option value="shenzhen">深圳市</Option>
+            <Select v-model="formData.template" placeholder="请选择正文模板">
+              <Option v-for="item in contentTemplates" :key="item.file_name" :value="item.file_name">{{item.title}}</Option>
             </Select>
           </Form-item>
           <Form-item label="浏览次数">
-            <Input-number :max="10" :min="1" v-model="content"></Input-number>
+            <Input-number :min="0" v-model="formData.views_count"></Input-number>
           </Form-item>
           <Form-item label="置顶开关">
-            <i-switch size="large">
+            <i-switch  v-model="formData.top" size="large">
               <span slot="open">ON</span>
               <span slot="close">OFF</span>
             </i-switch>
           </Form-item>
           <ButtonGroup>
-              <Button type="success">编辑</Button>
-              <Button type="primary">保存为草稿</Button>
-              <Button>取消</Button>
+              <Button @click="submit('publish')" type="success">编辑</Button>
+              <Button @click="submit('draft')" type="primary">保存为草稿</Button>
+              <Button @click="$router.back()">取消</Button>
           </ButtonGroup>
         </Form>
       </Panel>
@@ -57,16 +55,50 @@ import CategorySelectPanel from '../../components/CategorySelectPanel.vue';
 export default {
   base: {
     title: '文章',
-    url: 'posts'
+    url: 'posts',
+    query: {
+      include: 'post_content'
+    }
   },
   mixins: [ fromMixin ],
   components: { TitleInput, VueSimditor, Panel, UploadPicture, CategorySelectPanel },
+  methods: {
+    submit (status) {
+      this.formData.status = status;
+      this.confirm();
+    }
+  },
   data () {
     return {
-      formData: {},
-      content: '',
-      type: 1
+      formData: {
+        'title': null,
+        'slug': null,
+        'excerpt': null,
+        'content': null,
+        'cover': null,
+        'status': null,
+        'type': null,
+        'views_count': null,
+        'top': null,
+        'order': null,
+        'template': null,
+        'category_id': null,
+        'published_at': null
+      },
+      contentTemplates: []
     };
+  },
+  mounted () {
+    this.formData.published_at = new Date();
+    this.$on('on-data', formData => {
+      this.formData.content = formData.post_content.data.content;
+    });
+    this.$on('on-success', formData => {
+      this.$router.push({name: 'articleList'});
+    });
+    this.$http.get('templates').then(res => {
+      this.contentTemplates = res.data.content_templates;
+    });
   }
 };
 </script>
