@@ -30,7 +30,7 @@ class CategoryUpdateRequest extends Request
     public function rules()
     {
         $category = $this->route('category');
-        $rules = [
+        return [
             'type' => ['nullable', Rule::in([Category::TYPE_POST, Category::TYPE_PAGE, Category::TYPE_LINK])],
             'image' => ['bail', 'nullable', new ImageName(), new ImageNameExist()],
             'parent_id' => ['bail', 'nullable', 'integer', Rule::exists('categories', 'id')->where('id', '!=', $category->id)],
