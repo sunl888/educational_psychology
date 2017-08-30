@@ -31,7 +31,7 @@ class PostService
         return $data;
     }
 
-    public function create(array &$data)
+    public function create(array $data)
     {
         $this->filterData($data);
         // 创建文章时 如果没有传入 published_at 字段，将 published_at 设置为 Carbon::now()
@@ -46,7 +46,7 @@ class PostService
         return $post;
     }
 
-    public function update(Post $post, array &$data)
+    public function update(Post $post, array $data)
     {
         $this->filterData($data);
         $post->update($data);

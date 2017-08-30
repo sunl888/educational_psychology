@@ -13,14 +13,14 @@ class SettingService
         return $data;
     }
 
-    public function create(array &$data)
+    public function create(array $data)
     {
         $this->filterData($data);
         $setting = Setting::create($data);
         return $setting;
     }
 
-    public function update(Setting $setting, array &$data)
+    public function update(Setting $setting, array $data)
     {
         $this->filterData($data);
         $setting->update($data);

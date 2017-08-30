@@ -68,6 +68,7 @@ class UsersController extends ApiController
      */
     public function destroy(User $user)
     {
+        // todo 用户关联的数据
         $user->delete();
         return $this->response()->noContent();
     }

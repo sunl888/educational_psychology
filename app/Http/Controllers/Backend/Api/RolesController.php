@@ -8,6 +8,7 @@ use App\Models\Role;
 use App\Services\RoleService;
 use App\Transformers\Backend\PermissionTransformer;
 use App\Transformers\Backend\RoleTransformer;
+use Illuminate\Http\Request;
 
 
 class RolesController extends ApiController
@@ -93,9 +94,16 @@ class RolesController extends ApiController
      * @param Role $role
      * @return mixed
      */
-    public function destroy(Role $role)
+    public function destroy(Role $role, Request $request)
     {
         // todo 删除关联数据
+        // 删除 model_has_roles 中 role_id = $role->id 的记录即可
+        if ($request->has('delete_relation')) {
+            // 需要删除关联数据
+
+        } else {
+            // 关联数据中的type_id 置为null
+        }
         $role->delete();
         return $this->response()->noContent();
     }

@@ -23,7 +23,7 @@ class TypeService
         return $type;
     }
 
-    public function update(Type $type, array &$data)
+    public function update(Type $type, array $data)
     {
         $this->filter($data);
         $type->update($data);

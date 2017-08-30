@@ -20,7 +20,7 @@ class RoleService
         return $data;
     }
 
-    public function create(array &$data)
+    public function create(array $data)
     {
         $this->filterData($data);
         $role = Role::create($data);
@@ -34,7 +34,7 @@ class RoleService
         return $role;
     }
 
-    public function update(Role $role, array &$data)
+    public function update(Role $role, array $data)
     {
         $this->filterData($data);
         $role->update($data);

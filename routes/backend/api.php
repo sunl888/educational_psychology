@@ -16,6 +16,7 @@ Route::get('roles/all', 'RolesController@allRoles');
 Route::resource('roles', 'RolesController', [
     'except'=> ['create', 'edit']
 ]);
+
 Route::get('roles/{role}/permissions', 'RolesController@permissions');
 
 Route::resource('posts', 'PostsController', [
@@ -47,4 +48,3 @@ Route::resource('settings', 'SettingsController', [
 Route::resource('types', 'TypesController', [
     'except'=> ['create', 'edit', 'show']
 ]);
-

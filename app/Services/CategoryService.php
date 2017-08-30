@@ -31,14 +31,14 @@ class CategoryService
 
     }
 
-    public function create(array &$data)
+    public function create(array $data)
     {
         $this->filterData($data);
         $category = Category::create($data);
         return $category;
     }
 
-    public function update(Category $category, array &$data)
+    public function update(Category $category, array $data)
     {
         $this->filterData($data, $category);
         $category->update($data);

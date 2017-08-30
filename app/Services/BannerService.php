@@ -13,14 +13,14 @@ class BannerService
         return $data;
     }
 
-    public function create(array &$data)
+    public function create(array $data)
     {
         $this->filterData($data);
         $banner = Banner::create($data);
         return $banner;
     }
 
-    public function update(Banner $banner, array &$data)
+    public function update(Banner $banner, array $data)
     {
         $this->filterData($data);
         $banner->update($data);

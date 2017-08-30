@@ -18,7 +18,7 @@ class UserService
         return $data;
     }
 
-    public function create(array &$data)
+    public function create(array $data)
     {
         $this->filterData($data);
         $data['password'] = Hash::make($data['password']);
@@ -44,7 +44,7 @@ class UserService
         return $user;
     }
 
-    public function update(User $user, array &$data)
+    public function update(User $user, array $data)
     {
         $this->filterData($data);
         if (isset($data['password'])) {

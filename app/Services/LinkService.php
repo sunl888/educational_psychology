@@ -15,14 +15,14 @@ class LinkService
         return $data;
     }
 
-    public function create(array &$data)
+    public function create(array $data)
     {
         $this->filterData($data);
         $link = Link::create($data);
         return $link;
     }
 
-    public function update(Link $link, array &$data)
+    public function update(Link $link, array $data)
     {
         $this->filterData($data);
         $link->update($data);
