@@ -10,7 +10,7 @@ class ServicesServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->app->register(CategoryService::class, function (){
+        $this->app->singleton(CategoryService::class, function (){
             return new CategoryService();
         });
     }

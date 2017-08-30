@@ -32,7 +32,7 @@ class CategoryService
 
     private function treeByIndent(&$allNav, &$res, $indentStr = '-', $parentId = 0, $level = 0)
     {
-        foreach ($allNav as $key => $value) {
+        foreach ($allNav as $value) {
             if ($value['parent_id'] == $parentId) {
                 $value['level'] = $level;
                 $value['indent_str'] = str_repeat($indentStr, $level);
