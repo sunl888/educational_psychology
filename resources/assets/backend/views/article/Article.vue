@@ -35,9 +35,9 @@
             </i-switch>
           </Form-item>
           <ButtonGroup>
-              <Button @click="submit('publish')" type="success">{{this.id ? '提交修改' : '发布'}}</Button>
-              <Button @click="submit('draft')" type="primary">保存为草稿</Button>
-              <Button @click="$router.back()">取消</Button>
+            <Button @click="submit('publish')" type="success">{{this.id ? '提交修改' : '发布'}}</Button>
+            <Button @click="submit('draft')" type="primary">保存为草稿</Button>
+            <Button @click="$router.back()">取消</Button>
           </ButtonGroup>
         </Form>
       </Panel>

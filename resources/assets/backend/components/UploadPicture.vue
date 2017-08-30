@@ -1,5 +1,5 @@
 <template>
-  <div class="upload_picture" :style="{'line-height': height}">
+  <div class="upload_picture" :style="{'line-height': height}" :class="{'radius': height != '250px'}">
     <Upload
       ref="uploader"
       v-show="status !== 'uploading'"
@@ -119,6 +119,9 @@ export default {
   .icon .ivu-icon{
     color: #aaa!important;
     transition: color .2s ease;
+  }
+  &.radius{
+    border-radius: 10px;
   }
   &:hover{
     .icon .ivu-icon{
