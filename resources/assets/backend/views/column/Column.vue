@@ -84,6 +84,9 @@ export default {
     this.$http.get('categories').then(res => {
       this.categories = res.data.data;
     });
+    this.$on('on-success', () => {
+      this.$router.push({name: 'columnList'});
+    });
   },
   data () {
     return {
