@@ -8,6 +8,7 @@ use App\Http\Controllers\ApiController;
 use App\Http\Requests\Backend\CategoryCreateRequest;
 use App\Http\Requests\Backend\CategoryUpdateRequest;
 use App\Models\Category;
+use App\Repositories\CategoryRepository;
 use App\Services\CategoryService;
 use App\Transformers\Backend\CategoryTransformer;
 use Illuminate\Http\Request;
@@ -25,22 +26,37 @@ class CategoriesController extends ApiController
         return $this->response()->item($category, new CategoryTransformer());
     }
 
-    public function store(CategoryCreateRequest $request, CategoryService $categoryService)
+    public function store(CategoryCreateRequest $request, CategoryRepository $categoryRepository)
     {
-        $categoryService->create($request->validated());
+        $categoryRepository->create($request->validated());
         return $this->response()->noContent();
     }
 
-    public function update(Category $category, CategoryUpdateRequest $request, CategoryService $categoryService)
+    public function update(Category $category, CategoryUpdateRequest $request, CategoryRepository $categoryRepository)
     {
-        $categoryService->update($category, $request->validated());
+        $categoryRepository->update($request->validated(), $category);
         return $this->response()->noContent();
     }
 
     public function index(Request $request)
     {
-        $topicCategory = Category::byType($request->get('type'))->topCategories()->get();
-        return $this->response()->collection($topicCategory, new CategoryTransformer());
+        $type = $request->get('type', null);
+        $topicCategories = Category::topCategories()->ordered()->ancient()->get();
+        $topicCategories->load(['children' => function ($query) use ($type) {
+            $query->byType($type)->ordered()->ancient();
+        }]);
+        if (!is_null($type)) {
+            $topicCategories = $topicCategories->filter(function ($category) use ($type) {
+                return $category->type == $type || $category->children->isNotEmpty();
+            });
+        }
+
+        return $this->response()->collection($topicCategories, new CategoryTransformer())->disableEagerLoading();
+    }
+
+    public function visualOutput(Request $request, CategoryService $categoryService)
+    {
+        return $categoryService->allCategoryIndent($request->get('type'), '　∟　');
     }
 
     public function destroy(Category $category)

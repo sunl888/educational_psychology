@@ -1,17 +1,29 @@
 <?php
 
-namespace App\Services;
+namespace App\Repositories;
+
 
 use App\Exceptions\ResourceException;
 use App\Models\User;
 use Hash;
+use DB;
 use Spatie\Permission\Exceptions\PermissionDoesNotExist;
 use Spatie\Permission\Exceptions\RoleDoesNotExist;
-use DB;
 
-class UserService
+class UserRepository extends BaseRepository
 {
-    private function filterData(array &$data)
+
+    /**
+     * Specify Model class name
+     *
+     * @return string
+     */
+    public function model()
+    {
+        return User::class;
+    }
+
+    public function filterData(array &$data)
     {
         if (isset($data['nick_name']))
             $data['nick_name'] = e($data['nick_name']);
@@ -24,7 +36,8 @@ class UserService
         $data['password'] = Hash::make($data['password']);
         $user = null;
         DB::transaction(function () use (&$data, &$user) {
-            $user = User::create($data);
+            /** @var User $user */
+            $user = $this->model->create($data);
             if (!empty($data['roles'])) {
                 try {
                     $user->assignRole($data['roles']);
@@ -44,15 +57,15 @@ class UserService
         return $user;
     }
 
-    public function update(User $user, array $data)
+    public function perUpdate(array &$data)
     {
         $this->filterData($data);
         if (isset($data['password'])) {
             $data['password'] = Hash::make($data['password']);
         }
+    }
 
-        $user->update($data);
-
+    public function updated(array &$data,User $user){
         if (!empty($data['roles'])) {
             try {
                 $user->syncRoles($data['roles']);
@@ -68,7 +81,6 @@ class UserService
                 throw new ResourceException(null, ['roles' => '所选的权限不存在']);
             }
         }
-
-        return $user;
     }
+
 }

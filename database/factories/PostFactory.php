@@ -4,6 +4,8 @@ use Faker\Generator as Faker;
 use App\Models\Post;
 use App\Models\Category;
 
+// todo 正文模版填充
+
 $factory->define(Post::class, function (Faker $faker) {
     static $imagesPath = null, $categories = null;
 

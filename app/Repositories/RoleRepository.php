@@ -1,15 +1,27 @@
 <?php
 
-namespace App\Services;
+namespace App\Repositories;
+
 
 
 use App\Exceptions\ResourceException;
 use App\Models\Role;
 use Spatie\Permission\Exceptions\PermissionDoesNotExist;
 
-class RoleService
+class RoleRepository extends BaseRepository
 {
-    private function filterData(array &$data)
+
+    /**
+     * Specify Model class name
+     *
+     * @return string
+     */
+    public function model()
+    {
+        return Role::class;
+    }
+
+    public function filterData(array &$data)
     {
         if(isset($data['display_name'])) {
             $data['display_name'] = e($data['display_name']);
@@ -20,10 +32,13 @@ class RoleService
         return $data;
     }
 
-    public function create(array $data)
+    public function preCreate(array &$data)
     {
-        $this->filterData($data);
-        $role = Role::create($data);
+        return $this->filterData($data);
+    }
+
+    public function created(&$data,Role $role)
+    {
         if (!empty($data['permissions'])) {
             try {
                 $role->givePermissionTo($data['permissions']);
@@ -31,13 +46,15 @@ class RoleService
                 throw new ResourceException(null, ['roles' => '所选的权限不存在']);
             }
         }
-        return $role;
     }
 
-    public function update(Role $role, array $data)
+    public function preUpdate(array &$data)
     {
-        $this->filterData($data);
-        $role->update($data);
+        return $this->filterData($data);
+    }
+
+    public function updated(&$data, Role $role)
+    {
         if (!empty($data['permissions'])) {
             try {
                 $role->syncPermissions($data['permissions']);
@@ -45,7 +62,6 @@ class RoleService
                 throw new ResourceException(null, ['roles' => '所选的权限不存在']);
             }
         }
-        return $role;
     }
 
 }

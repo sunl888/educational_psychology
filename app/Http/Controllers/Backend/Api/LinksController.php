@@ -9,7 +9,7 @@ use App\Http\Requests\Backend\LinkCreateRequest;
 use App\Http\Requests\Backend\LinkUpdateRequest;
 use App\Http\Requests\Request;
 use App\Models\Link;
-use App\Services\LinkService;
+use App\Repositories\LinkRepository;
 use App\Transformers\Backend\LinkTransformer;
 
 class LinksController extends ApiController
@@ -30,15 +30,15 @@ class LinksController extends ApiController
         return $this->response()->paginator($links, new LinkTransformer());
     }
 
-    public function store(LinkCreateRequest $request, LinkService $linkService)
+    public function store(LinkCreateRequest $request, LinkRepository $linkRepository)
     {
-        $linkService->create($request->validated());
+        $linkRepository->create($request->validated());
         return $this->response()->noContent();
     }
 
-    public function update(Link $link, LinkUpdateRequest $request, LinkService $linkService)
+    public function update(Link $link, LinkUpdateRequest $request, LinkRepository $linkRepository)
     {
-        $linkService->update($link, $request->validated());
+        $linkRepository->update($request->validated(), $link);
         return $this->response()->noContent();
     }
 

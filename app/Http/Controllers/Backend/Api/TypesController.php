@@ -8,7 +8,7 @@ use App\Http\Requests\TypeCreateRequest;
 use App\Http\Requests\TypeUpdateRequest;
 use App\Models\InterfaceTypeable;
 use App\Models\Type;
-use App\Services\TypeService;
+use App\Repositories\TypeRepository;
 use App\Transformers\Backend\TypeTransformer;
 use Illuminate\Http\Request;
 
@@ -26,15 +26,15 @@ class TypesController extends ApiController
         return $this->response()->collection($types, new TypeTransformer());
     }
 
-    public function store(TypeCreateRequest $request, TypeService $typeService)
+    public function store(TypeCreateRequest $request, TypeRepository $typeRepository)
     {
-        $typeService->create($request->validated());
+        $typeRepository->create($request->validated());
         return $this->response()->noContent();
     }
 
-    public function update(Type $type, TypeUpdateRequest $request, TypeService $typeService)
+    public function update(Type $type, TypeUpdateRequest $request, TypeRepository $typeRepository)
     {
-        $typeService->update($type, $request->validated());
+        $typeRepository->update($request->validated(), $type);
         return $this->response()->noContent();
     }
 

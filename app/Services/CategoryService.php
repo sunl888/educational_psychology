@@ -3,46 +3,42 @@
 namespace App\Services;
 
 use App\Models\Category;
-use Illuminate\Support\Arr;
-
 
 class CategoryService
 {
-    private function filterData(array &$data, Category $category = null)
+    public function allCategoryIndent($type = null, $indentStr = '-')
     {
-        $filterValues = [
-            Category::TYPE_LINK => ['cate_slug', 'page_template', 'list_template', 'content_template'],
-            Category::TYPE_PAGE => ['url', 'is_target_blank', 'list_template', 'content_template'],
-            Category::TYPE_POST => ['url', 'is_target_blank', 'page_template'],
-        ];
+        if (is_null($indentStr)) {
+            $indentStr = '-';
+        }
+        //
+        $allCategory = Category::orderBy('parent_id', 'ASC')->ordered()->ancient()->get()->toArray();
+        $res = [];
+        $this->treeByIndent($allCategory, $res, $indentStr, 0, 0);
+        if(!is_null($type)) {
+            $res = array_filter($res, function ($category) use($type){
+                if($category['parent_id'] != 0 && $category['type'] != $type){
+                    return false;
+                }else{
+                    // todo return $category['type'] == $type ||
+                    return true;
+                }
+            });
+        }
+        $res = array_values($res);
+        return $res;
+    }
 
-        foreach ($filterValues as $type => $filterValue) {
-            $cateType = isset($data['type']) ? $data['type'] : $category->type;
-            if ($cateType == $type) {
-                $data = Arr::except($data, $filterValue);
-                break;
+
+    private function treeByIndent(&$allNav, &$res, $indentStr = '-', $parentId = 0, $level = 0)
+    {
+        foreach ($allNav as $key => $value) {
+            if ($value['parent_id'] == $parentId) {
+                $value['level'] = $level;
+                $value['indent_str'] = str_repeat($indentStr, $level);
+                $res[] = $value;
+                $this->treeByIndent($allNav, $res, $indentStr, $value['id'], $level + 1);
             }
         }
-        if (isset($data['cate_name']))
-            $data['cate_name'] = e($data['cate_name']);
-        if (isset($data['description']))
-            $data['description'] = e($data['description']);
-        return $data;
-
     }
-
-    public function create(array $data)
-    {
-        $this->filterData($data);
-        $category = Category::create($data);
-        return $category;
-    }
-
-    public function update(Category $category, array $data)
-    {
-        $this->filterData($data, $category);
-        $category->update($data);
-        return $category;
-    }
-
 }
