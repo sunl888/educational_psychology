@@ -59,7 +59,7 @@ abstract class BaseRepository
     public function update(array $data, $model)
     {
         if (method_exists($this, 'preUpdate')){
-            $data = $this->perUpdate($data, $model);
+            $data = $this->preUpdate($data, $model);
         }
         $model = $this->buildModel($model);
         $updated = $model->update($data);
