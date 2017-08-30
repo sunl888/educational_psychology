@@ -15,6 +15,7 @@ class LinkTransformer extends TransformerAbstract
             'id' => $link->id,
             'name' => $link->name,
             'url' => $link->url,
+            'logo' => $link->logo,
             'logo_url' => $link->logo_url,
             'linkman' => $link->linkman,
             'type_id' => $link->type_id,

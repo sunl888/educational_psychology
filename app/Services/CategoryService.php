@@ -6,39 +6,32 @@ use App\Models\Category;
 
 class CategoryService
 {
-    public function allCategoryIndent($type = null, $indentStr = '-')
+
+    public function getAllByType($type)
     {
-        if (is_null($indentStr)) {
-            $indentStr = '-';
-        }
-        //
-        $allCategory = Category::orderBy('parent_id', 'ASC')->ordered()->ancient()->get()->toArray();
-        $res = [];
-        $this->treeByIndent($allCategory, $res, $indentStr, 0, 0);
-        if(!is_null($type)) {
-            $res = array_filter($res, function ($category) use($type){
-                if($category['parent_id'] != 0 && $category['type'] != $type){
-                    return false;
-                }else{
-                    // todo return $category['type'] == $type ||
-                    return true;
-                }
+        $topicCategories = Category::topCategories()->ordered()->ancient()->get();
+        $topicCategories->load(['children' => function ($query) use ($type) {
+            $query->byType($type)->ordered()->ancient();
+        }]);
+        if (!is_null($type)) {
+            $topicCategories = $topicCategories->filter(function ($category) use ($type) {
+                return $category->type == $type || $category->children->isNotEmpty();
             });
         }
-        $res = array_values($res);
-        return $res;
+        return $topicCategories;
     }
 
-
-    private function treeByIndent(&$allNav, &$res, $indentStr = '-', $parentId = 0, $level = 0)
+    public function visualOutput($type = null, $indentStr = '-')
     {
-        foreach ($allNav as $value) {
-            if ($value['parent_id'] == $parentId) {
-                $value['level'] = $level;
-                $value['indent_str'] = str_repeat($indentStr, $level);
-                $res[] = $value;
-                $this->treeByIndent($allNav, $res, $indentStr, $value['id'], $level + 1);
+
+        $topicCategories = $this->getAllByType($type);
+        $collect = collect([]);
+        foreach ($topicCategories as $topicCategory) {
+            $collect->push(['indent_str' => '', 'data' => $topicCategory]);
+            foreach ($topicCategory->children as $child) {
+                $collect->push(['indent_str' => $indentStr, 'data' => $child]);
             }
         }
+        return $collect;
     }
 }

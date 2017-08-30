@@ -14,6 +14,7 @@ class BannerTransformer extends TransformerAbstract
             'url' => $banner->url,
             'title' => $banner->title,
             'order' => $banner->order,
+            'image' => $banner->image,
             'image_url' => $banner->image_url,
             'created_at' => $banner->created_at->toDateTimeString(),
             'updated_at' => $banner->updated_at->toDateTimeString()
