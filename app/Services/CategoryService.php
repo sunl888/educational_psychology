@@ -7,6 +7,7 @@ use App\Models\Category;
 class CategoryService
 {
 
+    // todo cache
     public function getAllByType($type)
     {
         $topicCategories = Category::topCategories()->ordered()->ancient()->get();

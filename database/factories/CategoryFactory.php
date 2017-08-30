@@ -15,6 +15,7 @@ $factory->define(App\Models\Category::class, function (Faker $faker) {
         'type' => $faker->randomElement([Category::TYPE_POST, Category::TYPE_PAGE, Category::TYPE_LINK]),
         'parent_id' => 0,
         'cate_name' => $faker->word,
+        // todo 是否需要生成image
         'image' => $faker->image($imagesPath, 640, 480, null, false),
         'description' => $faker->text(190),
         'url' => function (array $category) use ($faker) {
