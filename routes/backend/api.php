@@ -29,6 +29,7 @@ Route::post('posts/{post}/restore', 'PostsController@restore');
 // 获取模板
 Route::get('templates', 'PostsController@templates');
 
+Route::get('categories/visual_output', 'CategoriesController@visualOutput');
 Route::resource('categories', 'CategoriesController', [
     'except'=> ['create', 'edit']
 ]);

@@ -9,6 +9,7 @@ use App\Http\Requests\Backend\CategoryCreateRequest;
 use App\Http\Requests\Backend\CategoryUpdateRequest;
 use App\Models\Category;
 use App\Repositories\CategoryRepository;
+use App\Services\CategoryService;
 use App\Transformers\Backend\CategoryTransformer;
 use Illuminate\Http\Request;
 
@@ -37,16 +38,25 @@ class CategoriesController extends ApiController
         return $this->response()->noContent();
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $topicCategories = Category::topCategories()->get();
-        $topicCategories->load(['children' => function ($query){
-            $query->byType(request('type'));
+        $type = $request->get('type', null);
+        $topicCategories = Category::topCategories()->ordered()->ancient()->get();
+        $topicCategories->load(['children' => function ($query) use ($type) {
+            $query->byType($type)->ordered()->ancient();
         }]);
-        $topicCategories = $topicCategories->filter(function ($category){
-            return $category->children->isNotEmpty();
-        });
+        if (!is_null($type)) {
+            $topicCategories = $topicCategories->filter(function ($category) use ($type) {
+                return $category->type == $type || $category->children->isNotEmpty();
+            });
+        }
+
         return $this->response()->collection($topicCategories, new CategoryTransformer())->disableEagerLoading();
+    }
+
+    public function visualOutput(Request $request, CategoryService $categoryService)
+    {
+        return $categoryService->allCategoryIndent($request->get('type'), '　∟　');
     }
 
     public function destroy(Category $category)
