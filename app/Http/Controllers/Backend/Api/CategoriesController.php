@@ -37,10 +37,16 @@ class CategoriesController extends ApiController
         return $this->response()->noContent();
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        $topicCategory = Category::byType($request->get('type'))->topCategories()->get();
-        return $this->response()->collection($topicCategory, new CategoryTransformer());
+        $topicCategories = Category::topCategories()->get();
+        $topicCategories->load(['children' => function ($query){
+            $query->byType(request('type'));
+        }]);
+        $topicCategories = $topicCategories->filter(function ($category){
+            return $category->children->isNotEmpty();
+        });
+        return $this->response()->collection($topicCategories, new CategoryTransformer())->disableEagerLoading();
     }
 
     public function destroy(Category $category)

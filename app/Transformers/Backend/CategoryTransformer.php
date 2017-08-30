@@ -4,7 +4,6 @@ namespace App\Transformers\Backend;
 
 use App\Models\Category;
 use League\Fractal\TransformerAbstract;
-use League\Fractal\Manager as FractalManager;
 
 class CategoryTransformer extends TransformerAbstract
 {
@@ -12,12 +11,6 @@ class CategoryTransformer extends TransformerAbstract
     protected $availableIncludes = ['children'];
 
     public function transform(Category $category)
-    {
-        $data = $this->transformData($category);
-        return $data;
-    }
-
-    public function transformData($category)
     {
         return [
             'id' => $category->id,

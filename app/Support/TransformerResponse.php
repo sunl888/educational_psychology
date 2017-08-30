@@ -40,10 +40,10 @@ class TransformerResponse implements Responsable
 
     protected $transformer;
 
-
     protected $resource = null;
     protected $meta = [];
     protected $response;
+
     public function __construct(Response $response)
     {
         $this->response = $response;
@@ -63,25 +63,30 @@ class TransformerResponse implements Responsable
     {
         return static::$fractalManager;
     }
+
     /**
      * @return TransformerResponse
      */
-    public function item($item, $transformer = null){
+    public function item($item, $transformer = null)
+    {
         $this->resource = new Item($item, $transformer);
-        if(!is_null($transformer))
+        if (!is_null($transformer))
             $this->transformer = $transformer;
         return $this;
     }
 
-    public function setTransformer($transformer){
+    public function setTransformer($transformer)
+    {
         $this->transformer = $transformer;
     }
+
     /**
      * @return TransformerResponse
      */
-    public function collection(Collection $collection, $transformer = null){
+    public function collection(Collection $collection, $transformer = null)
+    {
         $this->resource = new FractalCollection($collection, $transformer);
-        if(!is_null($transformer))
+        if (!is_null($transformer))
             $this->transformer = $transformer;
         return $this;
     }
@@ -89,26 +94,28 @@ class TransformerResponse implements Responsable
     /**
      * @return TransformerResponse
      */
-    public function paginator(Paginator $paginator, $transformer = null){
+    public function paginator(Paginator $paginator, $transformer = null)
+    {
         $collection = $paginator->getCollection();
         $this->resource = new FractalCollection($collection, $transformer);
         $this->resource->setPaginator(new IlluminatePaginatorAdapter($paginator));
-        if(!is_null($transformer))
+        if (!is_null($transformer))
             $this->transformer = $transformer;
         return $this;
     }
 
-    private function fractalCreateData($scopeIdentifier = null, Scope $parentScopeInstance = null){
+    private function fractalCreateData($scopeIdentifier = null, Scope $parentScopeInstance = null)
+    {
 
-        if(!isset(static::$fractalManager)) {
+        if (!isset(static::$fractalManager)) {
             static::setFractalManager(app(FractalManager::class));
         }
 
         $this->parseFractalIncludes(request());
 
-        if($this->shouldEagerLoad($this->resource->getData())){
+        if ($this->shouldEagerLoad($this->resource->getData())) {
             $eagerLoads = $this->mergeEagerLoads($this->transformer, static::$fractalManager->getRequestedIncludes());
-            if(!empty($eagerLoads))
+            if (!empty($eagerLoads))
                 $this->resource->getData()->load($eagerLoads);
         }
         return static::$fractalManager->createData($this->resource, $scopeIdentifier, $parentScopeInstance)->toArray();
@@ -138,7 +145,7 @@ class TransformerResponse implements Responsable
      * Add a meta data key/value pair.
      *
      * @param string $key
-     * @param mixed  $value
+     * @param mixed $value
      *
      * @return TransformerResponse
      */
@@ -177,7 +184,7 @@ class TransformerResponse implements Responsable
             $data = $data->getCollection();
         }
 
-        return $data instanceof EloquentCollection;
+        return $this->eagerLoading && $data instanceof EloquentCollection;
     }
 
     /**
@@ -191,7 +198,7 @@ class TransformerResponse implements Responsable
     {
         $includes = $request->input($this->includeKey);
 
-        if (! is_array($includes)) {
+        if (!is_array($includes)) {
             $includes = array_filter(explode($this->includeSeparator, $includes));
         }
 
@@ -202,7 +209,7 @@ class TransformerResponse implements Responsable
      * Get includes as their array keys for eager loading.
      *
      * @param \League\Fractal\TransformerAbstract $transformer
-     * @param string|array                        $requestedIncludes
+     * @param string|array $requestedIncludes
      *
      * @return array
      */
