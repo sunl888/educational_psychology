@@ -123,8 +123,7 @@ class Category extends BaseModel
         return $this->posts()->post()->count();
     }
 
-    /**
-     * 判断是否为同一个分类
+    /**  * 判断是否为同一个分类
      *
      * @param  Category $category
      * @return bool
@@ -189,22 +188,4 @@ class Category extends BaseModel
         return $this->getImageUrl($this->attributes['image']);
     }
 
-    /*protected $children = null;
-
-    public function hasChildren()
-    {
-        return !is_null($this->children) && $this->children->isNotEmpty();
-    }
-
-
-    public function getChildren()
-    {
-        return $this->children;
-    }
-
-    public function setChildren($children)
-    {
-
-        $this->children = $children;
-    }*/
 }

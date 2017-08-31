@@ -13,7 +13,6 @@ class TypeTransformer extends TransformerAbstract
             'id' => $type->id,
             'name' => $type->name,
             'description' => $type->description,
-            'order' => $type->order,
         ];
     }
 }

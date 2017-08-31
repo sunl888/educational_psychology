@@ -36,4 +36,14 @@ class SettingRepository extends BaseRepository
         return $this->filterData($data);
     }
 
+    public function findByNameWithoutCache($name)
+    {
+        return $this->model->where('name', $name)->first();
+    }
+
+    public function allSettingWithoutCache()
+    {
+        return $this->model->recent()->get()->keyBy('name');
+    }
+
 }

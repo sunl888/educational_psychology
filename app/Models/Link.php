@@ -30,5 +30,4 @@ class Link extends BaseModel implements InterfaceTypeable
     {
         return $this->getImageUrl($this->attributes['logo']);
     }
-
 }

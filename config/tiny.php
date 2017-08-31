@@ -6,6 +6,9 @@ return [
     'max_per_page' => 40,
     'default_per_page' => 15,
 
+    'default_slug_mode' => 'pinyin',
+
+
     'templates' => [
         'page_templates' => [
             [

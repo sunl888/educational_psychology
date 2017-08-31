@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Category;
+use App\Services\CategoryService;
 use Illuminate\Support\Arr;
 
 class CategoryRepository extends BaseRepository
@@ -20,9 +21,8 @@ class CategoryRepository extends BaseRepository
 
     public function filterData(array &$data, $category = null)
     {
-        // todo slug
         $filterValues = [
-            Category::TYPE_LINK => ['cate_slug', 'page_template', 'list_template', 'content_template'],
+            Category::TYPE_LINK => ['page_template', 'list_template', 'content_template'],
             Category::TYPE_PAGE => ['url', 'is_target_blank', 'list_template', 'content_template'],
             Category::TYPE_POST => ['url', 'is_target_blank', 'page_template'],
         ];
@@ -43,7 +43,9 @@ class CategoryRepository extends BaseRepository
 
     public function preCreate(array &$data)
     {
-        return $this->filterData($data);
+        $data = $this->filterData($data);
+        $data['cate_slug'] = app(CategoryService::class)->makeSlug($data['cate_name']);
+        return $data;
     }
 
 

@@ -30,8 +30,7 @@ class PostCreateRequest extends Request
     {
         return [
             'title' => ['required', 'string', 'between:1,100'],
-            // 'slug' => ['bail', 'required', 'regex:/^[A-Za-z0-9\-\_]+$/', 'string', Rule::unique('posts')],
-            'excerpt' => ['nullable', 'string'],
+            'excerpt' => ['nullable', 'string', 'between:1,512'],
             'content' => ['required', 'string'],
             'cover' => ['bail', 'nullable', new ImageName(), new ImageNameExist()],
             'status' => ['nullable', Rule::in([Post::STATUS_PUBLISH, Post::STATUS_DRAFT])],
@@ -39,7 +38,7 @@ class PostCreateRequest extends Request
             'views_count' => ['nullable', 'integer'],
             'order' => ['nullable', 'integer'],
             'template' => ['nullable', 'string', 'between:1,30'],
-            'category_id' => ['bail', 'nullable', 'integer', 'exists:categories,id'],
+            'category_id' => ['bail', 'required', 'integer', 'exists:categories,id'],
             'published_at' => ['nullable', 'date'],
             'top' => ['nullable']
         ];

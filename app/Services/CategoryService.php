@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Category;
+use App\Support\SlugGenerator;
 
 class CategoryService
 {
@@ -34,5 +35,12 @@ class CategoryService
             }
         }
         return $collect;
+    }
+
+    public function makeSlug($text)
+    {
+        return app(SlugGenerator::class)
+            ->setSlugIsUniqueFunc('categories', 'cate_slug')
+            ->generate($text, setting('category_slug_mode'));
     }
 }
