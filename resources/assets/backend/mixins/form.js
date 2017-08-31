@@ -23,21 +23,26 @@ export default {
       }).catch(err => {
         this.errors = err.response.data.errors;
       });
+    },
+    init () {
+      if ((this.$options.isAdd !== undefined && !this.$options.isAdd) || this.$route.name.substring(0, 4) === 'edit') {
+        if (this.$options.isAdd === undefined) {
+          this.id = this.$route.params.id;
+        }
+        this.$http.get(`${this.$options.base.url}/${this.id}`, {
+          params: this.$options.base.query
+        }).then(res => {
+          this.formData = res.data.data;
+          diff.save(this.formData);
+          this.$emit('on-data', this.formData);
+        });
+        this.title = `编辑${this.$options.base.title}`;
+      } else {
+        this.title = `添加${this.$options.base.title}`;
+      }
     }
   },
   created () {
-    if (this.$route.name.substring(0, 4) === 'edit') {
-      this.id = this.$route.params.id;
-      this.$http.get(`${this.$options.base.url}/${this.id}`, {
-        params: this.$options.base.query
-      }).then(res => {
-        this.formData = res.data.data;
-        diff.save(this.formData);
-        this.$emit('on-data', this.formData);
-      });
-      this.title = `编辑${this.$options.base.title}`;
-    } else {
-      this.title = `添加${this.$options.base.title}`;
-    }
+    this.init();
   }
 };

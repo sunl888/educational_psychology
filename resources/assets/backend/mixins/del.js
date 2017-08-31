@@ -7,7 +7,11 @@ export default{
         onOk: () => {
           this.$http.delete(`${this.$options.base.url}/${id}`).then(res => {
             this.$Message.success('已删除');
-            this.$refs['list'].refresh();
+            let list = this.$refs['list'];
+            if (list) {
+              this.$refs['list'].refresh();
+            }
+            this.$emit('del-success');
           });
         }
       });

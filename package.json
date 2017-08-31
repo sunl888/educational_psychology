@@ -35,6 +35,8 @@
         "iview": "^2.2.0",
         "simditor": "^2.3.6",
         "vue": "^2.4.2",
-        "vue-router": "^2.7.0"
+        "vue-carousel-3d": "^0.1.18",
+        "vue-router": "^2.7.0",
+        "vuedraggable": "^2.14.1"
     }
 }
