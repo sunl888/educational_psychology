@@ -23,7 +23,7 @@ class SettingsController extends ApiController
 
     public function index(Request $request)
     {
-        $settings = Setting::byType($request->get('type_id', null))
+        $settings = Setting::byType($request->get('type', null))
             ->withSort()
             ->withSimpleSearch()
             ->ordered()

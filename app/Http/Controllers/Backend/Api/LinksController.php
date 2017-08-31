@@ -21,7 +21,7 @@ class LinksController extends ApiController
 
     public function index(Request $request)
     {
-        $links = Link::byType($request->get('type_id', null))
+        $links = Link::byType($request->get('type', null))
             ->withSort()
             ->withSimpleSearch()
             ->ordered()

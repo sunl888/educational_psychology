@@ -20,13 +20,13 @@ class BannersController extends ApiController
 
     public function index(Request $request)
     {
-        $banners = Banner::byType($request->get('type_id', null))
+        $banners = Banner::byType($request->get('type', null))
             ->withSort()
             ->withSimpleSearch()
             ->ordered()
             ->recent()
-            ->paginate($this->perPage());
-        return $this->response()->paginator($banners, new BannerTransformer());
+            ->get();
+        return $this->response()->collection($banners, new BannerTransformer());
     }
 
     public function store(BannerCreateRequest $request, BannerRepository $bannerRepository)
