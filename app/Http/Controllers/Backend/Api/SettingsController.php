@@ -7,12 +7,13 @@ namespace App\Http\Controllers\Backend\Api;
 
 
 use App\Http\Controllers\ApiController;
-use App\Http\Requests\Request;
 use App\Http\Requests\SettingCreateRequest;
 use App\Http\Requests\SettingUpdateRequest;
 use App\Models\Setting;
 use App\Repositories\SettingRepository;
+use App\Support\CustomOrder;
 use App\Transformers\Backend\SettingTransformer;
+use Illuminate\Http\Request;
 
 class SettingsController extends ApiController
 {
@@ -53,6 +54,17 @@ class SettingsController extends ApiController
     public function destroy(Setting $setting)
     {
         $setting->delete();
+        return $this->response()->noContent();
+    }
+
+    public function setOrder(Request $request)
+    {
+        // todo message
+        $data = $this->validate($request, [
+            'index_order' => 'required|array',
+            'model' => 'required|in:' . implode(',', array_keys(CustomOrder::$modelMapping))
+        ]);
+        app(CustomOrder::class)->setOrder($data['index_order'], $data['model']);
         return $this->response()->noContent();
     }
 }

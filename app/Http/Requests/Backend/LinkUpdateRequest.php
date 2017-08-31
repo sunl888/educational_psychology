@@ -34,7 +34,6 @@ class LinkUpdateRequest extends Request
             'logo' => ['bail', 'nullable', new ImageName(), new ImageNameExist()],
             'linkman' => ['nullable', 'string', 'between:2,20'],
             'type_id' => ['bail', 'nullable', 'integer', Rule::exists('types', 'id')->where('model_name', Link::class)],
-            'order' => ['nullable', 'integer'],
             'is_visible' => ['nullable', 'boolean']
         ];
     }

@@ -20,7 +20,7 @@ class SettingRepository extends BaseRepository
 
     public function filterData(array &$data)
     {
-        if(isset($data['description']))
+        if (isset($data['description']))
             $data['description'] = e($data['description']);
         return $data;
     }
@@ -29,7 +29,6 @@ class SettingRepository extends BaseRepository
     {
         return $this->filterData($data);
     }
-
 
     public function preUpdate(array &$data)
     {
@@ -43,7 +42,16 @@ class SettingRepository extends BaseRepository
 
     public function allSettingWithoutCache()
     {
-        return $this->model->recent()->get()->keyBy('name');
+        return $this->model->withoutGlobalScope('notSystem')->recent()->get()->keyBy('name');
     }
 
+    public function set($data)
+    {
+        foreach ($data as $name => $value) {
+            if (!is_array($value)) {
+                $value = ['value' => $value];
+            }
+            $this->model->withoutGlobalScope('notSystem')->updateOrCreate(['name' => $name], $value);
+        }
+    }
 }

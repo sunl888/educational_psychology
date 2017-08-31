@@ -57,5 +57,4 @@ class CategoriesController extends ApiController
         $category->delete();
         return $this->response()->noContent();
     }
-
 }

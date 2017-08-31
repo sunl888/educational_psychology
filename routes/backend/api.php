@@ -42,9 +42,11 @@ Route::resource('links', 'LinksController', [
     'except'=> ['create', 'edit']
 ]);
 
+Route::post('settings/index_order', 'SettingsController@setOrder');
 Route::resource('settings', 'SettingsController', [
     'except'=> ['create', 'edit']
 ]);
+
 
 Route::resource('types', 'TypesController', [
     'except' => ['create', 'edit']
