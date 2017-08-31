@@ -17,8 +17,6 @@ trait Typeable
         }
         if ($typeId) {
             $query->where('type_id', $typeId);
-        } else {
-            $query->whereNull('type_id');
         }
         return $query;
     }
