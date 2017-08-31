@@ -1,7 +1,7 @@
 <template>
   <div class="banner_list">
     <RadioGroup v-model="typeId" class="types" type="button" size="large">
-        <Radio v-for="item in types" :key="item.id" :label="item.id">{{item.name}}</Radio>
+      <Radio v-for="item in types" :key="item.id" :label="item.id">{{item.name}}</Radio>
     </RadioGroup>
     <Button icon="wrench" class="type_manage_btn" @click="showTypeManagementDialog = true"  type="primary">管理分类</Button>
     <Button class="add_btn" @click="$router.push({name: 'addBanner'})" icon="plus-round" type="primary">添加banner</Button>
@@ -64,6 +64,7 @@ export default {
         }
       }).then(res => {
         this.banners = res.data.data;
+        this.typeId = this.banners[0].id;
       });
     }
   },
@@ -79,7 +80,6 @@ export default {
       }
     }).then(res => {
       this.types = res.data.data;
-      this.typeId = this.types[0].id;
     });
     this.$on('del-success', this.getBannerList);
   }
