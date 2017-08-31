@@ -5,9 +5,9 @@
     </RadioGroup>
     <Button icon="wrench" class="type_manage_btn" @click="showTypeManagementDialog = true"  type="primary">管理分类</Button>
     <Button class="add_btn" @click="$router.push({name: 'addLink'})" icon="plus-round" type="primary">添加友情链接</Button>
-    <draggable v-model="links" :options="{draggable: '.row'}">
+    <draggable v-model="list" :options="{draggable: '.row'}">
       <DraggableRow 
-        v-for="item in links"
+        v-for="item in list"
         :key="item.id"
         :id="item.id"
         :url="item.url"
@@ -18,62 +18,19 @@
         @on-del="del"
         ></DraggableRow>
     </draggable>
-    <NoData v-if="links.length ===  0"></NoData>
+    <NoData v-if="list.length ===  0"></NoData>
     <TypeManagement typeQueryName="link" v-model="showTypeManagementDialog"/>
   </div>
 </template>
 
 <script>
-import delMixin from '../../mixins/del';
-import draggable from 'vuedraggable';
-import { Carousel3d, Slide } from 'vue-carousel-3d';
-import TypeManagement from '../../components/TypeManagement.vue';
-import NoData from '../../components/NoData.vue';
-import DraggableRow from '../../components/DraggableRow.vue';
+import listWithTypeMixin from '../../mixins/listWithType';
 export default {
   base: {
     title: '友情链接',
     url: 'links'
   },
-  components: { draggable, Carousel3d, Slide, TypeManagement, NoData, DraggableRow },
-  mixins: [ delMixin ],
-  data () {
-    return {
-      typeId: null,
-      types: [],
-      links: [],
-      showTypeManagementDialog: false
-    };
-  },
-  watch: {
-    'typeId' () {
-      this.getLinkList();
-    }
-  },
-  methods: {
-    getLinkList () {
-      this.$http.get('links', {
-        params: {
-          'type': this.typeId
-        }
-      }).then(res => {
-        this.links = res.data.data;
-      });
-    }
-  },
-  mounted () {
-    this.$http.get('types', {
-      params: {
-        model: 'link'
-      }
-    }).then(res => {
-      this.types = res.data.data;
-      if (this.types[0]) {
-        this.typeId = this.types[0].id;
-      }
-    });
-    this.$on('del-success', this.getLinkList);
-  }
+  mixins: [ listWithTypeMixin ]
 };
 </script>
 
