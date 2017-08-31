@@ -16,7 +16,7 @@
         "mews/purifier": "^2.0",
         "naux/auto-correct": "^1.0",
         "overtrue/laravel-pinyin": "~3.0",
-        "spatie/laravel-permission": "dev-laravel-55"
+        "spatie/laravel-permission": "^2.5"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^2.4",
