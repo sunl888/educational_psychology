@@ -5,8 +5,8 @@
     </RadioGroup>
     <Button icon="wrench" class="type_manage_btn" @click="showTypeManagementDialog = true"  type="primary">管理分类</Button>
     <Button class="add_btn" @click="$router.push({name: 'addBanner'})" icon="plus-round" type="primary">添加banner</Button>
-    <draggable v-model="list" :options="{draggable: '.row'}">
-      <DraggableRow 
+    <draggable v-model="list" :options="{draggable: '.row'}" @end="reSort">
+      <DraggableRow
         v-for="item in list"
         :key="item.id"
         :id="item.id"
@@ -27,7 +27,7 @@
       </Carousel3d>
       <NoData v-else></NoData>
     </main>
-    <TypeManagement typeQueryName="banner" v-model="showTypeManagementDialog"/>
+    <TypeManagement @change="refreshType" typeQueryName="banner" v-model="showTypeManagementDialog"/>
   </div>
 </template>
 
@@ -42,7 +42,7 @@ export default {
     url: 'banners'
   },
   components: { Carousel3d, Slide, SplitLine },
-  mixins: [ listWithTypeMixin ]
+  mixins: [ listWithTypeMixin ],
 };
 </script>
 

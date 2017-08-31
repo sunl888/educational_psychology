@@ -5,7 +5,7 @@
     </RadioGroup>
     <Button icon="wrench" class="type_manage_btn" @click="showTypeManagementDialog = true"  type="primary">管理分类</Button>
     <Button class="add_btn" @click="$router.push({name: 'addLink'})" icon="plus-round" type="primary">添加友情链接</Button>
-    <draggable v-model="list" :options="{draggable: '.row'}">
+    <draggable v-model="list" :options="{draggable: '.row'}"  @end="reSort">
       <DraggableRow 
         v-for="item in list"
         :key="item.id"
@@ -19,7 +19,7 @@
         ></DraggableRow>
     </draggable>
     <NoData v-if="list.length ===  0"></NoData>
-    <TypeManagement typeQueryName="link" v-model="showTypeManagementDialog"/>
+    <TypeManagement @change="refreshType" typeQueryName="link" v-model="showTypeManagementDialog"/>
   </div>
 </template>
 

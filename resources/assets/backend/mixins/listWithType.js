@@ -21,6 +21,21 @@ export default {
       }).then(res => {
         this.list = res.data.data;
       });
+    },
+    reSort () {
+      this.$http.post('settings/index_order', {
+        index_order: this.list.map(item => item.id),
+        model: this.model
+      });
+    },
+    refreshType () {
+      this.$http.get('types', {
+        params: {
+          model: this.model
+        }
+      }).then(res => {
+        this.types = res.data.data;
+      });
     }
   },
   data () {
@@ -28,14 +43,16 @@ export default {
       typeId: null,
       types: [],
       list: [],
-      showTypeManagementDialog: false
+      showTypeManagementDialog: false,
+      model: ''
     };
   },
   mounted () {
     let url = this.$options.base.url;
+    this.model = url.substring(0, url.length - 1);
     this.$http.get('types', {
       params: {
-        model: url.substring(0, url.length - 1)
+        model: this.model
       }
     }).then(res => {
       this.types = res.data.data;
