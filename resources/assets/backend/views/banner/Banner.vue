@@ -16,7 +16,7 @@
         <Form-item label="排序">
           <InputNumber :min="0" v-model="formData.order"></InputNumber>
         </Form-item>
-        <Form-item label="头像">
+        <Form-item label="图片">
           <UploadPicture @on-success="uploadPic" :url="formData.image_url" height="180px" class="upload_picture" />
         </Form-item>
         <Form-item label="是否显示">
@@ -46,7 +46,6 @@ export default {
   data () {
     return {
       types: [],
-      showTypeManagementDialog: false,
       formData: {
         'url': null,
         'title': null,

@@ -64,7 +64,6 @@ export default {
         }
       }).then(res => {
         this.banners = res.data.data;
-        this.typeId = this.banners[0].id;
       });
     }
   },
@@ -80,6 +79,7 @@ export default {
       }
     }).then(res => {
       this.types = res.data.data;
+      this.typeId = this.types[0].id;
     });
     this.$on('del-success', this.getBannerList);
   }
