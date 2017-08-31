@@ -10,7 +10,6 @@ class Type extends BaseModel
 
     protected $fillable = ['name', 'description', 'model_name'];
 
-    public $timestamps = false;
 
     public static $modelMapWithType = [
         'link' => Link::class,

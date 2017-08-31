@@ -19,6 +19,7 @@ class CreateTypesTable extends Migration
                 $table->char('name', 30);
                 $table->string('description')->nullable()->comment('类型描述');
                 $table->string('model_name')->index();
+            $table->timestamps();
             }
         );
     }
