@@ -41,7 +41,8 @@ class CustomOrder
         setting([
             $key => [
                 'value' => json_encode($indexOrder),
-                'is_system' => true
+                'is_system' => true,
+                'type_id' => 0
             ]
         ]);
     }
