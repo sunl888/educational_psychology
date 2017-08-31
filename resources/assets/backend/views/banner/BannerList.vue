@@ -1,11 +1,10 @@
 <template>
   <div class="banner_list">
-    <RadioGroup v-model="type" type="button" size="large">
-        <Radio label="北京"></Radio>
-        <Radio label="上海"></Radio>
-        <Radio label="深圳"></Radio>
-        <Radio label="杭州"></Radio>
+    <RadioGroup v-model="typeId" class="types" type="button" size="large">
+      <Radio v-for="item in types" :key="item.id" :label="item.id">{{item.name}}</Radio>
     </RadioGroup>
+    <Button icon="wrench" class="type_manage_btn" @click="showTypeManagementDialog = true"  type="primary">管理分类</Button>
+    <Button class="add_btn" @click="$router.push({name: 'addBanner'})" icon="plus-round" type="primary">添加banner</Button>
     <draggable v-model="banners" :options="{draggable: '.row'}">
       <div class="row" v-for="item in banners" :key="item.id">
         <Icon class="icon" type="navicon"></Icon>
@@ -23,12 +22,14 @@
     </draggable>
     <main class="sample">
       <SplitLine class="split_line">示例</SplitLine>
-      <Carousel3d :controls-visible="true" :count="banners.length">
+      <Carousel3d v-if="banners.length > 0" :controls-visible="true" :count="banners.length">
         <Slide v-for="(item, index) in banners" :key="index" :index="index">
           <img :src="item.image_url">
         </Slide>
       </Carousel3d>
+      <NoData v-else></NoData>
     </main>
+    <TypeManagement typeQueryName="banner" v-model="showTypeManagementDialog"/>
   </div>
 </template>
 
@@ -38,40 +39,66 @@ import HoverableTime from '../../components/HoverableTime.vue';
 import draggable from 'vuedraggable';
 import { Carousel3d, Slide } from 'vue-carousel-3d';
 import SplitLine from '../../components/SplitLine.vue';
+import TypeManagement from '../../components/TypeManagement.vue';
+import NoData from '../../components/NoData.vue';
 export default {
   base: {
     title: 'banner',
     url: 'banners'
   },
-  components: { HoverableTime, draggable, Carousel3d, Slide, SplitLine },
+  components: { HoverableTime, draggable, Carousel3d, Slide, SplitLine, TypeManagement, NoData },
   mixins: [ delMixin ],
   data () {
     return {
-      type: '',
-      banners: []
+      typeId: null,
+      types: [],
+      banners: [],
+      showTypeManagementDialog: false
     };
   },
   methods: {
     getBannerList () {
       this.$http.get('banners', {
         params: {
-          'type': 1
+          'type': this.typeId
         }
       }).then(res => {
         this.banners = res.data.data;
+        this.typeId = this.banners[0].id;
       });
     }
   },
+  watch: {
+    'typeId' () {
+      this.getBannerList();
+    }
+  },
   mounted () {
-    this.getBannerList();
+    this.$http.get('types', {
+      params: {
+        model: 'banner'
+      }
+    }).then(res => {
+      this.types = res.data.data;
+    });
     this.$on('del-success', this.getBannerList);
   }
 };
 </script>
 
 <style lang="less" scoped>
-
 .banner_list{
+  .types{
+    margin-bottom: 20px;
+  }
+  .type_manage_btn{
+    position: relative;
+    top: -10px;
+    left: 5px;
+  }
+  .add_btn{
+    float: right;
+  }
   .row:first-child{
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
