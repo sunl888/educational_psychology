@@ -47,5 +47,5 @@ Route::resource('settings', 'SettingsController', [
 ]);
 
 Route::resource('types', 'TypesController', [
-    'except'=> ['create', 'edit', 'show']
+    'except' => ['create', 'edit']
 ]);

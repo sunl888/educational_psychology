@@ -20,6 +20,11 @@ class TypesController extends ApiController
         $this->middleware('auth');
     }
 
+    public function show(Type $type)
+    {
+        return $this->response()->item($type, new TypeTransformer());
+    }
+
     public function index(Request $request)
     {
         $types = Type::byModel($request->get('model'))->ordered()->get();
