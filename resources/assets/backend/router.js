@@ -67,7 +67,7 @@ export default new Router({
           component: require('./views/column/Column.vue')
         },
         {
-          path: 'banner/list',
+          path: 'banner/list/:id?',
           name: 'bannerList',
           component: require('./views/banner/BannerList.vue')
         },
@@ -97,7 +97,7 @@ export default new Router({
           component: require('./views/role/Role.vue')
         },
         {
-          path: 'link/list',
+          path: 'link/list/:id?',
           name: 'linkList',
           component: require('./views/link/LinkList.vue')
         },

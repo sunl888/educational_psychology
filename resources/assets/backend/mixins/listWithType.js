@@ -8,6 +8,7 @@ export default {
   components: { draggable, TypeManagement, NoData, DraggableRow },
   watch: {
     'typeId' () {
+      this.$router.push({name: this.$route.name, params: {id: this.typeId}});
       this.getList();
     }
   },
@@ -38,7 +39,10 @@ export default {
       }
     }).then(res => {
       this.types = res.data.data;
-      if (this.types[0]) {
+      let tid = Number(this.$route.params.id);
+      if (!isNaN(tid) && this.types.some(item => item.id === tid)) {
+        this.typeId = tid;
+      } else if (this.types[0]) {
         this.typeId = this.types[0].id;
       }
     });
