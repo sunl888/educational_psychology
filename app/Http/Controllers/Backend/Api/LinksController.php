@@ -7,10 +7,10 @@ namespace App\Http\Controllers\Backend\Api;
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\Backend\LinkCreateRequest;
 use App\Http\Requests\Backend\LinkUpdateRequest;
-use App\Http\Requests\Request;
 use App\Models\Link;
 use App\Repositories\LinkRepository;
 use App\Transformers\Backend\LinkTransformer;
+use Illuminate\Http\Request;
 
 class LinksController extends ApiController
 {
