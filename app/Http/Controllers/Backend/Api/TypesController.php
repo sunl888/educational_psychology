@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Backend\Api;
 
 
 use App\Http\Controllers\ApiController;
-use App\Http\Requests\TypeCreateRequest;
-use App\Http\Requests\TypeUpdateRequest;
+use App\Http\Requests\Backend\TypeCreateRequest;
+use App\Http\Requests\Backend\TypeUpdateRequest;
 use App\Models\InterfaceTypeable;
 use App\Models\Type;
 use App\Repositories\TypeRepository;

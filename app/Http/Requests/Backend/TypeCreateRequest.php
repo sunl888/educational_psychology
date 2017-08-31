@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Backend;
 
+use App\Http\Requests\Request;
 use App\Models\Type;
 
 class TypeCreateRequest extends Request
