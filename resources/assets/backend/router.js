@@ -95,6 +95,21 @@ export default new Router({
           path: 'role/:id/edit',
           name: 'editRole',
           component: require('./views/role/Role.vue')
+        },
+        {
+          path: 'link/list',
+          name: 'linkList',
+          component: require('./views/link/LinkList.vue')
+        },
+        {
+          path: 'link/add',
+          name: 'addLink',
+          component: require('./views/link/Link.vue')
+        },
+        {
+          path: 'link/:id/edit',
+          name: 'editLink',
+          component: require('./views/link/Link.vue')
         }
       ]
     }
