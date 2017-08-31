@@ -31,9 +31,8 @@ class BannerCreateRequest extends Request
         return [
             'url' => ['nullable', 'url'],
             'title' => ['nullable', 'string', 'between:1,30'],
-            'image' => ['bail', 'nullable', new ImageName(), new ImageNameExist()],
-            'type_id' => ['bail', 'nullable', 'integer', Rule::exists('types', 'id')->where('model_name', Banner::class)],
-            'order' => ['nullable', 'integer'],
+            'image' => ['bail', 'required', new ImageName(), new ImageNameExist()],
+            'type_id' => ['bail', 'required', 'integer', Rule::exists('types', 'id')->where('model_name', Banner::class)],
             'is_visible' => ['nullable', 'boolean']
         ];
     }

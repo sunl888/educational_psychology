@@ -9,6 +9,7 @@ use App\Http\Requests\Backend\LinkCreateRequest;
 use App\Http\Requests\Backend\LinkUpdateRequest;
 use App\Models\Link;
 use App\Repositories\LinkRepository;
+use App\Support\CustomOrder;
 use App\Transformers\Backend\LinkTransformer;
 use Illuminate\Http\Request;
 
@@ -21,13 +22,9 @@ class LinksController extends ApiController
 
     public function index(Request $request)
     {
-        $links = Link::byType($request->get('type', null))
-            ->withSort()
-            ->withSimpleSearch()
-            ->ordered()
-            ->ancient()
-            ->paginate($this->perPage());
-        return $this->response()->paginator($links, new LinkTransformer());
+        $links = Link::byType($request->get('type', null))->ancient()->get();
+        $links = app(CustomOrder::class)->order($links);
+        return $this->response()->collection($links, new LinkTransformer());
     }
 
     public function store(LinkCreateRequest $request, LinkRepository $linkRepository)

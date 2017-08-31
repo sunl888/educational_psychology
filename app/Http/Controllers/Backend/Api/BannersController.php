@@ -8,6 +8,7 @@ use App\Http\Requests\Backend\BannerCreateRequest;
 use App\Http\Requests\Backend\BannerUpdateRequest;
 use App\Models\Banner;
 use App\Repositories\BannerRepository;
+use App\Support\CustomOrder;
 use App\Transformers\Backend\BannerTransformer;
 use Illuminate\Http\Request;
 
@@ -20,12 +21,8 @@ class BannersController extends ApiController
 
     public function index(Request $request)
     {
-        $banners = Banner::byType($request->get('type', null))
-            ->withSort()
-            ->withSimpleSearch()
-            ->ordered()
-            ->recent()
-            ->get();
+        $banners = Banner::byType($request->get('type', null))->ancient()->get();
+        $banners = app(CustomOrder::class)->order($banners);
         return $this->response()->collection($banners, new BannerTransformer());
     }
 

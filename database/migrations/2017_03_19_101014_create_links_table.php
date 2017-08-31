@@ -15,16 +15,15 @@ class CreateLinksTable extends Migration
     {
         Schema::create(
             'links', function (Blueprint $table) {
-                $table->increments('id');
-                $table->string('url');
-                $table->string('name')->commnet();
-                $table->string('logo')->nullable();
-                $table->string('linkman')->comment('联系人')->nullable();
-                $table->unsignedInteger('type_id')->nullable()->index();
-                $table->integer('order')->default(0)->index()->comment('排序字段');
-                $table->boolean('is_visible')->default(true);
-                $table->timestamps();
-            }
+            $table->increments('id');
+            $table->string('url');
+            $table->string('name')->commnet();
+            $table->string('logo')->nullable();
+            $table->string('linkman')->comment('联系人')->nullable();
+            $table->unsignedInteger('type_id')->index();
+            $table->boolean('is_visible')->default(true);
+            $table->timestamps();
+        }
         );
     }
 

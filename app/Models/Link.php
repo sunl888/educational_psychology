@@ -23,7 +23,7 @@ class Link extends BaseModel implements InterfaceTypeable
      */
     public function scopeIsVisible($query, $isVisible = true)
     {
-        return $query->where('is_visible', $isVisible)->ordered();
+        return $query->where('is_visible', $isVisible);
     }
 
     public function getLogoUrlAttribute()

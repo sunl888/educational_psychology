@@ -10,11 +10,15 @@ class SettingCacheService
 
     private $allSettings = null;
 
+    protected function cacheKay()
+    {
+        return 'setting:all';
+    }
 
     public function all()
     {
         if (is_null($this->allSettings)) {
-            $this->allSettings = Cache::remember('setting:all', config('cache.ttl'), function () {
+            $this->allSettings = Cache::remember($this->cacheKay(), config('cache.ttl'), function () {
                 return app(SettingRepository::class)->allSettingWithoutCache();
             });
         }
@@ -24,5 +28,10 @@ class SettingCacheService
     public function get($name, $default = null)
     {
         return $this->all()->get($name, $default);
+    }
+
+    public function clearCache()
+    {
+        return Cache::forget($this->cacheKay());
     }
 }
