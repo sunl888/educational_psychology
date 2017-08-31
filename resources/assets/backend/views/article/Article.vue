@@ -78,9 +78,9 @@ export default {
         'cover': null,
         'status': null,
         'type': null,
-        'views_count': null,
-        'top': null,
-        'order': null,
+        'views_count': 0,
+        'top': false,
+        'order': 0,
         'template': null,
         'category_id': null,
         'published_at': null
