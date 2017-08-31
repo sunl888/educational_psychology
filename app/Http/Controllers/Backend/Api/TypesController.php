@@ -27,7 +27,7 @@ class TypesController extends ApiController
 
     public function index(Request $request)
     {
-        $types = Type::byModel($request->get('model'))->ordered()->get();
+        $types = Type::byModel($request->get('model'))->ancient()->get();
         return $this->response()->collection($types, new TypeTransformer());
     }
 

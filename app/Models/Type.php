@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Type extends BaseModel
 {
-    protected $hasDefaultValuesFields = ['order'];
 
-    protected $fillable = ['name', 'description', 'order', 'model_name'];
+    protected $fillable = ['name', 'description', 'model_name'];
 
     public $timestamps = false;
 

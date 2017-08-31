@@ -28,7 +28,6 @@ class TypeUpdateRequest extends Request
         return [
             'name' => ['nullable', 'string', 'between:1,30'],
             'description' => ['nullable', 'string', 'between:2,190'],
-            'order' => ['nullable', 'integer'],
         ];
     }
 }
