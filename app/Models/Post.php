@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\Listable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Collection;
+
 
 class Post extends BaseModel
 {
@@ -57,8 +57,6 @@ class Post extends BaseModel
         }
         if($category)
             $query->where('category_id', $category);
-        else
-            $query->whereNull('category_id');
     }
 
 

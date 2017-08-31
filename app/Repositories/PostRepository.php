@@ -5,11 +5,12 @@ namespace App\Repositories;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Services\PostService;
 use Carbon\Carbon;
+use Naux\AutoCorrect;
 
 class PostRepository extends BaseRepository
 {
-
     /**
      * Specify Model class name
      *
@@ -22,10 +23,8 @@ class PostRepository extends BaseRepository
 
     public function filterData(array &$data)
     {
-        //todo slug
-        $data['slug'] = '';
         if (isset($data['title']))
-            $data['title'] = e($data['title']);
+            $data['title'] = e((new AutoCorrect())->convert($data['title']));
         if (isset($data['excerpt']))
             $data['excerpt'] = e($data['excerpt']);
         if (isset($data['content']))
@@ -47,6 +46,7 @@ class PostRepository extends BaseRepository
     public function preCreate(array &$data)
     {
         $this->filterData($data);
+        $postService = app(PostService::class);
         // 创建文章时 如果没有传入 published_at 字段，将 published_at 设置为 Carbon::now()
         if (!isset($data['published_at'])) {
             $data['published_at'] = Carbon::now();
@@ -57,6 +57,11 @@ class PostRepository extends BaseRepository
         // 创建文章时 如果没有传入 status 字段，status 默认设置为 Post::STATUS_DRAFT
         if (!isset($data['status']))
             $data['status'] = Post::STATUS_DRAFT;
+
+        if (isset($data['excerpt'])){
+            $data['excerpt'] = $postService->makeExcerpt($data['content']);
+        }
+        $data['slug'] = $postService->makeSlug($data['title']);
         return $data;
     }
 

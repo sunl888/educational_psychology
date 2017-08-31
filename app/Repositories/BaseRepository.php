@@ -61,7 +61,7 @@ abstract class BaseRepository
         if (method_exists($this, 'preUpdate')){
             $data = $this->preUpdate($data, $model);
         }
-        $model = $this->buildModel($model);
+        $model = $this->findModel($model);
         $updated = $model->update($data);
         if ($updated && method_exists($this, 'updated')){
             $this->updated($data, $model);
@@ -69,7 +69,7 @@ abstract class BaseRepository
         return $updated;
     }
 
-    public function buildModel($model)
+    public function findModel($model)
     {
         if ($model instanceof Model)
             return $model;

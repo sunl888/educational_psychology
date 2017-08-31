@@ -35,7 +35,6 @@ class CategoryCreateRequest extends Request
             'description' => ['nullable', 'string', 'between:2,500'],
             'url' => ['required_if:type,' . Category::TYPE_LINK, 'url'],
             'is_target_blank' => ['required_if:type,' . Category::TYPE_LINK, 'boolean'],
-            'cate_slug' => ['bail', 'required_unless:type,' . Category::TYPE_LINK, 'string', 'between:2,30', 'unique:categories'],
             'is_nav' => ['nullable', 'boolean'],
             'order' => ['nullable', 'integer'],
             'page_template' => ['required_if: type,' . Category::TYPE_PAGE, 'alpha_dash', 'between:1,30'],

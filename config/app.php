@@ -170,6 +170,7 @@ return [
          */
         Spatie\Permission\PermissionServiceProvider::class,
         Mews\Purifier\PurifierServiceProvider::class,
+        Overtrue\LaravelPinyin\ServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -228,7 +229,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Purifier' => Mews\Purifier\Facades\Purifier::class,
+        // 'Purifier' => Mews\Purifier\Facades\Purifier::class,
+        // 'Pinyin' => Overtrue\LaravelPinyin\Facades\Pinyin::class,
     ],
 
 ];
