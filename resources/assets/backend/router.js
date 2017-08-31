@@ -65,6 +65,21 @@ export default new Router({
           path: 'column/add',
           name: 'addColumn',
           component: require('./views/column/Column.vue')
+        },
+        {
+          path: 'banner/list',
+          name: 'bannerList',
+          component: require('./views/banner/BannerList.vue')
+        },
+        {
+          path: 'banner/add',
+          name: 'addBanner',
+          component: require('./views/banner/Banner.vue')
+        },
+        {
+          path: 'banner/:id/edit',
+          name: 'editBanner',
+          component: require('./views/banner/Banner.vue')
         }
       ]
     }
