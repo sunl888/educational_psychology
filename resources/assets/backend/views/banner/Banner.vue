@@ -12,13 +12,12 @@
           <Select v-model="formData.type_id" style="width:200px">
             <Option v-for="item in types" :value="item.id" :key="item.id">{{ item.name }}</Option>
           </Select>
-          <Button @click="showTypeManagementDialog = true"  type="primary">管理分类</Button>
         </Form-item>
         <Form-item label="排序">
           <InputNumber :min="0" v-model="formData.order"></InputNumber>
         </Form-item>
         <Form-item label="头像">
-          <UploadPicture @on-success="uploadPic" :url="formData.avatar_url" height="180px" class="upload_picture" />
+          <UploadPicture @on-success="uploadPic" :url="formData.image_url" height="180px" class="upload_picture" />
         </Form-item>
         <Form-item label="是否显示">
           <i-switch v-model="formData.is_visible" size="large">
@@ -29,7 +28,6 @@
       </Form>
       <FormButtomGroup />
     </Panel>
-    <TypeManagement typeQueryName="banner" v-model="showTypeManagementDialog"/>
   </div>
 </template>
 
@@ -38,13 +36,12 @@ import Panel from '../../components/Panel.vue';
 import fromMixin from '../../mixins/form';
 import FormButtomGroup from '../../components/FormButtonGroup.vue';
 import UploadPicture from '../../components/UploadPicture.vue';
-import TypeManagement from '../../components/TypeManagement.vue';
 export default {
   base: {
     title: 'Banner',
     url: 'banners'
   },
-  components: { Panel, FormButtomGroup, UploadPicture, TypeManagement },
+  components: { Panel, FormButtomGroup, UploadPicture },
   mixins: [ fromMixin ],
   data () {
     return {
@@ -66,6 +63,9 @@ export default {
     }
   },
   mounted () {
+    this.$on('on-success', () => {
+      this.$router.push({name: 'bannerList'});
+    });
     this.$http.get('types', {
       params: {
         model: 'banner'

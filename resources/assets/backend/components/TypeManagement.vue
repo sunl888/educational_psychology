@@ -115,15 +115,25 @@ export default {
     showAddDialog () {
       this.id = null;
       this.$options.isAdd = true;
-      this.formData = {};
+      this.formData = {
+        'name': null,
+        'description': null,
+        'model_name': this.typeQueryName
+      };
       this.init();
       this.showTypeEditDialog = true;
     }
   },
   mounted () {
     this.getTypeList();
-    this.$on('on-success', this.getTypeList);
-    this.$on('del-success', this.getTypeList);
+    this.$on('on-success', () => {
+      this.getTypeList();
+      this.$emit('change');
+    });
+    this.$on('del-success', () => {
+      this.getTypeList();
+      this.$emit('change');
+    });
   }
 };
 </script>
