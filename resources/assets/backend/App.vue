@@ -15,4 +15,17 @@ export default {
   .height-100p, body, html {
     height: 100%;
   }
+.link_list, .banner_list{
+  .types{
+    margin-bottom: 20px;
+  }
+  .type_manage_btn{
+    position: relative;
+    top: -10px;
+    left: 5px;
+  }
+  .add_btn{
+    float: right;
+  }
+}
 </style>

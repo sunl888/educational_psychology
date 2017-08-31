@@ -37,7 +37,7 @@ export default {
         'name': null,
         'display_name': null,
         'description': null,
-        'order': null,
+        'order': 0,
         'permissions': null
       }
     };

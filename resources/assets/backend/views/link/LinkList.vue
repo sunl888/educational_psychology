@@ -1,0 +1,39 @@
+<template>
+  <div class="link_list">
+    <RadioGroup v-model="typeId" class="types" type="button" size="large">
+      <Radio v-for="item in types" :key="item.id" :label="item.id">{{item.name}}</Radio>
+    </RadioGroup>
+    <Button icon="wrench" class="type_manage_btn" @click="showTypeManagementDialog = true"  type="primary">管理分类</Button>
+    <Button class="add_btn" @click="$router.push({name: 'addLink'})" icon="plus-round" type="primary">添加友情链接</Button>
+    <draggable v-model="list" :options="{draggable: '.row'}"  @end="reSort">
+      <DraggableRow 
+        v-for="item in list"
+        :key="item.id"
+        :id="item.id"
+        :url="item.url"
+        :time="item.created_at"
+        :pic="item.logo_url"
+        :title="item.name"
+        @on-edit="id => $router.push({name: 'editLink', params: { id }})"
+        @on-del="del"
+        ></DraggableRow>
+    </draggable>
+    <NoData v-if="list.length ===  0"></NoData>
+    <TypeManagement @change="refreshType" typeQueryName="link" v-model="showTypeManagementDialog"/>
+  </div>
+</template>
+
+<script>
+import listWithTypeMixin from '../../mixins/listWithType';
+export default {
+  base: {
+    title: '友情链接',
+    url: 'links'
+  },
+  mixins: [ listWithTypeMixin ]
+};
+</script>
+
+<style scoped lang="less">
+
+</style>

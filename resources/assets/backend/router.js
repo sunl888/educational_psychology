@@ -67,7 +67,7 @@ export default new Router({
           component: require('./views/column/Column.vue')
         },
         {
-          path: 'banner/list',
+          path: 'banner/list/:id?',
           name: 'bannerList',
           component: require('./views/banner/BannerList.vue')
         },
@@ -95,6 +95,21 @@ export default new Router({
           path: 'role/:id/edit',
           name: 'editRole',
           component: require('./views/role/Role.vue')
+        },
+        {
+          path: 'link/list/:id?',
+          name: 'linkList',
+          component: require('./views/link/LinkList.vue')
+        },
+        {
+          path: 'link/add',
+          name: 'addLink',
+          component: require('./views/link/Link.vue')
+        },
+        {
+          path: 'link/:id/edit',
+          name: 'editLink',
+          component: require('./views/link/Link.vue')
         }
       ]
     }
