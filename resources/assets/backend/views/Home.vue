@@ -18,6 +18,7 @@
           用户管理
         </template>
         <Menu-item name="userList">用户列表</Menu-item>
+        <Menu-item name="roleList">角色列表</Menu-item>
       </Submenu>
     </Menu>
     <div class="content-wrapper height-100p">

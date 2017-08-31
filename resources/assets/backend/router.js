@@ -80,6 +80,21 @@ export default new Router({
           path: 'banner/:id/edit',
           name: 'editBanner',
           component: require('./views/banner/Banner.vue')
+        },
+        {
+          path: 'role/list',
+          name: 'roleList',
+          component: require('./views/role/RoleList.vue')
+        },
+        {
+          path: 'role/add',
+          name: 'addRole',
+          component: require('./views/role/Role.vue')
+        },
+        {
+          path: 'role/:id/edit',
+          name: 'editRole',
+          component: require('./views/role/Role.vue')
         }
       ]
     }
