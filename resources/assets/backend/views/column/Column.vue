@@ -75,9 +75,6 @@ export default {
     }
   },
   mounted () {
-    // 设置默认值
-    this.formData.type = 0;
-    this.formData.parent_id = 0;
     this.$http.get('templates').then(res => {
       this.templates = res.data;
     });
@@ -93,9 +90,9 @@ export default {
       templates: {},
       categories: [],
       formData: {
-        'type': null,
+        'type': 0,
         'image': null,
-        'parent_id': null,
+        'parent_id': 0,
         'cate_name': null,
         'description': null,
         'url': null,

@@ -13,14 +13,14 @@
   import UserWeight from '../../components/UserWeight.vue';
   import ListWrapper from '../../components/ListWrapper.vue';
   import HoverableTime from '../../components/HoverableTime.vue';
-  import del from '../../mixins/del';
+  import delMixin from '../../mixins/del';
   export default {
     components: { TTable, UserWeight, ListWrapper, HoverableTime },
     base: {
       title: '用户',
       url: 'users'
     },
-    mixins: [ del ],
+    mixins: [ delMixin ],
     data () {
       return {
         userCol: [

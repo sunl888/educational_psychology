@@ -13,7 +13,7 @@
 <script>
 import TTable from '../../components/t-table';
 import HoverableTime from '../../components/HoverableTime.vue';
-import del from '../../mixins/del';
+import delMixin from '../../mixins/del';
 export default {
   base: {
     title: '栏目',
@@ -24,7 +24,7 @@ export default {
       this.categories = res.data.data;
     });
   },
-  mixins: [ del ],
+  mixins: [ delMixin ],
   data () {
     return {
       categories: [],
