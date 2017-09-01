@@ -53,8 +53,14 @@ trait Listable
     {
         $keywords = is_null($keywords) ? request('keywords', null) : $keywords;
         $searchScope = empty($searchScope) ? request('search_scope', []) : $searchScope;
-        if (!is_array($searchScope)) $searchScope = [$searchScope];
-        $searchScope = empty($searchScope) ? static::$allowSearchFields : array_intersect(static::$allowSearchFields, $searchScope);
+
+        if (empty($searchScope) || $searchScope === 'all') {
+            $searchScope = static::$allowSearchFields;
+        } else {
+            if (is_string($searchScope)) $searchScope = [$searchScope];
+            $searchScope = array_intersect(static::$allowSearchFields, $searchScope);
+        }
+
         if (!empty($keywords) && !empty($searchScope)) {
             $query->where(
                 function ($query) use ($keywords, $searchScope) {
