@@ -10,6 +10,9 @@
     </head>
     <body>
         <div id="app"></div>
+        <script>
+            window.logo = "{{ config('tiny.logo', 'tiny') }}";
+        </script>
         <script src="{{asset(mix('js/backend/app.js'))}}"></script>
     </body>
 </html>

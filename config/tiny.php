@@ -29,5 +29,7 @@ return [
                 'title' => '默认正文模板',
             ]
         ]
-    ]
+    ],
+
+    'logo' => env('TINY_LOGO', 'tiny')
 ];
