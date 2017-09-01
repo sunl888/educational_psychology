@@ -31,5 +31,5 @@ return [
         ]
     ],
 
-    'logo' => env('TINY_LOGO', 'tiny')
+    'logo' => env('LOGO', 'tiny')
 ];
