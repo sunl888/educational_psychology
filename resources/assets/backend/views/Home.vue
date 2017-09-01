@@ -1,6 +1,8 @@
 <template>
   <div class="home">
-    <Menu mode="horizontal" theme="light" class="header"></Menu>
+    <Menu mode="horizontal" theme="light" class="header">
+      <Logo size="small" class="logo"></Logo>
+    </Menu>
     <Menu width="220px" class="menu" theme="light" active-name="1-2" :open-names="['home', '2']" @on-select="onSelect">
       <Menu-item class="top_menu_item" name="1-1"><Icon type="home"></Icon>首页</Menu-item>
       <Submenu name="home">
@@ -30,7 +32,9 @@
   </div>
 </template>
 <script>
+import Logo from '../components/Logo.vue';
 export default {
+  components: { Logo },
   methods: {
     onSelect (name) {
       this.$nextTick(() => {
@@ -54,6 +58,11 @@ export default {
       box-shadow: rgba(0, 0, 0, 0.1) 0 1px 2px;
       z-index: 10;
       right: 0;
+      .logo{
+        position: absolute;
+        left: -65px;
+        top: -38px;
+      }
     }
     .menu{
       bottom: 0;

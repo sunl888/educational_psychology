@@ -58,6 +58,11 @@ export default {
 <style lang="less" scoped>
 .login{
   padding-top: 120px;
+  .logo{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
   .login_wrapper{
     position: relative;
     h2{
@@ -69,7 +74,7 @@ export default {
     }
     width: 350px;
     padding: 24px;
-    margin: 10px auto 68px;
+    margin: 160px auto 68px;
     background: #fff;
     box-shadow: 0 1px 2px rgba(0,0,0,.2);
     .login_btn{

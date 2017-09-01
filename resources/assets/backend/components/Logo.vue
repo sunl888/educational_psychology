@@ -1,13 +1,16 @@
 <template>
-  <svg width="100%" height="100">
+  <svg class="logo" :class="{'small': size === 'small'}">
     <text v-for="i in 4" :key="i" text-anchor="middle" x="50%" y="50%" :class="'text text-' + i">
-        tiny
+        {{logoText}}
     </text>
   </svg>
 </template>
 <script>
 export default {
   name: 'logo',
+  props: {
+    size: String
+  },
   data () {
     return {
       logoText: window.logo ? window.logo : 'tiny'
@@ -16,7 +19,11 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
+<style scoped>
+
+.small .text{
+  font-size: 32px;
+}
 .text{
     font-size: 64px;
     font-weight: bold;
