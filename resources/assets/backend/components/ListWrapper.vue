@@ -1,11 +1,24 @@
 <template>
   <div class="list_wrapper">
     <header>
-      <h1 class="title">{{title}}<span class="total">{{total}}</span></h1>
+      <h1 class="title">{{title}}
+        <span class="total">{{total}}</span>
+      </h1>
       <div class="option">
         <slot name="option"></slot>
       </div>
+      <Input class="search" v-model="keyword">
+        <Select v-model="searchScope" slot="prepend" style="width: 80px">
+          <Option value="all">全部</Option>
+          <Option :key="index" :value="item" v-for="(item, index) in allowSearchFields">{{getTitle(item)}}</Option>
+        </Select>
+        <Button slot="append" icon="ios-search"></Button>
+      </Input>
+      <div style="clear: both;"></div>
     </header>
+    <div class="search_info" v-if="keyword.length > 0">
+      搜索到 {{total}} 条数据<Button class="btn" size="small" type="warning" icon="close" @click="keyword = '', searchScope = 'all'">清除搜索</Button>
+    </div>
     <main>
       <slot :data="list"></slot>
     </main>
@@ -27,7 +40,6 @@ export default {
 .list_wrapper{
   >header{
     margin-bottom: 25px;
-    overflow: hidden;
     >.title{
       font-weight: 400;
       line-height: 32px;
@@ -39,9 +51,28 @@ export default {
         margin-left: 5px;
       }
     }
+    >.search {
+      float: right;
+      width: 360px;
+      margin-right: 10px;
+      position: relative;
+      z-index: 10;
+    }
     >.option{
       float: right;
       margin-right: 10px;
+    }
+  }
+  .search_info{
+    padding: 0 10px;
+    line-height: 50px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    border: 1px dashed hsla(0,0%,40%,.2);
+    color: #777;
+    .btn{
+      float: right;
+      margin-top: 12px;
     }
   }
   >footer{

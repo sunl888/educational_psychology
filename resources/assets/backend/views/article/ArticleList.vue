@@ -19,7 +19,21 @@ export default {
   mixins: [ recycleBin ],
   data () {
     return {
-      categoryId: null
+      categoryId: null,
+      col: [
+        {
+          title: '标题',
+          key: 'title'
+        },
+        {
+          title: '作者信息',
+          key: 'author_info'
+        },
+        {
+          title: '描述',
+          key: 'excerpt'
+        },
+      ]
     };
   }
 };

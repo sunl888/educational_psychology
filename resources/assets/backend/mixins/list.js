@@ -10,9 +10,11 @@ export default{
   data () {
     return {
       keyword: '',
+      searchScope: 'all',
       total: 0,
       perPage: this.pageSize,
       currentPage: 1,
+      allowSearchFields: [],
       allowSortFields: [],
       delayTimer: null,
       list: [],
@@ -26,7 +28,7 @@ export default{
     'keyword' () {
       if (this.delayTimer === null) {
         this.delayTimer = setTimeout(() => {
-          this.getList(1, this.keyword);
+          this.getList(1, this.keyword, this.searchScope);
           clearTimeout(this.delayTimer);
           this.delayTimer = null;
         }, 300);
@@ -37,25 +39,32 @@ export default{
     }
   },
   methods: {
+    getTitle (key) {
+      if (this.$parent.col) {
+        return this.$parent.col.find(item => item.key === key).title;
+      }
+    },
     refresh () {
       this.$nextTick(() => {
         this.getList(this.currentPage);
       });
     },
-    getList (page = 1, keyword = '', sort) {
+    getList (page = 1, keyword = '', searchScope) {
       if (this.queryName) {
         this.loading = true;
         this.$http.get(this.queryName, {
           params: {
             per_page: this.perPage,
             page,
-            q: keyword
+            search_scope: searchScope,
+            keywords: keyword
           }
         }).then(res => {
           this.loading = false;
           this.list = res.data.data;
           this.total = res.data.meta.pagination.total;
           this.allowSortFields = res.data.meta.allow_sort_fields;
+          this.allowSearchFields = res.data.meta.allow_search_fields;
         }).catch(() => {
           this.loading = false;
         });
