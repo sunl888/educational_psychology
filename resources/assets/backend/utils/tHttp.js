@@ -10,11 +10,13 @@ let thttp = {};
 
 thttp.config = {};
 
-thttp.install = (Vue, option) => {
-  thttp.config = option;
+thttp.install = (Vue, {baseURL, router}) => {
+  thttp.config = {
+    baseURL
+  };
   thttp.config['X-CSRF-TOKEN'] = token.content;
   Vue.prototype.$http = axios.create({
-    baseURL: option.baseURL,
+    baseURL,
     timeout: 5000,
     responseType: 'json',
     headers: {
@@ -28,7 +30,7 @@ thttp.install = (Vue, option) => {
       Vue.prototype.$Message.error('请求超时');
     } else if (error.response.status === 401) {
       Vue.prototype.$Message.error('请先登录');
-      Vue.router.replace({name: 'login', query: {redirect: Vue.router.app.$route.name}});
+      router.replace({name: 'login', query: {redirect: router.app.$route.name}});
     } else if (error.response.status === 422) {
       let errorsTemp = error.response.data.errors;
       for (let index in errorsTemp) {

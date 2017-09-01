@@ -7,7 +7,7 @@
       <div class="option">
         <slot name="option"></slot>
       </div>
-      <Input class="search" v-model="keyword">
+      <Input class="search" v-model="keyword" placeholder="输入关键字搜索">
         <Select v-model="searchScope" slot="prepend" style="width: 80px">
           <Option value="all">全部</Option>
           <Option :key="index" :value="item" v-for="(item, index) in allowSearchFields">{{getTitle(item)}}</Option>
