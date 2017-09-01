@@ -1,5 +1,6 @@
 <template>
   <div class="login">
+      <Logo></Logo>
       <main class="login_wrapper">
         <h2>用户登录</h2>
          <Form :model="loginInfo">
@@ -20,7 +21,9 @@
 </template>
 
 <script>
+import Logo from '../components/Logo.vue';
 export default {
+  components: { Logo },
   data () {
     return {
       loading: false,
@@ -66,7 +69,7 @@ export default {
     }
     width: 350px;
     padding: 24px;
-    margin: 72px auto 68px;
+    margin: 10px auto 68px;
     background: #fff;
     box-shadow: 0 1px 2px rgba(0,0,0,.2);
     .login_btn{
