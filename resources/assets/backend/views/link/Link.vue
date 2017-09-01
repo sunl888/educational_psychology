@@ -19,9 +19,6 @@
             <Option v-for="item in types" :value="item.id" :key="item.id">{{ item.name }}</Option>
           </Select>
         </Form-item>
-        <Form-item label="排序">
-          <InputNumber :min="0" v-model="formData.order"></InputNumber>
-        </Form-item>
         <Form-item label="是否显示">
           <i-switch v-model="formData.is_visible" size="large">
             <span slot="open">显示</span>
@@ -60,7 +57,6 @@ export default {
         'logo': null,
         'linkman': null,
         'type_id': null,
-        'order': 0,
         'is_visible': true,
       }
     };
