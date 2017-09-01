@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Support;
+namespace App\Services;
 
 
 use GuzzleHttp\Client;
@@ -13,7 +13,7 @@ class SlugGenerator
 
     public function generate($text, $slugMode = '', $delimiter = '-')
     {
-        if(empty($slugMode)){
+        if (empty($slugMode)) {
             $slugMode = config('tiny.default_slug_mode');
         }
         if ('str_random' == $slugMode) {
@@ -51,7 +51,7 @@ class SlugGenerator
     {
         if ($slugIsUniqueFuncOrTableName instanceof Closure) {
             $this->slugIsUniqueFunc = $slugIsUniqueFuncOrTableName;
-        }else{
+        } else {
             $this->slugIsUniqueFunc = function ($text) use ($slugIsUniqueFuncOrTableName, $field) {
                 return DB::table($slugIsUniqueFuncOrTableName)->where($field, $text)->count() <= 0;
             };

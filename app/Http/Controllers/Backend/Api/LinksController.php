@@ -9,7 +9,7 @@ use App\Http\Requests\Backend\LinkCreateRequest;
 use App\Http\Requests\Backend\LinkUpdateRequest;
 use App\Models\Link;
 use App\Repositories\LinkRepository;
-use App\Support\CustomOrder;
+use App\Services\CustomOrder;
 use App\Transformers\Backend\LinkTransformer;
 use Illuminate\Http\Request;
 

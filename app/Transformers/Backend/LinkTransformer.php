@@ -19,7 +19,6 @@ class LinkTransformer extends TransformerAbstract
             'logo_url' => $link->logo_url,
             'linkman' => $link->linkman,
             'type_id' => $link->type_id,
-            'order' => $link->order,
             'is_visible' => $link->is_visible,
             'created_at' => $link->created_at->toDateTimeString(),
             'updated_at' => $link->updated_at->toDateTimeString()

@@ -10,9 +10,9 @@ class Post extends BaseModel
 {
     use SoftDeletes, Listable;
 
-    protected $fillable = ['title', 'user_id', 'author_info', 'excerpt', 'type', 'views_count', 'cover', 'status', 'template', 'top', 'published_at', 'category_id'];
+    protected $fillable = ['title', 'user_id', 'excerpt', 'type', 'views_count', 'cover', 'status', 'template', 'top', 'published_at', 'category_id'];
     protected $dates = ['deleted_at', 'top', 'published_at', 'created_at', 'updated_at'];
-    protected static $allowSearchFields = ['title', 'author_info', 'excerpt'];
+    protected static $allowSearchFields = ['title', 'excerpt'];
     protected static $allowSortFields = ['title', 'status', 'views_count', 'top', 'order', 'published_at', 'category_id'];
 
     const STATUS_PUBLISH = 'publish', STATUS_DRAFT = 'draft';

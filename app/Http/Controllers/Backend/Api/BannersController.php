@@ -8,7 +8,7 @@ use App\Http\Requests\Backend\BannerCreateRequest;
 use App\Http\Requests\Backend\BannerUpdateRequest;
 use App\Models\Banner;
 use App\Repositories\BannerRepository;
-use App\Support\CustomOrder;
+use App\Services\CustomOrder;
 use App\Transformers\Backend\BannerTransformer;
 use Illuminate\Http\Request;
 

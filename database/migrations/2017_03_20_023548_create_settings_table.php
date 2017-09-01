@@ -15,14 +15,14 @@ class CreateSettingsTable extends Migration
     {
         Schema::create(
             'settings', function (Blueprint $table) {
-                $table->increments('id');
-                $table->string('name', 30)->unique();
-                $table->text('value');
-                $table->string('description')->nullable();
+            $table->increments('id');
+            $table->string('name', 30)->unique();
+            $table->text('value');
+            $table->string('description')->nullable();
             $table->unsignedInteger('type_id')->index();
             $table->boolean('is_system')->default(false)->comment('是否为系统配置');
-                $table->timestamps();
-            }
+            $table->timestamps();
+        }
         );
     }
 

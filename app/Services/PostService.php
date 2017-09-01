@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Support\SlugGenerator;
 
 class PostService
 {

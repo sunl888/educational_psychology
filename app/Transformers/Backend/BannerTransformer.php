@@ -14,7 +14,6 @@ class BannerTransformer extends TransformerAbstract
             'id' => $banner->id,
             'url' => $banner->url,
             'title' => $banner->title,
-            'order' => $banner->order,
             'image' => $banner->image,
             'image_url' => $banner->image_url,
             'is_visible' => $banner->is_visible,

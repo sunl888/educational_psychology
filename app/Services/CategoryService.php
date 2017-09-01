@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\Category;
-use App\Support\SlugGenerator;
 
 class CategoryService
 {

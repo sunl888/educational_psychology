@@ -11,7 +11,7 @@ use App\Http\Requests\SettingCreateRequest;
 use App\Http\Requests\SettingUpdateRequest;
 use App\Models\Setting;
 use App\Repositories\SettingRepository;
-use App\Support\CustomOrder;
+use App\Services\CustomOrder;
 use App\Transformers\Backend\SettingTransformer;
 use Illuminate\Http\Request;
 
@@ -27,7 +27,6 @@ class SettingsController extends ApiController
         $settings = Setting::byType($request->get('type', null))
             ->withSort()
             ->withSimpleSearch()
-            ->ordered()
             ->ancient()
             ->paginate($this->perPage());
         return $this->response()->paginator($settings, new SettingTransformer())

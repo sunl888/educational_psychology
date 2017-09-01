@@ -32,6 +32,7 @@ class PostCreateRequest extends Request
             'title' => ['required', 'string', 'between:1,100'],
             'excerpt' => ['nullable', 'string', 'between:1,512'],
             'content' => ['required', 'string'],
+            // todo 图片尺寸验证
             'cover' => ['bail', 'nullable', new ImageName(), new ImageNameExist()],
             'status' => ['nullable', Rule::in([Post::STATUS_PUBLISH, Post::STATUS_DRAFT])],
             'type' => ['nullable', Rule::in([Category::TYPE_POST, Category::TYPE_PAGE])],
