@@ -1,6 +1,6 @@
 <template>
   <div class="article_item">
-    <a href="#" class="cover" :style="{'background-image': `url(${article.cover_url})`}"></a>
+    <a href="#" class="cover" :class="{'draft': article.status === 'draft'}" :style="{'background-image': `url(${article.cover_url})`}"></a>
     <div class="body">
       <a href="#"><h3>{{article.title}}</h3></a>
       <p class="describe">{{article.excerpt}}</p>
@@ -9,7 +9,7 @@
       <span class="info">阅读：{{article.views_count}}</span>
     </div>
     <div class="option">
-      <Button type="primary" size="large" @click="$emit('edit', article.id)">编辑</Button>
+      <Button :type="isTrashed ? 'success' : 'primary'" size="large" @click="$emit(isTrashed ? 'restore' : 'edit', article.id)">{{isTrashed ? '还原' : '编辑'}}</Button>
       <Button type="error" size="large" shape="circle" icon="android-delete" @click="$emit('del', article.id)"></Button>
     </div>
   </div>
@@ -21,6 +21,7 @@ import HoverableTime from './HoverableTime.vue';
 export default {
   name: 'articleItem',
   props: {
+    isTrashed: Boolean,
     article: Object
   },
   components: { UserWeight, HoverableTime }
@@ -41,6 +42,15 @@ export default {
     width: 170px;
     height: 130px;
     background-size: cover;
+    &.draft{
+      &::after{
+        content: '草稿';
+        background-color: #ed3f14;
+        font-size: 12px;
+        padding: 3px 6px;
+        color: #fff;
+      }
+    }
   }
   .body{
     padding-left: 190px;
