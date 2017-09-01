@@ -41,8 +41,8 @@ class User extends BaseModel implements
         'password', 'remember_token',
     ];
 
-    protected static $allowSortFields = ['id', 'user_name', 'nick_name', 'created_at', 'locked_at'];
-    protected static $allowSearchFields = ['id', 'user_name', 'nick_name', 'email'];
+    protected static $allowSortFields = ['user_name', 'nick_name', 'created_at', 'locked_at'];
+    protected static $allowSearchFields = ['user_name', 'nick_name', 'email'];
 
     protected $dates = ['locked_at'];
 

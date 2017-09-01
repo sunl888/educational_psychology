@@ -3,13 +3,9 @@
 namespace App\Models;
 
 
-use App\Models\Traits\Listable;
-
 class Category extends BaseModel
 {
-    use Listable;
 
-    protected static $allowSearchFields = ['cate_name', 'description', 'url', 'cate_slug'];
     protected $casts = [
         'is_nav' => 'boolean',
     ];

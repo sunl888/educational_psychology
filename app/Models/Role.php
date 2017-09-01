@@ -10,6 +10,6 @@ class Role extends BaseRole
 {
     use Listable, Sortable;
 
-    protected static $allowSortFields = ['id', 'name', 'display_name', 'order'];
-    protected static $allowSearchFields = ['id', 'name', 'display_name', 'description'];
+    protected static $allowSortFields = ['name', 'display_name', 'order'];
+    protected static $allowSearchFields = ['name', 'display_name', 'description'];
 }
