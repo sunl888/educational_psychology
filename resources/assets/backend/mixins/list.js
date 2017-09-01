@@ -40,8 +40,9 @@ export default{
   },
   methods: {
     getTitle (key) {
-      if (this.$parent.col) {
-        return this.$parent.col.find(item => item.key === key).title;
+      if (this.$parent.colums) {
+        let col = this.$parent.colums.find(item => item.key === key);
+        return col ? col.title : key;
       }
     },
     refresh () {

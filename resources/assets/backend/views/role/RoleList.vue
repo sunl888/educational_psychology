@@ -3,7 +3,7 @@
     <ListWrapper ref="list" title="角色列表" :queryName="$options.base.url">
       <span slot="option"><Button @click="$router.push({name: 'addRole'})" icon="plus-round" type="primary">添加</Button></span>
       <template scope="props">
-        <TTable :columns="col" :data="props.data" />
+        <TTable :columns="colums" :data="props.data" />
       </template>
     </ListWrapper>
   </div>
@@ -23,7 +23,7 @@ export default {
   mixins: [ delMixin ],
   data () {
     return {
-      col: [
+      colums: [
         {
           title: '角色',
           key: 'name'

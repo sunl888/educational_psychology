@@ -12,7 +12,6 @@
           <Option value="all">全部</Option>
           <Option :key="index" :value="item" v-for="(item, index) in allowSearchFields">{{getTitle(item)}}</Option>
         </Select>
-        <Button slot="append" icon="ios-search"></Button>
       </Input>
       <div style="clear: both;"></div>
     </header>

@@ -20,7 +20,7 @@ export default {
   data () {
     return {
       categoryId: null,
-      col: [
+      colums: [
         {
           title: '标题',
           key: 'title'
