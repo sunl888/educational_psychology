@@ -13,9 +13,6 @@
             <Option v-for="item in types" :value="item.id" :key="item.id">{{ item.name }}</Option>
           </Select>
         </Form-item>
-        <Form-item label="排序">
-          <InputNumber :min="0" v-model="formData.order"></InputNumber>
-        </Form-item>
         <Form-item label="图片">
           <UploadPicture @on-success="uploadPic" :url="formData.image_url" height="180px" class="upload_picture" />
         </Form-item>
@@ -51,7 +48,6 @@ export default {
         'title': null,
         'image': null,
         'type_id': null,
-        'order': 0,
         'is_visible': true
       }
     };
