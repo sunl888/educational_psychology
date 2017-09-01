@@ -26,6 +26,8 @@ export default {
       this.$http.post('settings/index_order', {
         index_order: this.list.map(item => item.id),
         model: this.model
+      }).then(res => {
+        this.$Message.success('排序成功');
       });
     },
     refreshType () {
