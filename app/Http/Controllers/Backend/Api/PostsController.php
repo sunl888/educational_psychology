@@ -29,7 +29,7 @@ class PostsController extends ApiController
     {
         $posts = Post::applyFilter($request)
             ->paginate($this->perPage());
-        return $this->response()->paginator($posts, new PostTransformer());
+        return $this->response()->paginator($posts, new PostTransformer())->setMeta(Post::getAllowSearchFieldsMeta() + Post::getAllowSortFieldsMeta());
     }
 
     public function store(PostCreateRequest $request, PostRepository $postRepository)
