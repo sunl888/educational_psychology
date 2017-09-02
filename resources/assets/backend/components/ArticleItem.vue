@@ -78,7 +78,7 @@ export default {
   }
   .option{
     position: absolute;
-    top: 62px;
+    top: 47px;
     right: 30px;
     button:first-child{
       margin-right: 20px;
