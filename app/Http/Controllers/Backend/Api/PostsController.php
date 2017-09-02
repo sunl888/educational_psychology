@@ -34,9 +34,7 @@ class PostsController extends ApiController
 
     public function store(PostCreateRequest $request, PostRepository $postRepository)
     {
-        $data = $request->validated();
-        $data['user_id'] = Auth::id();
-        $postRepository->create($data);
+        $postRepository->create($request->validated());
         return $this->response()->noContent();
     }
 
@@ -64,24 +62,26 @@ class PostsController extends ApiController
 
     /**
      * 真删除
-     * @param $postId
+     * @param $post
      * @return \App\Support\Response
      */
-    public function realDestroy($postId)
+    public function realDestroy($post)
     {
-        Post::where('id', $postId)->forceDelete();
+        $postModel = app(Post::class);
+        $postModel->where($postModel->getRouteKeyName(), $post)->forceDelete();
         return $this->response()->noContent();
     }
 
 
     /**
      * 恢复软删除
-     * @param $postId
+     * @param $post
      * @return mixed
      */
-    public function restore($postId)
+    public function restore($post)
     {
-        Post::withTrashed()->where('id', $postId)->restore();
+        $postModel = app(Post::class);
+        $postModel->onlyTrashed()->where($postModel->getRouteKeyName(), $post)->restore();
         return $this->response()->noContent();
     }
 

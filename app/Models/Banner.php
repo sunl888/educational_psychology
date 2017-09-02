@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\Traits\Listable;
 use App\Models\Traits\Typeable;
 
 class Banner extends BaseModel implements InterfaceTypeable
 {
-    use Typeable, Listable;
+    use Typeable;
     protected $fillable = ['url', 'title', 'image', 'type_id', 'is_visible'];
     protected static $allowSortFields = ['type_id', 'is_visible'];
     protected static $allowSearchFields = ['title', 'url'];

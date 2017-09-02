@@ -21,7 +21,7 @@ class CreatePostsTable extends Migration
             // slug
             $table->string('slug')->unique()->nullable();
             // 摘要
-            $table->string('excerpt', 512);
+            $table->string('excerpt', 512)->nullable();
             // 文章封面
             $table->string('cover')->nullable()->comment('文章封面');
             $table->unsignedInteger('category_id')->index()->comment('分类 id');

@@ -9,8 +9,8 @@ class Category extends BaseModel
     protected $casts = [
         'is_nav' => 'boolean',
     ];
-    protected $fillable = ['type', 'parent_id', 'cate_name',
-        'description', 'url', 'is_target_blank', 'cate_slug', 'is_nav', 'order',
+    protected $fillable = ['type', 'parent_id', 'cate_name', 'order',
+        'description', 'url', 'is_target_blank', 'cate_slug', 'is_nav',
         'page_template', 'list_template', 'content_template'];
 
 
@@ -52,7 +52,7 @@ class Category extends BaseModel
      */
     public function page()
     {
-        return $this->posts()->page()->first();
+        return $this->posts()->byType(Category::TYPE_PAGE)->first();
     }
 
     public function parent()
@@ -184,4 +184,13 @@ class Category extends BaseModel
         return $this->getImageUrl($this->attributes['image']);
     }
 
+    /**
+     * 为路由模型获取键名
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'cate_slug';
+    }
 }

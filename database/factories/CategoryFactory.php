@@ -28,16 +28,7 @@ $factory->define(App\Models\Category::class, function (Faker $faker) {
                     break;
             }
         },
-        'cate_slug' => function (array $category) use ($faker) {
-            switch ($category['type']) {
-                case Category::TYPE_LINK:
-                    return $faker->unique()->slug;
-                    break;
-                default:
-                    return null;
-                    break;
-            }
-        },
+        'cate_slug' => $faker->unique()->slug,
 
         'is_target_blank' => function (array $category) use ($faker) {
             switch ($category['type']) {
