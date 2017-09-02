@@ -11,9 +11,9 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Repositories\CategoryRepository;
 use App\Repositories\PageRepository;
-use App\Repositories\PostRepository;
 use App\Services\CategoryService;
 use App\Transformers\Backend\CategoryTransformer;
+use App\Transformers\Backend\PageTransformer;
 use App\Transformers\Backend\PostTransformer;
 use App\Transformers\Backend\VisualCategoryTransformer;
 use Illuminate\Http\Request;
@@ -65,12 +65,7 @@ class CategoriesController extends ApiController
     public function page(Category $category)
     {
         $this->needPage($category);
-
-        if (!$page = $category->page()) {
-            return $this->response()->noContent();
-        }
-
-        return $this->response()->item($page, new PostTransformer())->addMeta('cate_name', $category->cate_name);
+        return $this->response()->item($category->page(), new PageTransformer())->addMeta('cate_name', $category->cate_name);
     }
 
     private function updatePage(Post $page, Request $request, PageRepository $pageRepository)
