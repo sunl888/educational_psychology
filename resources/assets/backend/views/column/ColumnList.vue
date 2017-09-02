@@ -166,7 +166,7 @@ export default {
                     } else if (params.type === 'link') {
                       window.open(params.url);
                     } else {
-                      this.$router.push({name: 'editColumn', params: {id: params.id}});
+                      this.$router.push({name: 'page', params: {id: params.id}});
                     }
                   }
                 }

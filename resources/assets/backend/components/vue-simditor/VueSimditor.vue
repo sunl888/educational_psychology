@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import 'simditor/styles/simditor.css';
 import Simditor from 'simditor';
 export default {
   name: 'vueSimditor',

@@ -29,6 +29,7 @@ export default {
         if (this.$options.isAdd === undefined) {
           this.id = this.$route.params.id;
         }
+        console.log(this.id);
         this.$http.get(`${this.$options.base.url}/${this.id}`, {
           params: this.$options.base.query
         }).then(res => {

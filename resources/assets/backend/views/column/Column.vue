@@ -28,27 +28,28 @@
         </Form-item>
         <Form-item label="栏目类型">
           <Select v-model="formData.type">
-              <Option :value="0" :key="0">列表栏目</Option>
-              <Option :value="1" :key="1">单网页</Option>
-              <Option :value="2" :key="2">外部链接</Option>
+              <Option value="post" :key="0">列表栏目</Option>
+              <Option value="page" :key="1">单网页</Option>
+              <Option value="link" :key="2">外部链接</Option>
           </Select>
         </Form-item>
-        <Form-item v-if="formData.type === 0" label="列表模版">
+        <Form-item v-if="formData.type === 'post'" label="列表模版">
           <Select v-model="formData.list_template">
             <Option v-for="item in templates.list_templates" :value="item.file_name" :key="item.file_name">{{item.title}}({{item.file_name}})</Option>
           </Select>
         </Form-item>
-        <Form-item v-if="formData.type === 0" label="正文模版">
+        <Form-item v-if="formData.type === 'post'" label="正文模版">
           <Select v-model="formData.content_template">
               <Option v-for="item in templates.content_templates" :value="item.file_name" :key="item.file_name">{{item.title}}({{item.file_name}})</Option>
           </Select>
         </Form-item>
-        <Form-item v-if="formData.type === 1" label="单页模版">
+        <Form-item v-if="formData.type === 'page'" label="单页模版">
           <Select v-model="formData.page_template">
               <Option v-for="item in templates.page_templates" :value="item.file_name" :key="item.file_name">{{item.title}}({{item.file_name}})</Option>
           </Select>
+          <Button style="margin-left: 10px;" v-if="id" @click="$router.push({name: 'page', params: { id }})" icon="edit" type="primary">编辑单页</Button>
         </Form-item>
-        <Form-item v-if="formData.type === 2" label="外部链接">
+        <Form-item v-if="formData.type === 'link'" label="外部链接">
           <Input v-model="formData.url" placeholder="请设置外部链接"></Input>
         </Form-item>
         <FormButtomGroup />
@@ -90,7 +91,7 @@ export default {
       templates: {},
       categories: [],
       formData: {
-        'type': 0,
+        'type': 'post',
         'image': null,
         'parent_id': 0,
         'cate_name': null,

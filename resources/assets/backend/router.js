@@ -57,6 +57,11 @@ export default new Router({
           component: require('./views/column/ColumnList.vue')
         },
         {
+          path: 'column/:id/page',
+          name: 'page',
+          component: require('./views/column/Page.vue')
+        },
+        {
           path: 'column/:id/edit',
           name: 'editColumn',
           component: require('./views/column/Column.vue')

@@ -1,13 +1,7 @@
 <template>
   <div class="article">
     <h1 class="title">{{title}}</h1>
-    <main class="article_wrapper">
-      <div class="cover_wrapper"></div>
-      <div class="title_input_wrapper">
-        <TitleInput v-model="formData.title" />
-      </div>
-      <VueSimditor v-model="formData.content" />
-    </main>
+    <TitleWithContent :title.sync="formData.title" :content.sync="formData.content"></TitleWithContent>
     <div class="option">
       <div class="left">
         <CategorySelectPanel @change="cid => formData.category_id = cid" class="type_panel"></CategorySelectPanel>
@@ -54,9 +48,7 @@
   </div>
 </template>
 <script>
-import TitleInput from '../../components/TitleInput.vue';
-import VueSimditor from '../../components/vue-simditor';
-import 'simditor/styles/simditor.css';
+import TitleWithContent from '../../components/TitleWithContent.vue';
 import Panel from '../../components/Panel.vue';
 import UploadPicture from '../../components/UploadPicture.vue';
 import fromMixin from '../../mixins/form';
@@ -70,7 +62,7 @@ export default {
     }
   },
   mixins: [fromMixin],
-  components: { TitleInput, VueSimditor, Panel, UploadPicture, CategorySelectPanel },
+  components: { TitleWithContent, Panel, UploadPicture, CategorySelectPanel },
   methods: {
     submit (status) {
       this.formData.status = status;
