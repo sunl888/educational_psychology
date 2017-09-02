@@ -46,7 +46,6 @@ export default {
         }
         this.loading = false;
       }).catch(() => {
-        // todo finally
         this.loading = false;
       });
     }
@@ -57,7 +56,7 @@ export default {
 
 <style lang="less" scoped>
 .login{
-  padding-top: 120px;
+  padding-top: 90px;
   .logo{
     position: absolute;
     left: 50%;

@@ -4,7 +4,7 @@
       <Logo size="small" class="logo"></Logo>
     </Menu>
     <Menu width="220px" class="menu" theme="light" active-name="1-2" :open-names="['home', '2']" @on-select="onSelect">
-      <Menu-item class="top_menu_item" name="1-1"><Icon type="home"></Icon>首页</Menu-item>
+      <Menu-item class="top_menu_item" name="home"><Icon type="home"></Icon>首页</Menu-item>
       <Submenu name="home">
         <template slot="title">
           <Icon type="ios-paper"></Icon>
@@ -51,6 +51,7 @@ export default {
       position: fixed;
       top: 0;
       left: 0;
+      overflow: hidden;
     }
     .header{
       height: 50px;
