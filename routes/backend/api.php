@@ -34,6 +34,10 @@ Route::resource('categories', 'CategoriesController', [
     'except'=> ['create', 'edit']
 ]);
 
+// 获取单页
+Route::get('categories/{category}/page', 'CategoriesController@page');
+// 创建或更新单页
+Route::post('categories/{category}/page', 'CategoriesController@savePage');
 Route::resource('banners', 'BannersController', [
     'except'=> ['create', 'edit']
 ]);

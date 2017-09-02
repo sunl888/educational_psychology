@@ -6,6 +6,7 @@ namespace App\Support;
 
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Response as IlluminateResponse;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Class Response
@@ -63,8 +64,37 @@ class Response implements Responsable
         return $this;
     }
 
+    /**
+     * Return a 404 not found error.
+     *
+     * @param string $message
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return void
+     */
+    public function errorNotFound($message = 'Not Found')
+    {
+        $this->error($message, 404);
+    }
+
     public function __call($methodName, $arguments)
     {
         return (new TransformerResponse($this))->$methodName(...$arguments);
+    }
+
+    /**
+     * Return an error response.
+     *
+     * @param string $message
+     * @param int    $statusCode
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return void
+     */
+    public function error($message, $statusCode)
+    {
+        throw new HttpException($statusCode, $message);
     }
 }

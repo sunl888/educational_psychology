@@ -34,9 +34,7 @@ class PostsController extends ApiController
 
     public function store(PostCreateRequest $request, PostRepository $postRepository)
     {
-        $data = $request->validated();
-        $data['user_id'] = Auth::id();
-        $postRepository->create($data);
+        $postRepository->create($request->validated());
         return $this->response()->noContent();
     }
 

@@ -37,6 +37,7 @@ class CategoryUpdateRequest extends Request
             'cate_name' => ['nullable', 'string', 'between:2,30'],
             'description' => ['nullable', 'string', 'between:2,500'],
             'is_nav' => ['nullable', 'boolean'],
+            'order' => ['nullable', 'integer'],
             'url' => ['required_if:type,' . Category::TYPE_LINK, 'url'],
             'is_target_blank' => ['required_if:type,' . Category::TYPE_LINK, 'boolean'],
             'page_template' => ['nullable', 'alpha_dash', 'between:1,30'],

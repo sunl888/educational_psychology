@@ -32,6 +32,7 @@ class CreateCategoriesTable extends Migration
             $table->string('cate_slug')->nullable()->unique()->commnet('分类slug');
             // 是否在导航栏显示
             $table->boolean('is_nav')->default(false)->comment('是否在导航栏显示');
+            $table->integer('order')->default(0)->index()->comment('排序字段');
             // 单页模板
             $table->string('page_template', 30)->nullable()->comment('单页模板');
             // 列表页模板

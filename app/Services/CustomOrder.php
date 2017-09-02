@@ -13,7 +13,6 @@ class CustomOrder
     public static $modelMapping = [
         'banner' => Banner::class,
         'link' => Link::class,
-        'category' => Category::class
     ];
 
     public function order(Collection $collection)
