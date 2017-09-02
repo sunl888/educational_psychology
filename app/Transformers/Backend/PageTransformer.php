@@ -7,6 +7,8 @@ use League\Fractal\TransformerAbstract;
 
 class PageTransformer extends TransformerAbstract
 {
+    protected $availableIncludes = ['post_content'];
+
     public function transform(?Post $post)
     {
         if(is_null($post)){
@@ -22,5 +24,15 @@ class PageTransformer extends TransformerAbstract
             'created_at' => $post->created_at->toDateTimeString(),
             'updated_at' => $post->updated_at->toDateTimeString()
         ];
+    }
+
+    public function includePostContent(Post $post)
+    {
+        $content = $post->postContent;
+        if (is_null($content)) {
+            return $this->null();
+        } else {
+            return $this->item($content, new PostContentTransformer());
+        }
     }
 }
