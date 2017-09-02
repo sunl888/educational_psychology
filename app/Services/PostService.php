@@ -15,7 +15,7 @@ class PostService
     public function makeSlug($text)
     {
         return app(SlugGenerator::class)
-            ->setSlugIsUniqueFunc('post', 'slug')
+            ->setSlugIsUniqueFunc('posts', 'slug')
             ->generate($text, setting('post_slug_mode'));
     }
 
