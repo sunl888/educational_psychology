@@ -69,6 +69,8 @@ export default {
     .describe{
       margin: 5px 0 20px 0; 
       color: #999;
+      height: 39px;
+      overflow: hidden;
     }
     .info{
       line-height: 30px;

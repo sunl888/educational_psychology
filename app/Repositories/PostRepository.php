@@ -58,7 +58,7 @@ class PostRepository extends BaseRepository
         if (!isset($data['status']))
             $data['status'] = Post::STATUS_DRAFT;
 
-        if (isset($data['excerpt'])){
+        if (!isset($data['excerpt'])){
             $data['excerpt'] = $postService->makeExcerpt($data['content']);
         }
         $data['slug'] = $postService->makeSlug($data['title']);
