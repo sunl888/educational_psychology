@@ -1,5 +1,5 @@
 <template>
-  <div class="upload_picture" :style="{'line-height': height, 'min-height': height}" :class="{'radius': height != '250px'}">
+  <div class="upload_picture" :style="{'line-height': height}" :class="{'radius': height != '250px'}">
     <Upload
       ref="uploader"
       v-show="status !== 'uploading'"
@@ -113,6 +113,7 @@ export default {
 
 <style lang="less">
 .upload_picture{
+  overflow: hidden;
   background-color: hsla(0,0%,95%,.9);
   border: 2px dashed hsla(0,0%,40%,.2);
   position: relative;
