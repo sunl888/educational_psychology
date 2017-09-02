@@ -30,7 +30,7 @@ export default {
 <style lang="less" scoped>
 .article_item{
   border-radius: 4px;
-  padding: 20px;
+  padding: 10px;
   background-color: #fff;
   overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0.05) 0 1px 3px;
