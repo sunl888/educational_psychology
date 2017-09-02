@@ -14,7 +14,6 @@ use App\Repositories\PageRepository;
 use App\Services\CategoryService;
 use App\Transformers\Backend\CategoryTransformer;
 use App\Transformers\Backend\PageTransformer;
-use App\Transformers\Backend\PostTransformer;
 use App\Transformers\Backend\VisualCategoryTransformer;
 use Illuminate\Http\Request;
 
