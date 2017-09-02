@@ -40,7 +40,7 @@ export default {
     float: left;
     border-radius: 5px;
     width: 170px;
-    height: 130px;
+    height: 120px;
     background-size: cover;
   }
   .body{
@@ -61,7 +61,7 @@ export default {
       }
     }
     .describe{
-      margin: 5px 0 20px 0; 
+      margin: 5px 0 13px 0;
       color: #999;
       height: 39px;
       overflow: hidden;
