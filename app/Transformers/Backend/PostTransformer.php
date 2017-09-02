@@ -14,6 +14,7 @@ class PostTransformer extends TransformerAbstract
         return [
             'id' => $post->id,
             'title' => $post->title,
+            'slug' => $post->slug,
             'excerpt' => $post->excerpt,
             'cover' => $post->cover,
             'cover_url' => $post->cover_url,
@@ -22,6 +23,7 @@ class PostTransformer extends TransformerAbstract
             'views_count' => $post->views_count,
             'template' => $post->template,
             // 'url' => $post->present()->getUrl(),
+            'order' => $post->order,
             'top' => !is_null($post->top),
             'top_time' => is_null($post->top)?null:$post->top->toDateTimeString(),
             'published_at' => $post->published_at->toDateTimeString(),
