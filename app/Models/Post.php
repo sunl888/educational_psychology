@@ -149,4 +149,14 @@ class Post extends BaseModel
     {
         return $this->getImageUrl($this->attributes['cover']);
     }
+
+    /**
+     * 为路由模型获取键名
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }
