@@ -70,7 +70,7 @@ class CategoriesController extends ApiController
             return $this->response()->noContent();
         }
 
-        return $this->response()->item($page, new PostTransformer());
+        return $this->response()->item($page, new PostTransformer())->addMeta('cate_name', $category->cate_name);
     }
 
     private function updatePage(Post $page, Request $request, PageRepository $pageRepository)
