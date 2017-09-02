@@ -184,13 +184,4 @@ class Category extends BaseModel
         return $this->getImageUrl($this->attributes['image']);
     }
 
-    /**
-     * 为路由模型获取键名
-     *
-     * @return string
-     */
-    public function getRouteKeyName()
-    {
-        return 'cate_slug';
-    }
 }
