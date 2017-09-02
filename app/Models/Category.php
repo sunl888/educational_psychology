@@ -10,7 +10,7 @@ class Category extends BaseModel
         'is_nav' => 'boolean',
     ];
     protected $fillable = ['type', 'parent_id', 'cate_name',
-        'description', 'url', 'is_target_blank', 'cate_slug', 'is_nav', 'order',
+        'description', 'url', 'is_target_blank', 'cate_slug', 'is_nav',
         'page_template', 'list_template', 'content_template'];
 
 

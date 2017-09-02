@@ -4,6 +4,7 @@ namespace App\Services;
 
 
 use App\Models\Banner;
+use App\Models\Category;
 use App\Models\Link;
 use Illuminate\Support\Collection;
 
@@ -11,7 +12,8 @@ class CustomOrder
 {
     public static $modelMapping = [
         'banner' => Banner::class,
-        'link' => Link::class
+        'link' => Link::class,
+        'category' => Category::class
     ];
 
     public function order(Collection $collection)
@@ -32,7 +34,7 @@ class CustomOrder
         });
     }
 
-    public function setOrder($indexOrder, $model)
+    public function setOrder(array $indexOrder, $model)
     {
         $indexOrder = array_flip(array_values(array_map(function ($id) {
             return intval($id);

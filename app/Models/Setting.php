@@ -2,15 +2,13 @@
 
 namespace App\Models;
 
-use App\Models\Traits\Listable;
 use App\Models\Traits\Typeable;
 use App\Observers\SettingObserver;
-use Cache;
 use Illuminate\Database\Eloquent\Builder;
 
 class Setting extends BaseModel implements InterfaceTypeable
 {
-    use Typeable, Listable;
+    use Typeable;
 
     protected $fillable = ['name', 'value', 'description', 'type_id', 'is_system'];
 
