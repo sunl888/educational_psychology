@@ -1,8 +1,8 @@
 <template>
   <div class="article_item">
-    <a href="#" class="cover" :class="{'draft': article.status === 'draft'}" :style="{'background-image': `url(${article.cover_url})`}"></a>
+    <a href="#" class="cover" :style="{'background-image': `url(${article.cover_url})`}"></a>
     <div class="body">
-      <a href="#"><h3>{{article.title}}</h3></a>
+      <a href="#"><h3><Tag class="tag" v-if="article.top" color="red">置顶</Tag><Tag class="tag" v-if="article.status === 'draft'" color="green">草稿</Tag>{{article.title}}</h3></a>
       <p class="describe">{{article.excerpt}}</p>
       <UserWeight v-if="article.user.data.length !== 0" :id="article.user.data.id" :avatar_url="article.user.data.avatar_url" :nick_name="article.user.data.nick_name"></UserWeight>
       <span class="info"><HoverableTime :time="article.published_at"></HoverableTime></span>
@@ -42,15 +42,6 @@ export default {
     width: 170px;
     height: 130px;
     background-size: cover;
-    &.draft{
-      &::after{
-        content: '草稿';
-        background-color: #ed3f14;
-        font-size: 12px;
-        padding: 3px 6px;
-        color: #fff;
-      }
-    }
   }
   .body{
     padding-left: 190px;
@@ -65,6 +56,9 @@ export default {
       font-weight: normal;
       white-space: nowrap;
       font-size: 18px;
+      >.tag:last-child{
+        margin-right: 10px;
+      }
     }
     .describe{
       margin: 5px 0 20px 0; 

@@ -5,7 +5,7 @@
     </RadioGroup>
     <Button icon="wrench" :class="{'type_manage_btn': types.length > 0}" @click="showTypeManagementDialog = true"  type="primary">管理分类</Button>
     <Button class="add_btn" @click="$router.push({name: 'addBanner'})" icon="plus-round" type="primary">添加banner</Button>
-    <draggable v-model="list" :options="{draggable: '.row'}" @end="reSort">
+    <draggable v-model="list" :options="{draggable: '.row', animation: 300}" @end="reSort">
       <DraggableRow
         v-for="item in list"
         :key="item.id"

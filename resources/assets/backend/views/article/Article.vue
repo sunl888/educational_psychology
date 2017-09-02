@@ -6,7 +6,7 @@
       <div class="title_input_wrapper">
         <TitleInput v-model="formData.title" />
       </div>
-      <VueSimditor v-model="formData.content"/>
+      <VueSimditor v-model="formData.content" />
     </main>
     <div class="option">
       <div class="left">
@@ -18,18 +18,27 @@
       <Panel title="发布" full size="small" width="300px">
         <Form :model="formData" label-position="top">
           <Form-item label="发布时间">
-              <Date-picker type="date" placeholder="选择发布时间" v-model="formData.published_at"></Date-picker>
+            <Date-picker type="date" placeholder="选择发布时间" v-model="formData.published_at"></Date-picker>
           </Form-item>
           <Form-item label="正文模板">
             <Select v-model="formData.template" placeholder="请选择正文模板">
               <Option v-for="item in contentTemplates" :key="item.file_name" :value="item.file_name">{{item.title}}</Option>
             </Select>
           </Form-item>
-          <Form-item label="浏览次数">
-            <Input-number :min="0" v-model="formData.views_count"></Input-number>
-          </Form-item>
+          <Row>
+            <Col span="12">
+            <Form-item label="排序">
+              <Input-number :min="0" v-model="formData.order"></Input-number>
+            </Form-item>
+            </Col>
+            <Col span="12">
+            <Form-item label="浏览次数">
+              <Input-number :min="0" v-model="formData.views_count"></Input-number>
+            </Form-item>
+            </Col>
+          </Row>
           <Form-item label="置顶开关">
-            <i-switch  v-model="formData.top" size="large">
+            <i-switch v-model="formData.top" size="large">
               <span slot="open">ON</span>
               <span slot="close">OFF</span>
             </i-switch>
@@ -60,7 +69,7 @@ export default {
       include: 'post_content'
     }
   },
-  mixins: [ fromMixin ],
+  mixins: [fromMixin],
   components: { TitleInput, VueSimditor, Panel, UploadPicture, CategorySelectPanel },
   methods: {
     submit (status) {
@@ -94,7 +103,7 @@ export default {
       this.formData.content = formData.post_content.data.content;
     });
     this.$on('on-success', formData => {
-      this.$router.push({name: 'articleList'});
+      this.$router.push({ name: 'articleList' });
     });
     this.$http.get('templates').then(res => {
       this.contentTemplates = res.data.content_templates;
@@ -104,28 +113,29 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.article{
-  .title{
+.article {
+  .title {
     font-weight: 400;
     line-height: 32px;
     font-size: 20px;
     margin-bottom: 25px;
   }
-  >main{
+  >main {
     background-color: #fff;
     padding: 40px;
     margin-bottom: 30px;
-    .title_input_wrapper{
+    .title_input_wrapper {
       padding-bottom: 20px;
     }
   }
-  .option{
+  .option {
     display: flex;
     flex-direction: row;
-    >.left{
+    >.left {
       flex-grow: 1;
       margin-right: 30px;
-      .type_panel, .cover{
+      .type_panel,
+      .cover {
         height: auto;
         max-width: 650px;
         margin-bottom: 30px;

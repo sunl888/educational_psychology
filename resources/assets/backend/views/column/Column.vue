@@ -14,11 +14,11 @@
             <Option v-for="item in categories" :value="item.id" :key="item.id">{{ item.cate_name }}</Option>
           </Select>
         </Form-item>
-        <Form-item label="栏目图片">
-          <UploadPicture @on-success="uploadPic" :url="formData.image_url" height="180px" class="upload_picture" />
-        </Form-item>
         <Form-item label="排序">
           <InputNumber :min="0" v-model="formData.order"></InputNumber>
+        </Form-item>
+        <Form-item label="栏目图片">
+          <UploadPicture @on-success="uploadPic" :url="formData.image_url" height="180px" class="upload_picture" />
         </Form-item>
         <Form-item label="设为导航">
           <i-switch v-model="formData.is_nav" size="large">

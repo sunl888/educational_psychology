@@ -7,6 +7,15 @@
       </div>
     </header>
     <TTable :columns="columCol" :data="categories" />
+    <!-- <Modal
+        v-model="showSortDialog"
+        title="对话框标题">
+        <ul class="nested_sort_node_wrapper nested_sort_node">
+          <NestedSort :options="{
+            animation: 300
+          }" :data="catesWithChild"></NestedSort>
+        </ul>
+    </Modal> -->
   </div>
 </template>
 
@@ -14,6 +23,7 @@
 import TTable from '../../components/t-table';
 import HoverableTime from '../../components/HoverableTime.vue';
 import delMixin from '../../mixins/del';
+import NestedSort from '../../components/NestedSort.vue';
 export default {
   base: {
     title: '栏目',
@@ -23,11 +33,16 @@ export default {
     this.$http.get('categories/visual_output').then(res => {
       this.categories = res.data.data;
     });
+    // this.$http.get('categories').then(res => {
+    //   this.catesWithChild = res.data.data;
+    // });
   },
   mixins: [ delMixin ],
   data () {
     return {
+      // showSortDialog: true,
       categories: [],
+      catesWithChild: [],
       columCol: [
         {
           title: '栏目图片',
@@ -106,6 +121,21 @@ export default {
           title: '操作',
           key: 'action',
           render: (h, params) => {
+            let type, text;
+            switch (params.type) {
+              case 'post':
+                type = 'success';
+                text = '显示文章';
+                break;
+              case 'link':
+                type = 'warning';
+                text = '访问外链';
+                break;
+              case 'page':
+                type = 'info';
+                text = '编辑单页';
+                break;
+            }
             return h('div', [
               h('Button', {
                 props: {
@@ -123,6 +153,26 @@ export default {
               }, '编辑'),
               h('Button', {
                 props: {
+                  type,
+                  size: 'small'
+                },
+                style: {
+                  marginRight: '5px'
+                },
+                on: {
+                  click: () => {
+                    if (params.type === 'post') {
+                      this.$router.push({name: 'articleList', params: {id: params.id}});
+                    } else if (params.type === 'link') {
+                      window.open(params.url);
+                    } else {
+                      this.$router.push({name: 'editColumn', params: {id: params.id}});
+                    }
+                  }
+                }
+              }, text),
+              h('Button', {
+                props: {
                   type: 'error',
                   size: 'small'
                 },
@@ -136,7 +186,7 @@ export default {
       ]
     };
   },
-  components: { TTable, HoverableTime }
+  components: { TTable, HoverableTime, NestedSort }
 };
 </script>
 

@@ -37,7 +37,7 @@ export default new Router({
           component: require('./views/user/User.vue')
         },
         {
-          path: 'article/list',
+          path: 'article/list/:id?',
           name: 'articleList',
           component: require('./views/article/ArticleList.vue')
         },

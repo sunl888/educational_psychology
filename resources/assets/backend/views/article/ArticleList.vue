@@ -10,7 +10,7 @@
               <Radio label="draft">草稿</Radio>
           </RadioGroup>
           <Button size="small" @click="showTrashed = !showTrashed" class="trashed_btn" :type="showTrashed ? 'success' : 'warning'">{{showTrashed ? '退出回收站' : '显示回收站'}}</Button>
-          <Select v-model="categoryId" style="width:200px">
+          <Select @on-change="categoryChange" v-model="categoryId" style="width:200px">
             <Option :value="0">全部分类文章</Option>
             <Option v-for="item in categories" :value="item.id" :key="item.id">{{item.indent_str}}{{ item.cate_name }}</Option>
           </Select>
@@ -34,6 +34,10 @@ export default {
   components: { ArticleItem, ListWrapper, NoData },
   mixins: [ recycleBin ],
   mounted () {
+    let cid = Number(this.$route.params.id);
+    if (!isNaN(cid)) {
+      this.categoryId = cid;
+    }
     this.$http.get('categories/visual_output', {
       params: {
         type: 'post'
@@ -41,6 +45,11 @@ export default {
     }).then(res => {
       this.categories = res.data.data;
     });
+  },
+  methods: {
+    categoryChange (curId) {
+      this.$router.push({name: 'articleList', params: {id: curId}});
+    }
   },
   computed: {
     title () {
