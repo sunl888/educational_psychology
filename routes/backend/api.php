@@ -55,3 +55,6 @@ Route::resource('settings', 'SettingsController', [
 Route::resource('types', 'TypesController', [
     'except' => ['create', 'edit']
 ]);
+
+// 获取统计数据
+Route::get('statistics', 'HomeController@index');
