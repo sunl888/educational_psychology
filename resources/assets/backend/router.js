@@ -30,10 +30,14 @@ const router = new Router({
     },
     {
       path: '/',
-      name: 'home',
       component: require('./views/Home.vue'),
       meta: { requiresAuth: true },
       children: [
+        {
+          path: '',
+          name: 'home',
+          component: require('./views/Overview.vue')
+        },
         {
           path: 'user/list',
           name: 'userList',
