@@ -9,6 +9,19 @@ export default {
   },
   methods: {
     confirm () {
+      if (this.$refs.form) {
+        this.$refs.form.validate((valid) => {
+          if (!valid) {
+            this.$Message.error('填写有误!');
+          } else {
+            this.submit();
+          }
+        });
+      } else {
+        this.submit();
+      }
+    },
+    submit () {
       let method, url;
       if (this.id) {
         method = 'put';
@@ -29,7 +42,6 @@ export default {
         if (this.$options.isAdd === undefined) {
           this.id = this.$route.params.id;
         }
-        console.log(this.id);
         this.$http.get(`${this.$options.base.url}/${this.id}`, {
           params: this.$options.base.query
         }).then(res => {

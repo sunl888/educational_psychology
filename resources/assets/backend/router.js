@@ -3,7 +3,7 @@ import Router from 'vue-router';
 // 获取baseUrl
 let base = window.location.pathname.split('backend')[0] + 'backend';
 Vue.use(Router);
-export default new Router({
+const router = new Router({
   mode: 'history',
   base,
   routes: [
@@ -14,12 +14,25 @@ export default new Router({
     {
       path: '/login',
       name: 'login',
-      component: require('./views/Login.vue')
+      component: require('./views/Login.vue'),
+      beforeEnter: (to, from, next) => {
+        if (localStorage.getItem('login_ok')) {
+          let redirect = to.query.redirect;
+          if (redirect) {
+            next({path: redirect});
+          } else {
+            next({name: 'home'});
+          }
+        } else {
+          next();
+        }
+      }
     },
     {
       path: '/',
       name: 'home',
       component: require('./views/Home.vue'),
+      meta: { requiresAuth: true },
       children: [
         {
           path: 'user/list',
@@ -120,3 +133,18 @@ export default new Router({
     }
   ]
 });
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!localStorage.getItem('login_ok')) {
+      next({
+        name: 'login',
+        query: { redirect: to.fullPath }
+      });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
+export default router;

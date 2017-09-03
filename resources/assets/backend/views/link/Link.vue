@@ -1,11 +1,11 @@
 <template>
   <div class="link">
     <Panel :title="title">
-      <Form :model="formData" :label-width="80">
-        <Form-item label="URL">
+      <Form ref="form" :rules="rules" :model="formData" :label-width="80">
+        <Form-item label="URL" prop="url">
           <Input v-model="formData.url" placeholder="请设置友情链接url"></Input>
         </Form-item>
-        <Form-item label="链接名称">
+        <Form-item label="链接名称" prop="name">
           <Input v-model="formData.name" placeholder="请输入链接名称"></Input>
         </Form-item>
         <Form-item label="联系人">
@@ -14,7 +14,7 @@
         <Form-item label="栏目图片">
           <UploadPicture @on-success="uploadPic" :url="formData.logo_url" height="180px" class="upload_picture" />
         </Form-item>
-        <Form-item label="分类">
+        <Form-item label="分类" prop="type_id">
           <Select v-model="formData.type_id" style="width:200px">
             <Option v-for="item in types" :value="item.id" :key="item.id">{{ item.name }}</Option>
           </Select>
@@ -40,6 +40,21 @@ export default {
   base: {
     title: '友情链接',
     url: 'links'
+  },
+  computed: {
+    rules () {
+      return {
+        url: [
+          { required: true, type: 'string', message: '请填写URL', trigger: 'blur' }
+        ],
+        name: [
+          { required: true, type: 'string', message: '请填写链接名称', trigger: 'blur' }
+        ],
+        type_id: [
+          { required: true, type: 'number', message: '请选择分类', trigger: 'change' }
+        ]
+      };
+    }
   },
   components: { Panel, FormButtomGroup, UploadPicture },
   mixins: [ fromMixin ],

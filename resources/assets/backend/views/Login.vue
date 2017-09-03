@@ -38,15 +38,15 @@ export default {
     login () {
       this.loading = true;
       this.$http.post('auth/login', this.loginInfo).then(res => {
-        let redirectName = this.$route.query.redirect;
-        if (redirectName) {
-          this.$router.replace({name: redirectName});
+        localStorage.setItem('login_ok', true);
+        let redirect = this.$route.query.redirect;
+        if (redirect) {
+          this.$router.replace({path: redirect});
         } else {
           this.$router.replace({name: 'home'});
         }
         this.loading = false;
       }).catch(() => {
-        // todo finally
         this.loading = false;
       });
     }
@@ -57,7 +57,7 @@ export default {
 
 <style lang="less" scoped>
 .login{
-  padding-top: 120px;
+  padding-top: 90px;
   .logo{
     position: absolute;
     left: 50%;
