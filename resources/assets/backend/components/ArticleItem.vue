@@ -35,7 +35,7 @@ export default {
   overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0.05) 0 1px 3px;
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   .cover{
     float: left;
     border-radius: 5px;

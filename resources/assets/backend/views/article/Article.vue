@@ -10,11 +10,11 @@
         </Panel>
       </div>
       <Panel title="发布" full size="small" width="300px">
-        <Form :model="formData" label-position="top">
+        <Form ref="form" :rules="rules" :model="formData" label-position="top">
           <Form-item label="发布时间">
             <Date-picker type="date" placeholder="选择发布时间" v-model="formData.published_at"></Date-picker>
           </Form-item>
-          <Form-item label="正文模板">
+          <Form-item label="正文模板" prop="template">
             <Select v-model="formData.template" placeholder="请选择正文模板">
               <Option v-for="item in contentTemplates" :key="item.file_name" :value="item.file_name">{{item.title}}</Option>
             </Select>
@@ -63,6 +63,15 @@ export default {
   },
   mixins: [fromMixin],
   components: { TitleWithContent, Panel, UploadPicture, CategorySelectPanel },
+  computed: {
+    rules () {
+      return {
+        template: [
+          { required: true, type: 'string', message: '请选择正文模板', trigger: 'change' }
+        ]
+      };
+    }
+  },
   methods: {
     submit (status) {
       this.formData.status = status;
