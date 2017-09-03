@@ -1,6 +1,6 @@
 <template>
   <div class="article_list">
-    <ListWrapper ref="list" :title="title" :queryName="`posts?include=user&category_id=${categoryId}&status=${status}${showTrashed ? '&only_trashed=true' : ''}`">
+    <ListWrapper :loading.sync="showPlaceholder" ref="list" :title="title" :queryName="`posts?include=user&category_id=${categoryId}&status=${status}${showTrashed ? '&only_trashed=true' : ''}`">
       <span slot="option"><Button @click="$router.push({name: 'addArticle'})" icon="plus-round" type="primary">添加</Button></span>
       <template scope="props">
         <div class="option_list">
@@ -15,8 +15,13 @@
             <Option v-for="item in categories" :value="item.id" :key="item.id">{{item.indent_str}}{{ item.cate_name }}</Option>
           </Select>
         </div>
-        <ArticleItem :isTrashed="showTrashed" @restore="restore" @edit="id => $router.push({name: 'editArticle', params: { id }})" @del="del" :key="article.id" v-for="article in props.data" :article="article"></ArticleItem>
-        <NoData v-if="props.data.length === 0"></NoData>
+        <template v-if="showPlaceholder">
+          <div v-for="n in 3" :key="n" class="content_placeholder_wrapper">
+            <content-placeholder :rows="placeholderRows"></content-placeholder>
+          </div>
+        </template>
+        <ArticleItem v-else :isTrashed="showTrashed" @restore="restore" @edit="id => $router.push({name: 'editArticle', params: { id }})" @del="del" :key="article.id" v-for="article in props.data" :article="article"></ArticleItem>
+        <NoData v-if="props.data.length === 0 && !showPlaceholder"></NoData>
       </template>
     </ListWrapper>
   </div>
@@ -26,12 +31,13 @@ import ArticleItem from '../../components/ArticleItem.vue';
 import ListWrapper from '../../components/ListWrapper.vue';
 import recycleBin from '../../mixins/recycleBin';
 import NoData from '../../components/NoData.vue';
+import ContentPlaceholder from 'vue-content-placeholder';
 export default {
   base: {
     title: '文章',
     url: 'posts'
   },
-  components: { ArticleItem, ListWrapper, NoData },
+  components: { ArticleItem, ListWrapper, NoData, ContentPlaceholder },
   mixins: [ recycleBin ],
   mounted () {
     let cid = Number(this.$route.params.id);
@@ -63,6 +69,7 @@ export default {
   },
   data () {
     return {
+      showPlaceholder: false,
       showTrashed: false,
       status: 'all',
       categories: [],
@@ -80,6 +87,36 @@ export default {
           title: '描述',
           key: 'excerpt'
         },
+      ],
+      placeholderRows: [
+        {
+          height: '27px',
+          boxes: [['10px', '170px'], ['20px', 1.6]]
+        },
+        {
+          height: '10px',
+          boxes: [['10px', '170px']]
+        },
+        {
+          height: '10px',
+          boxes: [['10px', '170px'], ['20px', 3]]
+        },
+        {
+          height: '3px',
+          boxes: [['10px', '170px']]
+        },
+        {
+          height: '10px',
+          boxes: [['10px', '170px'], ['20px', 3]]
+        },
+        {
+          height: '20px',
+          boxes: [['10px', '170px']]
+        },
+        {
+          height: '25px',
+          boxes: [['10px', '170px'], ['20px', '60px'], ['410px', '115px']]
+        },
       ]
     };
   }
@@ -88,6 +125,12 @@ export default {
 
 <style lang="less" scoped>
 .article_list{
+  .content_placeholder_wrapper{
+    padding: 10px 0;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.05) 0 1px 3px;
+    margin-bottom: 15px;
+  }
   .option_list{
     margin-bottom: 15px;
     .trashed_btn{

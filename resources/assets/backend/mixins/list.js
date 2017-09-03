@@ -53,6 +53,7 @@ export default{
     getList (page = 1, keyword = '', searchScope) {
       if (this.queryName) {
         this.loading = true;
+        this.$emit('update:loading', true);
         this.$http.get(this.queryName, {
           params: {
             per_page: this.perPage,
@@ -61,12 +62,14 @@ export default{
             keywords: keyword
           }
         }).then(res => {
+          this.$emit('update:loading', false);
           this.loading = false;
           this.list = res.data.data;
           this.total = res.data.meta.pagination.total;
           this.allowSortFields = res.data.meta.allow_sort_fields;
           this.allowSearchFields = res.data.meta.allow_search_fields;
         }).catch(() => {
+          this.$emit('update:loading', false);
           this.loading = false;
         });
       }
