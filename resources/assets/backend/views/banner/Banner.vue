@@ -1,14 +1,14 @@
 <template>
   <div class="banner">
     <Panel :title="title">
-      <Form :model="formData" :label-width="80">
-        <Form-item label="标题">
+      <Form ref="form" :rules="rules" :model="formData" :label-width="80">
+        <Form-item label="标题" prop="title">
           <Input v-model="formData.title" placeholder="请设置标题"></Input>
         </Form-item>
         <Form-item label="URL">
           <Input v-model="formData.url" placeholder="请设置Banner URL"></Input>
         </Form-item>
-        <Form-item label="分类">
+        <Form-item label="分类" prop="type_id">
           <Select v-model="formData.type_id" style="width:200px">
             <Option v-for="item in types" :value="item.id" :key="item.id">{{ item.name }}</Option>
           </Select>
@@ -40,6 +40,18 @@ export default {
   },
   components: { Panel, FormButtomGroup, UploadPicture },
   mixins: [ fromMixin ],
+  computed: {
+    rules () {
+      return {
+        title: [
+          { required: true, type: 'string', message: '请填写标题', trigger: 'blur' }
+        ],
+        type_id: [
+          { required: true, type: 'number', message: '请选择分类', trigger: 'change' }
+        ]
+      };
+    }
+  },
   data () {
     return {
       types: [],
