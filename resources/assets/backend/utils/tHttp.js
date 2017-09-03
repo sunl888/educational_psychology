@@ -30,6 +30,7 @@ thttp.install = (Vue, {baseURL, router}) => {
       Vue.prototype.$Message.error('请求超时');
     } else if (error.response.status === 401) {
       Vue.prototype.$Message.error('请先登录');
+      localStorage.removeItem('login_ok');
       router.replace({name: 'login', query: {redirect: router.app.$route.fullPath}});
     } else if (error.response.status === 422) {
       let errorsTemp = error.response.data.errors;
