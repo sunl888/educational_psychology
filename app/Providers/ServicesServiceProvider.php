@@ -7,6 +7,7 @@ use App\Services\CustomOrder;
 use App\Services\PostService;
 use App\Services\SettingCacheService;
 use App\Services\SlugGenerator;
+use App\Services\VisitorService;
 use Illuminate\Support\ServiceProvider;
 
 class ServicesServiceProvider extends ServiceProvider
@@ -32,6 +33,10 @@ class ServicesServiceProvider extends ServiceProvider
 
         $this->app->singleton(SlugGenerator::class, function () {
             return new SlugGenerator();
+        });
+
+        $this->app->singleton(VisitorService::class, function ($app) {
+            return new VisitorService($app->make('request'));
         });
     }
 }
