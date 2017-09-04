@@ -1,3 +1,3 @@
 <?php
 
-Route::get('/backend/{path?}', 'HomeController@index')->where('path', '[\/\w\.-]*')->name('dashboard');
+Route::get('/backend/{path?}', 'DashboardController@index')->where('path', '[\/\w\.-]*')->name('dashboard');
