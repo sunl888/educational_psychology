@@ -15,7 +15,7 @@
           <Input v-model="formData.password" type="password" placeholder="请设置密码"></Input>
         </Form-item>
         <Form-item label="头像">
-          <UploadPicture @on-success="uploadPic" :url="formData.avatar_url" height="180px" class="upload_picture" />
+          <UploadPicture  @on-remove="() => formData.avatar = null" @on-success="avatar => formData.avatar = avatar" :url="formData.avatar_url" height="180px" class="upload_picture" />
         </Form-item>
       </Form>
       <FormButtomGroup />
@@ -65,11 +65,6 @@ export default {
         'permissions': null
       }
     };
-  },
-  methods: {
-    uploadPic (avatar) {
-      this.formData.avatar = avatar;
-    }
   }
 };
 </script>

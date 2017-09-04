@@ -12,7 +12,7 @@
           <Input v-model="formData.linkman" placeholder="请输入联系人"></Input>
         </Form-item>
         <Form-item label="栏目图片">
-          <UploadPicture @on-success="uploadPic" :url="formData.logo_url" height="180px" class="upload_picture" />
+          <UploadPicture @on-remove="() => formData.logo = null" @on-success="logo => formData.logo = logo" :url="formData.logo_url" height="180px" class="upload_picture" />
         </Form-item>
         <Form-item label="分类" prop="type_id">
           <Select v-model="formData.type_id" style="width:200px">
@@ -58,11 +58,6 @@ export default {
   },
   components: { Panel, FormButtomGroup, UploadPicture },
   mixins: [ fromMixin ],
-  methods: {
-    uploadPic (logo) {
-      this.formData.logo = logo;
-    }
-  },
   data () {
     return {
       types: [],
