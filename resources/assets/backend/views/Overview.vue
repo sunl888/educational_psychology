@@ -4,28 +4,29 @@
       <div class="item">
         <Icon style="color: #37c8f7;" class="icon" type="document"></Icon>
         <div class="inline">
-          <div class="num">0</div>
+          <div class="num">{{statistics.posts}}</div>
           <div class="text">文章</div>
         </div>
       </div>
       <div class="item">
         <Icon style="color: #ff7e9c;" class="icon" type="arrow-graph-up-right"></Icon>
         <div class="inline">
-          <div class="num">0</div>
+          <div class="num">{{statistics.uv}}</div>
           <div class="text">今日UV</div>
         </div>
       </div>
       <div class="item">
+        <Badge class="badge" overflow-count="999" count="100"></Badge>
         <Icon class="icon" style="color: #fcba2c;" type="stats-bars"></Icon>
         <div class="inline">
-          <div class="num">0</div>
+          <div class="num">{{statistics.pv}}</div>
           <div class="text">今日PV</div>
         </div>
       </div>
       <div class="item">
         <Icon class="icon" style="color: #bc67db;" type="person"></Icon>
         <div class="inline">
-          <div class="num">0</div>
+          <div class="num">{{statistics.users}}</div>
           <div class="text">用户</div>
         </div>
       </div>
@@ -35,6 +36,16 @@
 
 <script>
 export default {
+  data () {
+    return {
+      statistics: {}
+    };
+  },
+  mounted () {
+    this.$http.get('statistics').then(res => {
+      this.statistics = res.data;
+    });
+  }
 };
 </script>
 
@@ -52,11 +63,17 @@ export default {
       height: 100px;
       border-right: 1px solid #e5e9ef;
       float: left;
+      position: relative;
+      .badge{
+        position: absolute;
+        right: 45px;
+        top: 10px;
+      }
       &:last-child{
         border-right: none;
       }
       .icon{
-        margin-right: 15px;
+        margin-right: 20px;
         font-size: 60px;
         position: relative;
         top: -3px;
@@ -64,7 +81,7 @@ export default {
       .inline{
         display: inline-block;
         position: relative;
-        top: 20px;
+        top: 17px;
         .num{
           font-size: 36px;
           font-family: Arial;
