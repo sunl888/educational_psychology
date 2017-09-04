@@ -134,9 +134,8 @@ class LoginController extends ApiController
 
     /**
      * Send the response after the user was authenticated.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \App\Support\Response\Response|void
      */
     protected function sendLoginResponse(Request $request)
     {
@@ -146,7 +145,7 @@ class LoginController extends ApiController
 
         if ($this->guard()->user()->isLocked()) {
             $this->logout($request);
-            abort('423', Lang::get( 'auth.user_locked'));
+            return abort('423', Lang::get( 'auth.user_locked'));
         }
         return $this->response()->noContent();
     }

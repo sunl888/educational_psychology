@@ -15,6 +15,7 @@ use League\Fractal\Manager as FractalManager;
 use Storage;
 use Carbon\Carbon;
 use Schema;
+use Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -69,6 +70,10 @@ class AppServiceProvider extends ServiceProvider
                 'base_url' => $config['base_url'],
                 'presets' => $config['presets']
             ]);
+        });
+
+        Blade::directive('widget', function ($expression) {
+            return "<?php echo app('\App\Support\Widget\WidgetFactory')->render(...$expression); ?>";
         });
     }
 }
