@@ -6,7 +6,7 @@
       <div class="left">
         <CategorySelectPanel @change="cid => formData.category_id = cid" class="type_panel"></CategorySelectPanel>
         <Panel title="封面" full size="small" class="cover">
-          <UploadPicture :url="formData.cover_url" @on-success="(cover) => formData.cover = cover"></UploadPicture>
+          <UploadPicture :url="formData.cover_url" @on-remove="() => formData.cover = null" @on-success="cover => formData.cover = cover"></UploadPicture>
         </Panel>
       </div>
       <Panel title="发布" full size="small" width="300px">
@@ -38,8 +38,8 @@
             </i-switch>
           </Form-item>
           <ButtonGroup>
-            <Button @click="submit('publish')" type="success">{{this.id ? '提交修改' : '发布'}}</Button>
-            <Button @click="submit('draft')" type="primary">保存为草稿</Button>
+            <Button @click="submitArticle('publish')" type="success">{{this.id ? '提交修改' : '发布'}}</Button>
+            <Button @click="submitArticle('draft')" type="primary">保存为草稿</Button>
             <Button @click="$router.back()">取消</Button>
           </ButtonGroup>
         </Form>
@@ -73,7 +73,7 @@ export default {
     }
   },
   methods: {
-    submit (status) {
+    submitArticle (status) {
       this.formData.status = status;
       this.confirm();
     }

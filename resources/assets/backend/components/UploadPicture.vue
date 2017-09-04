@@ -52,8 +52,10 @@ export default {
   },
   watch: {
     'url' () {
-      this.status = 'finished';
-      this.picUrl = this.url;
+      if (this.url) {
+        this.status = 'finished';
+        this.picUrl = this.url;
+      }
     }
   },
   data () {
@@ -100,6 +102,7 @@ export default {
     handleRemove () {
       this.status = 'normal';
       this.picUrl = '';
+      this.$emit('on-remove');
     },
     handleReplace () {
       if (this.inputDom === null) {
