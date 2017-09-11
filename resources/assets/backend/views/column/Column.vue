@@ -18,7 +18,7 @@
           <InputNumber :min="0" v-model="formData.order"></InputNumber>
         </Form-item>
         <Form-item label="栏目图片">
-          <UploadPicture @on-success="uploadPic" :url="formData.image_url" height="180px" class="upload_picture" />
+          <UploadPicture @on-remove="() => formData.image = null" @on-success="image => formData.image = image" :url="formData.image_url" height="180px" class="upload_picture" />
         </Form-item>
         <Form-item label="设为导航">
           <i-switch v-model="formData.is_nav" size="large">
@@ -70,11 +70,6 @@ export default {
   },
   components: { Panel, FormButtomGroup, UploadPicture },
   mixins: [ fromMixin ],
-  methods: {
-    uploadPic (image) {
-      this.formData.image = image;
-    }
-  },
   computed: {
     rules () {
       return {

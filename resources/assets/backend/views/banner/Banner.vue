@@ -14,7 +14,7 @@
           </Select>
         </Form-item>
         <Form-item label="图片">
-          <UploadPicture @on-success="uploadPic" :url="formData.image_url" height="180px" class="upload_picture" />
+          <UploadPicture  @on-remove="() => formData.image = null" @on-success="image => formData.image = image" :url="formData.image_url" height="180px" class="upload_picture" />
         </Form-item>
         <Form-item label="是否显示">
           <i-switch v-model="formData.is_visible" size="large">
@@ -63,11 +63,6 @@ export default {
         'is_visible': true
       }
     };
-  },
-  methods: {
-    uploadPic (image) {
-      this.formData.image = image;
-    }
   },
   mounted () {
     this.$on('on-success', () => {

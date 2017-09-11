@@ -1,1 +1,0 @@
-@widget('banner', ['count'=>10])
