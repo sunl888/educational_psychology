@@ -1,1 +1,1 @@
-@widget('banner',1,2,3)
+@widget('banner', ['count'=>10])
