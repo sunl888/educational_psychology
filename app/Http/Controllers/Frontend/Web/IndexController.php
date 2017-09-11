@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Frontend\Web;
 
-use App\Http\Controllers\Controller;
 
-class IndexController extends Controller
+class IndexController extends FrontendController
 {
-    
+    public function index()
+    {
+        return view('theme::index');
+    }
 }

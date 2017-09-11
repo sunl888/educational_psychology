@@ -14,8 +14,13 @@ class Visitor extends BaseModel
         return $query->whereBetween('created_at', [$start, $end]);
     }
 
+    public function scopeWithinOneday($query, Carbon $date)
+    {
+        return $query->range($date->startOfDay(), $date->endOfDay());
+    }
+
     public function scopeWithinToday($query)
     {
-        return $query->range(Carbon::today(), Carbon::tomorrow()->subSecond());
+        return $query->withinOneday(Carbon::today());
     }
 }

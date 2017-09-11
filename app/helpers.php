@@ -23,11 +23,12 @@ if (!function_exists('setting')) {
             return app(SettingRepository::class)->set($name);
         }
 
-        $setting = app(SettingCacheService::class)->get($name, $default);
+        $setting = app(SettingCacheService::class)->get($name);
+
         if (!is_null($setting)) {
             return $setting->value;
         }
-        return null;
+        return value($default);
     }
 
 }

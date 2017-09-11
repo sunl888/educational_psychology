@@ -8,16 +8,24 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
 use App\Services\VisitorService;
+use Carbon\Carbon;
 
 class HomeController extends ApiController
 {
+
+    public function __construct()
+    {
+        return $this->middleware('auth');
+    }
 
     public function index(VisitorService $visitorService)
     {
         $posts = Post::byType(Category::TYPE_POST)->count();
         $users = User::count();
-        $pv = $visitorService->pageViewWithinToday();
-        $uv = $visitorService->uniqueVisitorViewWithinToday();
-        return compact('posts', 'users', 'pv', 'uv');
+        $nowPVUV = $visitorService->getPVUVByDateWithoutCache(Carbon::today());
+        $yesterdayPVUV = $visitorService->getPVUVByDateFromCache(Carbon::yesterday());
+        $recentlyPVUV = $visitorService->getRecentlyPVUVFromCache();
+        return compact('posts', 'users', 'nowPVUV', 'yesterdayPVUV', 'recentlyPVUV');
     }
+
 }

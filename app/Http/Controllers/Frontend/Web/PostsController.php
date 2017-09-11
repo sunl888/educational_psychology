@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Frontend\Web;
 
 
-use App\Http\Controllers\Controller;
 use App\Models\Post;
 
-class PostsController extends Controller
+class PostsController extends FrontendController
 {
     public function show(Post $post)
     {

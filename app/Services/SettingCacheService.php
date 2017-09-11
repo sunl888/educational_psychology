@@ -25,9 +25,9 @@ class SettingCacheService
         return $this->allSettings;
     }
 
-    public function get($name, $default = null)
+    public function get($name)
     {
-        return $this->all()->get($name, $default);
+        return $this->all()->get($name);
     }
 
     public function clearCache()
