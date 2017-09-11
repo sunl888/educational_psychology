@@ -31,20 +31,43 @@
         </div>
       </div>
     </div>
+    <div class="chart_pannel">
+      <line-chart :options="{}" :height="100" :chart-data="datacollection"></line-chart>
+    </div>
   </div>
 </template>
 
 <script>
+import LineChart from '../components/LineChart.vue';
 export default {
+  components: { LineChart },
   data () {
     return {
-      statistics: {}
+      statistics: {},
+      datacollection: null
     };
+  },
+  methods: {
+    fillData () {
+      this.datacollection = {
+        datasets: [
+          {
+            label: '访问量',
+            backgroundColor: '#f87979',
+            data: [this.getRandomInt(), this.getRandomInt()]
+          }
+        ]
+      };
+    },
+    getRandomInt () {
+      return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
+    }
   },
   mounted () {
     this.$http.get('statistics').then(res => {
       this.statistics = res.data;
     });
+    this.fillData();
   }
 };
 </script>
@@ -95,5 +118,7 @@ export default {
         }
       }
     }
+  }
+  .chart_pannel{
   }
 </style>
