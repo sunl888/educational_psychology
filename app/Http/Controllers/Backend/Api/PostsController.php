@@ -23,7 +23,7 @@ class PostsController extends ApiController
     /**
      * 获取文章列表
      * @param Request $request
-     * @return \App\Support\TransformerResponse
+     * @return \App\Support\Response\TransformerResponse
      */
     public function index(Request $request)
     {
@@ -52,7 +52,7 @@ class PostsController extends ApiController
     /**
      * 软删除
      * @param Post $post
-     * @return \App\Support\Response
+     * @return \App\Support\Response\Response
      */
     public function destroy(Post $post)
     {
@@ -63,7 +63,7 @@ class PostsController extends ApiController
     /**
      * 真删除
      * @param $post
-     * @return \App\Support\Response
+     * @return \App\Support\Response\Response
      */
     public function realDestroy($post)
     {

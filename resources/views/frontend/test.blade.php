@@ -1,1 +1,0 @@
-@widget('banner',1,2,3)

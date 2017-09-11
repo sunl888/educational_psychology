@@ -47,7 +47,7 @@ class TypesController extends ApiController
      * 删除类型
      * @param Type $type
      * @param Request $request
-     * @return \App\Support\Response
+     * @return \App\Support\Response\Response
      */
     public function destroy(Type $type, Request $request)
     {

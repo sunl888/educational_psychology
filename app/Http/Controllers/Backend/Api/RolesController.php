@@ -21,7 +21,7 @@ class RolesController extends ApiController
     /**
      * 显示指定角色
      * @param Role $role
-     * @return \App\Support\TransformerResponse
+     * @return \App\Support\Response\TransformerResponse
      */
     public function show(Role $role)
     {
@@ -30,7 +30,7 @@ class RolesController extends ApiController
 
     /**
      * 获取所有角色(不分页 用于添加用户时显示)
-     * @return \App\Support\TransformerResponse
+     * @return \App\Support\Response\TransformerResponse
      */
     public function allRoles()
     {
@@ -40,7 +40,7 @@ class RolesController extends ApiController
 
     /**
      * 角色列表
-     * @return \App\Support\TransformerResponse
+     * @return \App\Support\Response\TransformerResponse
      */
     public function index()
     {
@@ -56,7 +56,7 @@ class RolesController extends ApiController
     /**
      * 获取指定角色下面的权限
      * @param Role $role
-     * @return \App\Support\TransformerResponse
+     * @return \App\Support\Response\TransformerResponse
      */
     public function permissions(Role $role)
     {
