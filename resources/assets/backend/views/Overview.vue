@@ -9,6 +9,7 @@
         </div>
       </div>
       <div class="item">
+        <Badge class="badge" overflow-count="999" :count="statistics.nowPVUV.unique_visitor - statistics.yesterdayPVUV.unique_visitor"></Badge>
         <Icon style="color: #ff7e9c;" class="icon" type="arrow-graph-up-right"></Icon>
         <div class="inline">
           <div class="num">{{statistics.nowPVUV ? statistics.nowPVUV.unique_visitor : 0}}</div>
@@ -16,7 +17,7 @@
         </div>
       </div>
       <div class="item">
-        <Badge class="badge" overflow-count="999" count="100"></Badge>
+        <Badge class="badge" overflow-count="999" :count="statistics.nowPVUV.page_view - statistics.yesterdayPVUV.page_view"></Badge>
         <Icon class="icon" style="color: #fcba2c;" type="stats-bars"></Icon>
         <div class="inline">
           <div class="num">{{statistics.nowPVUV ? statistics.nowPVUV.page_view : 0}}</div>
@@ -43,7 +44,10 @@ export default {
   components: { LineChart },
   data () {
     return {
-      statistics: {},
+      statistics: {
+        nowPVUV: {},
+        yesterdayPVUV: {}
+      },
       chartData: null,
       options: {
         responsive: true,
