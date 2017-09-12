@@ -4,14 +4,14 @@
       <div class="item">
         <Icon style="color: #37c8f7;" class="icon" type="document"></Icon>
         <div class="inline">
-          <div class="num">{{statistics.posts}}</div>
+          <div class="num">{{statistics.posts ? statistics.posts : 0}}</div>
           <div class="text">文章</div>
         </div>
       </div>
       <div class="item">
         <Icon style="color: #ff7e9c;" class="icon" type="arrow-graph-up-right"></Icon>
         <div class="inline">
-          <div class="num">{{statistics.uv}}</div>
+          <div class="num">{{statistics.nowPVUV ? statistics.nowPVUV.unique_visitor : 0}}</div>
           <div class="text">今日UV</div>
         </div>
       </div>
@@ -19,20 +19,20 @@
         <Badge class="badge" overflow-count="999" count="100"></Badge>
         <Icon class="icon" style="color: #fcba2c;" type="stats-bars"></Icon>
         <div class="inline">
-          <div class="num">{{statistics.pv}}</div>
+          <div class="num">{{statistics.nowPVUV ? statistics.nowPVUV.page_view : 0}}</div>
           <div class="text">今日PV</div>
         </div>
       </div>
       <div class="item">
         <Icon class="icon" style="color: #bc67db;" type="person"></Icon>
         <div class="inline">
-          <div class="num">{{statistics.users}}</div>
+          <div class="num">{{statistics.users ? statistics.users : 0}}</div>
           <div class="text">用户</div>
         </div>
       </div>
     </div>
     <div class="chart_pannel">
-      <line-chart :options="{}" :height="100" :chart-data="datacollection"></line-chart>
+      <line-chart :options="options" :height="100" :chart-data="chartData"></line-chart>
     </div>
   </div>
 </template>
@@ -44,30 +44,51 @@ export default {
   data () {
     return {
       statistics: {},
-      datacollection: null
+      chartData: null,
+      options: {
+        responsive: true,
+        title: {
+          display: true,
+          text: '近期访问量'
+        },
+        tooltips: {
+          mode: 'index',
+          intersect: false,
+        },
+        hover: {
+          mode: 'nearest',
+          intersect: true
+        }
+      }
     };
-  },
-  methods: {
-    fillData () {
-      this.datacollection = {
-        datasets: [
-          {
-            label: '访问量',
-            backgroundColor: '#f87979',
-            data: [this.getRandomInt(), this.getRandomInt()]
-          }
-        ]
-      };
-    },
-    getRandomInt () {
-      return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
-    }
   },
   mounted () {
     this.$http.get('statistics').then(res => {
       this.statistics = res.data;
+      let currentDate = new Date();
+      let chartData = {
+        labels: [],
+        datasets: [
+          {
+            label: 'pv',
+            backgroundColor: '#f87979',
+            data: []
+          },
+          {
+            label: 'uv',
+            backgroundColor: 'rgb(255, 205, 86)',
+            data: []
+          }
+        ]
+      };
+      this.statistics.recentlyPVUV.forEach(item => {
+        chartData.labels.push(new Date(currentDate -= 86400000).toLocaleDateString().substr(5));
+        chartData.datasets[0].data.push(item.page_view);
+        chartData.datasets[1].data.push(item.unique_visitor);
+      });
+      chartData.labels.reverse();
+      this.chartData = chartData;
     });
-    this.fillData();
   }
 };
 </script>
@@ -120,5 +141,6 @@ export default {
     }
   }
   .chart_pannel{
+    margin-top: 30px;
   }
 </style>
