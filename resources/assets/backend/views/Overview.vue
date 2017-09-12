@@ -1,7 +1,7 @@
 <template>
   <div class="overview">
     <div class="head_stat">
-      <div class="item">
+      <div class="item link" @click="$router.push({name: 'articleList'})">
         <Icon style="color: #37c8f7;" class="icon" type="document"></Icon>
         <div class="inline">
           <div class="num">{{statistics.posts ? statistics.posts : 0}}</div>
@@ -24,7 +24,7 @@
           <div class="text">今日PV</div>
         </div>
       </div>
-      <div class="item">
+      <div class="item link" @click="$router.push({name: 'userList'})">
         <Icon class="icon" style="color: #bc67db;" type="person"></Icon>
         <div class="inline">
           <div class="num">{{statistics.users ? statistics.users : 0}}</div>
@@ -112,6 +112,9 @@ export default {
       border-right: 1px solid #e5e9ef;
       float: left;
       position: relative;
+      &.link{
+        cursor: pointer;
+      }
       .badge{
         position: absolute;
         right: 45px;
