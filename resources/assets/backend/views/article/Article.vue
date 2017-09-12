@@ -38,8 +38,8 @@
             </i-switch>
           </Form-item>
           <ButtonGroup>
-            <Button @click="submitArticle('publish')" type="success">{{this.id ? '提交修改' : '发布'}}</Button>
-            <Button @click="submitArticle('draft')" type="primary">保存为草稿</Button>
+            <Button :loading="loading" @click="submitArticle('publish')" type="success">{{this.id ? '提交修改' : '发布'}}</Button>
+            <Button :loading="loading" @click="submitArticle('draft')" type="primary">保存为草稿</Button>
             <Button @click="$router.back()">取消</Button>
           </ButtonGroup>
         </Form>
@@ -74,6 +74,7 @@ export default {
   },
   methods: {
     submitArticle (status) {
+      this.loading = true;
       this.formData.status = status;
       this.confirm();
     }
@@ -95,7 +96,8 @@ export default {
         'category_id': null,
         'published_at': null
       },
-      contentTemplates: []
+      contentTemplates: [],
+      loading: false
     };
   },
   mounted () {
@@ -105,6 +107,9 @@ export default {
     });
     this.$on('on-success', formData => {
       this.$router.push({ name: 'articleList' });
+    });
+    this.$on('on-loaded', () => {
+      this.loading = false;
     });
     this.$http.get('templates').then(res => {
       this.contentTemplates = res.data.content_templates;
