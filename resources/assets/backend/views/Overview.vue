@@ -75,12 +75,12 @@ export default {
         datasets: [
           {
             label: 'pv',
-            backgroundColor: '#f87979',
+            backgroundColor: 'rgb(255, 205, 86)',
             data: []
           },
           {
             label: 'uv',
-            backgroundColor: 'rgb(255, 205, 86)',
+            backgroundColor: '#f87979',
             data: []
           }
         ]
