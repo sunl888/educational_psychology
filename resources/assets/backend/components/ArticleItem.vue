@@ -1,7 +1,7 @@
 <template>
   <div class="article_item">
-    <a href="#" class="cover" :style="{'background-image': `url(${article.cover_url})`}"></a>
-    <div class="body">
+    <a href="#" v-if="article.cover_url" class="cover" :style="{'background-image': `url(${article.cover_url})`}"></a>
+    <div class="body" :class="{'no_cover': article.cover_url === null}">
       <a href="#"><h3><Tag class="tag" v-if="article.top" color="red">置顶</Tag><Tag class="tag" v-if="article.status === 'draft'" color="green">草稿</Tag>{{article.title}}</h3></a>
       <p class="describe">{{article.excerpt}}</p>
       <UserWeight v-if="article.user.data.length !== 0" :id="article.user.data.id" :avatar_url="article.user.data.avatar_url" :nick_name="article.user.data.nick_name"></UserWeight>
@@ -46,6 +46,9 @@ export default {
   .body{
     padding-left: 190px;
     padding-right: 200px;
+    &.no_cover{
+      padding-left: 0;
+    }
     h3{
       display: block;
       margin-right: 80px;
