@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
             $faker = app(Faker::class);
             $faker->addProvider(new Internet($faker));
             $faker->addProvider(new Image($faker));
-            
+
             DB::listen(function ($query) {
                 $sql = str_replace('?', '%s', $query->sql);
                 foreach ($query->bindings as $binding){
@@ -73,7 +73,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Blade::directive('widget', function ($expression) {
-            return "<?php echo app('\App\Support\Widget\WidgetFactory')->render(...$expression); ?>";
+            return "<?php echo app('\App\Support\Widget\WidgetFactory')->render($expression); ?>";
         });
     }
 }

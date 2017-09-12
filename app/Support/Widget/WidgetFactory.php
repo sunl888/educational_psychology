@@ -22,7 +22,7 @@ class WidgetFactory
         return new HtmlString($content);
     }
 
-    protected function makeWidget($widgetName, $args)
+    protected function makeWidget($widgetName, array $args = [])
     {
         $this->widgetParams = $args;
         $widgetName = $this->parseWidgetName($widgetName);

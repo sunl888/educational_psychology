@@ -16,12 +16,12 @@ abstract class AbstractWidget
     }
 
     /**
-     * 如果 $this->viewName 为空， 那么默认的 viewName 为 Widget 子类类名首字母小写
+     * 如果 $this->viewName 为空， 那么默认的 viewName 为 Widget 子类类名
      * @return string
      */
     public function getViewName()
     {
-        return $this->viewName ?: 'widgets.' . lcfirst(substr(strrchr(get_called_class(), '\\'), 1));
+        return $this->viewName ?: 'theme::widgets.' . snake_case(class_basename(get_called_class()));
     }
 
     public function getData($args)
@@ -29,7 +29,7 @@ abstract class AbstractWidget
         return $args;
     }
 
-    public function render($args)
+    public function render($args = [])
     {
         return view($this->getViewName(), $this->getData($args))->render();
     }
