@@ -33,8 +33,10 @@ export default {
       this.$http[method](url, diff.diff(this.formData)).then(res => {
         this.$Message.success(`${this.title}成功`);
         this.$emit('on-success');
+        this.$emit('on-loaded');
       }).catch(err => {
         this.errors = err.response.data.errors;
+        this.$emit('on-loaded');
       });
     },
     init () {
