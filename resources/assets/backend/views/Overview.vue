@@ -62,6 +62,23 @@ export default {
         hover: {
           mode: 'nearest',
           intersect: true
+        },
+        scales: {
+          xAxes: [{
+            display: true,
+            gridLines: {
+              display: true
+            },
+            scaleLabel: {
+              display: true,
+              labelString: '日期'
+            }
+          }],
+          yAxes: [{
+            gridLines: {
+              display: true
+            },
+          }]
         }
       }
     };
@@ -75,12 +92,16 @@ export default {
         datasets: [
           {
             label: 'pv',
-            backgroundColor: '#f87979',
+            fill: false,
+            backgroundColor: 'rgb(255, 205, 86)',
+            borderColor: 'rgb(255, 205, 86)',
             data: []
           },
           {
             label: 'uv',
-            backgroundColor: 'rgb(255, 205, 86)',
+            fill: false,
+            backgroundColor: '#f87979',
+            borderColor: '#f87979',
             data: []
           }
         ]
