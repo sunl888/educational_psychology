@@ -18,6 +18,7 @@ class PostTransformer extends TransformerAbstract
             'excerpt' => $post->excerpt,
             'cover' => $post->cover,
             'cover_url' => $post->cover_url,
+            'category_id' => $post->category_id,
             'status' => $post->status,
             'type' => $post->type,
             'views_count' => $post->views_count,
