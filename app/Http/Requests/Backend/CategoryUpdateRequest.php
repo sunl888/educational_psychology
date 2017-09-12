@@ -40,9 +40,9 @@ class CategoryUpdateRequest extends Request
             'order' => ['nullable', 'integer'],
             'url' => ['required_if:type,' . Category::TYPE_LINK, 'url'],
             'is_target_blank' => ['required_if:type,' . Category::TYPE_LINK, 'boolean'],
-            'page_template' => ['nullable', 'alpha_dash', 'between:1,30'],
-            'list_template' => ['nullable', 'alpha_dash', 'between:1,30'],
-            'content_template' => ['nullable', 'alpha_dash', 'between:1,30']
+            'page_template' => ['nullable', 'string', 'between:1,30'],
+            'list_template' => ['nullable', 'string', 'between:1,30'],
+            'content_template' => ['nullable', 'string', 'between:1,30']
         ];
     }
 }

@@ -37,9 +37,9 @@ class CategoryCreateRequest extends Request
             'is_target_blank' => ['required_if:type,' . Category::TYPE_LINK, 'boolean'],
             'is_nav' => ['nullable', 'boolean'],
             'order' => ['nullable', 'integer'],
-            'page_template' => ['required_if: type,' . Category::TYPE_PAGE, 'alpha_dash', 'between:1,30'],
-            'list_template' => ['required_if:type,' . Category::TYPE_POST, 'alpha_dash', 'between:1,30'],
-            'content_template' => ['required_if:type,' . Category::TYPE_POST, 'alpha_dash', 'between:1,30']
+            'page_template' => ['required_if: type,' . Category::TYPE_PAGE, 'string', 'between:1,30'],
+            'list_template' => ['required_if:type,' . Category::TYPE_POST, 'string', 'between:1,30'],
+            'content_template' => ['required_if:type,' . Category::TYPE_POST, 'string', 'between:1,30']
         ];
     }
 }
