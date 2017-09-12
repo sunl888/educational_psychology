@@ -9,6 +9,13 @@ abstract class AbstractWidget
 
     protected $viewName = '';
 
+    protected $config = [];
+
+    public function __construct($config)
+    {
+        $this->mergeConfig($config);
+    }
+
     public function setViewName($viewName)
     {
         $this->viewName = $viewName;
@@ -24,18 +31,23 @@ abstract class AbstractWidget
         return $this->viewName ?: 'theme::widgets.' . snake_case(class_basename(get_called_class()));
     }
 
-    public function getData($args)
+    public function getData(array $params)
     {
-        return $args;
+        return $params;
     }
 
-    public function render($args = [])
+    public function render(array $params)
     {
-        return view($this->getViewName(), $this->getData($args))->render();
+        return view($this->getViewName(), $this->getData($params))->render();
     }
 
     public function cacheKey(array $params = [])
     {
         return 'widgets.' . serialize($params);
+    }
+
+    public function mergeConfig($config){
+        $this->config = array_merge($this->config, $config);
+        return $this;
     }
 }

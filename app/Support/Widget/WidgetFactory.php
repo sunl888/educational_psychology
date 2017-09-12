@@ -13,7 +13,11 @@ class WidgetFactory
      */
     protected $widget;
 
-    protected $widgetParams;
+    protected $widgetConfig;
+
+    public $widgetParams;
+
+    protected $widgetName;
 
     public function render(...$args)
     {
@@ -22,17 +26,18 @@ class WidgetFactory
         return new HtmlString($content);
     }
 
-    protected function makeWidget($widgetName, array $args = [])
+    protected function makeWidget($widgetName, array $config = [], ...$params)
     {
-        $this->widgetParams = $args;
-        $widgetName = $this->parseWidgetName($widgetName);
+        $this->widgetName = $widgetName = $this->parseWidgetName($widgetName);
+        $this->widgetConfig = $config;
+        $this->widgetParams = $params;
         $fullWidgetName = config('widget.root_namespace') . '\\' . $widgetName;
         $widgetClass = class_exists($fullWidgetName) ? $fullWidgetName : $widgetName;
 
         if (!is_subclass_of($widgetClass, AbstractWidget::class)) {
             throw new InvalidWidgetClassException('Class "' . $widgetClass . '" must extend "' . AbstractWidget::class . '" class');
         }
-        $this->widget = new $widgetClass;
+        $this->widget = new $widgetClass($config);
     }
 
     /**
@@ -54,14 +59,14 @@ class WidgetFactory
 
     protected function getContent()
     {
-        $content = app()->call([$this->widget, 'render'], $this->widgetParams);
+        $content = app()->call([$this->widget, 'render'], ['params' => $this->widgetParams]);
         return is_object($content) ? $content->__toString() : $content;
     }
 
     protected function getContentFromCache()
     {
         if ($cacheTime = $this->getCacheTime()) {
-            Cache::remember($this->widget->cacheKey($this->widgetParams), $cacheTime, function () {
+            Cache::remember($this->widget->cacheKey($this->widgetConfig), $cacheTime, function () {
                 return $this->getContent();
             });
         }
