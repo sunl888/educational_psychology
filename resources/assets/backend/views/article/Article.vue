@@ -4,7 +4,7 @@
     <TitleWithContent :title.sync="formData.title" :content.sync="formData.content"></TitleWithContent>
     <div class="option">
       <div class="left">
-        <CategorySelectPanel @change="cid => formData.category_id = cid" class="type_panel"></CategorySelectPanel>
+        <CategorySelectPanel :cid.sync="formData.category_id" class="type_panel"></CategorySelectPanel>
         <Panel title="封面" full size="small" class="cover">
           <UploadPicture :url="formData.cover_url" @on-remove="() => formData.cover = null" @on-success="cover => formData.cover = cover"></UploadPicture>
         </Panel>

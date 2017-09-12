@@ -18,6 +18,9 @@ import { RadioTagGroup, RadioTagItem } from './radig-tag';
 export default {
   name: 'categorySelectPanel',
   components: { Panel, RadioTagGroup, RadioTagItem },
+  props: {
+    cid: Number
+  },
   data () {
     return {
       categories: [],
@@ -27,7 +30,31 @@ export default {
       currentCateId: null
     };
   },
+  methods: {
+    updateView (newCid) {
+      if (newCid !== null && this.categories.length > 0) {
+        for (let cate of this.categories) {
+          if (cate.id === newCid) {
+            this.currentPcate = cate;
+            this.childCategories = cate.children.data;
+            this.currentCateId = newCid;
+            return;
+          }
+          for (let childCate of cate.children.data) {
+            if (childCate.id === newCid) {
+              this.currentPCateId = cate.id;
+              this.currentCateId = childCate.id;
+              return;
+            }
+          }
+        }
+      }
+    }
+  },
   watch: {
+    'cid' (newId) {
+      this.updateView(newId);
+    },
     'currentPCateId' (newId) {
       for (let cate of this.categories) {
         if (cate.id === newId) {
@@ -38,7 +65,9 @@ export default {
       }
     },
     'currentCateId' (newId) {
-      this.$emit('change', newId);
+      if (this.cid !== newId) {
+        this.$emit('update:cid', newId);
+      }
     }
   },
   mounted () {
@@ -49,6 +78,7 @@ export default {
     }).then(res => {
       this.categories = res.data.data;
       this.currentPCateId = this.categories[0].id;
+      this.updateView(this.cid);
     });
   }
 };
