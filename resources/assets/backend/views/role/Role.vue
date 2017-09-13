@@ -25,10 +25,6 @@ import Panel from '../../components/Panel.vue';
 import fromMixin from '../../mixins/form';
 import FormButtomGroup from '../../components/FormButtonGroup.vue';
 export default {
-  base: {
-    title: '角色',
-    url: 'roles'
-  },
   components: { Panel, FormButtomGroup },
   mixins: [ fromMixin ],
   computed: {
@@ -40,6 +36,12 @@ export default {
         display_name: [
           { required: true, type: 'string', message: '请填写角色名称', trigger: 'blur' }
         ]
+      };
+    },
+    mixinConfig () {
+      return {
+        title: '角色',
+        action: this.isAdd() ? 'roles' : `roles/${this.$route.params.id}`,
       };
     }
   },

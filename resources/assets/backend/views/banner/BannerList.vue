@@ -1,7 +1,7 @@
 <template>
   <div class="banner_list">
-    <RadioGroup v-model="typeId" class="types" type="button" size="large">
-      <Radio v-for="item in types" :key="item.id" :label="item.id">{{item.name}}</Radio>
+    <RadioGroup v-model="typeName" class="types" type="button" size="large">
+      <Radio v-for="item in types" :key="item.id" :label="item.name">{{item.display_name}}</Radio>
     </RadioGroup>
     <Button icon="wrench" :class="{'type_manage_btn': types.length > 0}" @click="showTypeManagementDialog = true"  type="primary">管理分类</Button>
     <Button class="add_btn" @click="$router.push({name: 'addBanner'})" icon="plus-round" type="primary">添加banner</Button>
@@ -37,9 +37,13 @@ import { Carousel3d, Slide } from 'vue-carousel-3d';
 import SplitLine from '../../components/SplitLine.vue';
 import listWithTypeMixin from '../../mixins/listWithType';
 export default {
-  base: {
-    title: 'banner',
-    url: 'banners'
+  computed: {
+    mixinConfig () {
+      return {
+        title: 'banners',
+        action: 'banners'
+      };
+    }
   },
   components: { Carousel3d, Slide, SplitLine },
   mixins: [ listWithTypeMixin ],

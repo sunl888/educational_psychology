@@ -64,10 +64,6 @@ import fromMixin from '../../mixins/form';
 import FormButtomGroup from '../../components/FormButtonGroup.vue';
 import UploadPicture from '../../components/UploadPicture.vue';
 export default {
-  base: {
-    title: '栏目',
-    url: 'categories'
-  },
   components: { Panel, FormButtomGroup, UploadPicture },
   mixins: [ fromMixin ],
   computed: {
@@ -88,6 +84,12 @@ export default {
         url: [
           { required: this.formData.type === 'link', type: 'string', message: '请填写URL', trigger: 'blur' }
         ]
+      };
+    },
+    mixinConfig () {
+      return {
+        title: '栏目',
+        action: this.isAdd() ? 'categories' : `categories/${this.$route.params.id}`,
       };
     }
   },

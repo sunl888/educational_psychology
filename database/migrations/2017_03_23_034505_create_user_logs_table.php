@@ -20,7 +20,7 @@ class CreateUserLogsTable extends Migration
             $table->unsignedInteger('action_id')->comment('操作 ID');
             $table->string('action_type')->comment('操作类型');
             $table->string('action')->comment('操作');
-            $table->json('changes')->comment('操作变化');
+            // $table->json('changes')->comment('操作变化');
             $table->timestamps();
 
             $table->foreign('user_id')

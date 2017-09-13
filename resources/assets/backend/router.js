@@ -46,11 +46,17 @@ const router = new Router({
         {
           path: 'user/add',
           name: 'addUser',
+          meta: {
+            isAdd: true
+          },
           component: require('./views/user/User.vue')
         },
         {
           path: 'user/:id/edit',
           name: 'editUser',
+          meta: {
+            isAdd: false
+          },
           component: require('./views/user/User.vue')
         },
         {
@@ -61,11 +67,17 @@ const router = new Router({
         {
           path: 'article/:id/edit',
           name: 'editArticle',
+          meta: {
+            isAdd: false
+          },
           component: require('./views/article/Article.vue')
         },
         {
           path: 'article/add',
           name: 'addArticle',
+          meta: {
+            isAdd: true
+          },
           component: require('./views/article/Article.vue')
         },
         {
@@ -81,26 +93,38 @@ const router = new Router({
         {
           path: 'column/:id/edit',
           name: 'editColumn',
+          meta: {
+            isAdd: false
+          },
           component: require('./views/column/Column.vue')
         },
         {
           path: 'column/add',
           name: 'addColumn',
+          meta: {
+            isAdd: true
+          },
           component: require('./views/column/Column.vue')
         },
         {
-          path: 'banner/list/:id?',
+          path: 'banner/list/:typeName?',
           name: 'bannerList',
           component: require('./views/banner/BannerList.vue')
         },
         {
           path: 'banner/add',
           name: 'addBanner',
+          meta: {
+            isAdd: true
+          },
           component: require('./views/banner/Banner.vue')
         },
         {
           path: 'banner/:id/edit',
           name: 'editBanner',
+          meta: {
+            isAdd: false
+          },
           component: require('./views/banner/Banner.vue')
         },
         {
@@ -111,26 +135,38 @@ const router = new Router({
         {
           path: 'role/add',
           name: 'addRole',
+          meta: {
+            isAdd: true
+          },
           component: require('./views/role/Role.vue')
         },
         {
           path: 'role/:id/edit',
           name: 'editRole',
+          meta: {
+            isAdd: false
+          },
           component: require('./views/role/Role.vue')
         },
         {
-          path: 'link/list/:id?',
+          path: 'link/list/:typeName?',
           name: 'linkList',
           component: require('./views/link/LinkList.vue')
         },
         {
           path: 'link/add',
           name: 'addLink',
+          meta: {
+            isAdd: true
+          },
           component: require('./views/link/Link.vue')
         },
         {
           path: 'link/:id/edit',
           name: 'editLink',
+          meta: {
+            isAdd: false
+          },
           component: require('./views/link/Link.vue')
         }
       ]

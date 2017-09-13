@@ -3,20 +3,21 @@ import draggable from 'vuedraggable';
 import TypeManagement from '../components/TypeManagement.vue';
 import NoData from '../components/NoData.vue';
 import DraggableRow from '../components/DraggableRow.vue';
+import mixinConfig from './mixinConfig';
 export default {
-  mixins: [ delMixin ],
+  mixins: [ delMixin, mixinConfig ],
   components: { draggable, TypeManagement, NoData, DraggableRow },
   watch: {
-    'typeId' () {
-      this.$router.push({name: this.$route.name, params: {id: this.typeId}});
+    'typeName' () {
+      this.$router.push({name: this.$route.name, params: {typeName: this.typeName}});
       this.getList();
     }
   },
   methods: {
     getList () {
-      this.$http.get(this.$options.base.url, {
+      this.$http.get(this.getConfig('action'), {
         params: {
-          'type': this.typeId
+          'type_name': this.typeName
         }
       }).then(res => {
         this.list = res.data.data;
@@ -42,15 +43,18 @@ export default {
   },
   data () {
     return {
-      typeId: null,
+      typeName: null,
       types: [],
       list: [],
       showTypeManagementDialog: false,
-      model: ''
+      model: '',
+      defaultConfig: {
+        action: null
+      }
     };
   },
   mounted () {
-    let url = this.$options.base.url;
+    let url = this.getConfig('action');
     this.model = url.substring(0, url.length - 1);
     this.$http.get('types', {
       params: {
@@ -58,11 +62,11 @@ export default {
       }
     }).then(res => {
       this.types = res.data.data;
-      let tid = Number(this.$route.params.id);
-      if (!isNaN(tid) && this.types.some(item => item.id === tid)) {
-        this.typeId = tid;
+      let typeName = this.$route.params.typeName;
+      if (typeName !== undefined && this.types.some(item => item.name === typeName)) {
+        this.typeName = typeName;
       } else if (this.types[0]) {
-        this.typeId = this.types[0].id;
+        this.typeName = this.types[0].name;
       }
     });
     this.$on('del-success', this.getList);

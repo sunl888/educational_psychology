@@ -6,9 +6,12 @@
     </Modal>
     <!-- 编辑分类 -->
     <Modal width="450" v-model="showTypeEditDialog" :title="title" @on-ok="confirm">
-      <Form :model="formData" :label-width="50">
-        <Form-item label="分类名">
-          <Input v-model="formData.name" placeholder="请设置分类名"></Input>
+      <Form :model="formData" :label-width="60">
+        <Form-item label="分类">
+          <Input v-model="formData.name" placeholder="请设置分类，字母数字组成"></Input>
+        </Form-item>
+        <Form-item label="分类名称">
+          <Input v-model="formData.display_name" placeholder="请设置分类名称"></Input>
         </Form-item>
         <Form-item label="描述">
           <Input v-model="formData.description" type="textarea" :rows="4" placeholder="请设置描述"></Input>
@@ -23,11 +26,6 @@ import fromMixin from '../mixins/form';
 import delMixin from '../mixins/del';
 export default {
   name: 'typeManagement',
-  base: {
-    title: '分类',
-    url: 'types',
-    isAdd: true
-  },
   props: {
     typeQueryName: String,
     value: {
@@ -46,8 +44,17 @@ export default {
     }
   },
   mixins: [ fromMixin, delMixin ],
+  computed: {
+    mixinConfig () {
+      return {
+        title: '分类',
+        action: this.id ? `types/${this.id}` : 'types'
+      };
+    }
+  },
   data () {
     return {
+      id: null,
       formData: {
         'name': null,
         'description': null,
@@ -81,7 +88,6 @@ export default {
                 on: {
                   click: () => {
                     this.id = params.row.id;
-                    this.$options.isAdd = false;
                     this.init();
                     this.showTypeEditDialog = true;
                   }
@@ -103,6 +109,9 @@ export default {
     };
   },
   methods: {
+    isAdd () {
+      return this.id === null;
+    },
     getTypeList () {
       this.$http.get('types', {
         params: {
@@ -114,7 +123,6 @@ export default {
     },
     showAddDialog () {
       this.id = null;
-      this.$options.isAdd = true;
       this.formData = {
         'name': null,
         'description': null,

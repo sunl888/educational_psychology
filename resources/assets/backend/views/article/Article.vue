@@ -38,7 +38,7 @@
             </i-switch>
           </Form-item>
           <ButtonGroup>
-            <Button :loading="loading" @click="submitArticle('publish')" type="success">{{this.id ? '提交修改' : '发布'}}</Button>
+            <Button :loading="loading" @click="submitArticle('publish')" type="success">{{isAdd() ? '发布' : '提交修改'}}</Button>
             <Button :loading="loading" @click="submitArticle('draft')" type="primary">保存为草稿</Button>
             <Button @click="$router.back()">取消</Button>
           </ButtonGroup>
@@ -54,13 +54,6 @@ import UploadPicture from '../../components/UploadPicture.vue';
 import fromMixin from '../../mixins/form';
 import CategorySelectPanel from '../../components/CategorySelectPanel.vue';
 export default {
-  base: {
-    title: '文章',
-    url: 'posts',
-    query: {
-      include: 'post_content'
-    }
-  },
   mixins: [fromMixin],
   components: { TitleWithContent, Panel, UploadPicture, CategorySelectPanel },
   computed: {
@@ -69,6 +62,16 @@ export default {
         template: [
           { required: true, type: 'string', message: '请选择正文模板', trigger: 'change' }
         ]
+      };
+    },
+    mixinConfig () {
+      return {
+        title: '文章',
+        action: this.isAdd() ? 'posts' : `posts/${this.$route.params.id}`,
+        addPrefix: '撰写新',
+        query: {
+          include: 'post_content'
+        }
       };
     }
   },

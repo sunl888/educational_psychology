@@ -1,7 +1,7 @@
 <template>
   <div class="link_list">
-    <RadioGroup v-model="typeId" class="types" type="button" size="large">
-      <Radio v-for="item in types" :key="item.id" :label="item.id">{{item.name}}</Radio>
+    <RadioGroup v-model="typeName" class="types" type="button" size="large">
+      <Radio v-for="item in types" :key="item.id" :label="item.name">{{item.display_name}}</Radio>
     </RadioGroup>
     <Button icon="wrench" :class="{'type_manage_btn': types.length > 0}" @click="showTypeManagementDialog = true"  type="primary">管理分类</Button>
     <Button class="add_btn" @click="$router.push({name: 'addLink'})" icon="plus-round" type="primary">添加友情链接</Button>
@@ -26,9 +26,13 @@
 <script>
 import listWithTypeMixin from '../../mixins/listWithType';
 export default {
-  base: {
-    title: '友情链接',
-    url: 'links'
+  computed: {
+    mixinConfig () {
+      return {
+        title: '友情链接',
+        action: 'links'
+      };
+    }
   },
   mixins: [ listWithTypeMixin ]
 };

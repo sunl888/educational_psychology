@@ -7,15 +7,6 @@
       </div>
     </header>
     <TTable :columns="columCol" :data="categories" />
-    <!-- <Modal
-        v-model="showSortDialog"
-        title="对话框标题">
-        <ul class="nested_sort_node_wrapper nested_sort_node">
-          <NestedSort :options="{
-            animation: 300
-          }" :data="catesWithChild"></NestedSort>
-        </ul>
-    </Modal> -->
   </div>
 </template>
 
@@ -25,22 +16,30 @@ import HoverableTime from '../../components/HoverableTime.vue';
 import delMixin from '../../mixins/del';
 import NestedSort from '../../components/NestedSort.vue';
 export default {
-  base: {
-    title: '栏目',
-    url: 'categories'
-  },
   mounted () {
-    this.$http.get('categories/visual_output').then(res => {
-      this.categories = res.data.data;
+    this.getCategories();
+    this.$on('del-success', id => {
+      this.getCategories();
     });
-    // this.$http.get('categories').then(res => {
-    //   this.catesWithChild = res.data.data;
-    // });
+  },
+  methods: {
+    getCategories () {
+      this.$http.get('categories/visual_output').then(res => {
+        this.categories = res.data.data;
+      });
+    }
+  },
+  computed: {
+    mixinConfig () {
+      return {
+        title: '栏目',
+        action: 'categories'
+      };
+    }
   },
   mixins: [ delMixin ],
   data () {
     return {
-      // showSortDialog: true,
       categories: [],
       catesWithChild: [],
       columCol: [

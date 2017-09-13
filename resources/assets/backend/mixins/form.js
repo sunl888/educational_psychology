@@ -1,10 +1,20 @@
 import diff from '../utils/diff';
+import mixinConfig from './mixinConfig';
 export default {
+  mixins: [mixinConfig],
   data () {
     return {
-      id: null,
       title: '',
-      errors: []
+      errors: [],
+      defaultConfig: {
+        editPrefix: '编辑',
+        addPrefix: '添加',
+        editMethod: 'put',
+        addMethod: 'post',
+        query: {}, // 附加query参数
+        title: '', // prefix + title = 最终标题
+        action: ''
+      }
     };
   },
   methods: {
@@ -22,15 +32,7 @@ export default {
       }
     },
     submit () {
-      let method, url;
-      if (this.id) {
-        method = 'put';
-        url = `${this.$options.base.url}/${this.id}`;
-      } else {
-        method = 'post';
-        url = this.$options.base.url;
-      }
-      this.$http[method](url, diff.diff(this.formData)).then(res => {
+      this.$http[this.isAdd() ? this.getConfig('addMethod') : this.getConfig('editMethod')](this.getConfig('action'), diff.diff(this.formData)).then(res => {
         this.$Message.success(`${this.title}成功`);
         this.$emit('on-success');
         this.$emit('on-loaded');
@@ -39,21 +41,21 @@ export default {
         this.$emit('on-loaded');
       });
     },
+    isAdd () {
+      return this.$route.meta.isAdd;
+    },
     init () {
-      if ((this.$options.isAdd !== undefined && !this.$options.isAdd) || this.$route.name.substring(0, 4) === 'edit') {
-        if (this.$options.isAdd === undefined) {
-          this.id = this.$route.params.id;
-        }
-        this.$http.get(`${this.$options.base.url}/${this.id}`, {
-          params: this.$options.base.query
+      if (!this.isAdd()) {
+        this.$http.get(this.getConfig('action'), {
+          params: this.getConfig('query')
         }).then(res => {
           this.formData = res.data.data;
           diff.save(this.formData);
           this.$emit('on-data', this.formData);
         });
-        this.title = `编辑${this.$options.base.title}`;
+        this.title = this.getConfig('editPrefix') + this.getConfig('title');
       } else {
-        this.title = `添加${this.$options.base.title}`;
+        this.title = this.getConfig('addPrefix') + this.getConfig('title');
       }
     }
   },

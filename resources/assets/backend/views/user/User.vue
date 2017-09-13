@@ -28,10 +28,6 @@ import fromMixin from '../../mixins/form';
 import FormButtomGroup from '../../components/FormButtonGroup.vue';
 import UploadPicture from '../../components/UploadPicture.vue';
 export default {
-  base: {
-    title: '用户',
-    url: 'users'
-  },
   components: { Panel, FormButtomGroup, UploadPicture },
   mixins: [ fromMixin ],
   computed: {
@@ -50,6 +46,12 @@ export default {
         password: [
           { required: true, type: 'string', message: '请设置密码', trigger: 'blur' }
         ],
+      };
+    },
+    mixinConfig () {
+      return {
+        title: '用户',
+        action: this.isAdd() ? 'users' : `users/${this.$route.params.id}`,
       };
     }
   },

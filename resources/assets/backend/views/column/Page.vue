@@ -30,8 +30,13 @@ export default {
     }
   },
   mounted () {
-    this.$http.get(`categories/${this.$route.params.id}/page`).then(res => {
-      this.formData = res.data.data;
+    this.$http.get(`categories/${this.$route.params.id}/page`, {
+      params: {
+        include: 'post_content'
+      }
+    }).then(res => {
+      this.formData.title = res.data.data.title;
+      this.formData.content = res.data.data.post_content.data.content;
       this.title = res.data.meta.cate_name;
       diff.save(this.formData);
     });

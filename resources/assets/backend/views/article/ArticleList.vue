@@ -33,10 +33,6 @@ import recycleBin from '../../mixins/recycleBin';
 import NoData from '../../components/NoData.vue';
 import ContentPlaceholder from 'vue-content-placeholder';
 export default {
-  base: {
-    title: '文章',
-    url: 'posts'
-  },
   components: { ArticleItem, ListWrapper, NoData, ContentPlaceholder },
   mixins: [ recycleBin ],
   mounted () {
@@ -65,6 +61,12 @@ export default {
         return `${prefix}(${currentCate.cate_name})`;
       }
       return prefix;
+    },
+    mixinConfig () {
+      return {
+        title: '文章',
+        action: 'posts'
+      };
     }
   },
   data () {

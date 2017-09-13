@@ -8,9 +8,9 @@
         <Form-item label="URL">
           <Input v-model="formData.url" placeholder="请设置Banner URL"></Input>
         </Form-item>
-        <Form-item label="分类" prop="type_id">
-          <Select v-model="formData.type_id" style="width:200px">
-            <Option v-for="item in types" :value="item.id" :key="item.id">{{ item.name }}</Option>
+        <Form-item label="分类" prop="type_name">
+          <Select v-model="formData.type_name" style="width:200px">
+            <Option v-for="item in types" :value="item.name" :key="item.id">{{ item.display_name }}</Option>
           </Select>
         </Form-item>
         <Form-item label="图片">
@@ -34,10 +34,6 @@ import fromMixin from '../../mixins/form';
 import FormButtomGroup from '../../components/FormButtonGroup.vue';
 import UploadPicture from '../../components/UploadPicture.vue';
 export default {
-  base: {
-    title: 'Banner',
-    url: 'banners'
-  },
   components: { Panel, FormButtomGroup, UploadPicture },
   mixins: [ fromMixin ],
   computed: {
@@ -46,9 +42,15 @@ export default {
         title: [
           { required: true, type: 'string', message: '请填写标题', trigger: 'blur' }
         ],
-        type_id: [
-          { required: true, type: 'number', message: '请选择分类', trigger: 'change' }
+        type_name: [
+          { required: true, type: 'string', message: '请选择分类', trigger: 'change' }
         ]
+      };
+    },
+    mixinConfig () {
+      return {
+        title: 'Banner',
+        action: this.isAdd() ? 'banners' : `banners/${this.$route.params.id}`
       };
     }
   },
@@ -59,7 +61,7 @@ export default {
         'url': null,
         'title': null,
         'image': null,
-        'type_id': null,
+        'type_name': null,
         'is_visible': true
       }
     };

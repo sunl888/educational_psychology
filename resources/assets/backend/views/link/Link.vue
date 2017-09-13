@@ -14,9 +14,9 @@
         <Form-item label="栏目图片">
           <UploadPicture @on-remove="() => formData.logo = null" @on-success="logo => formData.logo = logo" :url="formData.logo_url" height="180px" class="upload_picture" />
         </Form-item>
-        <Form-item label="分类" prop="type_id">
-          <Select v-model="formData.type_id" style="width:200px">
-            <Option v-for="item in types" :value="item.id" :key="item.id">{{ item.name }}</Option>
+        <Form-item label="分类" prop="type_name">
+          <Select v-model="formData.type_name" style="width:200px">
+            <Option v-for="item in types" :value="item.name" :key="item.id">{{ item.display_name }}</Option>
           </Select>
         </Form-item>
         <Form-item label="是否显示">
@@ -37,22 +37,24 @@ import fromMixin from '../../mixins/form';
 import FormButtomGroup from '../../components/FormButtonGroup.vue';
 import UploadPicture from '../../components/UploadPicture.vue';
 export default {
-  base: {
-    title: '友情链接',
-    url: 'links'
-  },
   computed: {
     rules () {
       return {
         url: [
-          { required: true, type: 'string', message: '请填写URL', trigger: 'blur' }
+          { required: true, type: 'url', message: '请填写正确URL', trigger: 'blur' }
         ],
         name: [
           { required: true, type: 'string', message: '请填写链接名称', trigger: 'blur' }
         ],
-        type_id: [
-          { required: true, type: 'number', message: '请选择分类', trigger: 'change' }
+        type_name: [
+          { required: true, type: 'string', message: '请选择分类', trigger: 'change' }
         ]
+      };
+    },
+    mixinConfig () {
+      return {
+        title: 'Banner',
+        action: this.isAdd() ? 'links' : `links/${this.$route.params.id}`
       };
     }
   },
@@ -66,7 +68,7 @@ export default {
         'name': null,
         'logo': null,
         'linkman': null,
-        'type_id': null,
+        'type_name': null,
         'is_visible': true,
       }
     };

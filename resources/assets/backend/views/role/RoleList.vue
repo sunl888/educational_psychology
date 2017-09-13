@@ -1,6 +1,6 @@
 <template>
   <div class="role_list">
-    <ListWrapper ref="list" title="角色列表" :queryName="$options.base.url">
+    <ListWrapper ref="list" title="角色列表" :queryName="mixinConfig.action">
       <span slot="option"><Button @click="$router.push({name: 'addRole'})" icon="plus-round" type="primary">添加</Button></span>
       <template scope="props">
         <TTable :columns="colums" :data="props.data" />
@@ -16,9 +16,13 @@ import HoverableTime from '../../components/HoverableTime.vue';
 import delMixin from '../../mixins/del';
 export default {
   components: { TTable, ListWrapper, HoverableTime },
-  base: {
-    title: '角色',
-    url: 'roles'
+  computed: {
+    mixinConfig () {
+      return {
+        title: '角色',
+        action: 'roles'
+      };
+    }
   },
   mixins: [ delMixin ],
   data () {
