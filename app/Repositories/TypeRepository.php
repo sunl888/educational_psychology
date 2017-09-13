@@ -24,6 +24,9 @@ class TypeRepository extends BaseRepository
             $data['model_name'] = Type::$modelMapWithType[$data['model_name']];
         }
 
+        if (isset($data['display_name']))
+            $data['display_name'] = e($data['display_name']);
+
         if (isset($data['description']))
             $data['description'] = e($data['description']);
         return $data;

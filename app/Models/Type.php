@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 class Type extends BaseModel
 {
 
-    protected $fillable = ['name', 'description', 'model_name'];
+    protected $fillable = ['name', 'display_name', 'description', 'model_name'];
 
 
     public static $modelMapWithType = [
