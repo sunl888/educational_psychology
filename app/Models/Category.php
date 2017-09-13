@@ -16,6 +16,11 @@ class Category extends BaseModel
 
     const TYPE_POST = 'post', TYPE_PAGE = 'page', TYPE_LINK = 'link';
 
+    public function scopeByCateSlug($query, $cateSlug)
+    {
+        $query->where('cate_slug', $cateSlug);
+    }
+
     public function posts()
     {
         return $this->hasMany(Post::class);
@@ -50,7 +55,7 @@ class Category extends BaseModel
      * 获取该分类的单页
      * @return mixed
      */
-    public function page()
+    public function getPage()
     {
         return $this->posts()->byType(Category::TYPE_PAGE)->first();
     }
@@ -187,5 +192,33 @@ class Category extends BaseModel
     public function hasChildren()
     {
         return $this->children->isNotEmpty();
+    }
+
+    public function getPageTemplate()
+    {
+        if(!is_null($this->page_template) && view()->exists($this->page_template)){
+            return $this->page_template;
+        }else{
+            return config('tiny.page_templates')[0];
+        }
+
+    }
+
+    public function getListTemplate()
+    {
+        if(!is_null($this->list_template) && view()->exists($this->list_template)){
+            return $this->list_template;
+        }else{
+            return config('tiny.list_templates')[0];
+        }
+    }
+
+    public function getContentTemplate()
+    {
+        if(!is_null($this->content_template) && view()->exists($this->content_template)){
+            return $this->content_template;
+        }else{
+            return config('tiny.content_templates')[0];
+        }
     }
 }

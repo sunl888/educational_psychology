@@ -54,4 +54,8 @@ class CategoryRepository extends BaseRepository
         return $this->filterData($data, $category);
     }
 
+    public function findByCateSlug($cateSlug)
+    {
+        return $this->model->byCateSlug($cateSlug)->firstOrFail();
+    }
 }

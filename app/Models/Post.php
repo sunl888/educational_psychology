@@ -17,6 +17,12 @@ class Post extends BaseModel
 
     const STATUS_PUBLISH = 'publish', STATUS_DRAFT = 'draft';
 
+    public function scopeBySlug($query, $slug)
+    {
+        $query->where('slug', $slug);
+    }
+
+
     public function scopeRecent($query)
     {
         return $query->orderBy('published_at', 'desc')->orderBy('created_at', 'desc');
@@ -50,12 +56,12 @@ class Post extends BaseModel
 
     public function scopeByCategory($query, $category)
     {
-        if($category instanceof Category){
+        if ($category instanceof Category) {
             $category = $category->id;
-        }else{
+        } else {
             $category = intval($category);
         }
-        if($category)
+        if ($category)
             $query->where('category_id', $category);
     }
 
@@ -150,4 +156,12 @@ class Post extends BaseModel
         return $this->getImageUrl($this->attributes['cover']);
     }
 
+    public function getTemplate()
+    {
+        if (!is_null($this->template) && view()->exists($this->template)) {
+            return $this->template;
+        } else {
+            return $this->category->getContentTemplate();
+        }
+    }
 }
