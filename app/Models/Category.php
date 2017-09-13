@@ -184,4 +184,8 @@ class Category extends BaseModel
         return $this->getImageUrl($this->attributes['image']);
     }
 
+    public function hasChildren()
+    {
+        return $this->children->isNotEmpty();
+    }
 }

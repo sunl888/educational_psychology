@@ -12,6 +12,7 @@ class TypeTransformer extends TransformerAbstract
         return [
             'id' => $type->id,
             'name' => $type->name,
+            'display_name' => $type->display_name,
             'description' => $type->description,
         ];
     }

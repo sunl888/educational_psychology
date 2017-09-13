@@ -9,20 +9,20 @@ trait Typeable
     public function scopeByType($query, $type)
     {
         if ($type instanceof Type) {
-            $typeId = $type->id;
+            $typeName = $type->name;
         } elseif (is_array($type)) {
-            $typeId = $type['id'];
+            $typeName = $type['name'];
         } else {
-            $typeId = intval($type);
+            $typeName = $type;
         }
-        if ($typeId) {
-            $query->where('type_id', $typeId);
+        if ($typeName) {
+            $query->where('type_name', $typeName);
         }
         return $query;
     }
 
     public function type()
     {
-        return $this->belongsTo(Type::class);
+        return $this->belongsTo(Type::class, 'name', 'type_name');
     }
 }

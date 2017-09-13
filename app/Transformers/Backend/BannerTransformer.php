@@ -7,6 +7,7 @@ use League\Fractal\TransformerAbstract;
 
 class BannerTransformer extends TransformerAbstract
 {
+    protected $availableIncludes = ['type'];
 
     public function transform(Banner $banner)
     {
@@ -17,9 +18,15 @@ class BannerTransformer extends TransformerAbstract
             'image' => $banner->image,
             'image_url' => $banner->image_url,
             'is_visible' => $banner->is_visible,
-            'type_id' => $banner->type_id,
+            'type_name' => $banner->type_name,
             'created_at' => $banner->created_at->toDateTimeString(),
             'updated_at' => $banner->updated_at->toDateTimeString()
         ];
+    }
+
+    public function includeType(Banner $banner)
+    {
+        $type = $banner->type;
+        return $this->item($type, new TypeTransformer());
     }
 }

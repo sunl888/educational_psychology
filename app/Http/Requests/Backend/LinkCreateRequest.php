@@ -33,7 +33,7 @@ class LinkCreateRequest extends Request
             'name' => ['required', 'string', 'between:1,20'],
             'logo' => ['bail', 'nullable', new ImageName(), new ImageNameExist()],
             'linkman' => ['nullable', 'string', 'between:2,20'],
-            'type_id' => ['bail', 'required', 'integer', Rule::exists('types', 'id')->where('model_name', Link::class)],
+            'type_name' => ['bail', 'required', 'string', 'between:1,30', Rule::exists('types', 'type_name')->where('model_name', Link::class)],
             'is_visible' => ['nullable', 'boolean']
         ];
     }

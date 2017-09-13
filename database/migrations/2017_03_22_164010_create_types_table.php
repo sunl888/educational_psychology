@@ -13,15 +13,15 @@ class CreateTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create(
-            'types', function (Blueprint $table) {
-                $table->increments('id');
-                $table->char('name', 30);
-                $table->string('description')->nullable()->comment('类型描述');
-                $table->string('model_name')->index();
+        Schema::create('types', function (Blueprint $table) {
+            $table->increments('id');
+            $table->char('name', 30);
+            $table->string('display_name');
+            $table->string('description')->nullable()->comment('类型描述');
+            $table->string('model_name');
             $table->timestamps();
-            }
-        );
+            $table->unique(['name', 'model_name']);
+        });
     }
 
     /**

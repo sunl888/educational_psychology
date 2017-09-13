@@ -15,13 +15,15 @@ class TypesTableSeeder extends Seeder
             [
             [
                 'id'=>1,
-                'name' => '默认分类',
+                'name' => 'default',
+                'display_name' => '默认分类',
                 'description' => '默认分类',
                 'model_name' => \App\Models\Link::class
             ],
             [
                 'id'=>2,
-                'name' => '搜索引擎',
+                'name' => 'search',
+                'display_name' => '搜索引擎',
                 'description' => '最大的中文搜索引擎',
                 'model_name' => \App\Models\Link::class
             ],
