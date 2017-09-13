@@ -29,7 +29,7 @@ class SettingCreateRequest extends Request
             'name' => ['bail', 'required', 'alpha_dash', 'between:1,30', 'unique:settings'],
             'value' => ['nullable', 'string'],
             'description' => ['nullable', 'string', 'between:2,190'],
-            'type_name' => ['bail', 'required', 'string', 'between:1,30', Rule::exists('types', 'type_name')->where('model_name', Setting::class)],
+            'type_name' => ['bail', 'required', 'string', 'between:1,30', Rule::exists('types', 'name')->where('model_name', Setting::class)],
         ];
     }
 }

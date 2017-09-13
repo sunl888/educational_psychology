@@ -26,6 +26,7 @@ class TypeCreateRequest extends Request
     public function rules()
     {
         return [
+            // todo name 和 model_name 的组合索引
             'name' => ['required', 'alpha_dash', 'between:1,30'],
             'display_name' => ['required', 'string', 'between:1,30'],
             'description' => ['nullable', 'string', 'between:2,190'],

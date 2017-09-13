@@ -32,7 +32,7 @@ class BannerCreateRequest extends Request
             'url' => ['nullable', 'url'],
             'title' => ['nullable', 'string', 'between:1,30'],
             'image' => ['bail', 'required', new ImageName(), new ImageNameExist()],
-            'type_name' => ['bail', 'required', 'string', 'between:1,30', Rule::exists('types', 'type_name')->where('model_name', Banner::class)],
+            'type_name' => ['bail', 'required', 'string', 'between:1,30', Rule::exists('types', 'name')->where('model_name', Banner::class)],
             'is_visible' => ['nullable', 'boolean']
         ];
     }
