@@ -13,8 +13,7 @@ class CreateSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create(
-            'settings', function (Blueprint $table) {
+        Schema::create('settings', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 30)->unique();
             $table->text('value');
@@ -22,8 +21,7 @@ class CreateSettingsTable extends Migration
             $table->char('type_name', 30)->index();
             $table->boolean('is_system')->default(false)->comment('是否为系统配置');
             $table->timestamps();
-        }
-        );
+        });
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Services;
 
 use App\Models\Banner;
 use App\Models\Category;
+use App\Models\InterfaceTypeable;
 use App\Models\Link;
 use Illuminate\Support\Collection;
 
@@ -17,7 +18,7 @@ class CustomOrder
 
     public function order(Collection $collection)
     {
-        $indexOrder = setting($this->getSettingKey(get_class($collection->first())));
+        $indexOrder = setting($this->getSettingKey($collection->first()));
         if (empty($indexOrder)) {
             return $collection;
         }
@@ -35,21 +36,32 @@ class CustomOrder
 
     public function setOrder(array $indexOrder, $model)
     {
+        if (count($indexOrder) <= 0) return;
+
+        $modelInstance = app(static::$modelMapping[$model])->findOrFail($indexOrder[0]);
+
         $indexOrder = array_flip(array_values(array_map(function ($id) {
             return intval($id);
         }, $indexOrder)));
-        $key = $this->getSettingKey(static::$modelMapping[$model]);
+
+        $key = $this->getSettingKey($modelInstance);
+
         setting([
             $key => [
                 'value' => json_encode($indexOrder),
                 'is_system' => true,
-                'type_id' => 0
+                'type_name' => 'system'
             ]
         ]);
     }
 
-    protected function getSettingKey($fullModelName)
+    protected function getSettingKey($modelInstance)
     {
-        return $fullModelName . ':order';
+        if ($modelInstance instanceof InterfaceTypeable) {
+            return 'custom_order:' . get_class($modelInstance) . ':type_name:' . $modelInstance->type_name;
+        } else {
+            return 'custom_order:' . get_class($modelInstance);
+        }
+
     }
 }
