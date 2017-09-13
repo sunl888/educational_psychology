@@ -7,8 +7,8 @@ use App\Models\Traits\Typeable;
 class Banner extends BaseModel implements InterfaceTypeable
 {
     use Typeable;
-    protected $fillable = ['url', 'title', 'image', 'type_id', 'is_visible'];
-    protected static $allowSortFields = ['type_id', 'is_visible'];
+    protected $fillable = ['url', 'title', 'image', 'type_name', 'is_visible'];
+    protected static $allowSortFields = ['type_name', 'is_visible'];
     protected static $allowSearchFields = ['title', 'url'];
     protected $casts = [
         'is_visible' => 'boolean'
