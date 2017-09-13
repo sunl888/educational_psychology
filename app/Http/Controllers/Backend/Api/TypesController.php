@@ -58,8 +58,9 @@ class TypesController extends ApiController
                     // 需要删除关联数据
                     $model->byType($type)->delete();
                 } else {
+                    // todo 这里不允许为 null
                     // 关联数据中的type_id 置为null
-                    $model->byType($type)->update(['type_id' => null]);
+                    // $model->byType($type)->update(['type_name' => null]);
                 }
             }
         }
