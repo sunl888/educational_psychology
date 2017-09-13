@@ -16,7 +16,7 @@ class Visitor extends BaseModel
 
     public function scopeWithinOneday($query, Carbon $date)
     {
-        return $query->range($date->startOfDay(), $date->endOfDay());
+        return $query->range($date->copy()->startOfDay(), $date->copy()->endOfDay());
     }
 
     public function scopeWithinToday($query)

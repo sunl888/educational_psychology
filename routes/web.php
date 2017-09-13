@@ -15,4 +15,4 @@ Route::get('img/{image}', 'ImagesController@show')->where('image', '[A-Za-z0-9]{
 
 Route::group(['namespace' => 'Frontend\Web', 'as' => 'frontend.web.'], __DIR__ . '/frontend/web.php');
 
-Route::group(['namespace' => 'Backend\Web', 'as' => 'backend.web.', 'middleware'=>'record_visitor'], __DIR__ . '/backend/web.php');
+Route::group(['namespace' => 'Backend\Web', 'as' => 'backend.web.'], __DIR__ . '/backend/web.php');

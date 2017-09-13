@@ -9,12 +9,12 @@ use Illuminate\Http\Request;
 
 class CategoriesController extends FrontendController
 {
-    public function show($cateSlug, Request $request)
+    public function show($slug, Request $request)
     {
         /**
          * @var $category Category
          */
-        $category = Category::byCateSlug($cateSlug)->firstOrFail();
+        $category = Category::byCateSlug($slug)->firstOrFail();
         if ($category->isPostList()) {
             return $this->showList($category, $request);
         } else {

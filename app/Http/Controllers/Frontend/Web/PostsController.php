@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Frontend\Web;
 
 
-use App\Http\Requests\Request;
 use App\Models\Post;
-use Auth;
+use Illuminate\Http\Request;
 
 class PostsController extends FrontendController
 {
@@ -15,12 +14,12 @@ class PostsController extends FrontendController
      * @param  $cateSlug
      * @return \Illuminate\Contracts\View\View
      */
-    public function show($postSlug, Request $request)
+    public function show($slug, Request $request)
     {
         /**
          * @var $post Post
          */
-        $post = Post::bySlug($postSlug)->firstOrFail();
+        $post = Post::bySlug($slug)->firstOrFail();
         /*if (Auth::check() && Auth::user()->can('admin.post.show')) {
             $post = $queryBuilder->where(
                 function ($query) {

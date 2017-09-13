@@ -1,5 +1,10 @@
 <?php
 
-Route::get('/', 'IndexController@index');
+Route::middleware('record_visitor')->group(function (){
 
-Route::get('/categories/{$cateSlug}', 'CategoriesController@show');
+    Route::get('/', 'IndexController@index')->name('index');
+
+    Route::get('/categories/{slug}', 'CategoriesController@show')->name('showList');
+
+    Route::get('/posts/{slug}', 'PostsController@show')->name('showPost');
+});
