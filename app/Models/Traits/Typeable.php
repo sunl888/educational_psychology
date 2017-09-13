@@ -16,7 +16,7 @@ trait Typeable
             $typeName = $type;
         }
         if ($typeName) {
-            $query->where('type_name', $typeName);
+            $query->where('name', $typeName);
         }
         return $query;
     }
