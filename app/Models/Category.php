@@ -3,7 +3,10 @@
 namespace App\Models;
 
 
-class Category extends BaseModel
+use App\Models\Presenter\CategoryPresenter;
+use App\Support\Presenter\PresentableInterface;
+
+class Category extends BaseModel implements PresentableInterface
 {
 
     protected $casts = [
@@ -33,7 +36,7 @@ class Category extends BaseModel
      */
     public function postListWithOrder($order = null)
     {
-        $query = $this->posts()->post()->publish()->orderByTop();
+        $query = $this->posts()->byType(static::TYPE_POST)->byStatus(Post::STATUS_PUBLISH)->orderByTop();
         switch ($order) {
             case 'default':
                 $query->ordered()->recent();
@@ -196,29 +199,34 @@ class Category extends BaseModel
 
     public function getPageTemplate()
     {
-        if(!is_null($this->page_template) && view()->exists($this->page_template)){
+        if (!is_null($this->page_template) && view()->exists('theme::' . $this->page_template)) {
             return $this->page_template;
-        }else{
-            return config('tiny.page_templates')[0];
+        } else {
+            return config('tiny.templates.page_templates')[0]['file_name'];
         }
 
     }
 
     public function getListTemplate()
     {
-        if(!is_null($this->list_template) && view()->exists($this->list_template)){
+        if (!is_null($this->list_template) && view()->exists('theme::' . $this->list_template)) {
             return $this->list_template;
-        }else{
-            return config('tiny.list_templates')[0];
+        } else {
+            return config('tiny.templates.list_templates')[0]['file_name'];
         }
     }
 
     public function getContentTemplate()
     {
-        if(!is_null($this->content_template) && view()->exists($this->content_template)){
+        if (!is_null($this->content_template) && view()->exists('theme::' . $this->content_template)) {
             return $this->content_template;
-        }else{
-            return config('tiny.content_templates')[0];
+        } else {
+            return config('tiny.templates.content_templates')[0]['file_name'];
         }
+    }
+
+    public function getPresenter()
+    {
+        return new CategoryPresenter($this);
     }
 }

@@ -9,23 +9,24 @@ return [
     'default_slug_mode' => 'pinyin',
 
 
+    // todo 模板可以加一个主题  'current_theme' => 'test'
     'templates' => [
         'page_templates' => [
             [
-                'file_name' => 'post.page',
+                'file_name' => 'page.default',
                 'title' => '默认单页模板'
             ]
         ]
         ,
         'list_templates' => [
             [
-                'file_name' => 'post.list',
+                'file_name' => 'list.default',
                 'title' => '默认列表模板',
             ]
         ],
         'content_templates' => [
             [
-                'file_name' => 'post.content',
+                'file_name' => 'content.default',
                 'title' => '默认正文模板',
             ]
         ]
@@ -33,6 +34,7 @@ return [
 
     'logo' => env('LOGO', 'tiny'),
 
+    // todo 这个配置可以拆出去
     'alert' => [
         'default_type' => 'info',
         'default_has_button' => false,
