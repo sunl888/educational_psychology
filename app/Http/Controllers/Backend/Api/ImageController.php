@@ -33,6 +33,27 @@ class ImageController extends ApiController
         throw new ResourceException('图片上传失败', [$config['upload_key'] => '图片上传失败']);
     }
 
+    // todo 同时上传多张图片
+    public function wangEditorUpload(Request $request)
+    {
+        $errno = 0;
+        $error = '';
+        $data = [];
+        try {
+            $image = $this->upload($request);
+            $data[] = $image['image_url'];
+        } catch (ResourceException $e) {
+            $errno = $e->getStatusCode();
+            $error = $e->getErrors()->first();
+        }
+
+        return [
+            'errno' => $errno,
+            'data' => $data,
+            'error' => $error
+        ];
+    }
+
     protected function hashName(UploadedFile $image)
     {
         $name = md5_file($image->getRealPath());
