@@ -3,27 +3,22 @@
     <div class="title_input_wrapper">
       <TitleInput :value="title" @input="val => void $emit('update:title', val)"/>
     </div>
-    <quill-editor :options="editorOption" :content="content" @change="({ html }) => void $emit('update:content', html)">
-    </quill-editor>
+    <WangEditor :content="content" @change="html => void $emit('update:content', html)"></WangEditor>
   </main>
 </template>
 
 <script>
 import TitleInput from './TitleInput.vue';
-import { quillEditor } from 'vue-quill-editor';
+import WangEditor from './WangEditor.vue';
 export default {
   name: 'titleWithContent',
   props: {
     title: String,
     content: String
   },
-  components: { TitleInput, quillEditor },
+  components: { TitleInput, WangEditor },
   data () {
-    return {
-      editorOption: {
-        placeholder: '请输入正文'
-      }
-    };
+    return {};
   }
 };
 </script>
