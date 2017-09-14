@@ -26,7 +26,7 @@ class UserCreateRequest extends Request
             'password' => ['required', 'string', 'between:5,20'],
             'email' => ['bail', 'required', 'email', 'unique:users'],
             'avatar' => ['bail', 'nullable', new ImageName(), new ImageNameExist()],
-            'roles' => ['required', 'array'],
+            'roles' => ['nullable', 'array'],
             'permissions' => ['nullable', 'array'],
         ];
     }
