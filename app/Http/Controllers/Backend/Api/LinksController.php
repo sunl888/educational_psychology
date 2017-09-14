@@ -22,7 +22,7 @@ class LinksController extends ApiController
 
     public function index(Request $request)
     {
-        $links = Link::byType($request->get('type', null))->ancient()->get();
+        $links = Link::byType($request->get('type_name', null))->ancient()->get();
         $links = app(CustomOrder::class)->order($links);
         return $this->response()->collection($links, new LinkTransformer());
     }
