@@ -23,7 +23,7 @@ class ImageController extends ApiController
             $image->hashName($image);
             $hashName = $this->hashName($image);
             $image->storeAs($config['source_path_prefix'], $hashName, ['disk' => $config['source_disk']]);
-            
+
             $imageId = ltrim(strstr($hashName, DIRECTORY_SEPARATOR), DIRECTORY_SEPARATOR);
             return [
                 'image' => $imageId,
@@ -31,6 +31,23 @@ class ImageController extends ApiController
             ];
         }
         throw new ResourceException('图片上传失败', [$config['upload_key'] => '图片上传失败']);
+    }
+
+    public function wangEditorUpload(Request $request)
+    {
+        $errno = 0;
+        $data = [];
+        try {
+            $image = $this->upload($request);
+            $data[] = $image['image_url'];
+        } catch (ResourceException $e) {
+            $errno = $e->getStatusCode();
+        }
+
+        return [
+            'errno' => $errno,
+            'data' => $data
+        ];
     }
 
     protected function hashName(UploadedFile $image)
