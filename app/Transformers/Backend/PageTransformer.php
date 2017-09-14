@@ -11,7 +11,7 @@ class PageTransformer extends TransformerAbstract
 
     public function transform(?Post $post)
     {
-        if(is_null($post)){
+        if (is_null($post)) {
             return [];
         }
         return [
@@ -26,8 +26,11 @@ class PageTransformer extends TransformerAbstract
         ];
     }
 
-    public function includePostContent(Post $post)
+    public function includePostContent(?Post $post)
     {
+        if (is_null($post)) {
+            return $this->null();
+        }
         $content = $post->postContent;
         if (is_null($content)) {
             return $this->null();
