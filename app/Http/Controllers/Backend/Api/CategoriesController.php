@@ -96,7 +96,7 @@ class CategoriesController extends ApiController
     {
 
         $this->needPage($category);
-        $page = $category->page();
+        $page = $category->getPage();
         if (is_null($page)) {
             $this->storePage($category, $request, $pageRepository);
         } else {
