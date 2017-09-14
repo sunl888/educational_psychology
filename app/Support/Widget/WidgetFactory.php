@@ -38,7 +38,7 @@ class WidgetFactory
             throw new InvalidWidgetClassException('Class "' . $widgetClass . '" must extend "' . AbstractWidget::class . '" class');
         }
 
-        $this->widget = app($widgetClass, $config);
+        $this->widget = new $widgetClass($config);
     }
 
     /**
