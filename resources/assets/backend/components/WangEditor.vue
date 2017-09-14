@@ -16,14 +16,13 @@
         editor: null
       };
     },
-    watch: {
-      content (newContent) {
+    mounted () {
+      const unwatch = this.$watch('content', newContent => {
         if (this.editor) {
           this.editor.txt.html(newContent);
+          unwatch();
         }
-      }
-    },
-    mounted () {
+      });
       this.editor = new E('#editorElem');
       this.editor.customConfig.onchange = (html) => {
         this.$emit('change', html);
@@ -53,8 +52,21 @@
   };
 </script>
 
-<style scoped lang="less">
+<style lang="less">
 #editorElem{
   font-size: initial;
+  .w-e-toolbar{
+    background-color: #fff!important;
+    border: none!important;
+    border-bottom: 1px solid #ccc!important;
+  }
+  .w-e-text-container, .w-e-text{
+    border: none!important;
+    height: auto!important;
+    min-height: 300px!important;
+  }
+  .w-e-text{
+    overflow-y: hidden!important;
+  }
 }
 </style>

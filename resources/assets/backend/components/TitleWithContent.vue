@@ -36,7 +36,7 @@ export default {
   padding: 35px!important;
   margin-bottom: 30px;
   .title_input_wrapper {
-    margin: 0 13px 30px 13px;
+    margin-bottom: 30px;
   }
 }
 </style>
