@@ -54,7 +54,7 @@ export default {
     },
     mixinConfig () {
       return {
-        title: 'Banner',
+        title: '友情链接',
         action: this.isAdd() ? 'links' : `links/${this.$route.params.id}`
       };
     }
