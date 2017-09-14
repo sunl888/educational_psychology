@@ -64,7 +64,7 @@ class CategoriesController extends ApiController
     public function page(Category $category)
     {
         $this->needPage($category);
-        return $this->response()->item($category->page(), new PageTransformer())->addMeta('cate_name', $category->cate_name);
+        return $this->response()->item($category->getPage(), new PageTransformer())->addMeta('cate_name', $category->cate_name);
     }
 
     private function updatePage(Post $page, Request $request, PageRepository $pageRepository)

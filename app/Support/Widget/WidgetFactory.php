@@ -37,7 +37,8 @@ class WidgetFactory
         if (!is_subclass_of($widgetClass, AbstractWidget::class)) {
             throw new InvalidWidgetClassException('Class "' . $widgetClass . '" must extend "' . AbstractWidget::class . '" class');
         }
-        $this->widget = new $widgetClass($config);
+
+        $this->widget = app($widgetClass, $config);
     }
 
     /**
