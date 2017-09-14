@@ -5,7 +5,7 @@
         <Form-item label="标题" prop="title">
           <Input v-model="formData.title" placeholder="请设置标题"></Input>
         </Form-item>
-        <Form-item label="URL">
+        <Form-item label="URL" prop="url">
           <Input v-model="formData.url" placeholder="请设置Banner URL"></Input>
         </Form-item>
         <Form-item label="分类" prop="type_name">
@@ -44,6 +44,9 @@ export default {
         ],
         type_name: [
           { required: true, type: 'string', message: '请选择分类', trigger: 'change' }
+        ],
+        url: [
+          { type: 'url', message: 'URL格式不正确', trigger: 'blur' }
         ]
       };
     },

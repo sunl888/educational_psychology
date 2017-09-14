@@ -55,6 +55,11 @@ export default {
       };
     }
   },
+  mounted () {
+    this.$on('on-success', () => {
+      this.$router.push({name: 'userList'});
+    });
+  },
   data () {
     return {
       formData: {

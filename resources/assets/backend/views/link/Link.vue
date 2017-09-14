@@ -41,7 +41,8 @@ export default {
     rules () {
       return {
         url: [
-          { required: true, type: 'url', message: '请填写正确URL', trigger: 'blur' }
+          { required: true, message: '请填写URL', trigger: 'blur' },
+          { type: 'url', message: 'URL格式不正确', trigger: 'blur' }
         ],
         name: [
           { required: true, type: 'string', message: '请填写链接名称', trigger: 'blur' }
