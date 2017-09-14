@@ -65,8 +65,12 @@ export default {
       showTypeEditDialog: false,
       tyleCol: [
         {
-          title: '分类名',
+          title: '分类',
           key: 'name'
+        },
+        {
+          title: '分类名称',
+          key: 'display_name'
         },
         {
           title: '描述',
