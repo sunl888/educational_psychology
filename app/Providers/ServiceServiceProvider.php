@@ -8,9 +8,10 @@ use App\Services\PostService;
 use App\Services\SettingCacheService;
 use App\Services\SlugGenerator;
 use App\Services\VisitorService;
+use App\Widgets\Alert;
 use Illuminate\Support\ServiceProvider;
 
-class ServicesServiceProvider extends ServiceProvider
+class ServiceServiceProvider extends ServiceProvider
 {
 
     public function boot()
@@ -37,6 +38,10 @@ class ServicesServiceProvider extends ServiceProvider
 
         $this->app->singleton(VisitorService::class, function ($app) {
             return new VisitorService($app->make('request'));
+        });
+
+        $this->app->singleton(Alert::class, function  ($app) {
+            return new Alert($app->make('session.store'), $app->make('config')('tiny.alert'));
         });
     }
 }

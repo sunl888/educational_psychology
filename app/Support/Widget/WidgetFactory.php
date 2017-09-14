@@ -15,7 +15,7 @@ class WidgetFactory
 
     protected $widgetConfig;
 
-    public $widgetParams;
+    protected $widgetParams;
 
     protected $widgetName;
 

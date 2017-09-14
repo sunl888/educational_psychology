@@ -40,5 +40,8 @@ return [
         'allow_type_list' => [
             'info', 'success', 'warning', 'danger'
         ]
-    ]
+    ],
+
+    // 阅读间隔，每个用户在此时间内重复刷新文章页面只增长 1 个阅读量，单位分钟
+    'reading_interval' => 1
 ];

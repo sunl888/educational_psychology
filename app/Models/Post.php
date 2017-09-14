@@ -110,8 +110,7 @@ class Post extends BaseModel
 
     public function addViewCount()
     {
-        Post::where($this->getKeyName(), $this->getKey())->increment('views_count');
-        $this->views_count++;
+        return $this->increment('views_count');
     }
 
     /**
