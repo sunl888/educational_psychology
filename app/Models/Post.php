@@ -157,7 +157,7 @@ class Post extends BaseModel
 
     public function getTemplate()
     {
-        if (!is_null($this->template) && view()->exists($this->template)) {
+        if (!is_null($this->template) && view()->exists('theme::' . $this->template)) {
             return $this->template;
         } else {
             return $this->category->getContentTemplate();

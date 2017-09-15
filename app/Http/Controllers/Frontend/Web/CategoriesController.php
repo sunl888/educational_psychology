@@ -27,7 +27,7 @@ class CategoriesController extends FrontendController
         $postList = $category->postListWithOrder($request->get('order'))->with('user')->paginate($this->perPage());
         $postList->appends($request->all());
 
-        return view($category->getListTemplate(), [
+        return view('theme::' . $category->getListTemplate(), [
             'postList' => $postList,
         ]);
     }
@@ -40,6 +40,6 @@ class CategoriesController extends FrontendController
             abort(404, '该单页还没有初始化');
         }
 
-        return view($category->getPageTemplate(), ['page' => $page]);
+        return view('theme::' . $category->getPageTemplate(), ['page' => $page]);
     }
 }
