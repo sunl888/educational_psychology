@@ -7,6 +7,7 @@ use App\Http\Requests\Request;
 use App\Models\Category;
 use App\Rules\ImageName;
 use App\Rules\ImageNameExist;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\Rule;
 
 class CategoryUpdateRequest extends Request
@@ -29,20 +30,29 @@ class CategoryUpdateRequest extends Request
      */
     public function rules()
     {
-        $category = $this->route('category');
         return [
             'type' => ['nullable', Rule::in([Category::TYPE_POST, Category::TYPE_PAGE, Category::TYPE_LINK])],
             'image' => ['bail', 'nullable', new ImageName(), new ImageNameExist()],
-            'parent_id' => ['bail', 'nullable', 'integer', Rule::exists('categories', 'id')->where('id', '!=', $category->id)],
+            'parent_id' => ['bail', 'nullable', 'integer', 'min:0'],
             'cate_name' => ['nullable', 'string', 'between:2,30'],
             'description' => ['nullable', 'string', 'between:2,500'],
             'is_nav' => ['nullable', 'boolean'],
             'order' => ['nullable', 'integer'],
-            'url' => ['required_if:type,' . Category::TYPE_LINK, 'url'],
-            'is_target_blank' => ['required_if:type,' . Category::TYPE_LINK, 'boolean'],
+            'url' => ['nullable', 'url'],
+            'is_target_blank' => ['nullable', 'boolean'],
             'page_template' => ['nullable', 'string', 'between:1,30'],
             'list_template' => ['nullable', 'string', 'between:1,30'],
             'content_template' => ['nullable', 'string', 'between:1,30']
         ];
+    }
+
+    public function withValidator(Validator $validator)
+    {
+        $category = $this->route('category');
+        $validator->sometimes('parent_id', Rule::exists('categories', 'id')->where('id', '!=', $category->id), function ($input) use ($category) {
+            return $category->parent_id != $input->parent_id && $input->parent_id > 0;
+        });
+
+        return $validator;
     }
 }

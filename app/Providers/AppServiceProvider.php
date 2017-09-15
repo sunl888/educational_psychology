@@ -37,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
                     $binding = (string)$binding;
                 }
                 $sql = sprintf($sql, ...$query->bindings);
-                Log::info('sql', [$sql, $query->time]);
+                Log::info('sql', [$sql, $query->time, url()->current()]);
             });
         }
         Carbon::setLocale('zh');
