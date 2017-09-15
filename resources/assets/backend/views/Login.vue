@@ -3,7 +3,7 @@
       <Logo></Logo>
       <main class="login_wrapper">
         <h2>用户登录</h2>
-         <Form :model="loginInfo">
+        <Form :model="loginInfo">
             <Form-item>
               <Input v-model="loginInfo.account" placeholder="请输入用户名或邮箱"></Input>
             </Form-item>

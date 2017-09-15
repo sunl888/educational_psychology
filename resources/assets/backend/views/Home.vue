@@ -68,6 +68,7 @@ export default {
     .menu{
       bottom: 0;
       padding-top: 60px;
+      z-index: 9;
     }
     .top_menu_item > i{
       margin-right: 12px;
