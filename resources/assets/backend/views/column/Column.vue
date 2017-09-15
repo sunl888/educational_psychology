@@ -1,7 +1,7 @@
 <template>
   <div class="column">
     <Panel :title="title">
-      <Form ref="form" :rules="rules" :model="formData" :label-width="80">
+      <Form ref="form" :rules="rules" :model="formData" :label-width="100">
         <Form-item label="分类名" prop="cate_name">
           <Input v-model="formData.cate_name" placeholder="请设置分类名"></Input>
         </Form-item>
@@ -51,6 +51,12 @@
         </Form-item>
         <Form-item v-if="formData.type === 'link'" label="外部链接" prop="url">
           <Input v-model="formData.url" placeholder="请设置外部链接"></Input>
+        </Form-item>
+        <Form-item v-if="formData.type === 'link'" label="新标签页打开">
+          <i-switch v-model="formData.is_target_blank">
+            <span slot="open">是</span>
+            <span slot="close">否</span>
+          </i-switch>
         </Form-item>
         <FormButtomGroup />
       </Form>
@@ -115,9 +121,8 @@ export default {
         'cate_name': null,
         'description': null,
         'url': null,
-        'is_target_blank': null,
-        'cate_slug': null,
-        'is_nav': null,
+        'is_target_blank': true,
+        'is_nav': true,
         'order': 0,
         'page_template': null,
         'list_template': null,
