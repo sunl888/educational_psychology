@@ -55,6 +55,7 @@ export default {
         });
         this.title = this.getConfig('editPrefix') + this.getConfig('title');
       } else {
+        diff.clear();
         this.title = this.getConfig('addPrefix') + this.getConfig('title');
       }
     }

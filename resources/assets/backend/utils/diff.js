@@ -1,4 +1,7 @@
 export default {
+  clear () {
+    this.oldObj = {};
+  },
   save (oldObj) {
     this.oldObj = {...oldObj};
   },
