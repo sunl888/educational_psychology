@@ -1,7 +1,11 @@
 <template>
   <div class="row">
     <Icon class="icon" type="navicon"></Icon>
-    <Avatar class="pic" size="large" shape="square" :src="pic">{{title.substr(0, 1)}}</Avatar>
+    <Avatar class="pic" size="large" shape="square" :src="pic">
+      <template v-if="!pic">
+        {{title.substr(0, 1)}}
+      </template>
+    </Avatar>
     <span class="title">{{title}}</span>
     <div class="info">
       <span>{{url}}</span>
