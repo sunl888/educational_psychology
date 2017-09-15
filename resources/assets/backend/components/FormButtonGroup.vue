@@ -19,10 +19,10 @@ export default {
       while (parent !== undefined && typeof parent.confirm !== 'function') {
         parent = parent.$parent;
       }
-      parent.confirm();
       parent.$on('on-loaded', () => {
         this.loading = false;
       });
+      parent.confirm();
     }
   },
   mounted () {

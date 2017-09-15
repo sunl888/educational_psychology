@@ -5,7 +5,7 @@
 export default {
 };
 </script>
-
+// todo image onerror
 <style lang="less">
   body, html {
     font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif;

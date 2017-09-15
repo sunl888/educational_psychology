@@ -118,7 +118,7 @@ export default {
         'is_target_blank': null,
         'cate_slug': null,
         'is_nav': null,
-        'order': null,
+        'order': 0,
         'page_template': null,
         'list_template': null,
         'content_template': null

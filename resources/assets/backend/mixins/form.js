@@ -23,6 +23,7 @@ export default {
         this.$refs.form.validate((valid) => {
           if (!valid) {
             this.$Message.error('填写有误!');
+            this.$emit('on-loaded');
           } else {
             this.submit();
           }
@@ -55,6 +56,7 @@ export default {
         });
         this.title = this.getConfig('editPrefix') + this.getConfig('title');
       } else {
+        diff.clear();
         this.title = this.getConfig('addPrefix') + this.getConfig('title');
       }
     }

@@ -1,9 +1,18 @@
 export default {
+  clear () {
+    this.oldObj = undefined;
+  },
   save (oldObj) {
     this.oldObj = {...oldObj};
   },
   diff (newObj) {
-    if (this.oldObj === {} || this.oldObj === undefined) {
+    console.log(!this.oldObj, this.oldObj);
+    if (!this.oldObj) {
+      for (let index in newObj) {
+        if (newObj[index] === null) {
+          delete newObj[index];
+        }
+      }
       return newObj;
     }
     let diffObj = {};

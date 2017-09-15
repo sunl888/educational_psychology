@@ -20,7 +20,7 @@
     </draggable>
     <main class="sample">
       <SplitLine class="split_line">示例</SplitLine>
-      <Carousel3d v-if="list.length > 0" :controls-visible="true" :count="list.length">
+      <Carousel3d height="200" v-if="list.length > 0" :controls-visible="true" :count="list.length">
         <Slide v-for="(item, index) in list" :key="index" :index="index">
           <img :src="item.image_url">
         </Slide>
@@ -59,6 +59,9 @@ export default {
     border-radius: 5px;
     .split_line{
       margin-bottom: 50px;
+    }
+    img{
+      height: 100%;
     }
   }
 }
