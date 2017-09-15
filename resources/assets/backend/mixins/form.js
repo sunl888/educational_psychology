@@ -23,6 +23,7 @@ export default {
         this.$refs.form.validate((valid) => {
           if (!valid) {
             this.$Message.error('填写有误!');
+            this.$emit('on-loaded');
           } else {
             this.submit();
           }
