@@ -43,6 +43,6 @@ class PostsController extends FrontendController
 
         event(new PostHasBeenRead($post, $request->getClientIp()));
 
-        return view($post->getTemplate(), ['post' => $post]);
+        return view('theme::' . $post->getTemplate(), ['post' => $post]);
     }
 }

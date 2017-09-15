@@ -41,7 +41,7 @@ class ServiceServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton(Alert::class, function  ($app) {
-            return new Alert($app->make('session.store'), $app->make('config')('tiny.alert'));
+            return new Alert($app->make('session.store'), $app->make('config')->get('tiny.alert'));
         });
     }
 }

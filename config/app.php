@@ -162,16 +162,13 @@ return [
         Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
         // Illuminate\Translation\TranslationServiceProvider::class,
-        Overtrue\LaravelLang\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
         /*
          * Package Service Providers...
          */
-        Spatie\Permission\PermissionServiceProvider::class,
         Mews\Purifier\PurifierServiceProvider::class,
-        Overtrue\LaravelPinyin\ServiceProvider::class,
         /*
          * Application Service Providers...
          */

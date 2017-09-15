@@ -2,15 +2,17 @@
 
 namespace App\Models;
 
+use App\Models\Presenter\PostPresenter;
 use App\Models\Traits\Listable;
+use App\Support\Presenter\PresentableInterface;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class Post extends BaseModel
+class Post extends BaseModel implements PresentableInterface
 {
     use SoftDeletes, Listable;
 
-    protected $fillable = ['title', 'user_id', 'excerpt', 'type', 'views_count', 'cover', 'status', 'template', 'top', 'published_at', 'category_id'];
+    protected $fillable = ['title', 'user_id', 'slug', 'excerpt', 'type', 'views_count', 'cover', 'status', 'template', 'top', 'published_at', 'category_id'];
     protected $dates = ['deleted_at', 'top', 'published_at', 'created_at', 'updated_at'];
     protected static $allowSearchFields = ['title', 'excerpt'];
     protected static $allowSortFields = ['title', 'status', 'views_count', 'top', 'order', 'published_at', 'category_id'];
@@ -162,5 +164,10 @@ class Post extends BaseModel
         } else {
             return $this->category->getContentTemplate();
         }
+    }
+
+    public function getPresenter()
+    {
+        return new PostPresenter($this);
     }
 }

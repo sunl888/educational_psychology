@@ -12,7 +12,7 @@ class CategoryPresenter extends Presenter
         if ($this->isExtLink()) {
             return ' href="' . $this->url . '"' . ($this->is_target_blank ? ' target="_blank"' : '');
         } else {
-            return ' href="' . route('frontend.web.showCategory', $this->cate_slug) . '"';
+            return ' href="' . route('frontend.web.category.show', $this->cate_slug) . '"';
         }
     }
 }
