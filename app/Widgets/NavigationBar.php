@@ -5,23 +5,17 @@ namespace App\Widgets;
 
 
 use App\Models\Category;
+use App\Services\Navigation;
 use App\Support\Widget\AbstractWidget;
 
 class NavigationBar extends AbstractWidget
 {
     public function getData(array $params)
     {
+        $navigation = app(Navigation::class);
         return [
-            'navigations' => $this->getAllNav(),
+            'navigations' => $navigation->getAllNav(),
+            'active_top_nav' => $navigation->getActiveTopNav(),
         ];
-    }
-
-    private function getAllNav()
-    {
-        return Category::nav()->topCategories()->with(
-            ['children' => function ($query) {
-                $query->nav();
-            }]
-        )->ordered()->ancient()->get();
     }
 }

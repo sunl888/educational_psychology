@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Services\CategoryService;
 use App\Services\CustomOrder;
+use App\Services\Navigation;
 use App\Services\PostService;
 use App\Services\SettingCacheService;
 use App\Services\SlugGenerator;
@@ -42,6 +43,10 @@ class ServiceServiceProvider extends ServiceProvider
 
         $this->app->singleton(Alert::class, function  ($app) {
             return new Alert($app->make('session.store'), $app->make('config')->get('tiny.alert'));
+        });
+
+        $this->app->singleton(Navigation::class, function  () {
+            return new Navigation();
         });
     }
 }

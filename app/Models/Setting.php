@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\Listable;
 use App\Models\Traits\Typeable;
-use App\Observers\SettingObserver;
+use App\Observers\ClearSettingCache;
 use Illuminate\Database\Eloquent\Builder;
 
 class Setting extends BaseModel implements InterfaceTypeable
@@ -29,7 +29,7 @@ class Setting extends BaseModel implements InterfaceTypeable
             $builder->where('is_system', false);
         });
 
-        static::observe(SettingObserver::class);
+        static::observe(ClearSettingCache::class);
     }
 
     protected $casts = [

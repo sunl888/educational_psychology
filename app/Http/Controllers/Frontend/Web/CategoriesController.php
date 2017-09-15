@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\Frontend\Web;
 
 
+use App\Events\VisitedPostList;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,9 @@ class CategoriesController extends FrontendController
          * @var $category Category
          */
         $category = Category::byCateSlug($slug)->firstOrFail();
+
+        event(new VisitedPostList($category));
+
         if ($category->isPostList()) {
             return $this->showList($category, $request);
         } else {
