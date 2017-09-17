@@ -14,8 +14,9 @@ class NavigationBar extends AbstractWidget
     {
         $navigation = app(Navigation::class);
         return [
-            'navigations' => $navigation->getAllNav(),
-            'active_top_nav' => $navigation->getActiveTopNav(),
+            'navigation' => $navigation,
+            'allNav' => $navigation->getAllNav(),
+            'activeTopNav' => $navigation->getActiveTopNav(),
         ];
     }
 }
