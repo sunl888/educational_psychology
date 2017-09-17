@@ -88,5 +88,5 @@ return [
 
     'prefix' => 'tiny',
 
-    'ttl' => 120,
+    'ttl' => 240,
 ];

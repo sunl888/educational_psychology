@@ -4,6 +4,7 @@ namespace App\Models;
 
 
 use App\Models\Presenter\CategoryPresenter;
+use App\Observers\ClearNavigationCache;
 use App\Support\Presenter\PresentableInterface;
 
 class Category extends BaseModel implements PresentableInterface
@@ -18,6 +19,17 @@ class Category extends BaseModel implements PresentableInterface
 
 
     const TYPE_POST = 'post', TYPE_PAGE = 'page', TYPE_LINK = 'link';
+
+    /**
+     * 数据模型的启动方法
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        static::observe(ClearNavigationCache::class);
+    }
 
     public function scopeByCateSlug($query, $cateSlug)
     {

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Events\PostHasBeenRead;
+use App\Events\VisitedPostList;
 use App\Listeners\PostEventListener;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -15,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         PostHasBeenRead::class => [
+            PostEventListener::class
+        ],
+        VisitedPostList::class => [
             PostEventListener::class
         ],
     ];

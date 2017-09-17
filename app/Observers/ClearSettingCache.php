@@ -4,7 +4,7 @@ namespace App\Observers;
 
 use App\Services\SettingCacheService;
 
-class SettingObserver
+class ClearSettingCache
 {
     public function created()
     {
