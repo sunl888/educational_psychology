@@ -29,7 +29,7 @@ export default {
     >.img{
       width: 234px;
       height: 177px;
-      background: url(https://s1.hdslb.com/bfs/static/member/err-no-list.png) no-repeat bottom;
+      background: url(../static/images/err-no-list.png) no-repeat bottom;
       margin: 0 auto;
     }
 }
