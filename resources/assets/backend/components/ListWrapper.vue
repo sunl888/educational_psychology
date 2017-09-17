@@ -55,7 +55,7 @@ export default {
       width: 360px;
       margin-right: 10px;
       position: relative;
-      z-index: 10;
+      z-index: 9;
     }
     >.option{
       float: right;
