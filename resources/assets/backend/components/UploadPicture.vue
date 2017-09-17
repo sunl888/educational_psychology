@@ -27,7 +27,7 @@
       <Progress class="progress" :percent="percentage" hide-info></Progress>
     </template>
     <div class="upload_img" v-if="status === 'finished'">
-      <img :src="picUrl">
+      <img @error="imgLoadfailed" :src="picUrl">
       <div class="upload_img_option">
         <div class="icon_wrapper">
           <Icon title="替换" type="ios-camera-outline" @click.native="handleReplace"></Icon>
@@ -68,6 +68,9 @@ export default {
     };
   },
   methods: {
+    imgLoadfailed () {
+      this.handleRemove();
+    },
     handleBeforeUpload () {
       this.status = 'uploading';
       this.percentage = 1;
