@@ -46,7 +46,8 @@ export default {
     return {
       statistics: {
         nowPVUV: {},
-        yesterdayPVUV: {}
+        yesterdayPVUV: {},
+        recentlyPVUV: []
       },
       chartData: null,
       options: {
