@@ -24,10 +24,4 @@ class Banner extends BaseModel implements InterfaceTypeable
     {
         return $query->where('is_visible', $isVisible)->ordered();
     }
-
-    public function getImageUrlAttribute()
-    {
-        return $this->getImageUrl($this->attributes['image']);
-    }
-
 }

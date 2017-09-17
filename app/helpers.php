@@ -32,3 +32,19 @@ if (!function_exists('setting')) {
     }
 
 }
+
+if (!function_exists('image_url')) {
+
+    function image_url($imageId, $style = null, $default = null)
+    {
+        if(is_null($imageId)){
+            return value($default);
+        }
+        $parameters = ['image' => $imageId];
+        if(!is_null($style))
+            $parameters['p'] = $style;
+
+        return route(config('images.route_name'), $parameters);
+    }
+
+}

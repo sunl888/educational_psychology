@@ -51,11 +51,6 @@ class User extends BaseModel implements
         return $this->hasMany(Post::class);
     }
 
-    public function getAvatarUrlAttribute()
-    {
-        return $this->getImageUrl($this->attributes['avatar']);
-    }
-
     public function isLocked()
     {
         return $this->locked_at != null;

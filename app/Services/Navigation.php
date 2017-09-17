@@ -16,7 +16,7 @@ class Navigation
     /**
      * @var Category
      */
-    protected $topNav;
+    protected $activeTopNav;
 
     public function getAllNavWithoutCache()
     {
@@ -47,9 +47,9 @@ class Navigation
     public function setActiveNav(Category $activeNav)
     {
         if (!$activeNav->isTopCategory()) {
-            $this->topNav = $activeNav->parent;
+            $this->activeTopNav = $activeNav->parent;
         } else {
-            $this->topNav = $activeNav;
+            $this->activeTopNav = $activeNav;
         }
         $this->activeNav = $activeNav;
     }
@@ -73,15 +73,15 @@ class Navigation
      */
     public function getActiveTopNav()
     {
-        return $this->topNav;
+        return $this->activeTopNav;
     }
 
     public function getActiveChildrenNav()
     {
-        // 这里不直接 return $this->topNav->children() 的原因是为了从缓存中获取数据
-        $topNav = $this->getAllNav()->where('id', $this->topNav->id)->first();
-        if (!is_null($topNav)) {
-            return $topNav->children;
+        // 这里不直接 return $this->activeTopNav->children() 的原因是为了从缓存中获取数据
+        $activeTopNav = $this->getAllNav()->where('id', $this->activeTopNav->id)->first();
+        if (!is_null($activeTopNav)) {
+            return $activeTopNav->children;
         } else {
             return collect();
         }

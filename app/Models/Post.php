@@ -152,10 +152,6 @@ class Post extends BaseModel implements PresentableInterface
         return $this->status == static::STATUS_DRAFT;
     }
 
-    public function getCoverUrlAttribute()
-    {
-        return $this->getImageUrl($this->attributes['cover']);
-    }
 
     public function getTemplate()
     {
