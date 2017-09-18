@@ -19,7 +19,13 @@ class Controller extends BaseController
     public function perPage($default = null)
     {
         $maxPerPage = config('tiny.max_per_page');
-        $perPage = (request('per_page') ?: $default) ?: config('tiny.default_per_page');
+        if (method_exists($this, 'defaultPerPage'))
+            $perPage = (request('per_page') ?: $default) ?: $this->defaultPerPage();
         return (int)($perPage < $maxPerPage ? $perPage : $maxPerPage);
+    }
+
+    public function defaultPerPage()
+    {
+        return config('tiny.default_per_page');
     }
 }
