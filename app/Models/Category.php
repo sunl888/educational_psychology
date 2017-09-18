@@ -206,6 +206,7 @@ class Category extends BaseModel implements PresentableInterface
 
     public function getPageTemplate()
     {
+        // todo 使用 view()->first() 改写 https://laravel-china.org/articles/6053/laravel-blade-dynamic-templates-view-first
         if (!is_null($this->page_template) && view()->exists('theme::' . $this->page_template)) {
             return $this->page_template;
         } else {
