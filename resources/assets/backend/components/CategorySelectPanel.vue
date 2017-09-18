@@ -37,6 +37,7 @@ export default {
           if (cate.id === newCid) {
             this.currentPcate = cate;
             this.childCategories = cate.children.data;
+            this.currentPCateId = cate.id;
             this.currentCateId = newCid;
             return;
           }
