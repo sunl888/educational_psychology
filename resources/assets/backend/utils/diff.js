@@ -5,8 +5,8 @@ export default {
   save (oldObj) {
     this.oldObj = {...oldObj};
   },
-  diff (newObj) {
-    console.log(!this.oldObj, this.oldObj);
+  diff (submitObj) {
+    let newObj = {...submitObj};
     if (!this.oldObj) {
       for (let index in newObj) {
         if (newObj[index] === null) {
