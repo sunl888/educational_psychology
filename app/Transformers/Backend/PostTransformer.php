@@ -23,7 +23,7 @@ class PostTransformer extends TransformerAbstract
             'type' => $post->type,
             'views_count' => $post->views_count,
             'template' => $post->template,
-            // 'url' => $post->present()->getUrl(),
+            'preview_url' => $post->getPresenter()->url(),
             'order' => $post->order,
             'top' => !is_null($post->top),
             'top_time' => is_null($post->top) ? null : $post->top->toDateTimeString(),
