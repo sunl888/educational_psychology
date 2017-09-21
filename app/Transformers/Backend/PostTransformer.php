@@ -7,7 +7,7 @@ use League\Fractal\TransformerAbstract;
 
 class PostTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = ['user', 'post_content', 'categories'];
+    protected $availableIncludes = ['user', 'post_content', 'category'];
 
     public function transform(Post $post)
     {
