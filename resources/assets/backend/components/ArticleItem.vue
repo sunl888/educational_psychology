@@ -2,7 +2,7 @@
   <div class="article_item">
     <router-link :to="{name: 'editArticle', params: {id: article.id}}" v-if="article.cover_url" class="cover" :style="{'background-image': `url(${article.cover_url})`}"></router-link>
     <div class="body" :class="{'no_cover': article.cover_url === null}">
-      <h3><router-link :to="{name: 'editArticle', params: {id: article.id}}"><Tag class="tag" v-if="article.top" color="red">置顶</Tag><Tag class="tag" v-if="article.status === 'draft'" color="green">草稿</Tag>{{article.title}}</router-link><a href="#" class="pre_view">预览</a></h3>
+      <h3><router-link :to="{name: 'editArticle', params: {id: article.id}}"><Tag class="tag" v-if="article.top" color="red">置顶</Tag><Tag class="tag" v-if="article.status === 'draft'" color="green">草稿</Tag>{{article.title}}</router-link><a v-if="article.preview_url" :href="article.preview_url" class="pre_view">预览</a></h3>
       <p class="describe">{{article.excerpt}}</p>
       <UserWeight v-if="article.user.data.length !== 0" :id="article.user.data.id" :avatar_url="article.user.data.avatar_url" :nick_name="article.user.data.nick_name"></UserWeight>
       <span class="info"><HoverableTime :time="article.published_at"></HoverableTime></span>
