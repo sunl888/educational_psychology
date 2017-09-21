@@ -2,57 +2,57 @@
   <div class="column">
     <Panel :title="title">
       <Form ref="form" :rules="rules" :model="formData" :label-width="100">
-        <Form-item label="分类名" prop="cate_name">
+        <Form-item label="分类名" :error="errors.cate_name" prop="cate_name">
           <Input v-model="formData.cate_name" placeholder="请设置分类名"></Input>
         </Form-item>
-        <Form-item label="栏目描述">
+        <Form-item label="栏目描述" :error="errors.description">
           <Input v-model="formData.description" type="textarea" :rows="4" placeholder="请输入栏目描述"></Input>
         </Form-item>
-        <Form-item label="父级栏目">
+        <Form-item label="父级栏目" :error="errors.parent_id">
           <Select v-model="formData.parent_id">
             <Option :value="0" :key="0">作为父级栏目</Option>
             <Option v-for="item in categories" :value="item.id" :key="item.id">{{ item.cate_name }}</Option>
           </Select>
         </Form-item>
-        <Form-item label="排序">
+        <Form-item label="排序" :error="errors.order">
           <InputNumber :min="0" v-model="formData.order"></InputNumber>
         </Form-item>
-        <Form-item label="栏目图片">
+        <Form-item label="栏目图片" :error="errors.image">
           <UploadPicture @on-remove="() => formData.image = null" @on-success="image => formData.image = image" :url="formData.image_url" height="180px" class="upload_picture" />
         </Form-item>
-        <Form-item label="设为导航">
+        <Form-item label="设为导航" :error="errors.is_nav">
           <i-switch v-model="formData.is_nav" size="large">
             <span slot="open">导航</span>
             <span slot="close">普通</span>
           </i-switch>
         </Form-item>
-        <Form-item label="栏目类型">
+        <Form-item label="栏目类型" :error="errors.type">
           <Select v-model="formData.type">
               <Option value="post" :key="0">列表栏目</Option>
               <Option value="page" :key="1">单网页</Option>
               <Option value="link" :key="2">外部链接</Option>
           </Select>
         </Form-item>
-        <Form-item v-if="formData.type === 'post'" label="列表模版" prop="list_template">
+        <Form-item v-if="formData.type === 'post'" label="列表模版" prop="list_template" :error="errors.list_template">
           <Select v-model="formData.list_template">
             <Option v-for="item in templates.list_templates" :value="item.file_name" :key="item.file_name">{{item.title}}({{item.file_name}})</Option>
           </Select>
         </Form-item>
-        <Form-item v-if="formData.type === 'post'" label="正文模版" prop="content_template">
+        <Form-item v-if="formData.type === 'post'" label="正文模版" prop="content_template" :error="errors.content_template">
           <Select v-model="formData.content_template">
               <Option v-for="item in templates.content_templates" :value="item.file_name" :key="item.file_name">{{item.title}}({{item.file_name}})</Option>
           </Select>
         </Form-item>
-        <Form-item v-if="formData.type === 'page'" label="单页模版" prop="page_templates">
+        <Form-item v-if="formData.type === 'page'" label="单页模版" prop="page_templates" :error="errors.page_templates">
           <Select v-model="formData.page_template">
               <Option v-for="item in templates.page_templates" :value="item.file_name" :key="item.file_name">{{item.title}}({{item.file_name}})</Option>
           </Select>
           <Button style="margin-left: 10px;" v-if="id" @click="$router.push({name: 'page', params: { id }})" icon="edit" type="primary">编辑单页</Button>
         </Form-item>
-        <Form-item v-if="formData.type === 'link'" label="外部链接" prop="url">
+        <Form-item v-if="formData.type === 'link'" label="外部链接" prop="url" :error="errors.url">
           <Input v-model="formData.url" placeholder="请设置外部链接"></Input>
         </Form-item>
-        <Form-item v-if="formData.type === 'link'" label="新标签页打开">
+        <Form-item v-if="formData.type === 'link'" label="新标签页打开" :error="errors.is_target_blank">
           <i-switch v-model="formData.is_target_blank">
             <span slot="open">是</span>
             <span slot="close">否</span>

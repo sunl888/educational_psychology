@@ -2,19 +2,19 @@
   <div class="user">
     <Panel :title="title">
       <Form ref="form" :rules="rules" :model="formData" :label-width="80">
-        <Form-item label="用户名" prop="user_name">
+        <Form-item label="用户名" prop="user_name" :error="errors.user_name">
           <Input v-model="formData.user_name" placeholder="请设置用户名"></Input>
         </Form-item>
-        <Form-item label="昵称" prop="nick_name">
+        <Form-item label="昵称" prop="nick_name" :error="errors.nick_name">
           <Input v-model="formData.nick_name" placeholder="请设置用户昵称"></Input>
         </Form-item>
-        <Form-item label="email" prop="email">
+        <Form-item label="email" prop="email" :error="errors.email">
           <Input v-model="formData.email" placeholder="请设置email"></Input>
         </Form-item>
-        <Form-item label="密码" prop="password">
+        <Form-item label="密码" prop="password" :error="errors.password">
           <Input v-model="formData.password" type="password" placeholder="请设置密码"></Input>
         </Form-item>
-        <Form-item label="头像">
+        <Form-item label="头像" :error="errors.avatar">
           <UploadPicture  @on-remove="() => formData.avatar = null" @on-success="avatar => formData.avatar = avatar" :url="formData.avatar_url" height="180px" class="upload_picture" />
         </Form-item>
       </Form>

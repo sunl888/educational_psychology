@@ -1,37 +1,37 @@
 <template>
   <div class="article">
     <h1 class="title">{{title}}</h1>
-    <TitleWithContent :title.sync="formData.title" :content.sync="formData.content"></TitleWithContent>
+    <TitleWithContent :titleError="errors.title" :contentError="errors.content" :title.sync="formData.title" :content.sync="formData.content"></TitleWithContent>
     <div class="option">
       <div class="left">
-        <CategorySelectPanel :cid.sync="formData.category_id" class="type_panel"></CategorySelectPanel>
+        <CategorySelectPanel :cateError="errors.category_id" :cid.sync="formData.category_id" class="type_panel"></CategorySelectPanel>
         <Panel title="封面" full size="small" class="cover">
           <UploadPicture :url="formData.cover_url" @on-remove="() => formData.cover = null" @on-success="cover => formData.cover = cover"></UploadPicture>
         </Panel>
       </div>
       <Panel title="发布" full size="small" width="300px">
         <Form ref="form" :rules="rules" :model="formData" label-position="top">
-          <Form-item label="发布时间">
+          <Form-item label="发布时间" :error="errors.published_at">
             <Date-picker type="date" placeholder="选择发布时间" v-model="formData.published_at"></Date-picker>
           </Form-item>
-          <Form-item label="正文模板" prop="template">
+          <Form-item label="正文模板" prop="template" :error="errors.template">
             <Select v-model="formData.template" placeholder="请选择正文模板">
               <Option v-for="item in contentTemplates" :key="item.file_name" :value="item.file_name">{{item.title}}</Option>
             </Select>
           </Form-item>
           <Row>
             <Col span="12">
-            <Form-item label="排序">
-              <Input-number :min="0" v-model="formData.order"></Input-number>
-            </Form-item>
+              <Form-item label="排序" :error="errors.order">
+                <Input-number :min="0" v-model="formData.order"></Input-number>
+              </Form-item>
             </Col>
             <Col span="12">
-            <Form-item label="浏览次数">
+            <Form-item label="浏览次数" :error="errors.views_count">
               <Input-number :min="0" v-model="formData.views_count"></Input-number>
             </Form-item>
             </Col>
           </Row>
-          <Form-item label="置顶开关">
+          <Form-item label="置顶开关" :error="errors.top">
             <i-switch v-model="formData.top" size="large">
               <span slot="open">ON</span>
               <span slot="close">OFF</span>

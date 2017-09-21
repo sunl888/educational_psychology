@@ -2,8 +2,10 @@
  <main class="article_wrapper">
     <div class="title_input_wrapper">
       <TitleInput :value="title" @input="val => void $emit('update:title', val)"/>
+      <Alert v-if="titleError" type="error">{{titleError}}</Alert>
     </div>
     <WangEditor :content="content" @change="html => void $emit('update:content', html)"></WangEditor>
+    <Alert v-if="contentError" type="error">{{contentError}}</Alert>
   </main>
 </template>
 
@@ -14,7 +16,9 @@ export default {
   name: 'titleWithContent',
   props: {
     title: String,
-    content: String
+    content: String,
+    titleError: String,
+    contentError: String,
   },
   components: { TitleInput, WangEditor },
   data () {

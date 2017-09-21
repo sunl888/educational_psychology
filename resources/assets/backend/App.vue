@@ -28,4 +28,7 @@ export default {
     float: right;
   }
 }
+.ivu-alert.ivu-alert-error{
+  margin-top: 10px;
+}
 </style>

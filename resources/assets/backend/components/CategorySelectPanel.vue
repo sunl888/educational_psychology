@@ -1,13 +1,16 @@
 <template>
   <div class="category_select_panel">
     <Panel title="选择分类" full size="small">
-      <Select v-model="currentPCateId" class="p_type">
-        <Option v-for="cate in categories" :value="cate.id" :key="cate.id">{{cate.cate_name}}</Option>
-      </Select>
-      <RadioTagGroup v-if="currentPCateId != null" v-model="currentCateId">
-        <RadioTagItem :key="currentPcate.id" :value="currentPcate.id" color="#2d8cf0">{{currentPcate.cate_name}}</RadioTagItem>
-        <RadioTagItem v-for="childCate in childCategories" :key="childCate.id" :value="childCate.id" color="#f90">{{childCate.cate_name}}</RadioTagItem>
-      </RadioTagGroup>
+      <div class="cate_body">
+        <Select v-model="currentPCateId" class="p_type">
+          <Option v-for="cate in categories" :value="cate.id" :key="cate.id">{{cate.cate_name}}</Option>
+        </Select>
+        <RadioTagGroup v-if="currentPCateId != null" v-model="currentCateId">
+          <RadioTagItem :key="currentPcate.id" :value="currentPcate.id" color="#2d8cf0">{{currentPcate.cate_name}}</RadioTagItem>
+          <RadioTagItem v-for="childCate in childCategories" :key="childCate.id" :value="childCate.id" color="#f90">{{childCate.cate_name}}</RadioTagItem>
+        </RadioTagGroup>
+      </div>
+      <Alert v-if="cateError" type="error">{{cateError}}</Alert>
     </Panel>
   </div>
 </template>
@@ -19,7 +22,8 @@ export default {
   name: 'categorySelectPanel',
   components: { Panel, RadioTagGroup, RadioTagItem },
   props: {
-    cid: Number
+    cid: Number,
+    cateError: String
   },
   data () {
     return {
@@ -87,6 +91,9 @@ export default {
 
 <style scoped lang="less">
 .category_select_panel{
+  .cate_body{
+    overflow: hidden;
+  }
   .p_type{
     float: left;
     width: 100px;

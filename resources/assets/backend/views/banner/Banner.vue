@@ -2,21 +2,21 @@
   <div class="banner">
     <Panel :title="title">
       <Form ref="form" :rules="rules" :model="formData" :label-width="80">
-        <Form-item label="标题" prop="title">
+        <Form-item label="标题" :error="errors.title" prop="title">
           <Input v-model="formData.title" placeholder="请设置标题"></Input>
         </Form-item>
-        <Form-item label="URL" prop="url">
+        <Form-item label="URL" :error="errors.url" prop="url">
           <Input v-model="formData.url" placeholder="请设置Banner URL"></Input>
         </Form-item>
-        <Form-item label="分类" prop="type_name">
+        <Form-item label="分类" :error="errors.type_name" prop="type_name">
           <Select v-model="formData.type_name" style="width:200px">
             <Option v-for="item in types" :value="item.name" :key="item.id">{{ item.display_name }}</Option>
           </Select>
         </Form-item>
-        <Form-item label="图片">
+        <Form-item label="图片" :error="errors.image" prop="image">
           <UploadPicture  @on-remove="() => formData.image = null" @on-success="image => formData.image = image" :url="formData.image_url" height="180px" class="upload_picture" />
         </Form-item>
-        <Form-item label="是否显示">
+        <Form-item :error="errors.is_visible" label="是否显示">
           <i-switch v-model="formData.is_visible" size="large">
             <span slot="open">显示</span>
             <span slot="close">隐藏</span>
@@ -39,14 +39,14 @@ export default {
   computed: {
     rules () {
       return {
-        title: [
-          { required: true, type: 'string', message: '请填写标题', trigger: 'blur' }
-        ],
         type_name: [
           { required: true, type: 'string', message: '请选择分类', trigger: 'change' }
         ],
         url: [
           { type: 'url', message: 'URL格式不正确', trigger: 'blur' }
+        ],
+        image: [
+          { required: true, message: '请上传图片', trigger: 'change' }
         ]
       };
     },

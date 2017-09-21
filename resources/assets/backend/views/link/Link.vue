@@ -2,24 +2,24 @@
   <div class="link">
     <Panel :title="title">
       <Form ref="form" :rules="rules" :model="formData" :label-width="80">
-        <Form-item label="URL" prop="url">
+        <Form-item label="URL" prop="url" :error="errors.url">
           <Input v-model="formData.url" placeholder="请设置友情链接url"></Input>
         </Form-item>
-        <Form-item label="链接名称" prop="name">
+        <Form-item label="链接名称" prop="name" :error="errors.name">
           <Input v-model="formData.name" placeholder="请输入链接名称"></Input>
         </Form-item>
-        <Form-item label="联系人">
+        <Form-item label="联系人" :error="errors.linkman">
           <Input v-model="formData.linkman" placeholder="请输入联系人"></Input>
         </Form-item>
-        <Form-item label="栏目图片">
+        <Form-item label="栏目图片" :error="errors.logo">
           <UploadPicture @on-remove="() => formData.logo = null" @on-success="logo => formData.logo = logo" :url="formData.logo_url" height="180px" class="upload_picture" />
         </Form-item>
-        <Form-item label="分类" prop="type_name">
+        <Form-item label="分类" prop="type_name" :error="errors.type_name">
           <Select v-model="formData.type_name" style="width:200px">
             <Option v-for="item in types" :value="item.name" :key="item.id">{{ item.display_name }}</Option>
           </Select>
         </Form-item>
-        <Form-item label="是否显示">
+        <Form-item label="是否显示" :error="errors.is_visible">
           <i-switch v-model="formData.is_visible" size="large">
             <span slot="open">显示</span>
             <span slot="close">隐藏</span>

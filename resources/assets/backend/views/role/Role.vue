@@ -2,16 +2,16 @@
   <div class="role">
     <Panel :title="title">
       <Form ref="form" :rules="rules" :model="formData" :label-width="80">
-        <Form-item label="角色" prop="name">
+        <Form-item :error="errors.name" label="角色" prop="name">
           <Input v-model="formData.name" placeholder="请设置角色"></Input>
         </Form-item>
-        <Form-item label="角色名称" prop="display_name">
+        <Form-item label="角色名称" prop="display_name" :error="errors.display_name">
           <Input v-model="formData.display_name" placeholder="请设置角色名称"></Input>
         </Form-item>
-        <Form-item label="描述">
+        <Form-item label="描述" :error="errors.description">
           <Input v-model="formData.description" type="textarea" :rows="4" placeholder="请输入角色描述"></Input>
         </Form-item>
-        <Form-item label="排序">
+        <Form-item label="排序" :error="errors.order">
           <InputNumber :min="0" v-model="formData.order"></InputNumber>
         </Form-item>
         <FormButtomGroup />
