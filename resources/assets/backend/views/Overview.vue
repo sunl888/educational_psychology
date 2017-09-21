@@ -45,7 +45,6 @@ export default {
   data () {
     return {
       statistics: {
-        nowPVUV: {},
         yesterdayPVUV: {},
         recentlyPVUV: []
       },
