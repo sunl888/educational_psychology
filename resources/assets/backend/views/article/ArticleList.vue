@@ -1,6 +1,6 @@
 <template>
   <div class="article_list">
-    <ListWrapper :loading.sync="showPlaceholder" ref="list" :title="title" :queryName="`posts?include=user&category_id=${categoryId}&status=${status}${showTrashed ? '&only_trashed=true' : ''}`">
+    <ListWrapper :loading.sync="showPlaceholder" ref="list" :title="title" :queryName="`posts?include=user,category&category_id=${categoryId}&status=${status}${showTrashed ? '&only_trashed=true' : ''}`">
       <span slot="option"><Button @click="$router.push({name: 'addArticle'})" icon="plus-round" type="primary">添加</Button></span>
       <template scope="props">
         <div class="option_list">

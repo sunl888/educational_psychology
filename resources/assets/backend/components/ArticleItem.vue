@@ -1,12 +1,13 @@
 <template>
   <div class="article_item">
-    <a href="#" v-if="article.cover_url" class="cover" :style="{'background-image': `url(${article.cover_url})`}"></a>
+    <router-link :to="{name: 'editArticle', params: {id: article.id}}" v-if="article.cover_url" class="cover" :style="{'background-image': `url(${article.cover_url})`}"></router-link>
     <div class="body" :class="{'no_cover': article.cover_url === null}">
-      <a href="#"><h3><Tag class="tag" v-if="article.top" color="red">置顶</Tag><Tag class="tag" v-if="article.status === 'draft'" color="green">草稿</Tag>{{article.title}}</h3></a>
+      <router-link :to="{name: 'editArticle', params: {id: article.id}}"><h3><Tag class="tag" v-if="article.top" color="red">置顶</Tag><Tag class="tag" v-if="article.status === 'draft'" color="green">草稿</Tag>{{article.title}}</h3></router-link>
       <p class="describe">{{article.excerpt}}</p>
       <UserWeight v-if="article.user.data.length !== 0" :id="article.user.data.id" :avatar_url="article.user.data.avatar_url" :nick_name="article.user.data.nick_name"></UserWeight>
       <span class="info"><HoverableTime :time="article.published_at"></HoverableTime></span>
       <span class="info">阅读：{{article.views_count}}</span>
+      <span class="info">分类：{{article.category.data.cate_name}}</span>
     </div>
     <div class="option">
       <Button :type="isTrashed ? 'success' : 'primary'" size="large" @click="$emit(isTrashed ? 'restore' : 'edit', article.id)">{{isTrashed ? '还原' : '编辑'}}</Button>
