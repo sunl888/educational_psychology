@@ -9,7 +9,7 @@ use App\Services\PostService;
 use App\Services\SettingCacheService;
 use App\Services\SlugGenerator;
 use App\Services\VisitorService;
-use App\Widgets\Alert;
+use App\Services\Alert;
 use Illuminate\Support\ServiceProvider;
 
 class ServiceServiceProvider extends ServiceProvider
