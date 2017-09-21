@@ -36,6 +36,9 @@ export default{
     },
     'queryName' () {
       this.getList();
+    },
+    'perPage' () {
+      this.getList();
     }
   },
   methods: {
