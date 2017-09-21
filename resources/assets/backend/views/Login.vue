@@ -12,7 +12,7 @@
             </Form-item>
             <Form-item>
               <Button :loading="loading" class="login_btn" type="primary" long @click="login">确认提交</Button>
-              <Checkbox v-model="loginInfo.remeber">下次自动登录</Checkbox>
+              <Checkbox v-model="loginInfo.remember">下次自动登录</Checkbox>
             </Form-item>
         </Form>
         <Button class="back_btn" type="text"><Icon class="icon" type="arrow-left-c"></Icon>返回到首页</Button>
@@ -30,7 +30,7 @@ export default {
       loginInfo: {
         account: 'tiny',
         password: 'test1234',
-        remeber: true
+        remember: true
       }
     };
   },
