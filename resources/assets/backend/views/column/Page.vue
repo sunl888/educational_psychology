@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <h1 class="title">编辑{{title}}</h1>
-    <TitleWithContent :title.sync="formData.title" :content.sync="formData.content"></TitleWithContent>
+    <TitleWithContent :titleError="errors.title" :contentError="errors.content" :title.sync="formData.title" :content.sync="formData.content"></TitleWithContent>
     <FormButtomGroup />
   </div>
 </template>
