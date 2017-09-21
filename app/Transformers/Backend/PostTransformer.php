@@ -55,10 +55,10 @@ class PostTransformer extends TransformerAbstract
 
     public function includeCategory(Post $post)
     {
-        $categories = $post->category;
-        if (is_null($categories)) {
+        $category = $post->category;
+        if (is_null($category)) {
             return $this->null();
         }
-        return $this->collection($categories, new CategoryTransformer());
+        return $this->item($category, new CategoryTransformer());
     }
 }
