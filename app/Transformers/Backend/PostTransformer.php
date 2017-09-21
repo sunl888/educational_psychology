@@ -26,7 +26,7 @@ class PostTransformer extends TransformerAbstract
             // 'url' => $post->present()->getUrl(),
             'order' => $post->order,
             'top' => !is_null($post->top),
-            'top_time' => is_null($post->top)?null:$post->top->toDateTimeString(),
+            'top_time' => is_null($post->top) ? null : $post->top->toDateTimeString(),
             'published_at' => $post->published_at->toDateTimeString(),
             'created_at' => $post->created_at->toDateTimeString(),
             'updated_at' => $post->updated_at->toDateTimeString()
@@ -53,9 +53,12 @@ class PostTransformer extends TransformerAbstract
         }
     }
 
-    public function includeCategories(Post $post)
+    public function includeCategory(Post $post)
     {
-        $categories = $post->categories;
+        $categories = $post->category;
+        if (is_null($categories)) {
+            return $this->null();
+        }
         return $this->collection($categories, new CategoryTransformer());
     }
 }
