@@ -4,11 +4,11 @@
       <main class="login_wrapper">
         <h2>用户登录</h2>
         <Form :model="loginInfo">
-            <Form-item>
-              <Input v-model="loginInfo.account" placeholder="请输入用户名或邮箱"></Input>
+            <Form-item :error="errors.account">
+              <Input @change.native="delete errors.account"  v-model="loginInfo.account" placeholder="请输入用户名或邮箱"></Input>
             </Form-item>
-            <Form-item>
-              <Input v-model="loginInfo.password" type="password" placeholder="请输入密码" @keydown.native.enter="login"></Input>
+            <Form-item :error="errors.password">
+              <Input @change.native="delete errors.password" v-model="loginInfo.password" type="password" placeholder="请输入密码" @keydown.native.enter="login"></Input>
             </Form-item>
             <Form-item>
               <Button :loading="loading" class="login_btn" type="primary" long @click="login">确认提交</Button>
@@ -17,7 +17,7 @@
         </Form>
         <Button class="back_btn" type="text"><Icon class="icon" type="arrow-left-c"></Icon>返回到首页</Button>
       </main>
-  </div>  
+  </div>
 </template>
 
 <script>
@@ -28,10 +28,11 @@ export default {
     return {
       loading: false,
       loginInfo: {
-        account: 'tiny',
-        password: 'test1234',
+        account: '',
+        password: '',
         remember: true
-      }
+      },
+      errors: {}
     };
   },
   methods: {
@@ -46,7 +47,8 @@ export default {
           this.$router.replace({name: 'home'});
         }
         this.loading = false;
-      }).catch(() => {
+      }).catch(err => {
+        this.errors = err.response.data.errors;
         this.loading = false;
       });
     }
