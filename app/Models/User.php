@@ -2,10 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\Traits\Image;
 use App\Models\Traits\Listable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Arr;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
