@@ -12,6 +12,7 @@ class Category extends BaseModel implements PresentableInterface
 
     protected $casts = [
         'is_nav' => 'boolean',
+        'is_target_blank' => 'boolean'
     ];
     protected $fillable = ['type', 'parent_id', 'cate_name', 'order',
         'description', 'url', 'is_target_blank', 'cate_slug', 'is_nav',
