@@ -11,6 +11,7 @@ router.beforeEach((to, from, next) => {
 router.afterEach((to, from, next) => {
   iView.LoadingBar.finish();
 });
+
 Vue.use(iView);
 Vue.use(thttp, {
   baseURL: '/api/backend/',
