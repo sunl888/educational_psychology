@@ -37,14 +37,28 @@ if (!function_exists('image_url')) {
 
     function image_url($imageId, $style = null, $default = null)
     {
-        if(is_null($imageId)){
+        if (is_null($imageId)) {
             return value($default);
         }
         $parameters = ['image' => $imageId];
-        if(!is_null($style))
+        if (!is_null($style))
             $parameters['p'] = $style;
 
         return route(config('images.route_name'), $parameters);
+    }
+
+}
+
+if (!function_exists('array_swap')) {
+
+    function array_swap(&$array, $i, $j)
+    {
+        if ($i != $j && array_key_exists($i, $array) && array_key_exists($j, $array)) {
+            $temp = $array[$i];
+            $array[$i] = $array[$j];
+            $array[$j] = $temp;
+        }
+        return $array;
     }
 
 }

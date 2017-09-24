@@ -9,11 +9,8 @@ class PageTransformer extends TransformerAbstract
 {
     protected $availableIncludes = ['post_content'];
 
-    public function transform(?Post $post)
+    public function transform(Post $post)
     {
-        if (is_null($post)) {
-            return [];
-        }
         return [
             'id' => $post->id,
             'title' => $post->title,
@@ -26,7 +23,7 @@ class PageTransformer extends TransformerAbstract
         ];
     }
 
-    public function includePostContent(?Post $post)
+    public function includePostContent(Post $post)
     {
         if (is_null($post)) {
             return $this->null();

@@ -153,15 +153,6 @@ class Post extends BaseModel implements PresentableInterface
     }
 
 
-    public function getTemplate()
-    {
-        if (!is_null($this->template) && view()->exists('theme::' . $this->template)) {
-            return $this->template;
-        } else {
-            return $this->category->getContentTemplate();
-        }
-    }
-
     public function getPresenter()
     {
         return new PostPresenter($this);

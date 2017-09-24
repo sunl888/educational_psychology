@@ -4,13 +4,15 @@ namespace App\Http\Controllers\Frontend\Web;
 
 
 use App\Events\PostHasBeenRead;
+use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Services\Alert;
+use App\Services\TemplateService;
 use Illuminate\Http\Request;
 use Auth;
 
 
-class PostsController extends FrontendController
+class PostsController extends Controller
 {
     /**
      * 正文
@@ -43,6 +45,9 @@ class PostsController extends FrontendController
 
         event(new PostHasBeenRead($post, $request->getClientIp()));
 
-        return view('theme::' . $post->getTemplate(), ['post' => $post]);
+        $view = app(TemplateService::class)
+            ->firstView([$post->slug, $post->template, $post->category->content_template], 'content');
+
+        return view($view, ['post' => $post]);
     }
 }

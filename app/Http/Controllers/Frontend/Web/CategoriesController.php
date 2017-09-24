@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Frontend\Web;
 
 
 use App\Events\VisitedPostList;
+use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Services\TemplateService;
 use Illuminate\Http\Request;
 
-class CategoriesController extends FrontendController
+class CategoriesController extends Controller
 {
     public function show($slug, Request $request)
     {
@@ -31,7 +33,10 @@ class CategoriesController extends FrontendController
         $posts = $category->postListWithOrder($request->get('order'))->with('user')->paginate($this->perPage());
         $posts->appends($request->all());
 
-        return view('theme::' . $category->getListTemplate(), [
+        $view = app(TemplateService::class)
+            ->firstView([$category->cate_slug, $category->list_template], 'list');
+
+        return view($view, [
             'posts' => $posts,
             'category' => $category
         ]);
@@ -45,7 +50,10 @@ class CategoriesController extends FrontendController
             abort(404, '该单页还没有初始化');
         }
 
-        return view('theme::' . $category->getPageTemplate(), [
+        $view = app(TemplateService::class)
+            ->firstView([$category->cate_slug, $category->page_template], 'page');
+
+        return view($view, [
             'category' => $category,
             'page' => $page
         ]);
