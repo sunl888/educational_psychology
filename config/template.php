@@ -2,7 +2,7 @@
 
 /**
  * 模版最终为 $template['theme_namespace'] . '::' . $templateType .'.' . $template['templates'][$templateType]['file_name'];
- * 例如 默认单页模板 最终为 theme::page.file_name
+ * 例如 默认单页模板 最终为 theme::page.default
  */
 return [
 
