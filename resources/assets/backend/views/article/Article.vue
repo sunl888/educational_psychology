@@ -114,8 +114,15 @@ export default {
     this.$on('on-loaded', () => {
       this.loading = false;
     });
-    this.$http.get('templates').then(res => {
-      this.contentTemplates = res.data.content_templates;
+    this.$http.get('templates', {
+      params: {
+        template_type: 'content'
+      }
+    }).then(res => {
+      this.contentTemplates = res.data.content;
+      if (this.contentTemplates[0]) {
+        this.formData.template = this.contentTemplates[0].file_name;
+      }
     });
   }
 };

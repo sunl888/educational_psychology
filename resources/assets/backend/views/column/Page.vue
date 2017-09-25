@@ -15,6 +15,7 @@ export default {
   data () {
     return {
       title: '单页',
+      errors: {},
       formData: {
         title: '',
         content: ''
@@ -39,7 +40,16 @@ export default {
       this.formData.content = res.data.data.post_content.data.content;
       this.title = res.data.meta.cate_name;
       diff.save(this.formData);
+    }).catch(err => {
+      this.errors = err.response.data.errors;
     });
+    for (let key in this.formData) {
+      this.$watch(`formData.${key}`, () => {
+        if (this.errors[key]) {
+          this.errors[key] = null;
+        }
+      });
+    };
   }
 };
 </script>
