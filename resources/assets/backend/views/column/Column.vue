@@ -35,19 +35,19 @@
         </Form-item>
         <Form-item v-if="formData.type === 'post'" label="列表模版" prop="list_template" :error="errors.list_template">
           <Select v-model="formData.list_template">
-            <Option v-for="item in templates.list_templates" :value="item.file_name" :key="item.file_name">{{item.title}}({{item.file_name}})</Option>
+            <Option v-for="item in templates.list" :value="item.file_name" :key="item.file_name">{{item.title}}({{item.file_name}})</Option>
           </Select>
         </Form-item>
         <Form-item v-if="formData.type === 'post'" label="正文模版" prop="content_template" :error="errors.content_template">
           <Select v-model="formData.content_template">
-              <Option v-for="item in templates.content_templates" :value="item.file_name" :key="item.file_name">{{item.title}}({{item.file_name}})</Option>
+              <Option v-for="item in templates.content" :value="item.file_name" :key="item.file_name">{{item.title}}({{item.file_name}})</Option>
           </Select>
         </Form-item>
         <Form-item v-if="formData.type === 'page'" label="单页模版" prop="page_templates" :error="errors.page_templates">
           <Select v-model="formData.page_template">
-              <Option v-for="item in templates.page_templates" :value="item.file_name" :key="item.file_name">{{item.title}}({{item.file_name}})</Option>
+              <Option v-for="item in templates.page" :value="item.file_name" :key="item.file_name">{{item.title}}({{item.file_name}})</Option>
           </Select>
-          <Button style="margin-left: 10px;" v-if="id" @click="$router.push({name: 'page', params: { id }})" icon="edit" type="primary">编辑单页</Button>
+          <Button style="margin-left: 10px;" v-if="$route.params.id" @click="$router.push({name: 'page', params: { id: $route.params.id }})" icon="edit" type="primary">编辑单页</Button>
         </Form-item>
         <Form-item v-if="formData.type === 'link'" label="外部链接" prop="url" :error="errors.url">
           <Input v-model="formData.url" placeholder="请设置外部链接"></Input>
@@ -99,9 +99,34 @@ export default {
       };
     }
   },
+  watch: {
+    'formData.type' (newVal) {
+      this.changeType(newVal);
+    }
+  },
+  methods: {
+    changeType (type) {
+      if (type === 'page') {
+        this.formData.page_template = this.templates.page[0].file_name;
+        this.formData.content_template = null;
+        this.formData.list_template = null;
+      } else if (type === 'post') {
+        this.formData.content_template = this.templates.content[0].file_name;
+        this.formData.list_template = this.templates.list[0].file_name;
+        this.formData.page_template = null;
+      } else {
+        this.formData.page_template = null;
+        this.formData.content_template = null;
+        this.formData.list_template = null;
+      }
+    }
+  },
   mounted () {
     this.$http.get('templates').then(res => {
       this.templates = res.data;
+      if (this.formData.type){
+        this.changeType(this.formData.type);
+      }
     });
     this.$http.get('categories').then(res => {
       this.categories = res.data.data;
