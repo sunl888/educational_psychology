@@ -4,9 +4,11 @@
 namespace App\Support\Response;
 
 
+use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Response as IlluminateResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use stdClass;
 
 /**
  * Class Response
@@ -20,7 +22,6 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  * @method void getMeta()
  * @package App\Support
  */
-
 class Response implements Responsable
 {
     protected $status;
@@ -30,16 +31,22 @@ class Response implements Responsable
     protected $resource = null;
 
 
-    public function setContent($content){
+    public function setContent($content)
+    {
         $this->content = $content;
+        return $this;
     }
 
-    public function setStatus($status){
+    public function setStatus($status)
+    {
         $this->status = $status;
+        return $this;
     }
 
-    public function setHeaders($headers){
+    public function setHeaders($headers)
+    {
         $this->headers = $headers;
+        return $this;
     }
 
     public function __construct($content = '', $status = 200, $headers = [])
@@ -87,7 +94,7 @@ class Response implements Responsable
      * Return an error response.
      *
      * @param string $message
-     * @param int    $statusCode
+     * @param int $statusCode
      *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      *
@@ -96,5 +103,17 @@ class Response implements Responsable
     public function error($message, $statusCode)
     {
         throw new HttpException($statusCode, $message);
+    }
+
+    public function null()
+    {
+
+        $this->setContent(new class () implements Jsonable{
+            public function toJson($options = 0)
+            {
+                return json_encode(new stdClass());
+            }
+        });
+        return $this;
     }
 }

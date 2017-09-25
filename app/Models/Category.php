@@ -73,7 +73,7 @@ class Category extends BaseModel implements PresentableInterface
      */
     public function getPage()
     {
-        return $this->posts()->byType(Category::TYPE_PAGE)->firstOrFail();
+        return $this->posts()->byType(Category::TYPE_PAGE)->first();
     }
 
     public function parent()

@@ -16,6 +16,7 @@ use App\Transformers\Backend\CategoryTransformer;
 use App\Transformers\Backend\PageTransformer;
 use App\Transformers\Backend\VisualCategoryTransformer;
 use Illuminate\Http\Request;
+use League\Fractal\Resource\NullResource;
 
 class CategoriesController extends ApiController
 {
@@ -64,7 +65,12 @@ class CategoriesController extends ApiController
     public function page(Category $category)
     {
         $this->needPage($category);
-        return $this->response()->item($category->getPage(), new PageTransformer())->addMeta('cate_name', $category->cate_name);
+        $page = $category->getPage();
+        if (is_null($page)) {
+            return $this->response()->null();
+        } else {
+            return $this->response()->item($page, new PageTransformer())->addMeta('cate_name', $category->cate_name);
+        }
     }
 
     private function updatePage(Post $page, Request $request, PageRepository $pageRepository)
