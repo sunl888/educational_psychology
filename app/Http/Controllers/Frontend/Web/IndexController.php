@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Frontend\Web;
 
 
-class IndexController extends FrontendController
+use App\Http\Controllers\Controller;
+
+class IndexController extends Controller
 {
     public function index()
     {
-        return view('theme::index');
+        return view(config('template.theme_namespace') . '::index');
     }
 }

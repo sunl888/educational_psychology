@@ -28,7 +28,7 @@ Route::delete('posts/{post}/real', 'PostsController@realDestroy');
 // 恢复指定的被软删除的文章
 Route::post('posts/{post}/restore', 'PostsController@restore');
 // 获取模板
-Route::get('templates', 'PostsController@templates');
+Route::get('templates', 'TemplatesController@templates');
 
 Route::get('categories/visual_output', 'CategoriesController@visualOutput');
 Route::resource('categories', 'CategoriesController', [

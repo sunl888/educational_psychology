@@ -44,36 +44,5 @@ $factory->define(App\Models\Category::class, function (Faker $faker) {
         'updated_at' => \Carbon\Carbon::now(),
         'is_nav' => $faker->boolean,
         'order' => $faker->randomDigitNotNull,
-        'list_template' => function (array $category) {
-            switch ($category['type']) {
-                case Category::TYPE_POST:
-                    return 'post.index';
-                    break;
-                default:
-                    return null;
-                    break;
-            }
-        },
-
-        'content_template' => function (array $category) {
-            switch ($category['type']) {
-                case Category::TYPE_POST:
-                    return 'post.content';
-                    break;
-                default:
-                    return null;
-                    break;
-            }
-        },
-        'page_template' => function (array $category) {
-            switch ($category['type']) {
-                case Category::TYPE_PAGE:
-                    return 'post.page';
-                    break;
-                default:
-                    return null;
-                    break;
-            }
-        },
     ];
 });

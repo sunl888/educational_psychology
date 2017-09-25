@@ -73,7 +73,7 @@ class Category extends BaseModel implements PresentableInterface
      */
     public function getPage()
     {
-        return $this->posts()->byType(Category::TYPE_PAGE)->first();
+        return $this->posts()->byType(Category::TYPE_PAGE)->firstOrFail();
     }
 
     public function parent()
@@ -203,35 +203,6 @@ class Category extends BaseModel implements PresentableInterface
     public function hasChildren()
     {
         return $this->children->isNotEmpty();
-    }
-
-    public function getPageTemplate()
-    {
-        // todo 使用 view()->first() 改写 https://laravel-china.org/articles/6053/laravel-blade-dynamic-templates-view-first
-        if (!is_null($this->page_template) && view()->exists('theme::' . $this->page_template)) {
-            return $this->page_template;
-        } else {
-            return config('tiny.templates.page_templates')[0]['file_name'];
-        }
-
-    }
-
-    public function getListTemplate()
-    {
-        if (!is_null($this->list_template) && view()->exists('theme::' . $this->list_template)) {
-            return $this->list_template;
-        } else {
-            return config('tiny.templates.list_templates')[0]['file_name'];
-        }
-    }
-
-    public function getContentTemplate()
-    {
-        if (!is_null($this->content_template) && view()->exists('theme::' . $this->content_template)) {
-            return $this->content_template;
-        } else {
-            return config('tiny.templates.content_templates')[0]['file_name'];
-        }
     }
 
     public function getPresenter()

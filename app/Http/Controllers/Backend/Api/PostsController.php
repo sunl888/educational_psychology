@@ -84,9 +84,4 @@ class PostsController extends ApiController
         $postModel->onlyTrashed()->where($postModel->getRouteKeyName(), $post)->restore();
         return $this->response()->noContent();
     }
-
-    public function templates()
-    {
-        return config('tiny.templates');
-    }
 }
