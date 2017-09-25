@@ -124,7 +124,7 @@ export default {
   mounted () {
     this.$http.get('templates').then(res => {
       this.templates = res.data;
-      if (this.formData.type){
+      if (this.formData.type) {
         this.changeType(this.formData.type);
       }
     });
