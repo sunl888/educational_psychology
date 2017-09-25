@@ -111,7 +111,7 @@ class Response implements Responsable
         $this->setContent(new class () implements Jsonable{
             public function toJson($options = 0)
             {
-                return json_encode(new stdClass());
+                return json_encode(new stdClass(), $options);
             }
         });
         return $this;
