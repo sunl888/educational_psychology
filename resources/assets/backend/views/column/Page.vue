@@ -36,9 +36,13 @@ export default {
         include: 'post_content'
       }
     }).then(res => {
-      this.formData.title = res.data.data.title;
-      this.formData.content = res.data.data.post_content.data.content;
-      this.title = res.data.meta.cate_name;
+      if (res.data.data) {
+        this.formData.title = res.data.data.title;
+        this.formData.content = res.data.data.post_content.data.content;
+      }
+      if (res.data.meta) {
+        this.title = res.data.meta.cate_name;
+      }
       diff.save(this.formData);
     }).catch(err => {
       this.errors = err.response.data.errors;
