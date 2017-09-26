@@ -14,7 +14,7 @@ class VisualCategoryTransformer extends TransformerAbstract
             'id' => $category->id,
             'type' => $category->type,
             'image' => $category->image,
-            'image_url' => $category->image_url,
+            'image_url' => image_url($category->image),
             'parent_id' => $category->parent_id,
             'cate_name' => $category->cate_name,
             'description' => $category->description,
