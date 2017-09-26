@@ -5,15 +5,15 @@
       <Table :columns="tyleCol" :data="types"></Table>
     </Modal>
     <!-- 编辑分类 -->
-    <Modal width="450" v-model="showTypeEditDialog" :title="title" @on-ok="confirm">
+    <Modal width="450" v-model="showTypeEditDialog" :title="title" @on-ok="confirm" :loading="showTypeEditLoading">
       <Form :model="formData" :label-width="60">
-        <Form-item label="分类">
-          <Input v-model="formData.name" placeholder="请设置分类，字母数字组成"></Input>
+        <Form-item label="分类" :error="errors.name">
+          <Input v-model="formData.name" placeholder="请设置分类，字母数字组成"></Input>        
         </Form-item>
-        <Form-item label="分类名称">
+        <Form-item label="分类名称" :error="errors.display_name">
           <Input v-model="formData.display_name" placeholder="请设置分类名称"></Input>
         </Form-item>
-        <Form-item label="描述">
+        <Form-item label="描述" :error="errors.description">
           <Input v-model="formData.description" type="textarea" :rows="4" placeholder="请设置描述"></Input>
         </Form-item>
       </Form>
@@ -57,12 +57,14 @@ export default {
       id: null,
       formData: {
         'name': null,
+        'display_name': null,
         'description': null,
         'model_name': this.typeQueryName
       },
       types: [],
       showTypeListDialog: this.value,
       showTypeEditDialog: false,
+      showTypeEditLoading: true,
       tyleCol: [
         {
           title: '分类',
@@ -127,24 +129,24 @@ export default {
     },
     showAddDialog () {
       this.id = null;
-      this.formData = {
-        'name': null,
-        'description': null,
-        'model_name': this.typeQueryName
-      };
+      this.formData = this.rowFormData;
       this.init();
       this.showTypeEditDialog = true;
     }
   },
   mounted () {
     this.getTypeList();
-    this.$on('on-success', () => {
+    this.rowFormData = this.formData;
+    this.$on(['on-success', 'del-success'], () => {
       this.getTypeList();
       this.$emit('change');
+      this.showTypeEditDialog = false;
     });
-    this.$on('del-success', () => {
-      this.getTypeList();
-      this.$emit('change');
+    this.$on('on-loaded', () => {
+      this.showTypeEditLoading = false;
+      this.$nextTick(() => {
+        this.showTypeEditLoading = true;
+      });
     });
   }
 };

@@ -7,7 +7,7 @@ use App\Models\Visitor;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Cache;
-
+use stdClass;
 class VisitorService
 {
     /**

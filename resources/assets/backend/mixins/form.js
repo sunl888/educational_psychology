@@ -63,9 +63,10 @@ export default {
   },
   created () {
     for (let key in this.formData) {
+      console.log(`formData.${key}`);
       this.$watch(`formData.${key}`, () => {
         if (this.errors[key]) {
-          this.errors[key] = null;
+          delete this.errors[key];
         }
       });
     }

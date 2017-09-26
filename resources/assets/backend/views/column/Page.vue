@@ -50,7 +50,7 @@ export default {
     for (let key in this.formData) {
       this.$watch(`formData.${key}`, () => {
         if (this.errors[key]) {
-          this.errors[key] = null;
+          delete this.errors[key];
         }
       });
     };
