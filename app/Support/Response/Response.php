@@ -108,7 +108,8 @@ class Response implements Responsable
     public function null()
     {
 
-        $this->setContent(new class () implements Jsonable{
+        $this->setContent(new class () implements Jsonable
+        {
             public function toJson($options = 0)
             {
                 return json_encode(new stdClass(), $options);

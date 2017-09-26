@@ -118,5 +118,6 @@ class CategoriesController extends ApiController
             // todo 本地化
             return $this->response()->errorNotFound('该栏目不是单网页');
         }
+        return true;
     }
 }

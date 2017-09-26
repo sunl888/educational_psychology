@@ -7,6 +7,7 @@ use App\Models\Visitor;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Cache;
+use stdClass;
 
 class VisitorService
 {
@@ -58,7 +59,11 @@ class VisitorService
 
     public function getPVUVByDateFromCache(Carbon $date)
     {
-        return Cache::get($this->getCacheKey($date));
+        $cacheKey = $this->getCacheKey($date);
+        if (!Cache::has($cacheKey)) {
+            Cache::put($cacheKey, config('cache.ttl'));
+        }
+        return Cache::get($cacheKey) ?: new stdClass();
     }
 
     public function getRecentlyPVUVFromCache()
@@ -66,42 +71,57 @@ class VisitorService
         // todo 14 放到配置文件中
         $visitorRecordDays = setting('visitor_record_days', 14);
         $today = Carbon::today();
+        // 获取应该 cache 的日期
+        $shouldCacheDates = [];
+        $day = $today->copy();
+        for ($i = $visitorRecordDays; $i > 0; $i--) {
+            $shouldCacheDates[] = $day->copy()->subDays($i);
+        }
+
         if (!Cache::has('visitor::all_cached_dates')) {
 
-            $allCachedDates = [];
-            $day = $today->copy();
-            for ($i = $visitorRecordDays; $i > 0; $i--) {
-                $allCachedDates[] = $day->copy()->subDays($i);
-            }
-            Cache::forever('visitor::all_cached_dates', $allCachedDates);
-            foreach ($allCachedDates as $date) {
+            // 生成所有 PVUV
+            foreach ($shouldCacheDates as $date) {
                 Cache::forever($this->getCacheKey($date), $this->getPVUVByDateWithoutCache($date));
             }
+
+            Cache::forever('visitor::all_cached_dates', $shouldCacheDates);
+
         } else {
             $allCachedDates = Cache::get('visitor::all_cached_dates');
-        }
 
-        $needResetCache = $allCachedDates[0]->diffInDays($today, false) > $visitorRecordDays;
+            $needResetCache = false;
+            foreach ($shouldCacheDates as $shouldCacheDay) {
+                if (!in_array($shouldCacheDay, $allCachedDates)) {
+                    // put cache
+                    Cache::forever($this->getCacheKey($shouldCacheDay), $this->getPVUVByDateWithoutCache($shouldCacheDay));
 
-        while ($allCachedDates[0]->diffInDays($today, false) > $visitorRecordDays) {
-            Cache::forget($this->getCacheKey($allCachedDates[0]));
-            array_shift($allCachedDates);
+                    if (!$needResetCache) $needResetCache = true;
+                }
+            }
 
-            $newDay = $allCachedDates[count($allCachedDates) - 1]->addDay();
-            Cache::forever($this->getCacheKey($newDay), $this->getPVUVByDateWithoutCache($newDay));
-            array_push($allCachedDates, $newDay);
-        }
+            foreach ($allCachedDates as $cachedDay) {
+                if (!in_array($cachedDay, $shouldCacheDates)) {
+                    // forget cache
+                    Cache::forget($this->getCacheKey($cachedDay));
+                    if (!$needResetCache) $needResetCache = true;
+                }
+            }
 
-        if ($needResetCache) {
-            Cache::forever('visitor::all_cached_dates', $allCachedDates);
+            if ($needResetCache) {
+                Cache::forget('visitor::all_cached_dates');
+                Cache::forever('visitor::all_cached_dates', $shouldCacheDates);
+            }
+
         }
 
         $PVUVData = [];
-        foreach ($allCachedDates as $date) {
+        foreach ($shouldCacheDates as $date) {
             $PVUVData[] = $this->getPVUVByDateFromCache($date);
         }
         return $PVUVData;
     }
+
 
     private function getCacheKey($date)
     {

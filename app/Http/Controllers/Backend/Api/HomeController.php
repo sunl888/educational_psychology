@@ -23,8 +23,8 @@ class HomeController extends ApiController
         $posts = Post::byType(Category::TYPE_POST)->count();
         $users = User::count();
         $nowPVUV = $visitorService->getPVUVByDateWithoutCache(Carbon::today());
-        $yesterdayPVUV = $visitorService->getPVUVByDateFromCache(Carbon::yesterday());
         $recentlyPVUV = $visitorService->getRecentlyPVUVFromCache();
+        $yesterdayPVUV = $visitorService->getPVUVByDateFromCache(Carbon::yesterday());
         return compact('posts', 'users', 'nowPVUV', 'yesterdayPVUV', 'recentlyPVUV');
     }
 
