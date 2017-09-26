@@ -5,10 +5,10 @@
         <h2>用户登录</h2>
         <Form :model="loginInfo">
             <Form-item :error="errors.account">
-              <Input @change.native="delete errors.account"  v-model="loginInfo.account" placeholder="请输入用户名或邮箱"></Input>
+              <Input @input.native="delete errors.account"  v-model="loginInfo.account" placeholder="请输入用户名或邮箱"></Input>
             </Form-item>
             <Form-item :error="errors.password">
-              <Input @change.native="delete errors.password" v-model="loginInfo.password" type="password" placeholder="请输入密码" @keydown.native.enter="login"></Input>
+              <Input @input.native="delete errors.password" v-model="loginInfo.password" type="password" placeholder="请输入密码" @keydown.native.enter="login"></Input>
             </Form-item>
             <Form-item>
               <Button :loading="loading" class="login_btn" type="primary" long @click="login">确认提交</Button>
