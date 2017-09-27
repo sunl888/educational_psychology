@@ -5,7 +5,7 @@ export default {
   data () {
     return {
       title: '',
-      errors: [],
+      errors: {},
       defaultConfig: {
         editPrefix: '编辑',
         addPrefix: '添加',
@@ -63,7 +63,6 @@ export default {
   },
   created () {
     for (let key in this.formData) {
-      console.log(`formData.${key}`);
       this.$watch(`formData.${key}`, () => {
         if (this.errors[key]) {
           delete this.errors[key];
