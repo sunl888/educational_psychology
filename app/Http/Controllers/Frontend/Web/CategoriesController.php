@@ -7,7 +7,6 @@ namespace App\Http\Controllers\Frontend\Web;
 use App\Events\VisitedPostList;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use App\Services\TemplateService;
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
@@ -33,10 +32,8 @@ class CategoriesController extends Controller
         $posts = $category->postListWithOrder($request->get('order'))->with('user')->paginate($this->perPage());
         $posts->appends($request->all());
 
-        $view = app(TemplateService::class)
-            ->firstView([$category->cate_slug, $category->list_template], 'list');
 
-        return view($view, [
+        return view_first([$category->cate_slug, $category->list_template], 'list', [
             'posts' => $posts,
             'category' => $category
         ]);
@@ -50,10 +47,7 @@ class CategoriesController extends Controller
             abort(404, '该单页还没有初始化');
         }
 
-        $view = app(TemplateService::class)
-            ->firstView([$category->cate_slug, $category->page_template], 'page');
-
-        return view($view, [
+        return view_first([$category->cate_slug, $category->page_template], 'page', [
             'category' => $category,
             'page' => $page
         ]);

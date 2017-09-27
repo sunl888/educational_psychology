@@ -2,6 +2,7 @@
 
 use App\Services\SettingCacheService;
 use App\Repositories\SettingRepository;
+use App\Services\TemplateService;
 
 if (!function_exists('setting')) {
     /**
@@ -59,6 +60,17 @@ if (!function_exists('array_swap')) {
             $array[$j] = $temp;
         }
         return $array;
+    }
+
+}
+
+if (!function_exists('view_first')) {
+
+    function view_first($views, $templateType, $data = [], $mergeData = [])
+    {
+        $view = app(TemplateService::class)
+            ->firstView($views, $templateType);
+        return view($view, $data, $mergeData);
     }
 
 }
