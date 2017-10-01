@@ -38,7 +38,7 @@ class AttachmentController extends ApiController
     public function store(Request $request)
     {
         $attachment = $request->file('attachment');
-        if ($attachment->isValid()) {
+        if (!empty($attachment) && $attachment->isValid()) {
             $path = $attachment->storeAs('uploads/attachment', $this->attachmentHashName($attachment));
             if (!$path) {
                 return ['attachment_id' => $this->createAttachment($attachment, $path)];
