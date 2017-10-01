@@ -30,7 +30,8 @@ class ImageController extends ApiController
                 'image_url' => route(config('images.route_name'), $imageId)
             ];
         }
-        throw new ResourceException('图片上传失败', [$config['upload_key'] => $image->getErrorMessage()]);
+        $error = $image ? $image->getErrorMessage() : '图片上传失败';
+        throw new ResourceException($error, [$config['upload_key'] => $error]);
     }
 
     // todo 同时上传多张图片

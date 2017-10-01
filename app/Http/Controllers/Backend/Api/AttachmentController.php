@@ -44,7 +44,9 @@ class AttachmentController extends ApiController
                 return ['attachment_id' => $this->createAttachment($attachment, $path)];
             }
         }
-        throw new ResourceException('附件上传失败', ['attachment' => '附件上传失败']);
+
+        $error = $attachment ? $attachment->getErrorMessage() : '附件上传失败';
+        throw new ResourceException($error, ['attachment' => $error]);
     }
 
     private function attachmentHashName(UploadedFile $attachment)
