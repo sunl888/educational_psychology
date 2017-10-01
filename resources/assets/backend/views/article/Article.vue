@@ -112,6 +112,7 @@ export default {
       this.formData.attachment_ids = formData.attachments.data.map(item => {
         return item.id;
       });
+      this.diffSave(this.formData);
     });
     this.$on('on-success', formData => {
       this.$router.push({ name: 'articleList' });
