@@ -30,11 +30,12 @@ class CategoryUpdateRequest extends Request
      */
     public function rules()
     {
+        $category = $this->route('category');
         return [
             'type' => ['nullable', Rule::in([Category::TYPE_POST, Category::TYPE_PAGE, Category::TYPE_LINK])],
             'image' => ['bail', 'nullable', new ImageName(), new ImageNameExist()],
             'parent_id' => ['bail', 'nullable', 'integer', 'min:0'],
-            'cate_name' => ['nullable', 'string', 'between:2,30'],
+            'cate_name' => ['bail', 'nullable', 'string', 'between:2,30', Rule::unique('categories')->ignore($category->id)],
             'description' => ['nullable', 'string', 'between:2,500'],
             'is_nav' => ['nullable', 'boolean'],
             'order' => ['nullable', 'integer'],
@@ -49,6 +50,8 @@ class CategoryUpdateRequest extends Request
     public function withValidator(Validator $validator)
     {
         $category = $this->route('category');
+
+        // 验证 parent_id 必须存在
         $validator->sometimes('parent_id', Rule::exists('categories', 'id')->where('id', '!=', $category->id), function ($input) use ($category) {
             return $category->parent_id != $input->parent_id && $input->parent_id > 0;
         });

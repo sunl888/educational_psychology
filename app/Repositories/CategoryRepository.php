@@ -45,6 +45,7 @@ class CategoryRepository extends BaseRepository
     {
         $data = $this->filterData($data);
         $data['cate_slug'] = app(CategoryService::class)->makeSlug($data['cate_name']);
+        $data['creator_id'] = auth()->id();
         return $data;
     }
 

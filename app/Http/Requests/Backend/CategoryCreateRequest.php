@@ -32,7 +32,7 @@ class CategoryCreateRequest extends Request
             'type' => ['required', Rule::in([Category::TYPE_POST, Category::TYPE_PAGE, Category::TYPE_LINK])],
             'image' => ['bail', 'nullable', new ImageName(), new ImageNameExist()],
             'parent_id' => ['bail', 'sometimes', 'integer', 'min:0'],
-            'cate_name' => ['required', 'string', 'between:2,30'],
+            'cate_name' => ['bail', 'required', 'string', 'between:2,30', 'unique:categories'],
             'description' => ['nullable', 'string', 'between:2,500'],
             // 'url' => ['required_if:type,' . Category::TYPE_LINK, 'url'],
             'url' => [],

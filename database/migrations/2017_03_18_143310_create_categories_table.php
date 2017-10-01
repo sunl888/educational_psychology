@@ -20,7 +20,7 @@ class CreateCategoriesTable extends Migration
             // 父级id
             $table->unsignedInteger('parent_id')->default(0)->comment('父级id');
             // 分类名
-            $table->string('cate_name')->comment('分类名');
+            $table->string('cate_name')->unique()->comment('分类名');
             // 分类描述
             $table->string('description', 512)->nullable()->comment('分类描述');
             // 外部链接
@@ -28,7 +28,7 @@ class CreateCategoriesTable extends Migration
             // 链接是否在新窗口打开
             $table->boolean('is_target_blank')->default(true)->comment('链接是否在新窗口打开');
             // 分类slug
-            $table->string('cate_slug')->nullable()->unique()->commnet('分类slug');
+            $table->string('cate_slug')->unique()->commnet('分类slug');
             // 是否在导航栏显示
             $table->boolean('is_nav')->default(false)->comment('是否在导航栏显示');
             $table->integer('order')->default(0)->index()->comment('排序字段');
@@ -38,6 +38,8 @@ class CreateCategoriesTable extends Migration
             $table->string('list_template', 30)->nullable()->comment('列表页模板');
             // 默认内容模板
             $table->string('content_template', 30)->nullable()->comment('默认内容模板');
+            $table->unsignedInteger('creator_id')->nullable()->default(null);
+
             // 分类的一些其他配置
             // $table->mediumText('setting')->nullable();
             $table->timestamps();
