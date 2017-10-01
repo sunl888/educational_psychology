@@ -41,7 +41,8 @@ class AttachmentController extends ApiController
         if (!empty($attachment) && $attachment->isValid()) {
             $path = $attachment->storeAs('uploads\\attachment', $this->attachmentHashName($attachment));
             if ($path) {
-                return ['attachment_id' => $this->createAttachment($attachment, $path)];
+                $attachmentModel = $this->createAttachment($attachment, $path);
+                return ['attachment_id' => $attachmentModel->id];
             }
         }
 
