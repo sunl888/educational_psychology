@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 
+use App\Models\Attachment;
 use App\Models\Category;
 use App\Models\Post;
 use App\Services\PostService;
@@ -59,7 +60,7 @@ class PostRepository extends BaseRepository
         if (!isset($data['status']))
             $data['status'] = Post::STATUS_DRAFT;
 
-        if (!isset($data['excerpt'])){
+        if (!isset($data['excerpt'])) {
             $data['excerpt'] = $postService->makeExcerpt($data['content']);
         }
         $data['user_id'] = Auth::id();
@@ -70,6 +71,7 @@ class PostRepository extends BaseRepository
     public function created(&$data, $post)
     {
         $this->updateOrCreatePostContent($post, $data);
+        $this->relationAttachment($post, $data);
     }
 
     public function preUpdate(array &$data)
@@ -80,6 +82,7 @@ class PostRepository extends BaseRepository
     public function updated(&$data, $post)
     {
         $this->updateOrCreatePostContent($post, $data);
+        $this->relationAttachment($post, $data);
     }
 
     /**
@@ -98,4 +101,15 @@ class PostRepository extends BaseRepository
         }
     }
 
+    /**
+     * 关联附件
+     * @param Post $post
+     * @param $data
+     */
+    private function relationAttachment(Post $post, &$data)
+    {
+        if (isset($data['attachment_ids'])) {
+            Attachment::whereIn('id', (array)$data['attachment_ids'])->update(['post_id' => $post->id]);
+        }
+    }
 }

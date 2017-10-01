@@ -157,4 +157,12 @@ class Post extends BaseModel implements PresentableInterface
     {
         return new PostPresenter($this);
     }
+
+    /**
+     * 附件
+     */
+    public function attachments()
+    {
+        return $this->hasMany(Attachment::class);
+    }
 }

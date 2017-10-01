@@ -57,6 +57,6 @@ class ImageController extends ApiController
     protected function hashName(UploadedFile $image)
     {
         $name = md5_file($image->getRealPath());
-        return substr($name, 0, 2) . DIRECTORY_SEPARATOR . $name . '.' . $image->clientExtension();
+        return substr($name, 0, 2) . DIRECTORY_SEPARATOR . $name . '.' . $image->guessExtension();
     }
 }

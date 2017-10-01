@@ -41,7 +41,8 @@ class PostUpdateRequest extends Request
             'template' => ['nullable', 'string', 'between:1,30'],
             'category_id' => ['bail', 'nullable', 'integer', 'exists:categories,id'],
             'published_at' => ['nullable', 'date'],
-            'top' => ['nullable']
+            'top' => ['nullable'],
+            'attachment_ids' => ['nullable', 'array']
         ];
     }
 }

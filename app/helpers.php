@@ -74,3 +74,18 @@ if (!function_exists('view_first')) {
     }
 
 }
+
+if (!function_exists('file_size_for_humans')) {
+
+    function file_size_for_humans($bytes, $times = 0)
+    {
+        static $units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+        $i = 0;
+        $c = count($units);
+        while ($bytes >= 1024 && $i < $c - 1) {
+            $bytes /= 1024;
+            $i++;
+        }
+        return round($bytes, 2) . ' ' . $units[$i];
+    }
+}

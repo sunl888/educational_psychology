@@ -59,3 +59,11 @@ Route::resource('types', 'TypesController', [
 
 // 获取统计数据
 Route::get('statistics', 'HomeController@index');
+
+
+Route::resource('attachments', 'AttachmentController', [
+    'except'=> ['create', 'edit']
+]);
+
+
+

@@ -7,7 +7,7 @@ use League\Fractal\TransformerAbstract;
 
 class PostTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = ['user', 'post_content', 'category'];
+    protected $availableIncludes = ['user', 'post_content', 'category', 'attachments'];
 
     public function transform(Post $post)
     {
@@ -60,5 +60,14 @@ class PostTransformer extends TransformerAbstract
             return $this->null();
         }
         return $this->item($category, new CategoryTransformer());
+    }
+
+    public function includeAttachments(Post $post)
+    {
+        $attachments = $post->attachments()->recent()->get();
+        if (is_null($attachments)) {
+            return $this->null();
+        }
+        return $this->collection($attachments, new AttachmentTransformer());
     }
 }
