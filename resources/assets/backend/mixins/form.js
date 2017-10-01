@@ -45,13 +45,16 @@ export default {
     isAdd () {
       return this.$route.meta.isAdd;
     },
+    diffSave (formData) {
+      diff.save(formData);
+    },
     init () {
       if (!this.isAdd()) {
         this.$http.get(this.getConfig('action'), {
           params: this.getConfig('query')
         }).then(res => {
           this.formData = res.data.data;
-          diff.save(this.formData);
+          this.diffSave(this.formData);
           this.$emit('on-data', this.formData);
         });
         this.title = this.getConfig('editPrefix') + this.getConfig('title');

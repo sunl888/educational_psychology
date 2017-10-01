@@ -1,7 +1,7 @@
 <template>
   <div class="article">
     <h1 class="title">{{title}}</h1>
-    <TitleWithContent :titleError="errors.title" :contentError="errors.content" :title.sync="formData.title" :content.sync="formData.content"></TitleWithContent>
+    <TitleWithContent :titleError="errors.title" :contentError="errors.content" :title.sync="formData.title" :attachments="formData.attachments.data" :attachment_ids.sync="formData.attachment_ids" :content.sync="formData.content"></TitleWithContent>
     <div class="option">
       <div class="left">
         <CategorySelectPanel :cateError="errors.category_id" :cid.sync="formData.category_id" class="type_panel"></CategorySelectPanel>
@@ -70,7 +70,7 @@ export default {
         action: this.isAdd() ? 'posts' : `posts/${this.$route.params.id}`,
         addPrefix: '撰写新',
         query: {
-          include: 'post_content'
+          include: 'post_content,attachments'
         }
       };
     }
@@ -97,7 +97,9 @@ export default {
         'order': 0,
         'template': null,
         'category_id': null,
-        'published_at': null
+        'published_at': null,
+        'attachments': [],
+        'attachment_ids': []
       },
       contentTemplates: [],
       loading: false
@@ -107,6 +109,10 @@ export default {
     this.formData.published_at = new Date();
     this.$on('on-data', formData => {
       this.formData.content = formData.post_content.data.content;
+      this.formData.attachment_ids = formData.attachments.data.map(item => {
+        return item.id;
+      });
+      this.diffSave(this.formData);
     });
     this.$on('on-success', formData => {
       this.$router.push({ name: 'articleList' });
