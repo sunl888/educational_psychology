@@ -163,6 +163,6 @@ class Post extends BaseModel implements PresentableInterface
      */
     public function attachments()
     {
-        return $this->hasMany(Attachment::class);
+        return $this->belongsToMany(Attachment::class);
     }
 }

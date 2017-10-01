@@ -71,7 +71,7 @@ class PostRepository extends BaseRepository
     public function created(&$data, $post)
     {
         $this->updateOrCreatePostContent($post, $data);
-        $this->relationAttachment($post, $data);
+        $this->addAttachment($post, $data);
     }
 
     public function preUpdate(array &$data)
@@ -82,7 +82,7 @@ class PostRepository extends BaseRepository
     public function updated(&$data, $post)
     {
         $this->updateOrCreatePostContent($post, $data);
-        $this->relationAttachment($post, $data);
+        $this->syncAttachment($post, $data);
     }
 
     /**
@@ -102,14 +102,26 @@ class PostRepository extends BaseRepository
     }
 
     /**
-     * 关联附件
+     * 添加附件
      * @param Post $post
      * @param $data
      */
-    private function relationAttachment(Post $post, &$data)
+    private function addAttachment(Post $post, &$data)
     {
         if (isset($data['attachment_ids'])) {
-            Attachment::whereIn('id', (array)$data['attachment_ids'])->update(['post_id' => $post->id]);
+            $post->attachments()->attach($data['attachment_ids']);
+        }
+    }
+
+    /**
+     * 同步附件
+     * @param Post $post
+     * @param $data
+     */
+    private function syncAttachment(Post $post, &$data)
+    {
+        if (isset($data['attachment_ids'])) {
+            $post->attachments()->sync($data['attachment_ids']);
         }
     }
 }
