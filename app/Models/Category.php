@@ -12,8 +12,6 @@ class Category extends BaseModel implements PresentableInterface
 {
     use HasSlug;
 
-    protected $slugKey = 'cate_slug';
-
     protected $casts = [
         'is_nav' => 'boolean',
         'is_target_blank' => 'boolean'
@@ -210,6 +208,12 @@ class Category extends BaseModel implements PresentableInterface
     {
         return new CategoryPresenter($this);
     }
+
+    public function slugKey(): string
+    {
+        return 'cate_slug';
+    }
+
 
     public function slugMode()
     {
