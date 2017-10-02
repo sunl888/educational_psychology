@@ -77,4 +77,10 @@ abstract class BaseRepository
             return $this->model->findOrFail($model);
         }
     }
+
+    public function findBySlug(string $slug)
+    {
+        return $this->model->bySlug($slug)->firstOrFail();
+    }
+
 }

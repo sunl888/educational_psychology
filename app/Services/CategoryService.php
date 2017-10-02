@@ -35,11 +35,4 @@ class CategoryService
         }
         return $collect;
     }
-
-    public function makeSlug($text)
-    {
-        return app(SlugGenerator::class)
-            ->setSlugIsUniqueFunc('categories', 'cate_slug')
-            ->generate($text, setting('category_slug_mode'));
-    }
 }

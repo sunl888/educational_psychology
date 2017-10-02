@@ -42,7 +42,8 @@ class PostCreateRequest extends Request
             'category_id' => ['bail', 'required', 'integer', 'exists:categories,id'],
             'published_at' => ['nullable', 'date'],
             'top' => ['nullable'],
-            'attachment_ids' => ['nullable', 'array']
+            'attachment_ids' => ['nullable', 'array'],
+            'tag_ids' => ['nullable', 'array']
         ];
     }
 }

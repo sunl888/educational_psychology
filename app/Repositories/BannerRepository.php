@@ -27,7 +27,9 @@ class BannerRepository extends BaseRepository
 
     public function preCreate(array &$data)
     {
-        return $this->filterData($data);
+        $this->filterData($data);
+        $data['creator_id'] = auth()->id();
+        return $data;
     }
 
 

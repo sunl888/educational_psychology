@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Storage;
 
-class AttachmentController extends ApiController
+class AttachmentsController extends ApiController
 {
     public function __construct()
     {

@@ -21,7 +21,7 @@ class WantsJsonRequest
      */
     public function expectsJson()
     {
-        return $this->has('want_json') || $this->request->expectsJson();
+        return $this->has('wants_json') || $this->request->expectsJson();
     }
 
     public function __call($method, $arguments)

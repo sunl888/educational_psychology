@@ -44,7 +44,8 @@ class CategoryRepository extends BaseRepository
     public function preCreate(array &$data)
     {
         $data = $this->filterData($data);
-        $data['cate_slug'] = app(CategoryService::class)->makeSlug($data['cate_name']);
+        // CategoryModel
+        $data['cate_slug'] = $this->model->generateSlug($data['cate_name']);
         $data['creator_id'] = auth()->id();
         return $data;
     }
@@ -52,11 +53,10 @@ class CategoryRepository extends BaseRepository
 
     public function preUpdate(array &$data, $category)
     {
-        return $this->filterData($data, $category);
-    }
-
-    public function findByCateSlug($cateSlug)
-    {
-        return $this->model->byCateSlug($cateSlug)->firstOrFail();
+        $data = $this->filterData($data, $category);
+        if (isset($data['cate_name']) && $category->title != $data['cate_name']) {
+            $data['cate_slug'] = $this->model->generateSlug($data['name']);
+        }
+        return $data;
     }
 }

@@ -20,7 +20,13 @@ class CreateSettingsTable extends Migration
             $table->string('description')->nullable();
             $table->char('type_name', 30)->index();
             $table->boolean('is_system')->default(false)->comment('是否为系统配置');
+            $table->unsignedInteger('creator_id')->nullable()->default(null);
             $table->timestamps();
+
+            $table->foreign('creator_id')
+                ->references('id')->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
         });
     }
 

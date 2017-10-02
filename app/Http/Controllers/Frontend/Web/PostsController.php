@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Frontend\Web;
 use App\Events\PostHasBeenRead;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use App\Repositories\PostRepository;
 use App\Services\Alert;
 use Illuminate\Http\Request;
 use Auth;
@@ -13,11 +14,12 @@ use Auth;
 
 class PostsController extends Controller
 {
+
     /**
      * 正文
-     *
-     * @param  $cateSlug
-     * @return \Illuminate\Contracts\View\View
+     * @param $slug
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($slug, Request $request)
     {

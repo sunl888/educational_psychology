@@ -34,7 +34,9 @@ class TypeRepository extends BaseRepository
 
     public function preCreate(array &$data)
     {
-        return $this->filterData($data);
+        $data = $this->filterData($data);
+        $data['creator_id'] = auth()->id();
+        return $data;
     }
 
 

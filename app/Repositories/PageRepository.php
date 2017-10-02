@@ -5,7 +5,6 @@ namespace App\Repositories;
 
 use App\Models\Category;
 use App\Models\Post;
-use App\Services\PostService;
 use Carbon\Carbon;
 use Naux\AutoCorrect;
 use Auth;
@@ -34,10 +33,9 @@ class PageRepository extends BaseRepository
     public function preCreate(array &$data)
     {
         $this->filterData($data);
-        $postService = app(PostService::class);
         $data['published_at'] = Carbon::now();
         $data['user_id'] = Auth::id();
-        $data['slug'] = $postService->makeSlug($data['title']);
+        $data['slug'] = $this->model->generateSlug($data['title']);
         $data['type'] = Category::TYPE_PAGE;
         return $data;
     }

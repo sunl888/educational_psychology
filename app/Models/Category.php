@@ -4,11 +4,15 @@ namespace App\Models;
 
 
 use App\Models\Presenter\CategoryPresenter;
+use App\Models\Traits\HasSlug;
 use App\Observers\ClearNavigationCache;
 use App\Support\Presenter\PresentableInterface;
 
 class Category extends BaseModel implements PresentableInterface
 {
+    use HasSlug;
+
+    protected $slugKey = 'cate_slug';
 
     protected $casts = [
         'is_nav' => 'boolean',
@@ -16,7 +20,7 @@ class Category extends BaseModel implements PresentableInterface
     ];
     protected $fillable = ['type', 'parent_id', 'image', 'cate_name', 'order',
         'description', 'url', 'is_target_blank', 'cate_slug', 'is_nav',
-        'page_template', 'list_template', 'content_template'];
+        'page_template', 'list_template', 'content_template', 'creator_id'];
 
 
     const TYPE_POST = 'post', TYPE_PAGE = 'page', TYPE_LINK = 'link';
@@ -30,11 +34,6 @@ class Category extends BaseModel implements PresentableInterface
     {
         parent::boot();
         static::observe(ClearNavigationCache::class);
-    }
-
-    public function scopeByCateSlug($query, $cateSlug)
-    {
-        $query->where('cate_slug', $cateSlug);
     }
 
     public function posts()
@@ -140,8 +139,10 @@ class Category extends BaseModel implements PresentableInterface
         return $this->posts()->post()->count();
     }
 
-    /**  * 判断是否为同一个分类
-     *
+    /**
+     * 判断是否为同一个分类
+     * 代替方法 is()
+     * @deprecated
      * @param  Category $category
      * @return bool
      */
@@ -208,5 +209,10 @@ class Category extends BaseModel implements PresentableInterface
     public function getPresenter()
     {
         return new CategoryPresenter($this);
+    }
+
+    public function slugMode()
+    {
+        return setting('category_slug_mode');
     }
 }

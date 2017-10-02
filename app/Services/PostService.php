@@ -11,12 +11,4 @@ class PostService
         $excerpt = trim(preg_replace('/\s\s+/', ' ', strip_tags($html)));
         return str_limit($excerpt, $limit);
     }
-
-    public function makeSlug($text)
-    {
-        return app(SlugGenerator::class)
-            ->setSlugIsUniqueFunc('posts', 'slug')
-            ->generate($text, setting('post_slug_mode'));
-    }
-
 }

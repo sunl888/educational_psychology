@@ -7,17 +7,17 @@ namespace App\Http\Controllers\Frontend\Web;
 use App\Events\VisitedPostList;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
-    public function show($slug, Request $request)
+    public function show($slug, Request $request, CategoryRepository $categoryRepository)
     {
         /**
          * @var $category Category
          */
-        $category = Category::byCateSlug($slug)->firstOrFail();
-
+        $category = $categoryRepository->findBySlug($slug);
         event(new VisitedPostList($category));
 
         if ($category->isPostList()) {

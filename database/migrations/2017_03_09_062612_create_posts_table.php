@@ -13,13 +13,12 @@ class CreatePostsTable extends Migration
      */
     public function up()
     {
-        Schema::create(
-            'posts', function (Blueprint $table) {
+        Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->index();
             $table->string('title');
             // slug
-            $table->string('slug')->unique()->nullable();
+            $table->string('slug')->unique();
             // 摘要
             $table->string('excerpt', 512)->nullable();
             // 文章封面
@@ -41,8 +40,12 @@ class CreatePostsTable extends Migration
             // 发布时间
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
-        }
-        );
+
+            $table->foreign('creator_id')
+                ->references('id')->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
+        });
     }
 
     /**

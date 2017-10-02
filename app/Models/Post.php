@@ -3,14 +3,16 @@
 namespace App\Models;
 
 use App\Models\Presenter\PostPresenter;
+use App\Models\Traits\HasSlug;
 use App\Models\Traits\Listable;
 use App\Support\Presenter\PresentableInterface;
+use App\Tag;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class Post extends BaseModel implements PresentableInterface
 {
-    use SoftDeletes, Listable;
+    use SoftDeletes, Listable, HasSlug;
 
     protected $fillable = ['title', 'user_id', 'slug', 'excerpt', 'type', 'views_count', 'cover', 'status', 'template', 'top', 'published_at', 'category_id'];
     protected $dates = ['deleted_at', 'top', 'published_at', 'created_at', 'updated_at'];
@@ -18,12 +20,6 @@ class Post extends BaseModel implements PresentableInterface
     protected static $allowSortFields = ['title', 'status', 'views_count', 'top', 'order', 'published_at', 'category_id'];
 
     const STATUS_PUBLISH = 'publish', STATUS_DRAFT = 'draft';
-
-    public function scopeBySlug($query, $slug)
-    {
-        $query->where('slug', $slug);
-    }
-
 
     public function scopeRecent($query)
     {
@@ -164,5 +160,18 @@ class Post extends BaseModel implements PresentableInterface
     public function attachments()
     {
         return $this->belongsToMany(Attachment::class);
+    }
+
+    /**
+     * 标签
+     */
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
+    }
+
+    public function slugMode()
+    {
+        return setting('post_slug_mode');
     }
 }

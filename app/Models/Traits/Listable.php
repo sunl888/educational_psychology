@@ -4,6 +4,7 @@ namespace App\Models\Traits;
 
 trait Listable
 {
+    // todo 将 protected static $allowSortFields 改为方法就不需要静态了, 参见 Illuminate\Database\Eloquent\Model 的 __callStatic
     //protected static $allowSortFields = [];
     /**
      * 例子: ?orders[0][field]=id&orders[0][dir]=asc&orders[1][field]=user_name&orders[1][dir]=desc

@@ -16,6 +16,12 @@ class AttachmentPost extends Migration
         Schema::create('attachment_post', function (Blueprint $table) {
             $table->unsignedInteger('attachment_id');
             $table->unsignedInteger('post_id');
+
+            $table->foreign('attachment_id')->references('id')->on('attachments')
+                ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('post_id')->references('id')->on('posts')
+                ->onUpdate('cascade')->onDelete('cascade');
+
             $table->primary(['attachment_id', 'post_id']);
         });
     }

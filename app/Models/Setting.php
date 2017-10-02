@@ -11,7 +11,7 @@ class Setting extends BaseModel implements InterfaceTypeable
 {
     use Typeable, Listable;
 
-    protected $fillable = ['name', 'value', 'description', 'type_name', 'is_system'];
+    protected $fillable = ['name', 'value', 'description', 'type_name', 'is_system', 'creator_id'];
 
     protected static $allowSortFields = ['name', 'value', 'description', 'type_name'];
     protected static $allowSearchFields = ['name', 'value'];

@@ -43,6 +43,11 @@ class CreateCategoriesTable extends Migration
             // 分类的一些其他配置
             // $table->mediumText('setting')->nullable();
             $table->timestamps();
+
+            $table->foreign('creator_id')
+                ->references('id')->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
         });
     }
 
