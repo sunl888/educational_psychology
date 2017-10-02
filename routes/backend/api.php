@@ -61,9 +61,12 @@ Route::resource('types', 'TypesController', [
 Route::get('statistics', 'HomeController@index');
 
 
-Route::resource('attachments', 'AttachmentController', [
+Route::resource('attachments', 'AttachmentsController', [
     'except'=> ['create', 'edit']
 ]);
 
+Route::resource('tags', 'TagsController', [
+    'except'=> ['create', 'edit']
+]);
 
 

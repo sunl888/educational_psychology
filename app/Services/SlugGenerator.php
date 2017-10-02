@@ -47,13 +47,17 @@ class SlugGenerator
      * @param string $field
      * @return $this
      */
-    public function setSlugIsUniqueFunc($slugIsUniqueFuncOrTableName, $field = '')
+    public function setSlugIsUniqueFunc($slugIsUniqueFuncOrTableName, string $slugField = '', $ignore = null, $ignorekeyName = 'id')
     {
         if ($slugIsUniqueFuncOrTableName instanceof Closure) {
             $this->slugIsUniqueFunc = $slugIsUniqueFuncOrTableName;
         } else {
-            $this->slugIsUniqueFunc = function ($text) use ($slugIsUniqueFuncOrTableName, $field) {
-                return DB::table($slugIsUniqueFuncOrTableName)->where($field, $text)->count() <= 0;
+            $this->slugIsUniqueFunc = function ($text) use ($slugIsUniqueFuncOrTableName, $slugField, $ignore, $ignorekeyName) {
+                $query = DB::table($slugIsUniqueFuncOrTableName)->where($slugField, $text);
+                if ($ignore) {
+                    $query->where($ignorekeyName, $ignore);
+                }
+                return $query->count() <= 0;
             };
         }
 

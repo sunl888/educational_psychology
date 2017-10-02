@@ -8,6 +8,7 @@ use App\Services\Navigation;
 use App\Services\PostService;
 use App\Services\SettingCacheService;
 use App\Services\SlugGenerator;
+use App\Services\TagService;
 use App\Services\TemplateService;
 use App\Services\VisitorService;
 use App\Services\Alert;
@@ -52,5 +53,9 @@ class ServiceServiceProvider extends ServiceProvider
 
         // TemplateService 中注册了 theme 视图命名空间， 因此不管有没有使用此类都需要创建此类
         $this->app->instance(TemplateService::class, new TemplateService(config('template')));
+
+        $this->app->singleton(TagService::class, function  () {
+            return new TagService();
+        });
     }
 }

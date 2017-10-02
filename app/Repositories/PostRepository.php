@@ -2,8 +2,6 @@
 
 namespace App\Repositories;
 
-
-use App\Models\Attachment;
 use App\Models\Category;
 use App\Models\Post;
 use App\Services\PostService;
@@ -64,25 +62,31 @@ class PostRepository extends BaseRepository
             $data['excerpt'] = $postService->makeExcerpt($data['content']);
         }
         $data['user_id'] = Auth::id();
-        $data['slug'] = $postService->makeSlug($data['title']);
+        $data['slug'] = $this->model->generateSlug($data['title']);
         return $data;
     }
 
     public function created(&$data, $post)
     {
         $this->updateOrCreatePostContent($post, $data);
-        $this->addAttachment($post, $data);
+        $this->addAttachments($post, $data);
+        $this->addTags($post, $data);
     }
 
-    public function preUpdate(array &$data)
+    public function preUpdate(array &$data, $post)
     {
-        return $this->filterData($data);
+        $data = $this->filterData($data);
+        if (isset($data['title']) && $post->title != $data['title']) {
+            $data['slug'] = $this->model->generateSlug($data['title']);
+        }
+        return $data;
     }
 
     public function updated(&$data, $post)
     {
         $this->updateOrCreatePostContent($post, $data);
-        $this->syncAttachment($post, $data);
+        $this->syncAttachments($post, $data);
+        $this->syncTags($post, $data);
     }
 
     /**
@@ -106,7 +110,7 @@ class PostRepository extends BaseRepository
      * @param Post $post
      * @param $data
      */
-    private function addAttachment(Post $post, &$data)
+    private function addAttachments(Post $post, &$data)
     {
         if (isset($data['attachment_ids'])) {
             $post->attachments()->attach($data['attachment_ids']);
@@ -118,10 +122,34 @@ class PostRepository extends BaseRepository
      * @param Post $post
      * @param $data
      */
-    private function syncAttachment(Post $post, &$data)
+    private function syncAttachments(Post $post, &$data)
     {
         if (isset($data['attachment_ids'])) {
             $post->attachments()->sync($data['attachment_ids']);
+        }
+    }
+
+    /**
+     * 添加标签
+     * @param Post $post
+     * @param $data
+     */
+    private function addTags(Post $post, &$data)
+    {
+        if (isset($data['tag_ids'])) {
+            $post->tags()->attach($data['tag_ids']);
+        }
+    }
+
+    /**
+     * 同步标签
+     * @param Post $post
+     * @param $data
+     */
+    private function syncTags(Post $post, &$data)
+    {
+        if (isset($data['tag_ids'])) {
+            $post->tags()->sync($data['tag_ids']);
         }
     }
 }
