@@ -168,7 +168,28 @@ const router = new Router({
             isAdd: false
           },
           component: require('./views/link/Link.vue')
-        }
+        },
+        {
+          path: 'tag/list/',
+          name: 'tagList',
+          component: require('./views/tag/TagList.vue')
+        },
+        {
+          path: 'tag/add',
+          name: 'addTag',
+          meta: {
+            isAdd: true
+          },
+          component: require('./views/tag/Tag.vue')
+        },
+        {
+          path: 'tag/:id/edit',
+          name: 'editTag',
+          meta: {
+            isAdd: false
+          },
+          component: require('./views/tag/Tag.vue')
+        },
       ]
     }
   ]

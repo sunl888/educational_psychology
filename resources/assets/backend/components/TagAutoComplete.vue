@@ -50,7 +50,7 @@
         });
       },
       addTag (newTag) {
-        let newTagInTags = this.tags.find(item => item.name = newTag);
+        let newTagInTags = this.tags.find(item => item.name === newTag);
         if (newTagInTags) {
           this.selected.push(newTagInTags);
         } else {
@@ -58,7 +58,7 @@
             name: newTag
           }).then(res => {
             this.selected.push(res.data.data);
-          })
+          });
         }
       }
     },
