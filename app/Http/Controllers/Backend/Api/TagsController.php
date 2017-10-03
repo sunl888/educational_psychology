@@ -9,7 +9,6 @@ use App\Http\Requests\Backend\TagUpdateRequest;
 use App\Repositories\TagRepository;
 use App\Models\Tag;
 use App\Transformers\Backend\TagTransformer;
-use Illuminate\Http\Request;
 
 class TagsController extends ApiController
 {
@@ -18,9 +17,9 @@ class TagsController extends ApiController
         $this->middleware('auth');
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        $tags = Tag::recent()->get();
+        $tags = Tag::withSimpleSearch()->recent()->get();
         return $this->response()->collection($tags, new TagTransformer());
     }
 
