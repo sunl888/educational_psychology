@@ -26,7 +26,7 @@ class TagsController extends ApiController
     public function store(TagCreateRequest $request, TagRepository $tagRepository)
     {
         $tag = $tagRepository->create($request->validated());
-        return ['id' => $tag->id];
+        return $this->response()->item($tag, new TagTransformer());
     }
 
 
