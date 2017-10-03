@@ -5,6 +5,10 @@
     <div class="option">
       <div class="left">
         <CategorySelectPanel :cateError="errors.category_id" :cid.sync="formData.category_id" class="type_panel"></CategorySelectPanel>
+        <Panel title="标签" full size="small" class="cover">
+          <TagAutoComplete :oldTags="formData
+          .tags.data" @tag_ids="ids => formData.tag_ids = ids" />
+        </Panel>
         <Panel title="封面" full size="small" class="cover">
           <UploadPicture :url="formData.cover_url" @on-remove="() => formData.cover = null" @on-success="cover => formData.cover = cover"></UploadPicture>
         </Panel>
@@ -49,13 +53,14 @@
 </template>
 <script>
 import TitleWithContent from '../../components/TitleWithContent.vue';
+import TagAutoComplete from '../../components/TagAutoComplete.vue';
 import Panel from '../../components/Panel.vue';
 import UploadPicture from '../../components/UploadPicture.vue';
 import fromMixin from '../../mixins/form';
 import CategorySelectPanel from '../../components/CategorySelectPanel.vue';
 export default {
   mixins: [fromMixin],
-  components: { TitleWithContent, Panel, UploadPicture, CategorySelectPanel },
+  components: { TitleWithContent, Panel, UploadPicture, CategorySelectPanel, TagAutoComplete },
   computed: {
     rules () {
       return {
@@ -70,7 +75,7 @@ export default {
         action: this.isAdd() ? 'posts' : `posts/${this.$route.params.id}`,
         addPrefix: '撰写新',
         query: {
-          include: 'post_content,attachments'
+          include: 'post_content,attachments,tags'
         }
       };
     }
@@ -99,7 +104,9 @@ export default {
         'category_id': null,
         'published_at': null,
         'attachments': [],
-        'attachment_ids': []
+        'attachment_ids': [],
+        'tags': [],
+        'tag_ids': []
       },
       contentTemplates: [],
       loading: false

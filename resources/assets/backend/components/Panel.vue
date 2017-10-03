@@ -76,7 +76,6 @@ export default{
         padding: 40px 15px;
         float: inherit;
         margin: 0 auto;
-        overflow: hidden;
         &.full{
           width: 100%;
           padding: 20px 15px;
