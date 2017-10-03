@@ -23,7 +23,10 @@ export default {
         this.list = res.data.data;
       });
     },
-    reSort () {
+    reSort (event) {
+      if (event.newIndex === event.oldIndex) {
+        return;
+      }
       this.$http.post('settings/index_order', {
         index_order: this.list.map(item => item.id),
         model: this.model
