@@ -6,7 +6,6 @@ use App\Models\Presenter\PostPresenter;
 use App\Models\Traits\HasSlug;
 use App\Models\Traits\Listable;
 use App\Support\Presenter\PresentableInterface;
-use App\Tag;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
