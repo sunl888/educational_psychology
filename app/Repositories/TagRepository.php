@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Tag;
+use App\Models\Tag;
 
 class TagRepository extends BaseRepository
 {
