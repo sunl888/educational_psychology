@@ -21,3 +21,5 @@ mix.webpackConfig({
   }
 });
 mix.js('resources/assets/backend/app.js', 'public/js/backend').version();
+mix.less('resources/assets/frontend/less/index.less', 'public/static/css').version();
+

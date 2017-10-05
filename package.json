@@ -41,6 +41,10 @@
         "vue-multiselect": "^2.0.3",
         "vue-router": "^2.7.0",
         "vuedraggable": "^2.14.1",
-        "wangeditor": "^3.0.8"
+        "wangeditor": "^3.0.8",
+        "Respond.js": "scottjehl/Respond",
+        "bootstrap": "^3.3.7",
+        "es5-shim": "^4.5.9",
+        "jquery": "^1.12.4"
     }
 }
