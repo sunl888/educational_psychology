@@ -16,15 +16,20 @@ body{
   &.small{
     line-height: 60px;
     .mask{
-      opacity: .6;
+      opacity: 1;
     }
     .logo{
       font-size: 25px;
     }
+    a{
+      color: #333!important;
+    }
   }
   .mask{
     transition: all .3s;
-    background-color: #000;
+    background-color: #fff;
+    border-bottom: 1px solid rgba(30,35,42,.06);
+    box-shadow: 0 1px 3px 0 rgba(0,34,77,.05);
     opacity: 0;
     position: absolute;
     top: 0;
@@ -36,6 +41,10 @@ body{
     font-size: 35px;
     color: #fff;
     display: inline-block;
+    a{
+      color: #fff;
+      text-decoration: none;
+    }
   }
   .menu{
     list-style: none;
