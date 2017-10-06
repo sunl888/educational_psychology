@@ -14,7 +14,7 @@ $factory->define(App\Models\Category::class, function (Faker $faker) {
     return [
         'type' => $faker->randomElement([Category::TYPE_POST, Category::TYPE_PAGE, Category::TYPE_LINK]),
         'parent_id' => 0,
-        'cate_name' => $faker->word,
+        'cate_name' => $faker->unique()->word,
         // todo 根据 type 决定是否生成 image and windows image is null
         'image' => $faker->image($imagesPath, 640, 480, null, false),
         'description' => $faker->text(190),
