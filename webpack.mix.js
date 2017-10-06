@@ -21,5 +21,8 @@ mix.webpackConfig({
   }
 });
 mix.js('resources/assets/backend/app.js', 'public/js/backend').version();
-mix.setPublicPath('/public/static').less('resources/assets/frontend/less/app.less', 'css').version();
+mix.less('resources/assets/frontend/less/app.less', 'public/static/css')
+    .js('resources/assets/frontend/js/app.js', 'public/static/js')
+    .copy('resources/assets/frontend/images', 'public/static/images')
+    .version();
 
