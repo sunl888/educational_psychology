@@ -8,6 +8,14 @@
                 $bigPic.height($(this).height());
             });
             $window.resize();
+            var $nav = $('#nav');
+            $window.scroll(function () {
+                if($window.scrollTop() > $bigPic.height()){
+                    $nav.addClass('small')
+                } else {
+                    $nav.removeClass('small')
+                }
+            });
         });
         $(function () {
             $teams = $('#teams');
@@ -141,7 +149,7 @@
 @endsection
 
 @section('content')
-<nav class="nav">
+<nav class="nav" id="nav">
     <div class="container">
         <div class="logo">
             xx科技
@@ -154,6 +162,7 @@
             <li><a href="#">联系我们</a></li>
         </ul>
     </div>
+    <div class="mask"></div>
 </nav>
 <header class="big-pic" id="big-pic">
     <div class="zm-txt">
