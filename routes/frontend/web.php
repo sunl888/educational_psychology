@@ -8,3 +8,7 @@ Route::middleware('record_visitor')->group(function (){
 
     Route::get('/posts/{slug}', 'PostsController@show')->name('post.show');
 });
+
+Route::get('/list', function(){
+    return view('theme::list');
+});
