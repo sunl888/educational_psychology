@@ -41,10 +41,10 @@ class CreatePostsTable extends Migration
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
 
-            $table->foreign('creator_id')
+            $table->foreign('user_id')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
-                ->onDelete('set null');
+                ->onDelete('cascade');
         });
     }
 

@@ -26,7 +26,6 @@ trait Authorizable
     public function callAction($method, $parameters)
     {
         if ($ability = $this->getAbility($method)) {
-            dd($ability);
             $this->authorize($ability);
         }
 
