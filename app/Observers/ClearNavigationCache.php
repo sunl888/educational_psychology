@@ -20,8 +20,7 @@ class ClearNavigationCache
             $this->navigation->clearCache();
     }
 
-    public
-    function deleted($category)
+    public function deleted($category)
     {
         if ($category->is_nav || $this->isUsedToBeNav($category))
             $this->navigation->clearCache();
