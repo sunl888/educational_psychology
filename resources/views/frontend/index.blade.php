@@ -411,7 +411,7 @@
     </div>
 </section>
 <section>
-    <div class="footer" id="particles-js">
+    <div class="zm-join" id="particles-js">
         <div class="text">
             <h3>加入我们</h3>
             <p>如果你喜欢这样的我们，请发送简历到xxxx@qq.com</p>
