@@ -12,3 +12,6 @@ Route::middleware('record_visitor')->group(function (){
 Route::get('/list', function(){
     return view('theme::list');
 });
+Route::get('/content', function(){
+    return view('theme::content');
+});
