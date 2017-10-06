@@ -55,7 +55,7 @@ class CategoryRepository extends BaseRepository
     {
         $data = $this->filterData($data, $category);
         if (isset($data['cate_name']) && $category->title != $data['cate_name']) {
-            $data['cate_slug'] = $this->model->generateSlug($data['name']);
+            $data['cate_slug'] = $this->model->generateSlug($data['cate_name']);
         }
         return $data;
     }
