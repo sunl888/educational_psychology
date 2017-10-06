@@ -1,166 +1,9 @@
 @extends('frontend.layouts.default')
-@section('js')
-    <script>
-        $(function () {
-            var $bigPic = $('#big-pic');
-            var $window = $(window);
-            $window.resize(function () {
-                $bigPic.height($(this).height());
-            });
-            $window.resize();
-            var $nav = $('#nav');
-            $window.scroll(function () {
-                if($window.scrollTop() > $bigPic.height()){
-                    $nav.addClass('small')
-                } else {
-                    $nav.removeClass('small')
-                }
-            });
-        });
-        $(function () {
-            $teams = $('#teams');
-            if($teams.children().length == 0)
-                return;
-            $teams.slick({
-                dots: true,
-                infinite: true,
-                centerMode: true,
-                variableWidth: true,
-                autoplay: true,
-                autoplaySpeed: 5000,
-                slidesToShow: 3,
-                slidesToScroll: 3,
-                arrows: false
-            });
-        })
-        $(function () {
-            particlesJS('particles-js',{
-                "particles": {
-                    "number": {
-                        "value": 80,
-                        "density": {
-                            "enable": true,
-                            "value_area": 800
-                        }
-                    },
-                    "color": {
-                        "value": "#ffffff"
-                    },
-                    "shape": {
-                        "type": "polygon",
-                        "stroke": {
-                            "width": 0,
-                            "color": "#000000"
-                        },
-                        "polygon": {
-                            "nb_sides": 5
-                        },
-                        "image": {
-                            "src": "img/github.svg",
-                            "width": 100,
-                            "height": 100
-                        }
-                    },
-                    "opacity": {
-                        "value": 0.5,
-                        "random": false,
-                        "anim": {
-                            "enable": false,
-                            "speed": 1,
-                            "opacity_min": 0.1,
-                            "sync": false
-                        }
-                    },
-                    "size": {
-                        "value": 3,
-                        "random": true,
-                        "anim": {
-                            "enable": false,
-                            "speed": 40,
-                            "size_min": 0.1,
-                            "sync": false
-                        }
-                    },
-                    "line_linked": {
-                        "enable": true,
-                        "distance": 150,
-                        "color": "#ffffff",
-                        "opacity": 0.4,
-                        "width": 1
-                    },
-                    "move": {
-                        "enable": true,
-                        "speed": 3,
-                        "direction": "none",
-                        "random": false,
-                        "straight": false,
-                        "out_mode": "out",
-                        "bounce": false,
-                        "attract": {
-                            "enable": false,
-                            "rotateX": 600,
-                            "rotateY": 1200
-                        }
-                    }
-                },
-                "interactivity": {
-                    "detect_on": "canvas",
-                    "events": {
-                        "onhover": {
-                            "enable": true,
-                            "mode": "repulse"
-                        },
-                        "onclick": {
-                            "enable": true,
-                            "mode": "push"
-                        },
-                        "resize": true
-                    },
-                    "modes": {
-                        "grab": {
-                            "distance": 400,
-                            "line_linked": {
-                                "opacity": 1
-                            }
-                        },
-                        "bubble": {
-                            "distance": 400,
-                            "size": 40,
-                            "duration": 2,
-                            "opacity": 8,
-                            "speed": 3
-                        },
-                        "repulse": {
-                            "distance": 200,
-                            "duration": 0.4
-                        },
-                        "push": {
-                            "particles_nb": 4
-                        },
-                        "remove": {
-                            "particles_nb": 2
-                        }
-                    }
-                },
-                "retina_detect": false
-            });
-        });
-    </script>
-@endsection
 
 @section('content')
 <nav class="nav" id="nav">
     <div class="container">
-        <div class="logo">
-            xx科技
-        </div>
-        <ul class="menu">
-            <li><a href="#">首页</a></li>
-            <li><a href="#">关于</a></li>
-            <li><a href="#">团队</a></li>
-            <li><a href="#">案例</a></li>
-            <li><a href="#">联系我们</a></li>
-        </ul>
+        @widget('navigation_bar')
     </div>
     <div class="mask"></div>
 </nav>
@@ -419,4 +262,153 @@
         <footer class="copy">xx科技  &copy; 2017</footer>
     </div>
 </section>
+@endsection
+
+@section('js')
+    <script>
+        $(function () {
+            var $bigPic = $('#big-pic');
+            var $window = $(window);
+            $window.resize(function () {
+                $bigPic.height($(this).height());
+            });
+            $window.resize();
+            var $nav = $('#nav');
+            $window.scroll(function () {
+                if($window.scrollTop() > $bigPic.height()){
+                    $nav.addClass('small')
+                } else {
+                    $nav.removeClass('small')
+                }
+            });
+        });
+        $(function () {
+            $teams = $('#teams');
+            if($teams.children().length == 0)
+                return;
+            $teams.slick({
+                dots: true,
+                infinite: true,
+                centerMode: true,
+                variableWidth: true,
+                autoplay: true,
+                autoplaySpeed: 5000,
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                arrows: false
+            });
+        })
+        $(function () {
+            particlesJS('particles-js',{
+                "particles": {
+                    "number": {
+                        "value": 80,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#ffffff"
+                    },
+                    "shape": {
+                        "type": "polygon",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                        "polygon": {
+                            "nb_sides": 5
+                        },
+                        "image": {
+                            "src": "img/github.svg",
+                            "width": 100,
+                            "height": 100
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": false,
+                        "anim": {
+                            "enable": false,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 40,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#ffffff",
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 3,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "repulse"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 400,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 200,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": false
+            });
+        });
+    </script>
 @endsection
