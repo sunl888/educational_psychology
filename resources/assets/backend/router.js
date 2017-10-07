@@ -194,6 +194,20 @@ const router = new Router({
     }
   ]
 });
+router.afterEach((to, from) => {
+  setTimeout(() => {
+    try {
+      let component = document.title = to.matched[to.matched.length - 1].instances.default;
+      if (component.title) {
+        document.title = component.title + '-tiny';
+      } else {
+        document.title = component.mixinConfig.title + '-tiny';
+      }
+    } catch (e) {
+      document.title = 'tiny';
+    }
+  }, 0);
+});
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!localStorage.getItem('login_ok')) {

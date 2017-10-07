@@ -2,8 +2,8 @@
   <div class="role">
     <Panel :title="title">
       <Form ref="form" :rules="rules" :model="formData" :label-width="80">
-        <Form-item :error="errors.name" label="角色" prop="name">
-          <Input v-model="formData.name" placeholder="请设置角色"></Input>
+        <Form-item :error="errors.name" label="标签" prop="name">
+          <Input v-model="formData.name" placeholder="请设置标签"></Input>
         </Form-item>
         <FormButtomGroup />
       </Form>
