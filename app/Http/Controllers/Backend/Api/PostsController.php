@@ -28,6 +28,8 @@ class PostsController extends ApiController
     public function index(Request $request)
     {
         $posts = Post::applyFilter($request)
+            ->withSimpleSearch()
+            ->withSort()
             ->paginate($this->perPage());
         return $this->response()->paginator($posts, new PostTransformer())->setMeta(Post::getAllowSearchFieldsMeta() + Post::getAllowSortFieldsMeta());
     }
