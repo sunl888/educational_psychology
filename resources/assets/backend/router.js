@@ -194,6 +194,15 @@ const router = new Router({
     }
   ]
 });
+router.afterEach((to, from) => {
+  setTimeout(() => {
+    try {
+      document.title = to.matched[to.matched.length - 1].instances.default.mixinConfig.title + '-tiny';
+    } catch (e) {
+      document.title = 'tiny';
+    }
+  }, 0)
+})
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!localStorage.getItem('login_ok')) {

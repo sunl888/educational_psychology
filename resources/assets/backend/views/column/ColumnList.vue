@@ -66,6 +66,18 @@ export default {
           },
         },
         {
+          title: 'slug',
+          key: 'slug',
+          width: '150px',
+          render: (h, params) => {
+            return h('span', {
+              attrs: {
+                title: params.slug
+              }
+            }, params.slug && params.slug.length > 16 ? params.slug.substr(0, 16) + '...' : params.slug);
+          }
+        },
+        {
           title: '类型',
           key: 'type',
           width: '110px',
