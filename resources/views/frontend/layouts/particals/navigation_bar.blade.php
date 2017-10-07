@@ -1,7 +1,8 @@
 @php
 $homeUrl = route('frontend.web.index');
 @endphp
-<nav class="nav small" id="nav">
+
+<nav class="nav{!! isset($normalPage)?' small':'' !!}" id="nav">
     <div class="container">
         <div class="logo">
             <a href="{!! $homeUrl !!}">{!! setting('site_name') !!}</a>

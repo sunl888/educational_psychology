@@ -1,23 +1,7 @@
 @extends('frontend.layouts.default')
 
 @section('content')
-    <nav class="nav" id="nav">
-        <div class="container">
-            <div class="logo">
-                <a href="{!! route('frontend.web.index') !!}">xx科技</a>
-            </div>
-            <ul class="menu">
-                <li><a href="{!! route('frontend.web.index') !!}">首页</a></li>
-                <li><a href="#case">案例</a></li>
-                <li><a href="#news">新闻</a></li>
-                <li><a href="#team">团队</a></li>
-                <li><a href="#skill">技术栈</a></li>
-                <li><a href="#contact">联系我们</a></li>
-                <li><a href="#join">加入我们</a></li>
-            </ul>
-        </div>
-        <div class="mask"></div>
-    </nav>
+    @include('frontend.layouts.particals.navigation_bar')
     <header class="big-pic" id="big-pic">
         <div class="zm-txt">
             <div class="zm-work">
@@ -36,205 +20,106 @@
     <section class="zm-introduce zm-wrap">
         <div class="container">
             <header class="zm-title">
-                <h3>xx科技</h3>
+                <h3>{!! setting('site_name') !!}</h3>
                 <div class="line"></div>
                 <p>创造不息，交付不止</p>
             </header>
             <p class="text">总部设立在北京，并在上海、广州、深圳、台湾、澳洲、天津、重庆等地区有 50 多位精英工程师，与产品和设计团队紧密配合，共同为客户创造优质的 WEB 应用和移动应用。</p>
         </div>
     </section>
-
     @php
-        // $projectCaseCategory = app(\App\Repositories\CategoryRepository::class)->findBySlug();
+        $categoryRepository = app(App\Repositories\CategoryRepository::class);
+        $projectCaseCategory = $categoryRepository->findByCateName('项目案例');
     @endphp
     <section id="case" class="zm-case zm-wrap">
         <div class="container">
             <header class="zm-title">
-                <h3>项目案例</h3>
+                <h3>{!! $projectCaseCategory->cate_name !!}</h3>
                 <div class="line"></div>
-                <p>志存高远，护您远航</p>
+                <p>{!! $projectCaseCategory->description !!}</p>
             </header>
-            <div class="col-md-4 col-lg-3 col-sm-6 col-xs-12 case-item">
-                <div class="main">
-                    <div class="img-wrap">
-                        <img src="http://szimg.mukewang.com/59c9b245000143ae05400300-360-202.jpg">
-                    </div>
-                    <div class="body">
-                        <h4>Tiny 强大简洁的CMS系统</h4>
-                        <p>Tiny 是一个简单的 CMS, 基于 vue2.4 + laravel5.5 开发。你可以使用 Tiny 快速搭建自己的 cms 或者 blog。</p>
-                        <div class="footer">
-                            <span class="tag">PHP</span>
-                            <span class="tag">Vue</span>
+            @foreach(Facades\App\Widgets\PostList::mergeConfig(['category'=>$projectCaseCategory])->getData()['posts'] as $post)
+                <div class="col-md-4 col-lg-3 col-sm-6 col-xs-12 case-item">
+                    <div class="main">
+                        <div class="img-wrap">
+                            <img src="{!! image_url($post->cover) !!}">
+                        </div>
+                        <div class="body">
+                            <h4>{!! $post->getPresenter()->suitedTitle() !!}</h4>
+                            <p>{!! $post->excerpt !!}</p>
+                            <div class="footer">
+                                @foreach($post->tags as $tag)
+                                    <span class="tag">{!! $tag->name !!}</span>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4 col-lg-3 col-sm-6 col-xs-12 case-item">
-                <div class="main">
-                    <div class="img-wrap">
-                        <img src="http://szimg.mukewang.com/59c9b245000143ae05400300-360-202.jpg">
-                    </div>
-                    <div class="body">
-                        <h4>Tiny 强大简洁的CMS系统</h4>
-                        <p>Tiny 是一个简单的 CMS, 基于 vue2.4 + laravel5.5 开发。你可以使用 Tiny 快速搭建自己的 cms 或者 blog。</p>
-                        <div class="footer">
-                            <span class="tag">PHP</span>
-                            <span class="tag">Vue</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-lg-3 col-sm-6 col-xs-12 case-item">
-                <div class="main">
-                    <div class="img-wrap">
-                        <img src="http://szimg.mukewang.com/59c9b245000143ae05400300-360-202.jpg">
-                    </div>
-                    <div class="body">
-                        <h4>Tiny 强大简洁的CMS系统</h4>
-                        <p>Tiny 是一个简单的 CMS, 基于 vue2.4 + laravel5.5 开发。你可以使用 Tiny 快速搭建自己的 cms 或者 blog。</p>
-                        <div class="footer">
-                            <span class="tag">PHP</span>
-                            <span class="tag">Vue</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-lg-3 col-sm-6 col-xs-12 case-item">
-                <div class="main">
-                    <div class="img-wrap">
-                        <img src="http://szimg.mukewang.com/59c9b245000143ae05400300-360-202.jpg">
-                    </div>
-                    <div class="body">
-                        <h4>Tiny 强大简洁的CMS系统</h4>
-                        <p>Tiny 是一个简单的 CMS, 基于 vue2.4 + laravel5.5 开发。你可以使用 Tiny 快速搭建自己的 cms 或者 blog。</p>
-                        <div class="footer">
-                            <span class="tag">PHP</span>
-                            <span class="tag">Vue</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </section>
 
+    @php
+        $newsCategory = $categoryRepository->findByCateName('新闻中心');
+    @endphp
     <section id="news" class="zm-news zm-wrap">
         <div class="container">
             <header class="zm-title">
-                <h3>新闻中心</h3>
+                <h3>{!! $newsCategory->cate_name !!}</h3>
                 <div class="line"></div>
-                <p>news</p>
+                <p>{!! $newsCategory->description !!}</p>
             </header>
-            <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 news-item">
-                <div class="news-main">
-                    <a href="#" target="_blank">
-                        <div class="img-wrap">
-                            <img src="https://i1.hdslb.com/bfs/archive/475cb929447b2a533a88e0fc77777a9da910e023.jpg"
-                                 alt="">
-                        </div>
-                    </a>
-                    <a href="#" target="_blank" class="title">
-                        <h4>上海市嘉定区抽检食用农产品20批样品全合格</h4>
-                    </a>
-                    <div class="line"></div>
-                    <p>上海市嘉定区抽检食用农产品20批次样品全合格上海市嘉定区抽检食用农产品20批次样品全合格上海市嘉定区抽检食用农产品20批次样品全合格</p>
+            @foreach(Facades\App\Widgets\PostList::mergeConfig(['category'=>$newsCategory])->getData()['posts'] as $post)
+                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 news-item">
+                    <div class="news-main">
+                        <a href="{!! $post->getPresenter()->url() !!}" target="_blank" title="{!! $post->title !!}">
+                            <div class="img-wrap">
+                                <img src="{!! image_url($post->cover) !!}">
+                            </div>
+                        </a>
+                        <a href="{!! $post->getPresenter()->url() !!}" target="_blank" class="title"
+                           title="{!! $post->title !!}">
+                            <h4>{!! $post->getPresenter()->suitedTitle() !!}</h4>
+                        </a>
+                        <div class="line"></div>
+                        <p>{!! $post->excerpt !!}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 news-item">
-                <div class="news-main">
-                    <a href="#" target="_blank">
-                        <div class="img-wrap">
-                            <img src="https://i1.hdslb.com/bfs/archive/475cb929447b2a533a88e0fc77777a9da910e023.jpg"
-                                 alt="">
-                        </div>
-                    </a>
-                    <a href="#" target="_blank" class="title">
-                        <h4>上海市嘉定区抽检食用农产品20批样品全合格</h4>
-                    </a>
-                    <div class="line"></div>
-                    <p>上海市嘉定区抽检食用农产品20批次样品全合格上海市嘉定区抽检食用农产品20批次样品全合格上海市嘉定区抽检食用农产品20批次样品全合格</p>
-                </div>
-            </div>
-            <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 news-item">
-                <div class="news-main">
-                    <a href="#" target="_blank">
-                        <div class="img-wrap">
-                            <img src="https://i1.hdslb.com/bfs/archive/475cb929447b2a533a88e0fc77777a9da910e023.jpg"
-                                 alt="">
-                        </div>
-                    </a>
-                    <a href="#" target="_blank" class="title">
-                        <h4>上海市嘉定区抽检食用农产品20批样品全合格</h4>
-                    </a>
-                    <div class="line"></div>
-                    <p>上海市嘉定区抽检食用农产品20批次样品全合格上海市嘉定区抽检食用农产品20批次样品全合格上海市嘉定区抽检食用农产品20批次样品全合格</p>
-                </div>
-            </div>
+            @endforeach
         </div>
         <div class="button_wrap">
-            <a class="btn more_btn">查看更多<i class="glyphicon glyphicon-chevron-right"></i></a>
+            <a class="btn more_btn"{!! $newsCategory->getPresenter()->linkAttribute() !!}>查看更多<i
+                        class="glyphicon glyphicon-chevron-right"></i></a>
         </div>
     </section>
 
+    @php
+        $teamCategory = $categoryRepository->findByCateName('我们的团队');
+    @endphp
     <section id="team" class="zm-team zm-wrap">
         <div class="container">
             <header class="zm-title white">
-                <h3>我们的团队</h3>
+                <h3>{!! $teamCategory->cate_name !!}</h3>
                 <div class="line"></div>
-                <p>年轻、热爱技术、享受技术</p>
+                <p>{!! $teamCategory->description !!}</p>
             </header>
             <div id="teams">
-                <div class="team-item">
-                    <div class="team-main">
-                        <div class="avatar">
-                            <img src="https://avatars3.githubusercontent.com/u/15792482?v=4&s=460" alt="">
+                @foreach(Facades\App\Widgets\PostList::mergeConfig(['category'=>$teamCategory])->getData()['posts'] as $post)
+                    <div class="team-item">
+                        <div class="team-main">
+                            <div class="avatar">
+                                <img src="{!! image_url($post->cover) !!}">
+                            </div>
+                            <h4>{!! $post->title !!}</h4>
+                            <div class="tags">
+                                @foreach($post->tags as $tag)
+                                    <span class="tag">{!! $tag->name !!}</span>
+                                @endforeach
+                            </div>
+                            <p class="info">{!! $post->excerpt !!}</p>
                         </div>
-                        <h4>德莱文</h4>
-                        <div class="tags">
-                            <span class="tag">php</span>
-                            <span class="tag">java</span>
-                        </div>
-                        <p class="info">编程是不可能编程的，这辈子都不可能编程的。</p>
                     </div>
-                </div>
-                <div class="team-item">
-                    <div class="team-main">
-                        <div class="avatar">
-                            <img src="https://avatars3.githubusercontent.com/u/15792482?v=4&s=460" alt="">
-                        </div>
-                        <h4>德莱文</h4>
-                        <div class="tags">
-                            <span class="tag">php</span>
-                            <span class="tag">java</span>
-                        </div>
-                        <p class="info">编程是不可能编程的，这辈子都不可能编程的。</p>
-                    </div>
-                </div>
-                <div class="team-item">
-                    <div class="team-main">
-                        <div class="avatar">
-                            <img src="https://avatars3.githubusercontent.com/u/15792482?v=4&s=460" alt="">
-                        </div>
-                        <h4>德莱文</h4>
-                        <div class="tags">
-                            <span class="tag">php</span>
-                            <span class="tag">java</span>
-                        </div>
-                        <p class="info">编程是不可能编程的，这辈子都不可能编程的。</p>
-                    </div>
-                </div>
-                <div class="team-item">
-                    <div class="team-main">
-                        <div class="avatar">
-                            <img src="https://avatars3.githubusercontent.com/u/15792482?v=4&s=460" alt="">
-                        </div>
-                        <h4>德莱文</h4>
-                        <div class="tags">
-                            <span class="tag">php</span>
-                            <span class="tag">java</span>
-                        </div>
-                        <p class="info">编程是不可能编程的，这辈子都不可能编程的。</p>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -246,7 +131,7 @@
         <div class="container skills">
             @foreach(Facades\App\Widgets\Link::mergeConfig(['type'=>'skill'])->getData()['links'] as $link)
                 <a href="{!! $link->url !!}" title="{!! $link->name !!}" target="_blank"><img
-                            src="{!! image_url($link->logo) !!}" alt=""></a>
+                            src="{!! image_url($link->logo) !!}" alt="{!! $link->name !!}"></a>
             @endforeach
         </div>
     </section>
@@ -257,45 +142,29 @@
             <div class="line"></div>
         </header>
         <div class="container">
-            <p class="contact-item">邮箱：xxxxxx@qq.com</p>
-            <p class="contact-item">电话：13900000000</p>
-            <p class="contact-item">地址：喜喜喜喜喜喜喜喜喜喜</p>
+            <p class="contact-item">邮箱：{!! setting('email') !!}</p>
+            <p class="contact-item">电话：{!! setting('tel') !!}</p>
+            <p class="contact-item">地址：{!! setting('address') !!}</p>
             <div class="contact-link">
-                <a href="#"><img src="https://gold-cdn.xitu.io/images/about/GitHub@2x.png"
-                                 alt=""><span>Github</span></a>
-                <a href="#"><img src="https://gold-cdn.xitu.io/images/about/GitHub@2x.png"
-                                 alt=""><span>Github</span></a>
-                <a href="#"><img src="https://gold-cdn.xitu.io/images/about/GitHub@2x.png"
-                                 alt=""><span>Github</span></a>
-                <a href="#"><img src="https://gold-cdn.xitu.io/images/about/GitHub@2x.png"
-                                 alt=""><span>Github</span></a>
+                @foreach(Facades\App\Widgets\Link::mergeConfig(['type'=>'contact_us', 'limit'=>5])->getData()['links'] as $link)
+                    <a href="{!! $link->url !!}" title="{!! $link->name !!}"><img
+                                src="{!! image_url($link->logo) !!}"
+                                alt="{!! $link->name !!}"><span>{!! $link->name !!}</span></a>
+                @endforeach
             </div>
         </div>
     </section>
 
 
-    <section class="zm-link zm-wrap">
-        <header class="zm-title">
-            <h3>友情链接</h3>
-            <div class="line"></div>
-        </header>
-        <div class="container">
-            <a href="#" class="link-item col-md-2 col-lg-2"><img src="https://vuejs.org/images/stdlib.png" alt=""></a>
-            <a href="#" class="link-item col-md-2 col-lg-2"><img src="https://vuejs.org/images/stdlib.png" alt=""></a>
-            <a href="#" class="link-item col-md-2 col-lg-2"><img src="https://vuejs.org/images/stdlib.png" alt=""></a>
-            <a href="#" class="link-item col-md-2 col-lg-2"><img src="https://vuejs.org/images/stdlib.png" alt=""></a>
-            <a href="#" class="link-item col-md-2 col-lg-2"><img src="https://vuejs.org/images/stdlib.png" alt=""></a>
-            <a href="#" class="link-item col-md-2 col-lg-2"><img src="https://vuejs.org/images/stdlib.png" alt=""></a>
-        </div>
-    </section>
+    @widget('link', ['type' => 'friendship_link'])
 
     <section id="join">
         <div class="zm-join" id="particles-js">
             <div class="text">
                 <h3>加入我们</h3>
-                <p>如果你喜欢这样的我们，请发送简历到xxxx@qq.com</p>
+                <p>如果你喜欢这样的我们，请发送简历到{!! setting('hr_email') !!}</p>
             </div>
-            <footer class="copy">xx科技 &copy; 2017</footer>
+            <footer class="copy">&copy;{!! date('Y') !!} {!! setting('site_name') !!} 版权所有 [{!! setting('record_number') !!}]</footer>
         </div>
     </section>
 @endsection
