@@ -31,7 +31,7 @@
         $categoryRepository = app(App\Repositories\CategoryRepository::class);
         $projectCaseCategory = $categoryRepository->findByCateName('项目案例');
     @endphp
-    <section id="case" class="zm-case zm-wrap">
+    <section data-id="case" class="zm-case zm-wrap">
         <div class="container">
             <header class="zm-title">
                 <h3>{!! $projectCaseCategory->cate_name !!}</h3>
@@ -62,7 +62,7 @@
     @php
         $newsCategory = $categoryRepository->findByCateName('新闻中心');
     @endphp
-    <section id="news" class="zm-news zm-wrap">
+    <section data-id="news" class="zm-news zm-wrap">
         <div class="container">
             <header class="zm-title">
                 <h3>{!! $newsCategory->cate_name !!}</h3>
@@ -96,7 +96,7 @@
     @php
         $teamCategory = $categoryRepository->findByCateName('我们的团队');
     @endphp
-    <section id="team" class="zm-team zm-wrap">
+    <section data-id="team" class="zm-team zm-wrap">
         <div class="container">
             <header class="zm-title white">
                 <h3>{!! $teamCategory->cate_name !!}</h3>
@@ -124,7 +124,7 @@
         </div>
     </section>
 
-    <section id="skill" class="zm-skill zm-wrap">
+    <section data-id="skill" class="zm-skill zm-wrap">
         <header class="zm-title">
             <h3>WE GOT SKILLS</h3>
         </header>
@@ -136,7 +136,7 @@
         </div>
     </section>
 
-    <section id="contact" class="zm-contact zm-wrap">
+    <section data-id="contact" class="zm-contact zm-wrap">
         <header class="zm-title">
             <h3>联系我们</h3>
             <div class="line"></div>
@@ -158,7 +158,7 @@
 
     @widget('link', ['type' => 'friendship_link'])
 
-    <section id="join">
+    <section data-id="join">
         <div class="zm-join" id="particles-js">
             <div class="text">
                 <h3>加入我们</h3>
@@ -186,6 +186,14 @@
                     $nav.removeClass('small')
                 }
             });
+            var $htmlBody = $('html,body');
+            window.addEventListener('hashchange', function(e) {
+                var target = $('[data-id=' + location.hash.substr(1) + ']');
+                $htmlBody.animate({
+                    scrollTop: target.offset().top - 60
+                }, 300);
+            });
+            $htmlBody.scrollTop($('[data-id=' + location.hash.substr(1) + ']').offset().top - 60);
         });
         $(function () {
             $teams = $('#teams');

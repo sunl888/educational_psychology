@@ -21,7 +21,7 @@
                 </a>
             </div>
         @empty
-            <div>暂无文章</div>
+            <div class="no-data">暂无文章</div>
         @endforelse
     </div>
     {{--分页--}}
