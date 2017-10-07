@@ -16,7 +16,7 @@ class Link extends AbstractWidget
         'limit' => 10,
     ];
 
-    public function getData(array $params)
+    public function getData(array $params = [])
     {
         return [
             'links' => app(CustomOrder::class)

@@ -16,7 +16,7 @@ class Alert extends AbstractWidget
         $this->alertService = app(AlertService::class);
     }
 
-    public function getData(array $params)
+    public function getData(array $params = [])
     {
         return $this->alertService->getMessage();
     }

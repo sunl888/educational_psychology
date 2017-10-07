@@ -16,7 +16,7 @@ class Banner extends AbstractWidget
         'limit' => 10,
     ];
 
-    public function getData(array $params)
+    public function getData(array $params = [])
     {
         return [
             'banners' => app(CustomOrder::class)

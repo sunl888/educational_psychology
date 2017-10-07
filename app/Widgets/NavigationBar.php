@@ -10,7 +10,7 @@ use App\Support\Widget\AbstractWidget;
 
 class NavigationBar extends AbstractWidget
 {
-    public function getData(array $params)
+    public function getData(array $params = [])
     {
         $navigation = app(Navigation::class);
         return [

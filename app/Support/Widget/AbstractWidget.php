@@ -11,7 +11,7 @@ abstract class AbstractWidget
 
     protected $config = [];
 
-    public function __construct($config)
+    public function __construct($config = [])
     {
         $this->mergeConfig($config);
     }
@@ -31,7 +31,7 @@ abstract class AbstractWidget
         return $this->viewName ?: 'theme::widgets.' . snake_case(class_basename(get_called_class()));
     }
 
-    public function getData(array $params)
+    public function getData(array $params = [])
     {
         return $params;
     }
@@ -46,8 +46,10 @@ abstract class AbstractWidget
         return 'widgets.' . serialize($params);
     }
 
-    public function mergeConfig($config){
-        $this->config = array_merge($this->config, $config);
+    public function mergeConfig($config)
+    {
+        if (!empty($config))
+            $this->config = array_merge($this->config, $config);
         return $this;
     }
 }
