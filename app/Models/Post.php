@@ -41,8 +41,6 @@ class Post extends BaseModel implements PresentableInterface
         $query->orderByTop()
             ->byCategory(isset($data['category_id']) ? $data['category_id'] : null)
             ->byType(Category::TYPE_POST)
-            ->withSimpleSearch()
-            ->withSort()
             ->byStatus(isset($data['status']) ? $data['status'] : null);
 
         if (isset($data['only_trashed']) && $data['only_trashed']) {

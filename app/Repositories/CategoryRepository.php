@@ -59,4 +59,9 @@ class CategoryRepository extends BaseRepository
         }
         return $data;
     }
+
+    public function findByCateName($cateName)
+    {
+        return $this->model->where('cate_name', $cateName)->firstOrFail();
+    }
 }
