@@ -19,7 +19,7 @@ class VisualCategoryTransformer extends TransformerAbstract
             'cate_name' => $category->cate_name,
             'description' => $category->description,
             'url' => $category->url,
-            'cate_slug' => $category->cate_slug,
+            'slug' => $category->cate_slug,
             'is_nav' => $category->is_nav,
             'order' => $category->order,
             'page_template' => $category->page_template,
