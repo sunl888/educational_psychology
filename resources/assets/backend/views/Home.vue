@@ -13,7 +13,7 @@
         <Menu-item name="articleList">文章管理</Menu-item>
         <Menu-item name="columnList">栏目管理</Menu-item>
         <Menu-item name="bannerList">Banner管理</Menu-item>
-        <Menu-item name="linkList">友情链接管理</Menu-item>
+        <Menu-item name="linkList">链接管理</Menu-item>
         <Menu-item name="tagList">标签管理</Menu-item>
       </Submenu>
       <Submenu name="2">

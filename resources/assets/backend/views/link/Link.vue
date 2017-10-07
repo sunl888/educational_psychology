@@ -3,7 +3,7 @@
     <Panel :title="title">
       <Form ref="form" :rules="rules" :model="formData" :label-width="80">
         <Form-item label="URL" prop="url" :error="errors.url">
-          <Input v-model="formData.url" placeholder="请设置友情链接url"></Input>
+          <Input v-model="formData.url" placeholder="请设置链接url"></Input>
         </Form-item>
         <Form-item label="链接名称" prop="name" :error="errors.name">
           <Input v-model="formData.name" placeholder="请输入链接名称"></Input>
@@ -54,7 +54,7 @@ export default {
     },
     mixinConfig () {
       return {
-        title: '友情链接',
+        title: '链接',
         action: this.isAdd() ? 'links' : `links/${this.$route.params.id}`
       };
     }

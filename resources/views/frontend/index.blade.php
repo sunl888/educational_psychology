@@ -273,6 +273,22 @@
         </div>
     </section>
 
+
+    <section class="zm-link zm-wrap">
+        <header class="zm-title">
+            <h3>友情链接</h3>
+            <div class="line"></div>
+        </header>
+        <div class="container">
+            <a href="#" class="link-item col-md-2 col-lg-2"><img src="https://vuejs.org/images/stdlib.png" alt=""></a>
+            <a href="#" class="link-item col-md-2 col-lg-2"><img src="https://vuejs.org/images/stdlib.png" alt=""></a>
+            <a href="#" class="link-item col-md-2 col-lg-2"><img src="https://vuejs.org/images/stdlib.png" alt=""></a>
+            <a href="#" class="link-item col-md-2 col-lg-2"><img src="https://vuejs.org/images/stdlib.png" alt=""></a>
+            <a href="#" class="link-item col-md-2 col-lg-2"><img src="https://vuejs.org/images/stdlib.png" alt=""></a>
+            <a href="#" class="link-item col-md-2 col-lg-2"><img src="https://vuejs.org/images/stdlib.png" alt=""></a>
+        </div>
+    </section>
+
     <section id="join">
         <div class="zm-join" id="particles-js">
             <div class="text">
