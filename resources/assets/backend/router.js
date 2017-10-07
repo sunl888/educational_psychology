@@ -197,7 +197,12 @@ const router = new Router({
 router.afterEach((to, from) => {
   setTimeout(() => {
     try {
-      document.title = to.matched[to.matched.length - 1].instances.default.mixinConfig.title + '-tiny';
+      let component = document.title = to.matched[to.matched.length - 1].instances.default;
+      if (component.title) {
+        document.title = component.title + '-tiny';
+      } else {
+        document.title = component.mixinConfig.title + '-tiny';
+      }
     } catch (e) {
       document.title = 'tiny';
     }
