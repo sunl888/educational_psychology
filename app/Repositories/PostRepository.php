@@ -73,11 +73,11 @@ class PostRepository extends BaseRepository
         $this->addTags($post, $data);
     }
 
-    public function preUpdate(array &$data, $post)
+    public function preUpdate(array &$data)
     {
         $data = $this->filterData($data);
-        if (isset($data['title']) && $post->title != $data['title']) {
-            $data['slug'] = $this->model->generateSlug($data['title']);
+        if (!isset($data['excerpt'])){
+            $data['excerpt'] = app(PostService::class)->makeExcerpt($data['content']);
         }
         return $data;
     }
