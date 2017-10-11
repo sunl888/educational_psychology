@@ -60,7 +60,7 @@ if (!function_exists('image_url')) {
             $path = $config['source_path_prefix'] . DIRECTORY_SEPARATOR . substr($imageId, 0, 2) . DIRECTORY_SEPARATOR . $imageId;
 
             if (isset($config['presets'][$style])) {
-                $style = array($config['default_style'], $config['presets'][$style]);
+                $style = array_merge($config['default_style'], $config['presets'][$style]);
                 if (isset($style['q'])) {
                     $q = "/q/{$style['q']}|imageslim";
                 } else {
