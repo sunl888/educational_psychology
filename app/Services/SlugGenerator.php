@@ -86,7 +86,7 @@ class SlugGenerator
         $salt = time();
         $api = 'http://api.fanyi.baidu.com/api/trans/vip/translate?';
         $appid = setting('baidu_translate_appid');
-        $key = config('baidu_translate_key');
+        $key = setting('baidu_translate_key');
 
         // 如果没有配置百度翻译，直接使用拼音
         if (empty($appid) || empty($key)) {
