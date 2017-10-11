@@ -12,7 +12,7 @@
           <Input v-model="formData.email" placeholder="请设置email"></Input>
         </Form-item>
         <Form-item label="密码" prop="password" :error="errors.password">
-          <Input v-model="formData.password" type="password" placeholder="请设置密码"></Input>
+          <Input v-model="formData.password" type="password" placeholder="请设置密码 留空则保留原密码"></Input>
         </Form-item>
         <Form-item label="头像" :error="errors.avatar">
           <UploadPicture  @on-remove="() => formData.avatar = null" @on-success="avatar => formData.avatar = avatar" :url="formData.avatar_url" height="180px" class="upload_picture" />
@@ -44,7 +44,7 @@ export default {
           { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
         ],
         password: [
-          { required: true, type: 'string', message: '请设置密码', trigger: 'blur' }
+          { required: this.isAdd(), type: 'string', message: '请设置密码', trigger: 'blur' }
         ],
       };
     },
