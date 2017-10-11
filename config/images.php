@@ -1,11 +1,14 @@
 <?php
 
 return [
-    'source_disk' => 'local',
-    'cache_disk' => 'local',
+    'source_disk' => 'qiniu',
+    'cache_disk' => 'qiniu',
     'source_path_prefix' => 'uploads/images',
     'cache_path_prefix' => 'uploads/images/.cache',
     'base_url' => 'img',
+    'default_style' => [
+        'q' => 75
+    ],
     // xs < sm < md < lg
     'presets' => [
         'avatar_xs' => [

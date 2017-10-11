@@ -38,14 +38,43 @@ if (!function_exists('image_url')) {
 
     function image_url($imageId, $style = null, $default = null)
     {
+        static $config = [];
+
         if (is_null($imageId)) {
             return value($default);
         }
-        $parameters = ['image' => $imageId];
-        if (!is_null($style))
-            $parameters['p'] = $style;
 
-        return route(config('images.route_name'), $parameters);
+        if (empty($config))
+            $config = config('images');
+
+        if ($config['source_disk'] == 'local') {
+
+            $parameters = ['image' => $imageId];
+
+            if (!is_null($style))
+                $parameters['p'] = $style;
+
+            return route(config('images.route_name'), $parameters);
+
+        } else {
+            $path = $config['source_path_prefix'] . DIRECTORY_SEPARATOR . substr($imageId, 0, 2) . DIRECTORY_SEPARATOR . $imageId;
+
+            if (isset($config['presets'][$style])) {
+                $style = array($config['default_style'], $config['presets'][$style]);
+                if (isset($style['q'])) {
+                    $q = "/q/{$style['q']}|imageslim";
+                } else {
+                    $q = '';
+                }
+
+                $parameters = "?imageView2/2/w/{$style['w']}/h/{$style['h']}" . $q;
+            } else {
+                $parameters = '';
+            }
+
+            return Storage::disk($config['source_disk'])->url($path) . $parameters;
+        }
+
     }
 
 }
