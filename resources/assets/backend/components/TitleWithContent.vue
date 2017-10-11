@@ -23,7 +23,7 @@
 <script>
 import TitleInput from './TitleInput.vue';
 import WangEditor from './WangEditor.vue';
-import thttp from '../utils/thttp';
+import tHttp from '../utils/tHttp';
 export default {
   name: 'titleWithContent',
   props: {
@@ -44,7 +44,7 @@ export default {
   },
   data () {
     return {
-      action: thttp.config.baseURL + 'attachments',
+      action: tHttp.config.baseURL + 'attachments',
       defaultFileList: []
     };
   },
