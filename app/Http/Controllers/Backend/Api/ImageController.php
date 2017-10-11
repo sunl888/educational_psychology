@@ -27,7 +27,7 @@ class ImageController extends ApiController
             $imageId = ltrim(strstr($hashName, DIRECTORY_SEPARATOR), DIRECTORY_SEPARATOR);
             return [
                 'image' => $imageId,
-                'image_url' => route(config('images.route_name'), $imageId)
+                'image_url' => image_url($imageId)
             ];
         }
         $error = $image ? $image->getErrorMessage() : '图片上传失败';
