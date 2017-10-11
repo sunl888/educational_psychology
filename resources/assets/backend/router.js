@@ -190,6 +190,27 @@ const router = new Router({
           },
           component: require('./views/tag/Tag.vue')
         },
+        {
+          path: 'setting/:id/edit',
+          name: 'editSetting',
+          meta: {
+            isAdd: false
+          },
+          component: require('./views/setting/Setting.vue')
+        },
+        {
+          path: 'setting/add',
+          name: 'addSetting',
+          meta: {
+            isAdd: true
+          },
+          component: require('./views/setting/Setting.vue')
+        },
+        {
+          path: 'setting/list',
+          name: 'settingList',
+          component: require('./views/setting/SettingList.vue')
+        }
       ]
     }
   ]
