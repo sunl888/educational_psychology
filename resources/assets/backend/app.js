@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import thttp from './utils/thttp';
+import tHttp from './utils/tHttp';
 import router from './router';
 import App from './App.vue';
 import iView from 'iview';
@@ -13,7 +13,7 @@ router.afterEach((to, from, next) => {
 });
 
 Vue.use(iView);
-Vue.use(thttp, {
+Vue.use(tHttp, {
   baseURL: '/api/backend/',
   router
 });

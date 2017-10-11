@@ -40,7 +40,7 @@
 
 <script>
 // todo 添加查看大图perview功能
-import thttp from '../utils/thttp';
+import tHttp from '../utils/tHttp';
 export default {
   name: 'uploadPicture',
   props: {
@@ -64,7 +64,7 @@ export default {
       percentage: 1,
       picUrl: '',
       inputDom: null,
-      action: thttp.config.baseURL + 'ajax_upload_image'
+      action: tHttp.config.baseURL + 'ajax_upload_image'
     };
   },
   methods: {

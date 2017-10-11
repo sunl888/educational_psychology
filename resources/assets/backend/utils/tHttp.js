@@ -6,15 +6,15 @@ if (token) {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
-let thttp = {};
+let tHttp = {};
 
-thttp.config = {};
+tHttp.config = {};
 
-thttp.install = (Vue, {baseURL, router}) => {
-  thttp.config = {
+tHttp.install = (Vue, {baseURL, router}) => {
+  tHttp.config = {
     baseURL
   };
-  thttp.config['X-CSRF-TOKEN'] = token.content;
+  tHttp.config['X-CSRF-TOKEN'] = token.content;
   Vue.prototype.$http = axios.create({
     baseURL,
     timeout: 5000,
@@ -52,4 +52,4 @@ thttp.install = (Vue, {baseURL, router}) => {
   });
 };
 
-export default thttp;
+export default tHttp;
