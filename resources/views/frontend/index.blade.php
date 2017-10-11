@@ -1,5 +1,7 @@
 @extends('frontend.layouts.default')
 
+@section('title')E8网络工作室@endsection
+
 @section('content')
     @include('frontend.layouts.particals.navigation_bar')
     <header class="big-pic" id="big-pic">
@@ -147,8 +149,8 @@
             <p class="contact-item">地址：{!! setting('address') !!}</p>
             <div class="contact-link">
                 @foreach(Facades\App\Widgets\Link::mergeConfig(['type'=>'contact_us', 'limit'=>5])->getData()['links'] as $link)
-                    <a href="{!! $link->url !!}" title="{!! $link->name !!}"><img
-                                src="{!! image_url($link->logo) !!}"
+                    <a href="{!! $link->url !!}" title="{!! $link->name !!}" target="_blank"><img
+                                src="{!! image_url($link->logo, 'avatar_xs') !!}"
                                 alt="{!! $link->name !!}"><span>{!! $link->name !!}</span></a>
                 @endforeach
             </div>

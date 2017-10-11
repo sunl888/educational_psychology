@@ -5,7 +5,7 @@
     </header>
     <div class="container">
         @foreach($links as $link)
-            <a class="link-item col-md-2 col-lg-2" href="{!! $link->url !!}"  title="{!! $link->name !!}"><img src="{!! $link->name !!}" alt="{!! $link->name !!}"></a>
+            <a class="link-item col-md-2 col-lg-2" href="{!! $link->url !!}"  title="{!! $link->name !!}"><img src="{!! image_url($link->logo) !!}" alt="{!! $link->name !!}"></a>
         @endforeach
     </div>
 </section>
