@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'source_disk' => 'qiniu',
-    'cache_disk' => 'qiniu',
+    'source_disk' => env('IMAGE_DISK', 'local'),
+    'cache_disk' => env('IMAGE_DISK', 'local'),
     'source_path_prefix' => 'uploads/images',
     'cache_path_prefix' => 'uploads/images/.cache',
     'base_url' => 'img',
