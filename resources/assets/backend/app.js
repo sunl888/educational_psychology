@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import tHttp from '../utils/tHttp';
+import tHttp from './utils/tHttp';
 import router from './router';
 import App from './App.vue';
 import iView from 'iview';
