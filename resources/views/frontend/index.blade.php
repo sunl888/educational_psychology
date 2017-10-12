@@ -191,11 +191,18 @@
             var $htmlBody = $('html,body');
             window.addEventListener('hashchange', function(e) {
                 var target = $('[data-id=' + location.hash.substr(1) + ']');
-                $htmlBody.animate({
-                    scrollTop: target.offset().top - 60
-                }, 300);
+                if (target.length != 0) {
+                  $htmlBody.animate({
+                      scrollTop: target.offset().top - 60
+                  }, 300);
+                }
             });
-            $htmlBody.scrollTop($('[data-id=' + location.hash.substr(1) + ']').offset().top - 60);
+            if (location.hash.length > 0) {
+              var target = $('[data-id=' + location.hash.substr(1) + ']');
+              if(target.length != 0) {
+                $htmlBody.scrollTop(target.offset().top - 60);
+              }
+            }
         });
         $(function () {
             $teams = $('#teams');
