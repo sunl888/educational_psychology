@@ -7,7 +7,7 @@ return [
     'cache_path_prefix' => 'uploads/images/.cache',
     'base_url' => 'img',
     'default_style' => [
-        'q' => 75
+        'q' => 90
     ],
     // xs < sm < md < lg
     'presets' => [
