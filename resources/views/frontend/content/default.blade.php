@@ -1,5 +1,11 @@
 @extends('frontend.layouts.default')
 
+@section('keywords'){!! $post->getKeywords() !!}@endsection
+
+@section('description'){{ $post->getDescription() }}@endsection
+
+@section('title'){!! $post->title !!} - {!! $post->category->cate_name !!} - {{ setting('site_name') }}@endsection
+
 @section('content')
     @include('frontend.layouts.particals.navigation_bar', ['normalPage'=>true])
     <div class="content">

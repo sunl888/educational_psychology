@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-use App\UserLog;
+use App\Models\UserLog;
 
 trait Loggable
 {

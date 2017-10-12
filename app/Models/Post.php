@@ -171,4 +171,24 @@ class Post extends BaseModel implements PresentableInterface
     {
         return setting('post_slug_mode');
     }
+
+    /**
+     * meta keywords
+     * @return string
+     */
+    public function getKeywords()
+    {
+        $tagStr = $this->tags->implode('name', ',');
+        return $this->category->cate_name.($tagStr?:','.$tagStr).setting('default_keywords');
+
+    }
+
+    /**
+     * meta description
+     * @return \App\Services\SettingCacheService|\Illuminate\Foundation\Application|mixed|null|void
+     */
+    public function getDescription()
+    {
+        return $this->excerpt?:setting('default_description');
+    }
 }

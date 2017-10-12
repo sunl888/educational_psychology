@@ -1,6 +1,10 @@
 @extends('frontend.layouts.default')
 
-@section('title')E8网络工作室@endsection
+@section('keywords'){{ setting('default_keywords') }}@endsection
+
+@section('description'){{ setting('default_description') }}@endsection
+
+@section('title'){{ setting('site_name') }}@endsection
 
 @section('content')
     @include('frontend.layouts.particals.navigation_bar')

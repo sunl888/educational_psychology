@@ -1,5 +1,11 @@
 @extends('frontend.layouts.default')
 
+@section('keywords'){{ setting('default_keywords') }}@endsection
+
+@section('description'){{ setting('default_description') }}@endsection
+
+@section('title'){{ setting('site_name') }}@endsection
+
 @section('content')
     @include('frontend.layouts.particals.navigation_bar', ['normalPage'=>true])
     <div class="list-content">
