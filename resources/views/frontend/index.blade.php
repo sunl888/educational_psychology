@@ -8,7 +8,7 @@
 
 @section('content')
     @include('frontend.layouts.particals.navigation_bar')
-    <header class="big-pic" id="big-pic">
+    <header class="big-pic" style="background-image: url({{cdn('static/images/big_image.jpg')}})" id="big-pic">
         <div class="zm-txt">
             <div class="zm-work">
                 Web Design - Web Development - UX Design
