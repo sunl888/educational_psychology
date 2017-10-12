@@ -164,7 +164,7 @@
         <div class="zm-join" id="particles-js">
             <div class="text">
                 <h3>加入我们</h3>
-                <p>如果你喜欢这样的我们，请发送简历到{{ setting('hr_email') }}</p>
+                <p>如果你喜欢这样的我们，请发送简历到 {{ setting('hr_email') }}</p>
             </div>
             <footer class="copy">&copy;{!! date('Y') !!} {{ setting('site_name') }} 版权所有 [{{ setting('record_number') }}]</footer>
         </div>
