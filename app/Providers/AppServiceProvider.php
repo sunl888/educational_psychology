@@ -16,6 +16,7 @@ use Storage;
 use Carbon\Carbon;
 use Schema;
 use Blade;
+use Breadcrumbs;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
 
             DB::listen(function ($query) {
                 $sql = str_replace('?', '%s', $query->sql);
-                foreach ($query->bindings as $binding){
+                foreach ($query->bindings as $binding) {
                     $binding = (string)$binding;
                 }
                 $sql = sprintf($sql, ...$query->bindings);
@@ -42,6 +43,18 @@ class AppServiceProvider extends ServiceProvider
         }
         Carbon::setLocale('zh');
         Schema::defaultStringLength(191);
+
+        Breadcrumbs::macro('pageTitle', function (string $delimiter = ' - ', string $name = null, ...$params) {
+
+            $breadcrumb = Breadcrumbs::generate($name, ...$params);
+            if ($breadcrumb->isNotEmpty()) {
+                $title = $breadcrumb->slice(1)->reverse()->implode('title', $delimiter) . $delimiter;
+            }else{
+                $title = '';
+            }
+
+            return $title . setting('site_name');
+        });
     }
 
     /**

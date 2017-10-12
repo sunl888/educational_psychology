@@ -1,10 +1,10 @@
 @extends('frontend.layouts.default')
 
-@section('keywords'){{ setting('default_keywords') }}@endsection
+@section('keywords'){!! $category->getKeywords() !!}@endsection
 
-@section('description'){{ setting('default_description') }}@endsection
+@section('description'){!! $category->getDescription() !!}@endsection
 
-@section('title'){{ setting('site_name') }}@endsection
+@section('title'){{ Breadcrumbs::pageTitle(' - ', 'category', $category) }}@endsection
 
 @section('content')
     @include('frontend.layouts.particals.navigation_bar', ['normalPage'=>true])

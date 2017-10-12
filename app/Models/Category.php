@@ -219,4 +219,22 @@ class Category extends BaseModel implements PresentableInterface
     {
         return setting('category_slug_mode');
     }
+
+    /**
+     * meta keywords
+     * @return string
+     */
+    public function getKeywords()
+    {
+        return $this->cate_name . ',' . setting('default_keywords');
+    }
+
+    /**
+     * meta description
+     */
+    public function getDescription()
+    {
+        //\Breadcrumbs::
+        return $this->description?:setting('default_description');
+    }
 }

@@ -4,7 +4,7 @@
 
 @section('description'){{ $post->getDescription() }}@endsection
 
-@section('title'){!! $post->title !!} - {!! $post->category->cate_name !!} - {{ setting('site_name') }}@endsection
+@section('title'){{ Breadcrumbs::pageTitle(' - ', 'post', $post) }}@endsection
 
 @section('content')
     @include('frontend.layouts.particals.navigation_bar', ['normalPage'=>true])
@@ -15,7 +15,8 @@
         <h1 class="title">{!! $post->title !!}</h1>
         <div class="info">
             <span class="author">
-                <img class="avatar" src="{!! image_url($post->user->avatar, 'avatar_xs', cdn('static/images/default_avatar.jpg')) !!}">
+                <img class="avatar"
+                     src="{!! image_url($post->user->avatar, 'avatar_xs', cdn('static/images/default_avatar.jpg')) !!}">
                 {!! isset($post->user->nick_name)?$post->user->nick_name:$post->user->user_name !!}
             </span>
             <span class="time">{!! $post->published_at->format('Y 年 m 月 d 日') !!}</span>

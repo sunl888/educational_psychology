@@ -179,16 +179,15 @@ class Post extends BaseModel implements PresentableInterface
     public function getKeywords()
     {
         $tagStr = $this->tags->implode('name', ',');
-        return $this->category->cate_name.($tagStr?:','.$tagStr).setting('default_keywords');
+        return $this->category->cate_name . ',' . $tagStr . setting('default_keywords');
 
     }
 
     /**
      * meta description
-     * @return \App\Services\SettingCacheService|\Illuminate\Foundation\Application|mixed|null|void
      */
     public function getDescription()
     {
-        return $this->excerpt?:setting('default_description');
+        return $this->excerpt ?: setting('default_description');
     }
 }
