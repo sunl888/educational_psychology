@@ -44,7 +44,7 @@
                 <div class="col-md-4 col-lg-3 col-sm-6 col-xs-12 case-item">
                     <div class="main">
                         <div class="img-wrap">
-                            <img src="{!! image_url($post->cover) !!}">
+                            <img src="{!! image_url($post->cover, 'case_cover') !!}">
                         </div>
                         <div class="body">
                             <h4>{!! $post->getPresenter()->suitedTitle() !!}</h4>
@@ -76,7 +76,7 @@
                     <div class="news-main">
                         <a href="{!! $post->getPresenter()->url() !!}" target="_blank" title="{!! $post->title !!}">
                             <div class="img-wrap">
-                                <img src="{!! image_url($post->cover) !!}">
+                                <img src="{!! image_url($post->cover, 'news_cover') !!}">
                             </div>
                         </a>
                         <a href="{!! $post->getPresenter()->url() !!}" target="_blank" class="title"
