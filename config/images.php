@@ -22,8 +22,8 @@ return [
             'fit' => 'crop',
         ],
         'avatar_md' => [
-            'w' => 200,
-            'h' => 200,
+            'w' => 160,
+            'h' => 160,
             'fit' => 'crop',
         ],
         'case_cover' => [
