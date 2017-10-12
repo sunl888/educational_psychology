@@ -38,8 +38,11 @@ export default {
         this.$emit('on-success');
         this.$emit('on-loaded');
       }).catch(err => {
-        this.errors = err.response.data.errors;
-        this.$emit('on-loaded');
+        try {
+          this.errors = err.response.data.errors;
+        } catch (e) {} finally {
+          this.$emit('on-loaded');
+        }
       });
     },
     isAdd () {
