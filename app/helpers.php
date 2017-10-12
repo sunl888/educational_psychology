@@ -67,7 +67,7 @@ if (!function_exists('image_url')) {
                     $q = '';
                 }
 
-                $parameters = "?imageView2/2/w/{$style['w']}/h/{$style['h']}" . $q;
+                $parameters = "?imageView2/1/w/{$style['w']}/h/{$style['h']}" . $q;
             } else {
                 $parameters = '';
             }
