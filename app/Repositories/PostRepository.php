@@ -79,7 +79,7 @@ class PostRepository extends BaseRepository
         if (isset($data['title']) && $post->title != $data['title']) {
             $data['slug'] = $this->model->generateSlug($data['title']);
         }
-        if (!isset($data['excerpt'])) {
+        if (!isset($data['excerpt']) && isset($data['content'])) {
             $data['excerpt'] = app(PostService::class)->makeExcerpt($data['content']);
         }
         return $data;
