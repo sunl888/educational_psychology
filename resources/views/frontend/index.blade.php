@@ -114,7 +114,7 @@
                     <div class="team-item">
                         <div class="team-main">
                             <div class="avatar">
-                                <img src="{!! image_url($post->cover, 'avatar_lg') !!}">
+                                <img src="{!! image_url($post->cover, 'avatar_md') !!}">
                             </div>
                             <h4>{!! $post->title !!}</h4>
                             <div class="tags">
