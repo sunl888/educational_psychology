@@ -25,7 +25,17 @@ return [
             'w' => 200,
             'h' => 200,
             'fit' => 'crop',
-        ]
+        ],
+        'case_cover' => [
+            'w' => 255,
+            'h' => 180,
+            'fit' => 'crop',
+        ],
+        'news_cover' => [
+            'w' => 350,
+            'h' => 230,
+            'fit' => 'crop',
+        ],
     ],
     'upload_key' => 'image',
     'route_name' => 'image'

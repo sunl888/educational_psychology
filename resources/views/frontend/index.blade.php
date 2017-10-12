@@ -48,7 +48,7 @@
                 <div class="col-md-4 col-lg-3 col-sm-6 col-xs-12 case-item">
                     <div class="main">
                         <div class="img-wrap">
-                            <img src="{!! image_url($post->cover) !!}">
+                            <img src="{!! image_url($post->cover, 'case_cover') !!}">
                         </div>
                         <div class="body">
                             <h4>{!! $post->getPresenter()->suitedTitle() !!}</h4>
@@ -80,7 +80,7 @@
                     <div class="news-main">
                         <a href="{!! $post->getPresenter()->url() !!}" target="_blank" title="{!! $post->title !!}">
                             <div class="img-wrap">
-                                <img src="{!! image_url($post->cover) !!}">
+                                <img src="{!! image_url($post->cover, 'news_cover') !!}">
                             </div>
                         </a>
                         <a href="{!! $post->getPresenter()->url() !!}" target="_blank" class="title"
@@ -168,7 +168,7 @@
         <div class="zm-join" id="particles-js">
             <div class="text">
                 <h3>加入我们</h3>
-                <p>如果你喜欢这样的我们，请发送简历到{{ setting('hr_email') }}</p>
+                <p>如果你喜欢这样的我们，请发送简历到 {{ setting('hr_email') }}</p>
             </div>
             <footer class="copy">&copy;{!! date('Y') !!} {{ setting('site_name') }} 版权所有 [{{ setting('record_number') }}]</footer>
         </div>
@@ -221,7 +221,7 @@
                 autoplaySpeed: 5000,
                 slidesToShow: 3,
                 slidesToScroll: 3,
-                arrows: false
+                arrows: true
             });
         })
         $(function () {

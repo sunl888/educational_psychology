@@ -22,7 +22,12 @@
   export default {
     components: { Multiselect },
     props: {
-      oldTags: Array
+      oldTags: {
+        type: Array,
+        default: () => {
+          return [];
+        }
+      }
     },
     data () {
       return {
