@@ -5,7 +5,7 @@ $homeUrl = route('frontend.web.index');
 <nav class="nav{!! isset($normalPage)?' small':'' !!}" id="nav">
     <div class="container">
         <div class="logo">
-            <a href="{!! $homeUrl !!}">{!! setting('site_name') !!}</a>
+            <a href="{!! $homeUrl !!}">{{ setting('site_name') }}</a>
         </div>
         <ul class="menu">
             <li><a href="{!! $homeUrl !!}">首页</a></li>

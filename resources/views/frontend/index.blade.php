@@ -22,11 +22,11 @@
     <section class="zm-introduce zm-wrap">
         <div class="container">
             <header class="zm-title">
-                <h3>{!! setting('site_name') !!}</h3>
+                <h3>{{ setting('site_name') }}</h3>
                 <div class="line"></div>
                 <p>创造不息，交付不止</p>
             </header>
-            <p class="text">总部设立在北京，并在上海、广州、深圳、台湾、澳洲、天津、重庆等地区有 50 多位精英工程师，与产品和设计团队紧密配合，共同为客户创造优质的 WEB 应用和移动应用。</p>
+            <p class="text">{{ setting('intro') }}</p>
         </div>
     </section>
     @php
@@ -144,9 +144,9 @@
             <div class="line"></div>
         </header>
         <div class="container">
-            <p class="contact-item">邮箱：{!! setting('email') !!}</p>
-            <p class="contact-item">电话：{!! setting('tel') !!}</p>
-            <p class="contact-item">地址：{!! setting('address') !!}</p>
+            <p class="contact-item">邮箱：{{ setting('email') }}</p>
+            <p class="contact-item">QQ：{{ setting('qq') }}</p>
+            <p class="contact-item">地址：{{ setting('address') }}</p>
             <div class="contact-link">
                 @foreach(Facades\App\Widgets\Link::mergeConfig(['type'=>'contact_us', 'limit'=>5])->getData()['links'] as $link)
                     <a href="{!! $link->url !!}" title="{!! $link->name !!}" target="_blank"><img
@@ -164,9 +164,9 @@
         <div class="zm-join" id="particles-js">
             <div class="text">
                 <h3>加入我们</h3>
-                <p>如果你喜欢这样的我们，请发送简历到{!! setting('hr_email') !!}</p>
+                <p>如果你喜欢这样的我们，请发送简历到{{ setting('hr_email') }}</p>
             </div>
-            <footer class="copy">&copy;{!! date('Y') !!} {!! setting('site_name') !!} 版权所有 [{!! setting('record_number') !!}]</footer>
+            <footer class="copy">&copy;{!! date('Y') !!} {{ setting('site_name') }} 版权所有 [{{ setting('record_number') }}]</footer>
         </div>
     </section>
 @endsection

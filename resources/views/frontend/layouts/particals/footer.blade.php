@@ -17,5 +17,5 @@
 </script>
 @endpush
 <footer class="footer"{!! isset($contentPage)?'style="background: #f5f6f5"':'' !!}>
-    &copy; {!! date('Y') !!} {!! setting('site_name') !!} 版权所有 [{!! setting('record_number') !!}]
+    &copy; {!! date('Y') !!} {{ setting('site_name') }} 版权所有 [{{ setting('record_number') }}]
 </footer>
