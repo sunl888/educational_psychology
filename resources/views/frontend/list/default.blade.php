@@ -11,7 +11,7 @@
                         <h3>{!! $post->title !!}</h3>
                         <span class="author">
                             <img class="avatar"
-                                 src="{!! image_url($post->user->avatar, 'avatar_xs', asset('static/images/default_avatar.jpg')) !!}">
+                                 src="{!! image_url($post->user->avatar, 'avatar_xs', cdn('static/images/default_avatar.jpg')) !!}">
                             {!! isset($post->user->nick_name)?$post->user->nick_name:$post->user->user_name !!}
                         </span>
                     </div>

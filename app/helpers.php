@@ -60,7 +60,7 @@ if (!function_exists('image_url')) {
             $path = $config['source_path_prefix'] . DIRECTORY_SEPARATOR . substr($imageId, 0, 2) . DIRECTORY_SEPARATOR . $imageId;
 
             if (isset($config['presets'][$style])) {
-                $style = array($config['default_style'], $config['presets'][$style]);
+                $style = array_merge($config['default_style'], $config['presets'][$style]);
                 if (isset($style['q'])) {
                     $q = "/q/{$style['q']}|imageslim";
                 } else {
@@ -116,5 +116,17 @@ if (!function_exists('file_size_for_humans')) {
             $i++;
         }
         return round($bytes, 2) . ' ' . $units[$i];
+    }
+}
+if (!function_exists('cdn')) {
+
+    function cdn($path)
+    {
+        $cdnDisk = config('app.cdn_disk');
+        if ($cdnDisk) {
+            return Storage::disk($cdnDisk)->url($path);
+        } else {
+            return config('app.url') . '/' . trim($path, '/');
+        }
     }
 }
