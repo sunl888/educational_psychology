@@ -11,7 +11,7 @@
         <Form-item label="联系人" :error="errors.linkman">
           <Input v-model="formData.linkman" placeholder="请输入联系人"></Input>
         </Form-item>
-        <Form-item label="栏目图片" :error="errors.logo">
+        <Form-item label="图片" :error="errors.logo">
           <UploadPicture @on-remove="() => formData.logo = null" @on-success="logo => formData.logo = logo" :url="formData.logo_url" height="180px" class="upload_picture" />
         </Form-item>
         <Form-item label="分类" prop="type_name" :error="errors.type_name">
