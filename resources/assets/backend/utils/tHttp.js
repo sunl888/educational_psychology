@@ -17,7 +17,7 @@ tHttp.install = (Vue, {baseURL, router}) => {
   tHttp.config['X-CSRF-TOKEN'] = token.content;
   Vue.prototype.$http = axios.create({
     baseURL,
-    timeout: 500,
+    timeout: 6000,
     responseType: 'json',
     headers: {
       'X-Requested-With': 'XMLHttpRequest'
