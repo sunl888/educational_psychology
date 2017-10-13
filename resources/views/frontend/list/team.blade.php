@@ -1,9 +1,18 @@
 @extends('frontend.layouts.default')
+
+@section('keywords'){!! $category->getKeywords() !!}@endsection
+
+@section('description'){!! $category->getDescription() !!}@endsection
+
+@section('title'){{ Breadcrumbs::pageTitle(' - ', 'category', $category) }}@endsection
+
 @section('content')
     @include('frontend.layouts.particals.navigation_bar', ['normalPage'=>true])
     <div class="container zm-team team-list">
-        <div class="col">
-        @foreach($posts as $post)
+        @forelse($posts as $post)
+            @if($loop->index % 4 == 0)
+                <div class="col">
+            @endif
             <div class="team-item">
                 <div class="team-main">
                     <div class="avatar">
@@ -18,7 +27,12 @@
                     <p class="info">{!! $post->excerpt !!}</p>
                 </div>
             </div>
-        @endforeach
-        </div>
+            @if($loop->index % 4 == 3||$loop->last)
+                </div>
+            @endif
+        @empty
+            <div class="no-data">暂无文章</div>
+        @endforelse
+
     </div>
 @endsection
