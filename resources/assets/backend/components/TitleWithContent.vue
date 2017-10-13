@@ -4,7 +4,7 @@
       <TitleInput :value="title" @input="val => void $emit('update:title', val)"/>
       <Alert v-if="titleError" type="error">{{titleError}}</Alert>
     </div>
-    <WangEditor :content="content" @change="html => void $emit('update:content', html)"></WangEditor>
+    <div id="ueditor_container"></div>
     <Alert v-if="contentError" type="error">{{contentError}}</Alert>
     <Upload
         multiple
@@ -22,19 +22,21 @@
 
 <script>
 import TitleInput from './TitleInput.vue';
-import WangEditor from './WangEditor.vue';
 import tHttp from '../utils/tHttp';
 export default {
   name: 'titleWithContent',
   props: {
     title: String,
-    content: String,
+    content: {
+      type: String,
+      default: ''
+    },
     attachment_ids: Array,
     attachments: Array,
     titleError: String,
     contentError: String,
   },
-  components: { TitleInput, WangEditor },
+  components: { TitleInput },
   watch: {
     'attachments' (newVal) {
       this.defaultFileList = newVal.map(item => {
@@ -45,10 +47,35 @@ export default {
   data () {
     return {
       action: tHttp.config.baseURL + 'attachments',
-      defaultFileList: []
+      defaultFileList: [],
+      editor: null
     };
   },
   methods: {
+    initEditor () {
+      const tokenMeta = document.head.querySelector('meta[name="csrf-token"]');
+      let token = tokenMeta ? tokenMeta.content : '';
+
+      this.editor = window.UE.getEditor('ueditor_container', {
+        initialFrameHeight: 300
+      });
+      this.editor.ready(() => {
+        this.editor.execCommand('serverparam', '_token', token);
+        this.editor.addListener('selectionchange', () => {
+          this.$emit('update:content', this.editor.getContent());
+        });
+        if (this.content) {
+          this.editor.setContent(this.content);
+        } else {
+          let unwatch = this.$watch('content', (newVal, oldVal) => {
+            this.editor.setContent(newVal);
+            if (newVal) {
+              unwatch();
+            }
+          });
+        }
+      });
+    },
     handleRemove (file, fileList) {
       this.updateAttachments(fileList);
     },
@@ -68,6 +95,17 @@ export default {
       });
       this.$emit('update:attachment_ids', attachmentIds);
     }
+  },
+  beforeDestroy () {
+    try {
+      this.editor.destroy();
+    } catch (e) {
+    } finally {
+      this.editor = null;
+    }
+  },
+  mounted () {
+    this.initEditor();
   }
 };
 </script>
