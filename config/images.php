@@ -36,6 +36,11 @@ return [
             'h' => 230,
             'fit' => 'crop',
         ],
+        'list_news_cover' => [
+            'w' => 750,
+            'h' => 395,
+            'fit' => 'crop',
+        ],
     ],
     'upload_key' => 'image',
     'route_name' => 'image'
