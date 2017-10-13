@@ -25,6 +25,10 @@ return [
                 'file_name' => 'default',
                 'title' => '默认列表模板',
                 'default' => true
+            ],
+            [
+                'file_name' => 'team',
+                'title' => '团队列表模板'
             ]
         ],
         'content' => [

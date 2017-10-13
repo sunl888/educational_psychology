@@ -128,6 +128,9 @@
                 @endforeach
             </div>
         </div>
+        <div class="button_wrap">
+            <a class="btn more_btn"{!! $teamCategory->getPresenter()->linkAttribute() !!}>查看更多<i class="glyphicon glyphicon-chevron-right"></i></a>
+        </div>
     </section>
 
     <section data-id="skill" class="zm-skill zm-wrap">
