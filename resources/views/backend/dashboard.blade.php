@@ -14,7 +14,7 @@
             window.logo = "{{ config('tiny.logo', 'tiny') }}";
         </script>
         <!-- <script src="{{asset('onlyGetPost.js')}}"></script> -->
-        <script src="{{asset(mix('js/backend/app.js'))}}"></script>
         @include('vendor.ueditor.assets')
+        <script src="{{asset(mix('js/backend/app.js'))}}"></script>
     </body>
 </html>
