@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Services\CategoryService;
+use App\Services\Cdn;
 use App\Services\CustomOrder;
 use App\Services\Navigation;
 use App\Services\PostService;
@@ -13,6 +14,7 @@ use App\Services\TemplateService;
 use App\Services\VisitorService;
 use App\Services\Alert;
 use Illuminate\Support\ServiceProvider;
+use Symfony\Component\Finder\Finder;
 
 class ServiceServiceProvider extends ServiceProvider
 {
@@ -56,6 +58,10 @@ class ServiceServiceProvider extends ServiceProvider
 
         $this->app->singleton(TagService::class, function  () {
             return new TagService();
+        });
+
+        $this->app->singleton(Cdn::class, function  () {
+            return new Cdn(Finder::create(), config('cdn'));
         });
     }
 }

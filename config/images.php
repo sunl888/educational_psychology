@@ -37,8 +37,8 @@ return [
             'fit' => 'crop',
         ],
         'list_news_cover' => [
-            'w' => 750,
-            'h' => 395,
+            'w' => 350,
+            'h' => 230,
             'fit' => 'crop',
         ],
     ],
