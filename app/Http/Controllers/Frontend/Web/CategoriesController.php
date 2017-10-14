@@ -29,7 +29,14 @@ class CategoriesController extends Controller
 
     protected function showList(Category $category, Request $request)
     {
-        $posts = $category->postListWithOrder($request->get('order'))->with('user')->paginate($this->perPage());
+        /** this code only for e8net **/
+        if ($category->slug() == 'our-team') {
+            $perPage = 50;
+        } else {
+            $perPage = $this->perPage();
+        }
+        /****************************/
+        $posts = $category->postListWithOrder($request->get('order'))->with('user')->paginate($perPage);
         $posts->appends($request->all());
 
 
