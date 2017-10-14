@@ -5,7 +5,6 @@
         var $window = $(window);
         var $body = $('body');
         $window.resize(function () {
-            console.log($window.height(), $body.height());
             if ($window.height() > $body.height() + 110) {
                 $footer.hide();
             } else {
