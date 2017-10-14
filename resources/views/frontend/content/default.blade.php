@@ -10,12 +10,12 @@
     @include('frontend.layouts.particals.navigation_bar', ['normalPage'=>true])
     <div class="content">
         <div class="title-image">
-            <img src="{!! image_url($post->cover) !!}">
+            <img lazy src="{!! image_url($post->cover) !!}">
         </div>
         <h1 class="title">{!! $post->title !!}</h1>
         <div class="info">
             <span class="author">
-                <img class="avatar"
+                <img lazy class="avatar"
                      src="{!! image_url($post->user->avatar, 'avatar_xs', cdn('static/images/default_avatar.jpg')) !!}">
                 {!! isset($post->user->nick_name)?$post->user->nick_name:$post->user->user_name !!}
             </span>

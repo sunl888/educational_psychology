@@ -48,7 +48,7 @@
                 <div class="col-md-4 col-lg-3 col-sm-6 col-xs-12 case-item">
                     <div class="main">
                         <div class="img-wrap">
-                            <img src="{!! image_url($post->cover, 'case_cover') !!}">
+                            <img lazy src="{!! image_url($post->cover, 'case_cover') !!}">
                         </div>
                         <div class="body">
                             <h4>{!! $post->getPresenter()->suitedTitle() !!}</h4>
@@ -80,7 +80,7 @@
                     <div class="news-main">
                         <a href="{!! $post->getPresenter()->url() !!}" target="_blank" title="{!! $post->title !!}">
                             <div class="img-wrap">
-                                <img src="{!! image_url($post->cover, 'news_cover') !!}">
+                                <img lazy src="{!! image_url($post->cover, 'news_cover') !!}">
                             </div>
                         </a>
                         <a href="{!! $post->getPresenter()->url() !!}" target="_blank" class="title"
@@ -114,7 +114,7 @@
                     <div class="team-item">
                         <div class="team-main">
                             <div class="avatar">
-                                <img src="{!! image_url($post->cover, 'avatar_md') !!}">
+                                <img lazy src="{!! image_url($post->cover, 'avatar_md') !!}">
                             </div>
                             <h4>{!! $post->title !!}</h4>
                             <div class="tags">
@@ -140,7 +140,7 @@
         <div class="container skills">
             @foreach(Facades\App\Widgets\Link::mergeConfig(['type'=>'skill'])->getData()['links'] as $link)
                 <a href="{!! $link->url !!}" title="{!! $link->name !!}" target="_blank"><img
-                            src="{!! image_url($link->logo) !!}" alt="{!! $link->name !!}"></a>
+                            lazy src="{!! image_url($link->logo) !!}" alt="{!! $link->name !!}"></a>
             @endforeach
         </div>
     </section>
@@ -157,7 +157,7 @@
             <div class="contact-link">
                 @foreach(Facades\App\Widgets\Link::mergeConfig(['type'=>'contact_us', 'limit'=>5])->getData()['links'] as $link)
                     <a href="{!! $link->url !!}" title="{!! $link->name !!}" target="_blank"><img
-                                src="{!! image_url($link->logo, 'avatar_xs') !!}"
+                                lazy src="{!! image_url($link->logo, 'avatar_xs') !!}"
                                 alt="{!! $link->name !!}"><span>{!! $link->name !!}</span></a>
                 @endforeach
             </div>
