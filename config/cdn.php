@@ -33,7 +33,7 @@ return [
     |
     */
     'exclude' => [
-        'directories' => [],
+        'directories' => ['vendor'],
         'files' => ['favicon.ico'],
         'extensions' => ['php', 'txt', 'config', 'json'],
         'patterns' => [],
