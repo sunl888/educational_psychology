@@ -29,6 +29,11 @@ class CategoriesController extends Controller
 
     protected function showList(Category $category, Request $request)
     {
+        if ($category->slug() == 'our-team') {
+            $perPage = 50;
+        } else {
+            $perPage = $this->perPage();
+        }
         $posts = $category->postListWithOrder($request->get('order'))->with('user')->paginate($this->perPage());
         $posts->appends($request->all());
 
