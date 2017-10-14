@@ -8,6 +8,7 @@
       @tag="addTag"
       label="name"
       @search-change="searchChange"
+      track-by="id"
       :options="tags">
       <span slot="noResult">
         没有结果

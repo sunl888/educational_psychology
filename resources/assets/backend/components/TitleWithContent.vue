@@ -7,6 +7,7 @@
     <div id="ueditor_container"></div>
     <Alert v-if="contentError" type="error">{{contentError}}</Alert>
     <Upload
+        class="upload"
         multiple
         name="attachment"
         :default-file-list="defaultFileList"
@@ -125,6 +126,9 @@ export default {
   margin-bottom: 30px;
   .title_input_wrapper {
     margin-bottom: 30px;
+  }
+  .upload{
+    margin-top: 10px;
   }
 }
 </style>
