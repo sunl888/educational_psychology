@@ -57,7 +57,7 @@ if (!function_exists('image_url')) {
             return route(config('images.route_name'), $parameters);
 
         } else {
-            $path = $config['source_path_prefix'] . DIRECTORY_SEPARATOR . substr($imageId, 0, 2) . DIRECTORY_SEPARATOR . $imageId;
+            $path = $config['source_path_prefix'] . '/' . substr($imageId, 0, 2) . '/' . $imageId;
 
             if (isset($config['presets'][$style])) {
                 $style = array_merge($config['default_style'], $config['presets'][$style]);
