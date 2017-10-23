@@ -13,10 +13,14 @@ router.afterEach((to, from, next) => {
 });
 
 Vue.use(iView);
+
+// 获取baseUrl
+let base = window.location.pathname.split('backend')[0];
 Vue.use(tHttp, {
-  baseURL: '/api/backend/',
+  baseURL: base + 'api/backend/',
   router
 });
+
 new Vue({
   el: '#app',
   ...App,
