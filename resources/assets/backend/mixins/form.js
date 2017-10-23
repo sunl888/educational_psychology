@@ -17,6 +17,15 @@ export default {
       }
     };
   },
+  beforeRouteLeave (to, from, next) {
+    this.$Modal.confirm({
+      title: '确认离开？',
+      content: '<p>系统可能不会保存你的更改！</p>',
+      onOk: () => {
+        next();
+      }
+    });
+  },
   methods: {
     confirm () {
       if (this.$refs.form) {
