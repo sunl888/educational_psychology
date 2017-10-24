@@ -193,9 +193,7 @@ class LoginController extends ApiController
     {
         $this->guard()->logout();
 
-        $request->session()->flush();
-
-        $request->session()->regenerate();
+        $request->session()->invalidate();
 
         return $this->response()->noContent();
     }
