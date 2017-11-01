@@ -116,7 +116,7 @@ class LoginController extends ApiController
     {
         $credentials = $this->credentials($request);
         $rules = [
-            'user_name' => ['bail', 'required', 'regex:/^[a-zA-Z0-9_]+$/', 'exists:users'],
+            'user_name' => ['bail', 'required', 'regex:/^[a-zA-Z0-9_]+$/'],
             'email' => ['bail', 'required', 'email', 'exists:users'],
             'password' => ['required']
         ];
