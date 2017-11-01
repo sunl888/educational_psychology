@@ -58,7 +58,7 @@ class LoginController extends ApiController
     protected function addAttemptLoginTimes($ip)
     {
         $key = $this->getAttemptLoginTimesKey($ip);
-        $cacheTime = app('tiny.not_verification_code_time_interval', 60 * 24);
+        $cacheTime = config('tiny.not_verification_code_time_interval', 60 * 24);
         if (Cache::has($key)) {
             Cache::increment($key);
         } else {
