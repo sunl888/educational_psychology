@@ -17,6 +17,20 @@ export default {
       }
     };
   },
+  beforeRouteLeave (to, from, next) {
+    const diffObjStr = JSON.stringify(diff.diff(this.formData));
+    if (diffObjStr !== '{}') {
+      this.$Modal.confirm({
+        title: '确认离开？',
+        content: '<p>系统可能不会保存你的更改！</p>',
+        onOk: () => {
+          next();
+        }
+      });
+    } else {
+      next();
+    }
+  },
   methods: {
     confirm () {
       if (this.$refs.form) {

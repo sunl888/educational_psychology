@@ -57,7 +57,7 @@ if (!function_exists('image_url')) {
             return route(config('images.route_name'), $parameters);
 
         } else {
-            $path = $config['source_path_prefix'] . DIRECTORY_SEPARATOR . substr($imageId, 0, 2) . DIRECTORY_SEPARATOR . $imageId;
+            $path = $config['source_path_prefix'] . '/' . substr($imageId, 0, 2) . '/' . $imageId;
 
             if (isset($config['presets'][$style])) {
                 $style = array_merge($config['default_style'], $config['presets'][$style]);
@@ -116,17 +116,5 @@ if (!function_exists('file_size_for_humans')) {
             $i++;
         }
         return round($bytes, 2) . ' ' . $units[$i];
-    }
-}
-if (!function_exists('cdn')) {
-
-    function cdn($path)
-    {
-        $useCdn = (bool)config('cdn.use_cdn');
-        if ($useCdn) {
-            return Storage::cloud()->url($path);
-        } else {
-            return config('app.url') . '/' . trim($path, '/');
-        }
     }
 }
