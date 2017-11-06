@@ -112,14 +112,19 @@ export default {
         content: '删除该字段后将无法还原！',
         onOk: () => {
           self.formData.fields.splice(index, 1);
+          this.$forceUpdate();
         }
       });
     },
     addField () {
+      if (!this.formData.fields) {
+        this.formData.fields = [];
+      }
       this.formData.fields.push({
         key: '',
         value: ''
       });
+      this.$forceUpdate();
     }
   },
   data () {
