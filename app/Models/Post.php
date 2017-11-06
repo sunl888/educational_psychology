@@ -13,7 +13,7 @@ class Post extends BaseModel implements PresentableInterface
 {
     use SoftDeletes, Listable, HasSlug;
 
-    protected $fillable = ['title', 'user_id', 'slug', 'excerpt', 'type', 'views_count', 'cover', 'status', 'template', 'top', 'published_at', 'category_id', 'order'];
+    protected $fillable = ['title', 'user_id', 'slug', 'excerpt', 'type', 'views_count', 'cover', 'status', 'template', 'top', 'published_at', 'category_id', 'order', 'fields'];
     protected $dates = ['deleted_at', 'top', 'published_at', 'created_at', 'updated_at'];
     protected static $allowSearchFields = ['title', 'excerpt'];
     protected static $allowSortFields = ['title', 'status', 'views_count', 'top', 'order', 'published_at', 'category_id'];

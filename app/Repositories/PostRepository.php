@@ -39,6 +39,8 @@ class PostRepository extends BaseRepository
         }
         if (isset($data['published_at']))
             $data['published_at'] = new Carbon($data['published_at']);
+        if (isset($data['fields']))
+            $data['fields'] = json_encode($data['fields']);
 
         return $data;
     }
@@ -58,9 +60,9 @@ class PostRepository extends BaseRepository
         if (!isset($data['status']))
             $data['status'] = Post::STATUS_DRAFT;
 
-        if (!isset($data['excerpt'])) {
+        if (!isset($data['excerpt']))
             $data['excerpt'] = $postService->makeExcerpt($data['content']);
-        }
+
         $data['user_id'] = Auth::id();
         $data['slug'] = $this->model->generateSlug($data['title']);
         return $data;

@@ -39,9 +39,11 @@ class ClearNavigationCache
     {
         foreach ($this->navigation->getAllNav() as $nav) {
             if ($category->is($nav)) return true;
-            if ($category->hasChildren()) {
-                foreach ($category->children as $child) {
-                    return $category->is($child);
+            if ($nav->hasChildren()) {
+                foreach ($nav->children as $navChild) {
+                    if ($category->is($navChild)) {
+                        return true;
+                    }
                 }
             }
         }

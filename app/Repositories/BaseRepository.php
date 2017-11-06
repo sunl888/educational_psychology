@@ -46,11 +46,11 @@ abstract class BaseRepository
 
     public function create(array $data)
     {
-        if (method_exists($this, 'preCreate')){
+        if (method_exists($this, 'preCreate')) {
             $data = $this->preCreate($data);
         }
         $model = $this->model->create($data);
-        if (method_exists($this, 'created')){
+        if (method_exists($this, 'created')) {
             $this->created($data, $model);
         }
         return $model;
@@ -58,12 +58,12 @@ abstract class BaseRepository
 
     public function update(array $data, $model)
     {
-        if (method_exists($this, 'preUpdate')){
+        if (method_exists($this, 'preUpdate')) {
             $data = $this->preUpdate($data, $model);
         }
         $model = $this->findModel($model);
         $updated = $model->update($data);
-        if ($updated && method_exists($this, 'updated')){
+        if ($updated && method_exists($this, 'updated')) {
             $this->updated($data, $model);
         }
         return $updated;
@@ -78,9 +78,14 @@ abstract class BaseRepository
         }
     }
 
+    private $slugCacheMap = [];
+
     public function findBySlug(string $slug)
     {
-        return $this->model->bySlug($slug)->firstOrFail();
+        if (!isset($this->slugCacheMap[$slug])) {
+            $this->slugCacheMap[$slug] = $this->model->bySlug($slug)->firstOrFail();
+        }
+        return $this->slugCacheMap[$slug];
     }
 
 }
