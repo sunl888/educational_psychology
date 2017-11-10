@@ -3,6 +3,7 @@
 use App\Services\SettingCacheService;
 use App\Repositories\SettingRepository;
 use App\Services\TemplateService;
+use App\Services\HTMLPurifier;
 
 if (!function_exists('setting')) {
     /**
@@ -116,5 +117,12 @@ if (!function_exists('file_size_for_humans')) {
             $i++;
         }
         return round($bytes, 2) . ' ' . $units[$i];
+    }
+}
+
+if (!function_exists('clean')) {
+    function clean($html, $config = null)
+    {
+        return app(HTMLPurifier::class)->clean($html, $config);
     }
 }

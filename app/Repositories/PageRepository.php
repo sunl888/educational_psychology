@@ -26,7 +26,7 @@ class PageRepository extends BaseRepository
         if (isset($data['title']))
             $data['title'] = e((new AutoCorrect())->convert($data['title']));
         if (isset($data['content']))
-            $data['content'] = clean($data['content'], 'baidu_ueditor');
+            $data['content'] = clean($data['content']);
         return $data;
     }
 
