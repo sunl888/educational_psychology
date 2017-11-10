@@ -6,6 +6,7 @@ namespace App\Widgets;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Repositories\CategoryRepository;
 use App\Support\Widget\AbstractWidget;
 
 class PostList extends AbstractWidget
@@ -17,13 +18,18 @@ class PostList extends AbstractWidget
         'status' => Post::STATUS_PUBLISH
     ];
 
+    private $categoryRepository;
+
     public function getData(array $params = [])
     {
-        $categoryId = $this->config['category'] instanceof Category ? $this->config['category']->id : $this->config['category'];
-
+        if (!$this->categoryRepository) {
+            $this->categoryRepository = app(CategoryRepository::class);
+        }
+        $category = $this->categoryRepository->findByCateName($this->config['category']);
         return [
+            'category' => $category,
             'posts' => Post::applyFilter(collect([
-                'category_id' => $categoryId,
+                'category_id' => $category->id,
                 'status' => $this->config['status']
             ]))->limit($this->config['limit'])->get()
         ];
