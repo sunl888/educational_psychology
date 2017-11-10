@@ -57,7 +57,7 @@ class UserRepository extends BaseRepository
         return $user;
     }
 
-    public function perUpdate(array &$data)
+    public function preUpdate(array &$data)
     {
         $this->filterData($data);
         if (isset($data['password'])) {
