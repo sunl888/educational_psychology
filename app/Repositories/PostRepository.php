@@ -37,7 +37,6 @@ class PostRepository extends BaseRepository
                 $data['top'] = null;
             }
         }
-        dd($data);
         if (isset($data['published_at']))
             $data['published_at'] = Carbon::createFromTimestamp(strtotime($data['published_at']));
         if (isset($data['fields']))
