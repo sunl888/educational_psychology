@@ -80,6 +80,7 @@ class CategoriesController extends ApiController
             $request, [
                 'title' => ['nullable', 'string', 'between:1,100'],
                 'content' => ['nullable', 'string'],
+                'attachment_ids' => ['nullable', 'array']
             ]
         );
 
@@ -92,6 +93,7 @@ class CategoriesController extends ApiController
             $request, [
                 'title' => ['required', 'string', 'between:1,100'],
                 'content' => ['required', 'string'],
+                'attachment_ids' => ['nullable', 'array']
             ]
         );
         $data['category_id'] = $category->id;
