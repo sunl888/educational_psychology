@@ -25,7 +25,10 @@ class PostList extends AbstractWidget
         if (!$this->categoryRepository) {
             $this->categoryRepository = app(CategoryRepository::class);
         }
-        $category = $this->categoryRepository->findByCateName($this->config['category']);
+        if($this->config['category'] instanceof Category)
+            $category = $this->config['category'];
+        else
+            $category = $this->categoryRepository->findByCateName($this->config['category']);
         return [
             'category' => $category,
             'posts' => Post::applyFilter(collect([

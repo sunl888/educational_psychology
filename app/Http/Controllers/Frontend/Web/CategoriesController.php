@@ -39,7 +39,6 @@ class CategoriesController extends Controller
         $posts = $category->postListWithOrder($request->get('order'))->with('user')->paginate($perPage);
         $posts->appends($request->all());
 
-
         return view_first([$category->cate_slug, $category->list_template], 'list', [
             'posts' => $posts,
             'category' => $category
