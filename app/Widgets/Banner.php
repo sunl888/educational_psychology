@@ -14,7 +14,14 @@ class Banner extends AbstractWidget
     protected $config = [
         'type' => 'default',
         'limit' => 10,
+        'view' => 'banner'
     ];
+
+    public function __construct(array $config = [])
+    {
+        parent::__construct($config);
+        $this->setViewName('theme::widgets.' . $this->config['view']);
+    }
 
     public function getData(array $params = [])
     {
@@ -23,5 +30,4 @@ class Banner extends AbstractWidget
                 ->order(BannerModel::byType($this->config['type'])->limit($this->config['limit'])->ancient()->get()),
         ];
     }
-
 }
