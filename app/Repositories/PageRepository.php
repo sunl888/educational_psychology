@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Services\PostService;
 use Carbon\Carbon;
 use Naux\AutoCorrect;
 use Auth;
@@ -37,7 +38,10 @@ class PageRepository extends BaseRepository
         $data['user_id'] = Auth::id();
         $data['slug'] = $this->model->generateSlug($data['title']);
         $data['type'] = Category::TYPE_PAGE;
+        $data['status'] = Post::STATUS_DRAFT;
+        $data['excerpt'] = app(PostService::class)->makeExcerpt($data['content']);
         return $data;
+
     }
 
     public function created(&$data, $post)
@@ -45,9 +49,16 @@ class PageRepository extends BaseRepository
         $this->updateOrCreatePostContent($post, $data);
     }
 
-    public function preUpdate(array &$data)
+    public function preUpdate(array &$data, $post)
     {
-        return $this->filterData($data);
+        $data = $this->filterData($data);
+        if (isset($data['title']) && $post->title != $data['title']) {
+            $data['slug'] = $this->model->generateSlug($data['title']);
+        }
+        if (!isset($data['excerpt']) && isset($data['content'])) {
+            $data['excerpt'] = app(PostService::class)->makeExcerpt($data['content']);
+        }
+        return $data;
     }
 
     public function updated(&$data, $post)
