@@ -56,7 +56,7 @@ trait Loggable
             'action_id' => $model->id,
             'action_type' => get_class($model),
             'action' => $actionTypeName,
-            'changes' => $changes,
+            'changes' => json_encode($changes),
         ]);
     }
 
