@@ -24,7 +24,7 @@ class PostList extends AbstractWidget
     public function __construct(array $config = [])
     {
         parent::__construct($config);
-        $this->setViewName('theme::widgets.' . $this->config['view']);
+        $this->setViewName($this->viewNamespace . $this->config['view']);
     }
 
     public function getData(array $params = [])

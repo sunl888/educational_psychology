@@ -210,7 +210,7 @@ class LoginController extends ApiController
     protected function sendFailedLoginResponse(Request $request)
     {
         // 用户名或密码错误
-        throw new ResourceException(null, ['password' => Lang::get('auth.password_error')]);
+        throw new ResourceException(null, ['password' => Lang::get('auth.failed')]);
     }
 
     /**

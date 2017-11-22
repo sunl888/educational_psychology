@@ -1,4 +1,4 @@
-@extends('frontend.layouts.default')
+@extends(THEME_NP.'layouts.default')
 
 @section('keywords'){!! $post->getKeywords() !!}@endsection
 
@@ -7,7 +7,7 @@
 @section('title'){{ Breadcrumbs::pageTitle(' - ', 'post', $post) }}@endsection
 
 @section('content')
-    @include('frontend.layouts.particals.navigation_bar', ['normalPage'=>true])
+    @include(THEME_NP.'layouts.particals.navigation_bar', ['normalPage'=>true])
     <div class="content">
         <div class="title-image">
             <img lazy src="{!! image_url($post->cover) !!}">
@@ -23,7 +23,7 @@
         </div>
         <div class="body">{!! $post->postContent->content !!}</div>
     </div>
-    @include('frontend.layouts.particals.footer', ['contentPage'=>true])
+    @include(THEME_NP.'layouts.particals.footer', ['contentPage'=>true])
 @endsection
 
 @section('css')

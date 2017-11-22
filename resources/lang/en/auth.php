@@ -13,7 +13,8 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
+    'failed' => 'Incorrect username or password.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-
+    'user_locked' => 'The user has been locked',
+    'please_login_first' => 'Please login first！'
 ];

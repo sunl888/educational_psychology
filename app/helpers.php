@@ -139,3 +139,10 @@ if (!function_exists('clean')) {
         return app(HTMLPurifier::class)->clean($html, $config);
     }
 }
+
+if (!function_exists('is_same_host')) {
+    function is_same_host($url)
+    {
+        return app(\Illuminate\Http\Request::class)->getHost() == parse_url($url, PHP_URL_HOST);
+    }
+}

@@ -14,6 +14,8 @@ class TemplateService
     {
         $this->config = $config;
         View::prependNamespace($config['theme_namespace'], $config['current_theme_path']);
+        define('THEME_NP', $config['theme_namespace'].'::');
+        View::prependNamespace('widget', $config['current_theme_path'].'/widgets');
     }
 
     public function getDefaultTemplate($templateType)

@@ -63,6 +63,31 @@ class Handler extends ExceptionHandler
     }
 
     /**
+     * Render the given HttpException.
+     *
+     * @param  \Symfony\Component\HttpKernel\Exception\HttpException $e
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function renderHttpException(HttpException $e)
+    {
+        $status = $e->getStatusCode();
+
+        $paths = collect(config('view.paths'));
+
+        $paths->prepend(config('template.theme_namespace'));
+
+        view()->replaceNamespace('errors', $paths->map(function ($path) {
+            return "{$path}/errors";
+        })->push(__DIR__ . '/views')->all());
+
+        if (view()->exists($view = "errors::{$status}")) {
+            return response()->view($view, ['exception' => $e], $status, $e->getHeaders());
+        }
+
+        return $this->convertExceptionToResponse($e);
+    }
+
+    /**
      * Convert a validation exception into a JSON response.
      *
      * @param  \Illuminate\Http\Request $request
@@ -90,8 +115,8 @@ class Handler extends ExceptionHandler
         $errorFormat = config('api.errorFormat');
         $statusCode = $this->getStatusCode($e);
 
-        if (!$message = $e->getMessage() ) {
-            $message = sprintf('%d %s', $statusCode, isset(Response::$statusTexts[$statusCode])?Response::$statusTexts[$statusCode]:'Unknown status code');
+        if (!$message = $e->getMessage()) {
+            $message = sprintf('%d %s', $statusCode, isset(Response::$statusTexts[$statusCode]) ? Response::$statusTexts[$statusCode] : 'Unknown status code');
         }
 
         $replacements = [
@@ -161,8 +186,8 @@ class Handler extends ExceptionHandler
     /**
      * Convert an authentication exception into an unauthenticated response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Auth\AuthenticationException  $exception
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Auth\AuthenticationException $exception
      * @return \Illuminate\Http\Response
      */
     protected function unauthenticated($request, AuthenticationException $exception)

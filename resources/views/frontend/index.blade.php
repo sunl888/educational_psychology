@@ -1,4 +1,4 @@
-@extends('frontend.layouts.default')
+@extends(THEME_NP.'layouts.default')
 
 @section('keywords'){{ setting('default_keywords') }}@endsection
 

@@ -1,4 +1,4 @@
-@extends('frontend.layouts.default')
+@extends(THEME_NP.'layouts.default')
 
 @section('keywords'){!! $category->getKeywords() !!}@endsection
 
@@ -7,7 +7,7 @@
 @section('title'){{ Breadcrumbs::pageTitle(' - ', 'category', $category) }}@endsection
 
 @section('content')
-    @include('frontend.layouts.particals.navigation_bar', ['normalPage'=>true])
+    @include(THEME_NP.'layouts.particals.navigation_bar', ['normalPage'=>true])
     <div class="list-content">
         @forelse($posts as $post)
             <div class="news-item{!! $post->isTop()?' top':'' !!}">

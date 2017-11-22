@@ -11,6 +11,8 @@ abstract class AbstractWidget
 
     protected $config = [];
 
+    protected $viewNamespace = 'widget::';
+
     public function __construct($config = [])
     {
         $this->mergeConfig($config);
@@ -28,7 +30,7 @@ abstract class AbstractWidget
      */
     public function getViewName()
     {
-        return $this->viewName ?: 'theme::widgets.' . snake_case(class_basename(get_called_class()));
+        return $this->viewName ?: $this->viewNamespace . snake_case(class_basename(get_called_class()));
     }
 
     public function getData(array $params = [])
@@ -43,7 +45,7 @@ abstract class AbstractWidget
 
     public function cacheKey(array $params = [])
     {
-        return 'widgets.' . serialize($params);
+        return $this->viewNamespace . serialize($params);
     }
 
     public function mergeConfig($config)
