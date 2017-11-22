@@ -29,7 +29,7 @@ class CategoryCreateRequest extends Request
     public function rules()
     {
         return [
-            'type' => ['required', Rule::in([Category::TYPE_POST, Category::TYPE_PAGE, Category::TYPE_LINK])],
+            'type' => ['required', Rule::in([Category::TYPE_POST, Category::TYPE_PAGE, Category::TYPE_LINK, Category::TYPE_CHANNEL])],
             'image' => ['bail', 'nullable', new ImageName(), new ImageNameExist()],
             'parent_id' => ['bail', 'sometimes', 'integer', 'min:0'],
             'cate_name' => ['bail', 'required', 'string', 'between:2,30', 'unique:categories'],
@@ -46,6 +46,8 @@ class CategoryCreateRequest extends Request
             'list_template' => [],
             // 'content_template' => ['required_if:type,' . Category::TYPE_POST, 'string', 'between:1,30']
             'content_template' => [],
+            // 'channel_template' => ['required_if:type,' . Category::TYPE_CHANNEL, 'string', 'between:1,30']
+            'channel_template' => [],
         ];
     }
 
@@ -73,6 +75,10 @@ class CategoryCreateRequest extends Request
 
         $validator->sometimes('content_template', 'required|string|between:1,30', function ($input) {
             return $input->type == Category::TYPE_POST;
+        });
+
+        $validator->sometimes('channel_template', 'required|string|between:1,30', function ($input) {
+            return $input->type == Category::TYPE_CHANNEL;
         });
 
         return $validator;

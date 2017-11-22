@@ -32,7 +32,7 @@ class CategoryUpdateRequest extends Request
     {
         $category = $this->route('category');
         return [
-            'type' => ['nullable', Rule::in([Category::TYPE_POST, Category::TYPE_PAGE, Category::TYPE_LINK])],
+            'type' => ['nullable', Rule::in([Category::TYPE_POST, Category::TYPE_PAGE, Category::TYPE_LINK, Category::TYPE_CHANNEL])],
             'image' => ['bail', 'nullable', new ImageName(), new ImageNameExist()],
             'parent_id' => ['bail', 'nullable', 'integer', 'min:0'],
             'cate_name' => ['bail', 'nullable', 'string', 'between:2,30', Rule::unique('categories')->ignore($category->id)],

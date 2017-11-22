@@ -11,15 +11,15 @@ return [
     'current_theme_path' => resource_path('views/frontend'),
 
     'templates' => [
-
+        // 单页模板
         'page' => [
             [
                 'file_name' => 'default',
                 'title' => '默认单页模板',
                 'default' => true
             ]
-        ]
-        ,
+        ],
+        // 列表模板
         'list' => [
             [
                 'file_name' => 'default',
@@ -31,12 +31,21 @@ return [
                 'title' => '团队列表模板'
             ]
         ],
+        // 频道模板
+        'channel' => [
+            [
+                'file_name' => 'default',
+                'title' => '默认列表模板',
+                'default' => true
+            ]
+        ],
+        // 正文模板
         'content' => [
             [
                 'file_name' => 'default',
                 'title' => '默认正文模板',
                 'default' => true
             ]
-        ]
+        ],
     ]
 ];

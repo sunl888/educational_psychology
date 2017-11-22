@@ -15,7 +15,7 @@ class CreateCategoriesTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->char('type', 10)->comment('分类类型 post: 列表栏目 page: 单页栏目 link: 外部链接');
+            $table->char('type', 10)->comment('分类类型 post: 列表栏目 page: 单页栏目 link: 外部链接 channel: 频道封面');
             $table->string('image')->nullable()->comment('分类图片');
             // 父级id
             $table->unsignedInteger('parent_id')->default(0)->comment('父级id');
@@ -36,6 +36,7 @@ class CreateCategoriesTable extends Migration
             $table->string('page_template', 30)->nullable()->comment('单页模板');
             // 列表页模板
             $table->string('list_template', 30)->nullable()->comment('列表页模板');
+            $table->string('channel_template', 30)->nullable()->comment('频道封面模板');
             // 默认内容模板
             $table->string('content_template', 30)->nullable()->comment('默认内容模板');
             $table->unsignedInteger('creator_id')->nullable()->default(null);

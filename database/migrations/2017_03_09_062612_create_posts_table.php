@@ -26,7 +26,7 @@ class CreatePostsTable extends Migration
             $table->unsignedInteger('category_id')->index()->comment('分类 id');
             $table->char('status', 10)->default('publish')->comment('文章状态：publish 发布 draft 草稿');
             // 类型
-            $table->char('type', 10)->default('post')->comment('类型: post 文章 page 单页');
+            $table->char('type', 10)->default('post')->comment('类型: post: 文章 page: 单页 channel: 频道封面');
             // 浏览量
             $table->unsignedInteger('views_count')->default(0)->index();
             // 文章置顶

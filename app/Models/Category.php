@@ -21,7 +21,7 @@ class Category extends BaseModel implements PresentableInterface
         'page_template', 'list_template', 'content_template', 'creator_id'];
 
 
-    const TYPE_POST = 'post', TYPE_PAGE = 'page', TYPE_LINK = 'link';
+    const TYPE_POST = 'post', TYPE_PAGE = 'page', TYPE_LINK = 'link', TYPE_CHANNEL = 'channel';
 
     /**
      * 数据模型的启动方法
@@ -114,14 +114,14 @@ class Category extends BaseModel implements PresentableInterface
     }
 
     /**
-     * 文章分类查询作用域
+     * Category 类型查询作用域
      * @param $query
      * @param null $type
      * @return mixed
      */
     public function scopeByType($query, $type = null)
     {
-        if (in_array($type, [static::TYPE_POST, static::TYPE_LINK, static::TYPE_PAGE])) {
+        if (in_array($type, [static::TYPE_POST, static::TYPE_LINK, static::TYPE_PAGE, static::TYPE_CHANNEL])) {
             $query->where('type', $type);
         }
         return $query;
@@ -177,6 +177,16 @@ class Category extends BaseModel implements PresentableInterface
     public function isPostList()
     {
         return $this->type == static::TYPE_POST;
+    }
+
+    /**
+     * 判断当前栏目(分类)是否为频道封面栏目
+     *
+     * @return bool
+     */
+    public function isChannel()
+    {
+        return $this->type == static::TYPE_CHANNEL;
     }
 
     /**

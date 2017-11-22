@@ -39,7 +39,9 @@ class PostUpdateRequest extends Request
             'views_count' => ['nullable', 'integer'],
             'order' => ['nullable', 'integer'],
             'template' => ['nullable', 'string', 'between:1,30'],
-            'category_id' => ['bail', 'nullable', 'integer', 'exists:categories,id'],
+            'category_id' => ['bail', 'nullable', 'integer', Rule::exists('categories', 'id')->where(function ($query) {
+                $query->where('type', Category::TYPE_POST);
+            })],
             'published_at' => ['nullable', 'date'],
             'top' => ['nullable'],
             'attachment_ids' => ['nullable', 'array'],
