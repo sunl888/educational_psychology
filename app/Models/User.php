@@ -53,4 +53,13 @@ class User extends BaseModel implements
     {
         return $this->locked_at != null;
     }
+
+    public function getPostCountAttribute()
+    {
+        /**
+         * todo cache or store to database
+         */
+        return $this->posts()->count();
+    }
+
 }
