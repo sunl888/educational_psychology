@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 
 use App\Models\Banner;
+use Carbon\Carbon;
 
 class BannerRepository extends BaseRepository
 {
@@ -22,6 +23,10 @@ class BannerRepository extends BaseRepository
     {
         if(isset($data['title']))
             $data['title'] = e($data['title']);
+        if (isset($data['enabled_at']))
+            $data['enabled_at'] = Carbon::createFromTimestamp(strtotime($data['enabled_at']));
+        if (isset($data['expired_at']))
+            $data['expired_at'] = Carbon::createFromTimestamp(strtotime($data['expired_at']));
         return $data;
     }
 

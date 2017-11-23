@@ -9,7 +9,7 @@ Route::post('wang_editor_upload_image', 'ImageController@wangEditorUpload');
 
 Route::apiResource('users', 'UsersController');
 
-Route::get('me', 'UsersController@me');
+Route::get('me', 'MeController@me');
 
 // 获取所有角色(不分页 用于添加用户时显示)
 Route::get('roles/all', 'RolesController@allRoles');

@@ -20,14 +20,6 @@ class UsersController extends ApiController
         $this->middleware('auth');
     }
 
-    /**
-     * 当前登录的用户信息
-     * @return \App\Support\Response\TransformerResponse
-     */
-    public function me()
-    {
-        return $this->response()->item(Auth::user(), new UserTransformer());
-    }
 
     /**
      * 用户列表
