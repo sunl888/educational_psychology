@@ -31,10 +31,12 @@ class CreatePostsTable extends Migration
             $table->unsignedInteger('views_count')->default(0)->index();
             // 文章置顶
             $table->timestamp('top')->nullable()->index();
+            // 置顶过期时间
+            $table->timestamp('top_expired_at')->nullable()->comment('置顶过期时间');
             $table->integer('order')->default(0)->index()->comment('排序字段');
             // 内容模板
             $table->string('template')->nullable();
-            
+            $table->mediumText('fields')->nullable();
             $table->softDeletes();
             // 发布时间
             $table->timestamp('published_at')->nullable();
