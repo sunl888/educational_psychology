@@ -19,13 +19,14 @@
               <Checkbox v-model="loginInfo.remember">下次自动登录</Checkbox>
             </Form-item>
         </Form>
-        <Button class="back_btn" type="text"><Icon class="icon" type="arrow-left-c"></Icon>返回到首页</Button>
+        <Button @click="gotoFrontend" class="back_btn" type="text"><Icon class="icon" type="arrow-left-c"></Icon>返回到首页</Button>
       </main>
   </div>
 </template>
 
 <script>
 import Logo from '../components/Logo.vue';
+import { getBaseUrl, getFrontendUrl } from '../utils/utils';
 export default {
   components: { Logo },
   data () {
@@ -38,15 +39,19 @@ export default {
         remember: true
       },
       needVerificationCode: false,
-      captchaSrc: '/captcha/default',
+      captchaSrc: 'captcha/default',
       currentCaptchaSrc: '',
       errors: {}
     };
   },
   mounted () {
+    this.captchaSrc = getBaseUrl() + this.captchaSrc;
     this.checkNeedVerificationCode();
   },
   methods: {
+    gotoFrontend () {
+      window.location.href = getFrontendUrl();
+    },
     checkNeedVerificationCode () {
       this.$http.get('auth/need_verification_code').then(res => {
         this.needVerificationCode = res.data.need;

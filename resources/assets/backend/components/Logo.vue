@@ -20,7 +20,10 @@ export default {
 </script>
 
 <style scoped>
-
+.small{
+  height: 47px;
+  overflow: hidden;
+}
 .small .text{
   font-size: 32px;
 }

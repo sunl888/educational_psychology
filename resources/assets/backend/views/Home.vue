@@ -2,6 +2,12 @@
   <div class="home">
     <Menu mode="horizontal" theme="light" class="header">
       <Logo size="small" class="logo"></Logo>
+      <div class="content">
+        <div class="user">
+          <UserInfo @log_out="logOut" :info="me"></UserInfo>
+        </div>
+        <Menu-item @click.native="gotoFrontend" class="menu_item" name="frontend"><Icon type="home"></Icon>网站首页</Menu-item>
+      </div>
     </Menu>
     <Menu width="220px" class="menu" theme="light" :active-name="currentActiveKey" :open-names="['content', 'user']" @on-select="onSelect">
       <Menu-item class="top_menu_item" name="home"><Icon type="home"></Icon>首页</Menu-item>
@@ -35,11 +41,15 @@
 </template>
 <script>
 import Logo from '../components/Logo.vue';
+import UserInfo from '../components/UserInfo.vue';
+import { getFrontendUrl } from '../utils/utils';
 export default {
-  components: { Logo },
+  components: { Logo, UserInfo },
   data () {
     return {
-      currentActiveKey: this.$route.name
+      currentActiveKey: this.$route.name,
+      me: {},
+      horizontalActiveName: ''
     };
   },
   watch: {
@@ -48,11 +58,30 @@ export default {
     }
   },
   methods: {
+    gotoFrontend () {
+      window.open(getFrontendUrl());
+    },
     onSelect (name) {
       this.$nextTick(() => {
         this.$router.push({name});
       });
     },
+    onHorizontalSelect (aa) {
+      console.log(aa);
+    },
+    logOut () {
+      this.$http.post('auth/logout').then(res => {
+        this.$Message.success('退出登陆');
+        localStorage.removeItem('login_ok');
+        this.$router.push({name: 'login'});
+      });
+    }
+  },
+  mounted () {
+    this.frontendUrl = getFrontendUrl();
+    this.$http.get('me').then(res => {
+      this.me = res.data.data;
+    });
   }
 };
 </script>
@@ -63,23 +92,35 @@ export default {
       position: fixed;
       top: 0;
       left: 0;
-      overflow: hidden;
     }
     .header{
-      height: 50px;
       background-color: #fff;
       box-shadow: rgba(0, 0, 0, 0.1) 0 1px 2px;
       z-index: 10;
       right: 0;
+      .content{
+        margin: 0 auto;
+        width: 1000px;
+        padding-left: 220px;
+        box-sizing: content-box;
+        position: relative;
+      }
       .logo{
         position: absolute;
         left: -65px;
-        top: -38px;
+        top: 16px;
+      }
+      .user{
+        position: absolute;
+        right: 120px;
+      }
+      .menu_item{
+        float: right;
       }
     }
     .menu{
       bottom: 0;
-      padding-top: 60px;
+      padding-top: 70px;
       z-index: 9;
     }
     .top_menu_item > i{
@@ -95,7 +136,7 @@ export default {
           min-height: 100%;
           width: 980px;
           margin: 0 auto;
-          padding-top: 30px;
+          padding-top: 40px;
           padding-bottom: 50px;
         }
       }
