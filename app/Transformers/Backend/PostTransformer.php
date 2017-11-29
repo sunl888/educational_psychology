@@ -26,6 +26,7 @@ class PostTransformer extends TransformerAbstract
             'preview_url' => $post->getPresenter()->url(),
             'order' => $post->order,
             'top' => !is_null($post->top),
+            'top_expired_at' => $post->top_expired_at->toDateTimeString(),
             'top_time' => is_null($post->top) ? null : $post->top->toDateTimeString(),
             'fields' => $post->fields,
             'published_at' => $post->published_at->toDateTimeString(),
