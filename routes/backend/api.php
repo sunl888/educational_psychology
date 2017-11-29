@@ -12,10 +12,10 @@ Route::apiResource('users', 'UsersController');
 Route::get('me', 'MeController@show');
 
 // 获取所有角色(不分页 用于添加用户时显示)
-Route::get('roles/all', 'RolesController@allRoles');
+Route::get('roles/all', 'RolesController@allRoles')->name('roles.allRoles');
 Route::apiResource('roles', 'RolesController');
 
-Route::get('roles/{role}/permissions', 'RolesController@permissions');
+Route::get('roles/{role}/permissions', 'RolesController@permissions')->name('roles.permissions');
 
 Route::apiResource('posts', 'PostsController');
 // 真删除指定的文章
@@ -25,11 +25,11 @@ Route::post('posts/{post}/restore', 'PostsController@restore');
 // 获取模板
 Route::get('templates', 'TemplatesController@templates');
 
-Route::get('categories/visual_output', 'CategoriesController@visualOutput');
+Route::get('categories/visual_output', 'CategoriesController@visualOutput')->name('categories.visualOutput');
 Route::apiResource('categories', 'CategoriesController');
 
 // 获取单页
-Route::get('categories/{category}/page', 'CategoriesController@page');
+Route::get('categories/{category}/page', 'CategoriesController@page')->name('categories.page');
 // 创建或更新单页
 Route::post('categories/{category}/page', 'CategoriesController@savePage');
 Route::apiResource('banners', 'BannersController');

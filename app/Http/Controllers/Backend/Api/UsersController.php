@@ -13,7 +13,7 @@ use Auth;
 
 class UsersController extends ApiController
 {
-    // use Authorizable;
+    use Authorizable;
 
     public function __construct()
     {

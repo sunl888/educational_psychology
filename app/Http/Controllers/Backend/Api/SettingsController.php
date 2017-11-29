@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Backend\Api;
 
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Traits\Authorizable;
 use App\Http\Requests\SettingCreateRequest;
 use App\Http\Requests\SettingUpdateRequest;
 use App\Models\Setting;
@@ -17,6 +18,9 @@ use Illuminate\Http\Request;
 
 class SettingsController extends ApiController
 {
+    use Authorizable;
+
+    protected $neednotCheckAuth = ['setOrder'];
     public function __construct()
     {
         $this->middleware('auth');
@@ -56,6 +60,11 @@ class SettingsController extends ApiController
         return $this->response()->noContent();
     }
 
+    /**
+     * 拖拽排序
+     * @param Request $request
+     * @return \App\Support\Response\Response
+     */
     public function setOrder(Request $request)
     {
         // todo message
@@ -63,6 +72,8 @@ class SettingsController extends ApiController
             'index_order' => 'required|array',
             'model' => 'required|in:' . implode(',', array_keys(CustomOrder::$modelMapping))
         ]);
+        // 检查是否有编辑权限
+        $this->authorize($data['model'] . '.' . 'edit');
         app(CustomOrder::class)->setOrder($data['index_order'], $data['model']);
         return $this->response()->noContent();
     }

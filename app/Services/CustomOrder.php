@@ -12,8 +12,8 @@ use Illuminate\Support\Collection;
 class CustomOrder
 {
     public static $modelMapping = [
-        'banner' => Banner::class,
-        'link' => Link::class,
+        'banners' => Banner::class,
+        'links' => Link::class,
     ];
 
     public function order(Collection $collection)
