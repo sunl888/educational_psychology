@@ -19,6 +19,11 @@ class Banner extends BaseModel implements InterfaceTypeable, PresentableInterfac
         'is_target_blank' => 'boolean'
     ];
 
+    protected $dates = [
+        'enabled_at',
+        'expired_at'
+    ];
+
     /**
      * 只获取显示的查询作用域
      * @param $query
@@ -31,7 +36,7 @@ class Banner extends BaseModel implements InterfaceTypeable, PresentableInterfac
 
     public function scopeEnabled($query)
     {
-        if($this->enable_at){
+        if ($this->enable_at) {
             $now = Carbon::now();
             $query->where('enabled_at', '<=', $now);
         }
@@ -39,7 +44,7 @@ class Banner extends BaseModel implements InterfaceTypeable, PresentableInterfac
 
     public function scopeNotExpired($query)
     {
-        if($this->expired_at){
+        if ($this->expired_at) {
             $now = Carbon::now();
             $query->where('expired_at', '>', $now);
         }
