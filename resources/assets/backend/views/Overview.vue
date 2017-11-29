@@ -119,7 +119,7 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
+<style lang="less">
   .head_stat{
     height: 160px;
     border-radius: 4px;
@@ -141,6 +141,9 @@ export default {
         position: absolute;
         right: 45px;
         top: 10px;
+        .ivu-badge-count{
+          z-index: initial;
+        }
       }
       &:last-child{
         border-right: none;
