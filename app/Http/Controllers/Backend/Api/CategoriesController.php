@@ -25,7 +25,7 @@ class CategoriesController extends ApiController
     public function __construct()
     {
         $this->middleware('auth');
-        $this->setAbilities([
+        $this->addAbility([
             'visualOutput' => 'view',
             'savePage' => 'page.add',
             'page' => 'page.edit',
