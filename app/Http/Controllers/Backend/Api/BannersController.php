@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Api;
 
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Traits\Authorizable;
 use App\Http\Requests\Backend\BannerCreateRequest;
 use App\Http\Requests\Backend\BannerUpdateRequest;
 use App\Models\Banner;
@@ -14,6 +15,7 @@ use Illuminate\Http\Request;
 
 class BannersController extends ApiController
 {
+    use Authorizable;
     public function __construct()
     {
         $this->middleware('auth');

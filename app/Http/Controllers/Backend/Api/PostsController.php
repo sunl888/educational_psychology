@@ -4,20 +4,22 @@ namespace App\Http\Controllers\Backend\Api;
 
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Traits\Authorizable;
 use App\Http\Requests\Backend\PostCreateRequest;
 use App\Http\Requests\Backend\PostUpdateRequest;
 use App\Models\Post;
 use App\Repositories\PostRepository;
 use App\Transformers\Backend\PostTransformer;
 use Illuminate\Http\Request;
-use Auth;
 
 class PostsController extends ApiController
 {
+    use Authorizable;
 
     public function __construct()
     {
         $this->middleware('auth');
+        $this->setAbilities(['realDestroy' => 'delete']);
     }
 
     /**

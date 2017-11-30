@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Api;
 
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Traits\Authorizable;
 use App\Http\Requests\Backend\CategoryCreateRequest;
 use App\Http\Requests\Backend\CategoryUpdateRequest;
 use App\Models\Category;
@@ -16,14 +17,19 @@ use App\Transformers\Backend\CategoryTransformer;
 use App\Transformers\Backend\PageTransformer;
 use App\Transformers\Backend\VisualCategoryTransformer;
 use Illuminate\Http\Request;
-use League\Fractal\Resource\NullResource;
 
 class CategoriesController extends ApiController
 {
+    use Authorizable;
 
     public function __construct()
     {
         $this->middleware('auth');
+        $this->setAbilities([
+            'visualOutput' => 'view',
+            'savePage' => 'page.add',
+            'page' => 'page.edit',
+        ]);
     }
 
     public function show(Category $category)

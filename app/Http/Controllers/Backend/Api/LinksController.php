@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Api;
 
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Traits\Authorizable;
 use App\Http\Requests\Backend\LinkCreateRequest;
 use App\Http\Requests\Backend\LinkUpdateRequest;
 use App\Models\Link;
@@ -15,6 +16,8 @@ use Illuminate\Http\Request;
 
 class LinksController extends ApiController
 {
+    use Authorizable;
+    
     public function __construct()
     {
         $this->middleware('auth');

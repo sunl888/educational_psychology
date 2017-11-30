@@ -13,22 +13,24 @@ trait Authorizable
         'update' => 'edit',
         'create' => 'add',
         'store' => 'add',
-        'destroy' => 'delete'
+        'destroy' => 'delete',
+        'restore' => 'restore'
     ];
 
     /**
-     * Override of callAction to perform the authorization before
-     *
+     * 覆盖 callAction 方法
+     * 如果有不需要检查权限的方法，添加 $neednotCheckAuth 数组到控制器中
      * @param $method
      * @param $parameters
      * @return mixed
      */
     public function callAction($method, $parameters)
     {
-        if ($ability = $this->getAbility($method)) {
-            $this->authorize($ability);
+        if (!(isset($this->neednotCheckAuth) && in_array($method, $this->neednotCheckAuth))) {
+            if ($ability = $this->getAbility($method)) {
+                $this->authorize($ability);
+            }
         }
-
         return parent::callAction($method, $parameters);
     }
 
@@ -36,13 +38,23 @@ trait Authorizable
     {
         $routeName = explode('.', Request::route()->getName());
         $action = array_get($this->getAbilities(), $method);
-
-        return $action ? $action . '_' . $routeName[count($routeName) - 2] : null;
+        $resourceName = $routeName[count($routeName) - 2] . '.';
+        return $action ? $resourceName . $action : $resourceName . $method;
     }
 
     private function getAbilities()
     {
         return $this->abilities;
+    }
+
+    /**
+     * 添加权限
+     * 例子 $this->addAbility(['visualOutput' => 'view']);
+     * @param $ability
+     */
+    public function addAbility($ability)
+    {
+        $this->abilities = array_merge($this->abilities, $ability);
     }
 
     public function setAbilities($abilities)
