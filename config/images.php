@@ -32,11 +32,6 @@ return [
             'h' => 180,
             'fit' => 'crop',
         ],
-        'news_cover' => [
-            'w' => 350,
-            'h' => 230,
-            'fit' => 'crop',
-        ],
         'list_news_cover' => [
             'w' => 350,
             'h' => 230,
