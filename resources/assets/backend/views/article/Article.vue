@@ -60,6 +60,10 @@
               <span slot="close">OFF</span>
             </i-switch>
           </Form-item>
+          <Form-item :error="errors.top_expired_at" label="置顶时间">
+            <Date-picker type="datetime" placeholder="选择置顶时间" v-model="formData.top_expired_at"></Date-picker>
+            <p class="tip">不设置表示永久置顶</p>
+          </Form-item>
           <ButtonGroup>
             <Button :loading="loading" @click="submitArticle('publish')" type="success">{{isAdd() ? '发布' : '提交修改'}}</Button>
             <Button :loading="loading" @click="submitArticle('draft')" type="primary">保存为草稿</Button>
@@ -130,6 +134,7 @@ export default {
   },
   data () {
     return {
+      startStopTime: [],
       formData: {
         'title': null,
         'slug': null,
@@ -148,7 +153,8 @@ export default {
         'attachment_ids': [],
         'tags': [],
         'tag_ids': [],
-        'fields': []
+        'fields': [],
+        'top_expired_at': null
       },
       contentTemplates: [],
       loading: false
@@ -219,6 +225,11 @@ export default {
         }
       }
     }
+  }
+  .tip{
+    font-size: 12px;
+    color: #999;
+    padding-left: 10px;
   }
 }
 </style>

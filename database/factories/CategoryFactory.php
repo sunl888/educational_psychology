@@ -16,7 +16,7 @@ $factory->define(App\Models\Category::class, function (Faker $faker) {
         'parent_id' => 0,
         'cate_name' => $faker->unique()->word,
         // todo 根据 type 决定是否生成 image and windows image is null
-        'image' => $faker->image($imagesPath, 640, 480, null, false),
+        // 'image' => $faker->image($imagesPath, 640, 480, null, false),
         'description' => $faker->text(190),
         'url' => function (array $category) use ($faker) {
             switch ($category['type']) {

@@ -24,7 +24,7 @@ $factory->define(Post::class, function (Faker $faker) {
         'title' => $faker->sentence,
         'slug' => $faker->unique()->slug,
         'excerpt' => $faker->paragraph,
-        'cover' => $faker->image($imagesPath, 1100, 510, null, false),
+        // 'cover' => $faker->image($imagesPath, 1100, 510, null, false),
         'category_id' => $category->id,
         'status' => $faker->optional(0.4, Post::STATUS_PUBLISH)->randomElement([Post::STATUS_PUBLISH, Post::STATUS_DRAFT]),
         'type' => $faker->optional(0.2, Category::TYPE_POST)->randomElement([Category::TYPE_POST, Category::TYPE_PAGE]),

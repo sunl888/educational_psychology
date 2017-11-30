@@ -57,8 +57,7 @@ export default {
     };
   },
   mounted () {
-    let url = this.getConfig('action');
-    this.model = url.substring(0, url.length - 1);
+    this.model = this.getConfig('action');
     this.$http.get('types', {
       params: {
         model: this.model
