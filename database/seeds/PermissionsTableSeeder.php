@@ -14,7 +14,7 @@ class PermissionsTableSeeder extends Seeder
     public function run()
     {
         $defaultGuardName = config('auth.defaults.guard');
-
+       
         $resources = [
             'posts' => '文章',
             'categories' => '栏目',

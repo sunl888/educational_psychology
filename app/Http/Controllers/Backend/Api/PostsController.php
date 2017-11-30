@@ -19,7 +19,7 @@ class PostsController extends ApiController
     public function __construct()
     {
         $this->middleware('auth');
-        $this->setAbilities(['realDestroy' => 'delete']);
+        $this->addAbility(['realDestroy' => 'delete']);
     }
 
     /**

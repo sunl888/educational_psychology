@@ -19,7 +19,7 @@
         ></DraggableRow>
     </draggable>
     <NoData v-if="list.length ===  0"></NoData>
-    <TypeManagement @change="refreshType" typeQueryName="link" v-model="showTypeManagementDialog"/>
+    <TypeManagement @change="refreshType" typeQueryName="links" v-model="showTypeManagementDialog"/>
   </div>
 </template>
 
