@@ -14,7 +14,7 @@
   import HoverableTime from '../../components/HoverableTime.vue';
   import delMixin from '../../mixins/del';
   import TTable from '../../components/t-table';
-
+  import { strLimit } from '../../utils/utils';
   export default {
     components: { HoverableTime, TTable, ListWrapper },
     mixins: [delMixin],
@@ -34,7 +34,7 @@
                 attrs: {
                   'title': params.value
                 }
-              }, params.value && params.value.length > 10 ? params.value.substr(0, 10) + '...' : params.value);
+              }, strLimit(params.value, 10));
             }
           },
           {
@@ -45,7 +45,7 @@
                 attrs: {
                   title: params.description
                 }
-              }, params.description && params.description.length > 10 ? params.description.substr(0, 10) + '...' : params.description);
+              }, strLimit(params.description, 10));
             }
           },
           {

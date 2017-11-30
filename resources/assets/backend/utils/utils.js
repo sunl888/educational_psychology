@@ -9,3 +9,12 @@ export function getFrontendUrl () {
   const frontendUrlMeta = document.head.querySelector('meta[name="frontend_url"]');
   return frontendUrlMeta ? frontendUrlMeta.content : '';
 }
+export function strLimit (str, limit, end = '...') {
+  if (!str) {
+    return '';
+  }
+  if (str.length < limit) {
+    return str;
+  }
+  return str.substr(0, limit) + '...';
+}
