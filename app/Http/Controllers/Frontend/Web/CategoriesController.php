@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Frontend\Web;
 use App\Events\VisitedPostList;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Post;
 use App\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
 
@@ -37,6 +38,14 @@ class CategoriesController extends Controller
         }
         /****************************/
         $posts = $category->postListWithOrder($request->get('order'))->with('user')->paginate($perPage);
+        if ($posts->isEmpty() && $category->isTopCategory()) {
+            // todo 封装
+            $childrenIds = $category->children->pluck('id');
+            $posts = Post::whereIn('category_id', $childrenIds)
+                ->byType(Category::TYPE_POST)
+                ->byStatus(Post::STATUS_PUBLISH)
+                ->orderByTop()->ordered()->recent()->with('user')->paginate($perPage);
+        }
         $posts->appends($request->all());
 
         return view_first([$category->cate_slug, $category->list_template], 'list', [

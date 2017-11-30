@@ -22,11 +22,11 @@ class CreateBannersTable extends Migration
             $table->boolean('is_visible')->default(true);
             $table->unsignedInteger('creator_id')->nullable()->default(null);
 
-            // todo $table->boolean('is_target_blank')->default(true)->comment('链接是否在新窗口打开');
-            // todo 启用时间
-            // todo $table->timestamp('enabled_at')->nullable();
-            // todo 过期时间
-            // todo $table->timestamp('expired_at')->nullable();
+            $table->boolean('is_target_blank')->default(true)->comment('链接是否在新窗口打开');
+            // banner 启用时间
+            $table->timestamp('enabled_at')->nullable()->comment('banner 启用时间');
+            // banner 过期时间
+            $table->timestamp('expired_at')->nullable()->comment('banner 过期时间');
             $table->timestamps();
 
             $table->foreign('creator_id')

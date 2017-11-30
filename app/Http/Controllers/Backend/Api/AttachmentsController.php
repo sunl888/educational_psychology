@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Api;
 
 use App\Exceptions\ResourceException;
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Traits\Authorizable;
 use App\Models\Attachment;
 use App\Transformers\Backend\AttachmentTransformer;
 use Illuminate\Http\Request;
@@ -13,6 +14,8 @@ use Storage;
 
 class AttachmentsController extends ApiController
 {
+    use Authorizable;
+
     public function __construct()
     {
         $this->middleware('auth');

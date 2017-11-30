@@ -2,18 +2,24 @@
   <div class="m-info">
     <a href="#" target="_blank">
       <i class="user-pic" :style="{'background-image': `url(${avatar_url}?p=avatar_xs)`}"></i>
-      <span class="user-name">{{nick_name}}</span>
+      <span class="user-name" :title="nick_name">{{strLimit(nick_name)}}</span>
     </a>
   </div>
 </template>
 
 <script>
+import { strLimit } from '../utils/utils';
 export default{
   name: 'UserWeight',
   props: {
     avatar_url: String,
     nick_name: String,
     id: Number
+  },
+  methods: {
+    strLimit (str) {
+      return strLimit(str, 7);
+    }
   }
 };
 </script>

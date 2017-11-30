@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Repositories\CategoryRepository;
 use App\Support\Widget\AbstractWidget;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PostList extends AbstractWidget
 {
@@ -34,14 +35,26 @@ class PostList extends AbstractWidget
         }
         if ($this->config['category'] instanceof Category)
             $category = $this->config['category'];
-        else
-            $category = $this->categoryRepository->findByCateName($this->config['category']);
-        return [
-            'category' => $category,
-            'posts' => Post::applyFilter(collect([
+        else {
+            try {
+                $category = $this->categoryRepository->findByCateName($this->config['category']);
+            } catch (ModelNotFoundException $e) {
+                $category = new Category(['cate_name' => $this->config['category']]);
+            }
+
+        }
+        if ($category->exists) {
+            $posts = Post::applyFilter(collect([
                 'category_id' => $category->id,
                 'status' => $this->config['status']
-            ]))->limit($this->config['limit'])->get()
+            ]))->limit($this->config['limit'])->get();
+        } else {
+            $posts = collect();
+        }
+
+        return [
+            'category' => $category,
+            'posts' => $posts,
         ];
     }
 

@@ -1,15 +1,17 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-// 获取baseUrl
-let base = window.location.pathname.split('backend')[0] + 'backend';
+import { getBaseUrl } from './utils/utils';
+
+let baseUrl = getBaseUrl() + 'backend';
 Vue.use(Router);
+
 const router = new Router({
   mode: 'history',
-  base,
+  base: baseUrl,
   routes: [
     {
       path: '*',
-      redirect: {name: 'home'}
+      redirect: { name: 'home' }
     },
     {
       path: '/login',

@@ -33,115 +33,15 @@
             <p class="text">{{ setting('intro') }}</p>
         </div>
     </section>
-    @php
-        $categoryRepository = app(App\Repositories\CategoryRepository::class);
-        $projectCaseCategory = $categoryRepository->findByCateName('项目案例');
-    @endphp
-    <section data-id="case" class="zm-case zm-wrap">
-        <div class="container">
-            <header class="zm-title">
-                <h3>{!! $projectCaseCategory->cate_name !!}</h3>
-                <div class="line"></div>
-                <p>{!! $projectCaseCategory->description !!}</p>
-            </header>
-            @foreach(Facades\App\Widgets\PostList::mergeConfig(['category'=>$projectCaseCategory])->getData()['posts'] as $post)
-                <div class="col-md-4 col-lg-3 col-sm-6 col-xs-6 case-item">
-                    <div class="main">
-                        <div class="img-wrap">
-                            <img lazy src="{!! image_url($post->cover, 'case_cover') !!}">
-                        </div>
-                        <div class="body">
-                            <h4>{!! $post->getPresenter()->suitedTitle() !!}</h4>
-                            <p>{!! $post->excerpt !!}</p>
-                            <div class="footer">
-                                @foreach($post->tags as $tag)
-                                    <span class="tag">{!! $tag->name !!}</span>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </section>
-
-    @php
-        $newsCategory = $categoryRepository->findByCateName('新闻中心');
-    @endphp
-    <section data-id="news" class="zm-news zm-wrap">
-        <div class="container">
-            <header class="zm-title">
-                <h3>{!! $newsCategory->cate_name !!}</h3>
-                <div class="line"></div>
-                <p>{!! $newsCategory->description !!}</p>
-            </header>
-            @foreach(Facades\App\Widgets\PostList::mergeConfig(['category'=>$newsCategory])->getData()['posts'] as $post)
-                <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6 news-item">
-                    <div class="news-main">
-                        <a href="{!! $post->getPresenter()->url() !!}" target="_blank" title="{!! $post->title !!}">
-                            <div class="img-wrap">
-                                <img lazy src="{!! image_url($post->cover, 'news_cover') !!}">
-                            </div>
-                        </a>
-                        <a href="{!! $post->getPresenter()->url() !!}" target="_blank" class="title"
-                           title="{!! $post->title !!}">
-                            <h4>{!! $post->getPresenter()->suitedTitle() !!}</h4>
-                        </a>
-                        <div class="line"></div>
-                        <p>{!! $post->excerpt !!}</p>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-        <div class="button_wrap">
-            <a class="btn more_btn"{!! $newsCategory->getPresenter()->linkAttribute() !!}>查看更多<i
-                        class="glyphicon glyphicon-chevron-right"></i></a>
-        </div>
-    </section>
-
-    @php
-        $teamCategory = $categoryRepository->findByCateName('我们的团队');
-    @endphp
-    <section data-id="team" class="zm-team zm-wrap">
-        <div class="container">
-            <header class="zm-title white">
-                <h3>{!! $teamCategory->cate_name !!}</h3>
-                <div class="line"></div>
-                <p>{!! $teamCategory->description !!}</p>
-            </header>
-            <div id="teams">
-                @foreach(Facades\App\Widgets\PostList::mergeConfig(['category'=>$teamCategory])->getData()['posts'] as $post)
-                    <div class="team-item">
-                        <div class="team-main">
-                            <div class="avatar">
-                                <img lazy src="{!! image_url($post->cover, 'avatar_md') !!}">
-                            </div>
-                            <h4>{!! $post->title !!}</h4>
-                            <div class="tags">
-                                @foreach($post->tags as $tag)
-                                    <span class="tag">{!! $tag->name !!}</span>
-                                @endforeach
-                            </div>
-                            <p class="info">{!! $post->excerpt !!}</p>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-        <div class="button_wrap">
-            <a class="btn more_btn"{!! $teamCategory->getPresenter()->linkAttribute() !!}>查看更多<i class="glyphicon glyphicon-chevron-right"></i></a>
-        </div>
-    </section>
-
+    @widget('post_list', ['category' => '项目案例', 'view'=>'post_lists.project']);
+    @widget('post_list', ['category' => '新闻中心', 'view'=>'post_lists.news']);
+    @widget('post_list', ['category' => '我们的团队', 'view'=>'post_lists.team']);
     <section data-id="skill" class="zm-skill zm-wrap">
         <header class="zm-title">
             <h3>WE GOT SKILLS</h3>
         </header>
         <div class="container skills">
-            @foreach(Facades\App\Widgets\Link::mergeConfig(['type'=>'skill'])->getData()['links'] as $link)
-                <a href="{!! $link->url !!}" title="{!! $link->name !!}" target="_blank"><img
-                            lazy src="{!! image_url($link->logo) !!}" alt="{!! $link->name !!}"></a>
-            @endforeach
+            @widget('link', ['type'=>'skill', 'limit'=>10, 'view' => 'links.skill'])
         </div>
     </section>
 
@@ -155,17 +55,13 @@
             <p class="contact-item">QQ：{{ setting('qq') }}</p>
             <p class="contact-item">地址：{{ setting('address') }}</p>
             <div class="contact-link">
-                @foreach(Facades\App\Widgets\Link::mergeConfig(['type'=>'contact_us', 'limit'=>5])->getData()['links'] as $link)
-                    <a href="{!! $link->url !!}" title="{!! $link->name !!}" target="_blank"><img
-                                lazy src="{!! image_url($link->logo, 'avatar_xs') !!}"
-                                alt="{!! $link->name !!}"><span>{!! $link->name !!}</span></a>
-                @endforeach
+                @widget('link', ['type'=>'contact_us', 'limit'=>10, 'view' => 'links.contact_us'])
             </div>
         </div>
     </section>
 
 
-    @widget('link', ['type' => 'friendship_link'])
+    @widget('link', ['type' => 'friendship_link', 'view' => 'links.friendship_link'])
 
     <section data-id="join">
         <div class="zm-join" id="particles-js">
@@ -211,22 +107,7 @@
               }
             }
         });
-        $(function () {
-            $teams = $('#teams');
-            if ($teams.children().length == 0)
-                return;
-            $teams.slick({
-                dots: true,
-                infinite: true,
-                centerMode: true,
-                variableWidth: true,
-                autoplay: true,
-                autoplaySpeed: 5000,
-                slidesToShow: 3,
-                slidesToScroll: 3,
-                arrows: true
-            });
-        })
+
         $(function () {
             particlesJS('particles-js', {
                 "particles": {

@@ -24,6 +24,7 @@
 <script>
 import TitleInput from './TitleInput.vue';
 import tHttp from '../utils/tHttp';
+import { getCsrfToken } from '../utils/utils';
 export default {
   name: 'titleWithContent',
   props: {
@@ -54,8 +55,7 @@ export default {
   },
   methods: {
     initEditor () {
-      const tokenMeta = document.head.querySelector('meta[name="csrf-token"]');
-      let token = tokenMeta ? tokenMeta.content : '';
+      let token = getCsrfToken();
 
       this.editor = window.UE.getEditor('ueditor_container', {
         initialFrameHeight: 300

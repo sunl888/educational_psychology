@@ -16,9 +16,10 @@ class Category extends BaseModel implements PresentableInterface
         'is_nav' => 'boolean',
         'is_target_blank' => 'boolean'
     ];
+
     protected $fillable = ['type', 'parent_id', 'image', 'cate_name', 'order',
         'description', 'url', 'is_target_blank', 'cate_slug', 'is_nav',
-        'page_template', 'list_template', 'content_template', 'creator_id'];
+        'page_template', 'list_template', 'channel_template', 'content_template', 'creator_id'];
 
 
     const TYPE_POST = 'post', TYPE_PAGE = 'page', TYPE_LINK = 'link', TYPE_CHANNEL = 'channel';
@@ -245,6 +246,6 @@ class Category extends BaseModel implements PresentableInterface
     public function getDescription()
     {
         //\Breadcrumbs::
-        return $this->description?:setting('default_description');
+        return $this->description ?: setting('default_description');
     }
 }

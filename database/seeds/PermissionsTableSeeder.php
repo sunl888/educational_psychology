@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Permission;
+use App\Models\Role;
 
 class PermissionsTableSeeder extends Seeder
 {
@@ -11,144 +13,65 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        $tableNames = config('permission.table_names');
         $defaultGuardName = config('auth.defaults.guard');
+       
+        $resources = [
+            'posts' => '文章',
+            'categories' => '栏目',
+            'banners' => ' banners',
+            'links' => '链接',
+            'settings' => '设置',
+            'types' => '分类',
+            'attachments' => '附件',
+            'tags' => '标签',
+            'users' => '用户',
+            'roles' => '角色'
+        ];
 
-        DB::table($tableNames['permissions'])->insert(
-            [
-            [
-                'id'=>1,
-                'name' => 'admin.user',
-                'guard_name' => $defaultGuardName,
-                'display_name' => '用户管理',
-                'description' => '用户管理',
-                'parent_id' => 0,
-                'is_menu' => true,
-                'order' => 0,
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now()
-            ],
-            [
-                'id'=>2,
-                'name' => 'admin.post',
-                'guard_name' => $defaultGuardName,
-                'display_name' => '文章管理',
-                'description' => '文章管理',
-                'parent_id' => 0,
-                'is_menu' => true,
-                'order' => 0,
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now()
-            ],
-            [
-                'id'=>3,
-                'name' => 'admin.setting',
-                'guard_name' => $defaultGuardName,
-                'display_name' => '站点设置',
-                'description' => '站点设置',
-                'parent_id' => 0,
-                'is_menu' => true,
-                'order' => 0,
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now()
-            ],
-            [
-                'id'=>4,
-                'name' => 'admin.user.show',
-                'guard_name' => $defaultGuardName,
-                'display_name' => '用户列表',
-                'description' => '显示用户列表',
-                'parent_id' => 1,
-                'is_menu' => true,
-                'order' => 0,
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now()
-            ],
-            [
-                'id'=>5,
-                'name' => 'admin.user.roles',
-                'guard_name' => $defaultGuardName,
-                'display_name' => '角色列表',
-                'description' => '显示角色列表',
-                'parent_id' => 1,
-                'is_menu' => true,
-                'order' => 0,
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now()
-            ],
-            [
-                'id'=>6,
-                'name' => 'admin.user.permissions',
-                'guard_name' => $defaultGuardName,
-                'display_name' => '权限列表',
-                'description' => '显示权限列表',
-                'parent_id' => 1,
-                'is_menu' => true,
-                'order' => 0,
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now()
-            ],
-            [
-                'id'=>7,
-                'name' => 'admin.post.create',
-                'guard_name' => $defaultGuardName,
-                'display_name' => '写文章',
-                'description' => '写文章',
-                'parent_id' => 2,
-                'is_menu' => true,
-                'order' => 0,
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now()
-            ],
-            [
-                'id'=>8,
-                'name' => 'admin.post.show',
-                'guard_name' => $defaultGuardName,
-                'display_name' => '文章列表',
-                'description' => '文章列表',
-                'parent_id' => 2,
-                'is_menu' => true,
-                'order' => 0,
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now()
-            ],
-            [
-                'id'=>9,
-                'name' => 'admin.post.categories',
-                'guard_name' => $defaultGuardName,
-                'display_name' => '栏目管理',
-                'description' => '栏目管理',
-                'parent_id' => 2,
-                'is_menu' => true,
-                'order' => 0,
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now()
-            ],
-            [
-                'id'=>10,
-                'name' => 'admin.setting.configure',
-                'guard_name' => $defaultGuardName,
-                'display_name' => '站点配置',
-                'description' => '站点配置',
-                'parent_id' => 3,
-                'is_menu' => true,
-                'order' => 0,
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now()
-            ],
-            [
-                'id'=>11,
-                'name' => 'admin.setting.theme',
-                'guard_name' => $defaultGuardName,
-                'display_name' => '主题',
-                'description' => '主题',
-                'parent_id' => 3,
-                'is_menu' => true,
-                'order' => 0,
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now()
-            ],
-            ]
-        );
+        $role = Role::firstOrCreate([
+            'name' => 'admin',
+        ], [
+            'name' => 'admin',
+            'guard_name' => $defaultGuardName,
+            'display_name' => '管理员',
+            'description' => '管理员拥有所有权限',
+            'order' => 0,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now()
+        ]);
+
+        foreach ($resources as $resource => $resourceName) {
+            foreach (['view' => '查看', 'add' => '添加', 'edit' => '编辑', 'delete' => '删除'] as $action => $actionName) {
+                $displayName = $actionName . $resourceName;
+                $permission = $this->createPermission($resource . '.' . $action, $defaultGuardName, $displayName, $displayName, 0);
+                $role->givePermissionTo($permission);
+            }
+        }
+
+        $permission = $this->createPermission(  'posts.restore', $defaultGuardName, '恢复删除的文章', '恢复删除的文章', 0);
+        $role->givePermissionTo($permission);
+
+        $permission = $this->createPermission(  'categories.page.view', $defaultGuardName, '查看单页', '查看单页', 0);
+        $role->givePermissionTo($permission);
+
+        $permission = $this->createPermission(  'categories.page.edit', $defaultGuardName, '编辑单页', '编辑单页', 0);
+        $role->givePermissionTo($permission);
+
+        $permission = $this->createPermission('roles.permissions', $defaultGuardName, '获取角色的权限', '获取角色的权限', 0);
+        $role->givePermissionTo($permission);
     }
+
+    private function createPermission($name, $guardName, $displayName, $description, $order)
+    {
+        return Permission::firstOrCreate(['name' => $name], [
+            'name' => $name,
+            'guard_name' => $guardName,
+            'display_name' => $displayName,
+            'description' => $description,
+            'order' => $order,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now()
+        ]);
+    }
+
 }

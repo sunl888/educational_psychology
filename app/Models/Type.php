@@ -12,9 +12,9 @@ class Type extends BaseModel
 
 
     public static $modelMapWithType = [
-        'link' => Link::class,
-        'banner' => Banner::class,
-        'setting' => Setting::class,
+        'links' => Link::class,
+        'banners' => Banner::class,
+        'settings' => Setting::class,
     ];
 
     public function scopeByModel(Builder $query, $model)

@@ -44,6 +44,7 @@ class PostCreateRequest extends Request
             })],
             'published_at' => ['nullable', 'date'],
             'top' => ['nullable'],
+            'top_expired_at' => ['nullable', 'date'],
             'attachment_ids' => ['nullable', 'array'],
             'tag_ids' => ['nullable', 'array'],
             'fields' => ['nullable', 'array']

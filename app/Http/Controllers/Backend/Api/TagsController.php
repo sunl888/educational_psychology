@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Api;
 
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Traits\Authorizable;
 use App\Http\Requests\Backend\TagCreateRequest;
 use App\Http\Requests\Backend\TagUpdateRequest;
 use App\Repositories\TagRepository;
@@ -12,6 +13,8 @@ use App\Transformers\Backend\TagTransformer;
 
 class TagsController extends ApiController
 {
+    use Authorizable;
+
     public function __construct()
     {
         $this->middleware('auth');

@@ -22,6 +22,10 @@
             <span slot="close">隐藏</span>
           </i-switch>
         </Form-item>
+        <Form-item label="起止时间">
+          <DatePicker v-model="startStopTime" type="datetimerange" placeholder="请选择开始时间和结束时间" style="width: 300px"></DatePicker>
+          <p class="tip">不设置表示永久显示</p>
+        </Form-item>
       </Form>
       <FormButtomGroup />
     </Panel>
@@ -65,11 +69,25 @@ export default {
         'title': null,
         'image': null,
         'type_name': null,
-        'is_visible': true
-      }
+        'is_visible': true,
+        'enabled_at': null,
+        'expired_at': null
+      },
+      startStopTime: []
     };
   },
+  watch: {
+    'startStopTime' () {
+      this.formData.enabled_at = this.startStopTime[0];
+      this.formData.expired_at = this.startStopTime[1];
+    }
+  },
   mounted () {
+    this.$on('on-data', () => {
+      this.startStopTime = [];
+      this.startStopTime[0] = this.formData.enabled_at;
+      this.startStopTime[1] = this.formData.expired_at;
+    });
     this.$on('on-success', () => {
       this.$router.push({name: 'bannerList'});
     });
@@ -88,6 +106,11 @@ export default {
 .banner{
   .upload_picture{
     margin-top: 10px;
+  }
+  .tip{
+    font-size: 12px;
+    color: #999;
+    padding-left: 10px;
   }
 }
 </style>

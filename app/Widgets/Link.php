@@ -27,7 +27,7 @@ class Link extends AbstractWidget
     {
         return [
             'links' => app(CustomOrder::class)
-                ->order(LinkModel::byType($this->config['type'])->limit($this->config['limit'])->ancient()->get()),
+                ->order(LinkModel::byType($this->config['type'])->isVisible()->limit($this->config['limit'])->ancient()->get()),
         ];
     }
 }

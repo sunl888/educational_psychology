@@ -19,6 +19,8 @@ class BannerTransformer extends TransformerAbstract
             'image_url' => image_url($banner->image),
             'is_visible' => $banner->is_visible,
             'type_name' => $banner->type_name,
+            'enabled_at' => is_null($banner->enabled_at) ? null : $banner->enabled_at->toDateTimeString(),
+            'expired_at' => is_null($banner->expired_at) ? null : $banner->expired_at->toDateTimeString(),
             'created_at' => $banner->created_at->toDateTimeString(),
             'updated_at' => $banner->updated_at->toDateTimeString()
         ];

@@ -4,6 +4,10 @@ import router from './router';
 import App from './App.vue';
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
+import { getBaseUrl } from './utils/utils';
+
+// 获取baseUrl
+let baseUrl = getBaseUrl();
 router.beforeEach((to, from, next) => {
   iView.LoadingBar.start();
   next();
@@ -14,10 +18,8 @@ router.afterEach((to, from, next) => {
 
 Vue.use(iView);
 
-// 获取baseUrl
-let base = window.location.pathname.split('backend')[0];
 Vue.use(tHttp, {
-  baseURL: base + 'api/backend/',
+  baseURL: baseUrl + 'api/backend/',
   router
 });
 

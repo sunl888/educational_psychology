@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\PostContent;
+use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,10 +23,12 @@ class DatabaseSeeder extends Seeder
             });
         });
 
-        DB::table('users')->where('id', 1)->update(['user_name' => 'tiny', 'email' => 'tiny@test.com', 'locked_at' => null]);
-
         $this->call(PermissionsTableSeeder::class);
-        $this->call(RolesTableSeeder::class);
         $this->call(TypesTableSeeder::class);
+        User::find(1)->assignRole('admin')->update(['user_name' => 'tiny', 'email' => 'tiny@test.com', 'locked_at' => null]);
+
+
+        // $this->call(RolesTableSeeder::class);
+
     }
 }

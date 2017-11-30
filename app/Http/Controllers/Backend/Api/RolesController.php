@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Backend\Api;
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Traits\Authorizable;
 use App\Http\Requests\Backend\RoleCreateRequest;
 use App\Http\Requests\Backend\RoleUpdateRequest;
 use App\Models\Role;
@@ -13,9 +14,14 @@ use Illuminate\Http\Request;
 
 class RolesController extends ApiController
 {
+    use Authorizable;
+
     public function __construct()
     {
         $this->middleware('auth');
+        $this->addAbility([
+            'allRoles' => 'view',
+        ]);
     }
 
     /**

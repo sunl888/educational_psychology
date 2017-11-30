@@ -34,7 +34,10 @@ class BannerUpdateRequest extends Request
             'title' => ['nullable', 'string', 'between:1,30'],
             'image' => ['bail', 'nullable', new ImageName(), new ImageNameExist()],
             'type_name' => ['bail', 'nullable', 'string', 'between:1,30', Rule::exists('types', 'name')->where('model_name', Banner::class)],
-            'is_visible' => ['nullable', 'boolean']
+            'is_visible' => ['nullable', 'boolean'],
+            'is_target_blank' => ['nullable', 'boolean'],
+            'enabled_at' => ['nullable', 'date'],
+            'expired_at' => ['nullable', 'date']
         ];
     }
 

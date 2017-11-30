@@ -27,7 +27,7 @@
       </Carousel3d>
       <NoData v-else></NoData>
     </main>
-    <TypeManagement @change="refreshType" typeQueryName="banner" v-model="showTypeManagementDialog"/>
+    <TypeManagement @change="refreshType" typeQueryName="banners" v-model="showTypeManagementDialog"/>
   </div>
 </template>
 
