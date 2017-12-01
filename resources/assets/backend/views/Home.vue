@@ -34,7 +34,9 @@
     </Menu>
     <div class="content-wrapper height-100p">
       <div class="content">
-        <router-view class="router_view"></router-view>
+        <transition appear name="slide-fade-reversal">
+          <router-view class="router_view"></router-view>
+        </transition>
       </div>
     </div>
   </div>
@@ -141,5 +143,19 @@ export default {
         }
       }
     }
+  }
+  .slide-fade-reversal-enter-active {
+    transition: all .5s ease;
+  }
+  .slide-fade-reversal-enter, .slide-fade-reversal-leave-to{
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  .slide-fade-enter-active {
+    transition: all .5s ease;
+  }
+  .slide-fade-enter, .slide-fade-leave-to{
+    transform: translateY(-20px);
+    opacity: 0;
   }
 </style>
