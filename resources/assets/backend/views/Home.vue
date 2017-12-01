@@ -145,14 +145,14 @@ export default {
     }
   }
   .slide-fade-reversal-enter-active {
-    transition: all .5s ease;
+    transition: all .7s ease;
   }
   .slide-fade-reversal-enter, .slide-fade-reversal-leave-to{
     transform: translateY(20px);
     opacity: 0;
   }
   .slide-fade-enter-active {
-    transition: all .5s ease;
+    transition: all .7s ease;
   }
   .slide-fade-enter, .slide-fade-leave-to{
     transform: translateY(-20px);
