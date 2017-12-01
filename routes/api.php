@@ -16,3 +16,6 @@ use Illuminate\Http\Request;
 Route::group(['namespace' => 'Frontend\Api', 'as' => 'frontend.api.'], __DIR__ . '/frontend/api.php');
 
 Route::group(['namespace' => 'Backend\Api', 'as' => 'backend.api.', 'prefix' => 'backend'], __DIR__ . '/backend/api.php');
+
+// ueditor
+Route::any(config('ueditor.route.url', '/ueditor/server'), '\Overtrue\LaravelUEditor\UEditorController@serve')->name(config('ueditor.route.name', 'ueditor.server'));
