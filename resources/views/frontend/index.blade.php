@@ -33,9 +33,9 @@
             <p class="text">{{ setting('intro') }}</p>
         </div>
     </section>
-    @widget('post_list', ['category' => '项目案例', 'view'=>'post_lists.project']);
-    @widget('post_list', ['category' => '新闻中心', 'view'=>'post_lists.news']);
-    @widget('post_list', ['category' => '我们的团队', 'view'=>'post_lists.team']);
+    @widget('post_list', ['category' => '项目案例', 'view'=>'post_lists.project'])
+    @widget('post_list', ['category' => '新闻中心', 'view'=>'post_lists.news'])
+    @widget('post_list', ['category' => '我们的团队', 'view'=>'post_lists.team'])
     <section data-id="skill" class="zm-skill zm-wrap">
         <header class="zm-title">
             <h3>WE GOT SKILLS</h3>
