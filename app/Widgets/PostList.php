@@ -17,16 +17,10 @@ class PostList extends AbstractWidget
         'category' => null,
         'limit' => 10,
         'status' => Post::STATUS_PUBLISH,
-        'view' => 'post_list'
+        'view' => ''
     ];
 
     private $categoryRepository;
-
-    public function __construct(array $config = [])
-    {
-        parent::__construct($config);
-        $this->setViewName($this->viewNamespace . $this->config['view']);
-    }
 
     public function getData(array $params = [])
     {

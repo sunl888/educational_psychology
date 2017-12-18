@@ -26,7 +26,7 @@ class WidgetFactory
         return new HtmlString($content);
     }
 
-    protected function makeWidget($widgetName, array $config = [], ...$params)
+    protected function makeWidget($widgetName, array $config = [], $params = [])
     {
         $this->widgetName = $widgetName = $this->parseWidgetName($widgetName);
         $this->widgetConfig = $config;
@@ -67,7 +67,7 @@ class WidgetFactory
     protected function getContentFromCache()
     {
         if ($cacheTime = $this->getCacheTime()) {
-            Cache::remember($this->widget->cacheKey($this->widgetConfig), $cacheTime, function () {
+            Cache::remember($this->widget->cacheKey(array_merge($this->widgetConfig, $this->widgetParams)), $cacheTime, function () {
                 return $this->getContent();
             });
         }

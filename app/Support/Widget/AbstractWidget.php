@@ -16,6 +16,8 @@ abstract class AbstractWidget
     public function __construct($config = [])
     {
         $this->mergeConfig($config);
+        if(isset($this->config['view']) && $this->config['view'])
+            $this->setViewName($this->viewNamespace . $this->config['view']);
     }
 
     public function setViewName($viewName)
@@ -40,12 +42,18 @@ abstract class AbstractWidget
 
     public function render(array $params)
     {
-        return view($this->getViewName(), $this->getData($params))->render();
+        $data = array_merge($this->getData($params), $params);
+        $data['widget'] = $this;
+        return view($this->getViewName(), $data)->render();
     }
 
     public function cacheKey(array $params = [])
     {
         return $this->viewNamespace . serialize($params);
+    }
+
+    public function getConfig(){
+        return $this->config;
     }
 
     public function mergeConfig($config)

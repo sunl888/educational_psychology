@@ -14,14 +14,8 @@ class Banner extends AbstractWidget
     protected $config = [
         'type' => 'default',
         'limit' => 10,
-        'view' => 'banner'
+        'view' => ''
     ];
-
-    public function __construct(array $config = [])
-    {
-        parent::__construct($config);
-        $this->setViewName($this->viewNamespace . $this->config['view']);
-    }
 
     public function getData(array $params = [])
     {
