@@ -93,7 +93,7 @@ export default {
     });
     this.$http.get('types', {
       params: {
-        model: 'banner'
+        model: 'banners'
       }
     }).then(res => {
       this.types = res.data.data;

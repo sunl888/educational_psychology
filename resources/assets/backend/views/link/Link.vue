@@ -80,7 +80,7 @@ export default {
     });
     this.$http.get('types', {
       params: {
-        model: 'link'
+        model: 'links'
       }
     }).then(res => {
       this.types = res.data.data;
