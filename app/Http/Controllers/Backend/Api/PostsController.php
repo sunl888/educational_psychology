@@ -5,12 +5,10 @@ namespace App\Http\Controllers\Backend\Api;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Traits\Authorizable;
-use App\Http\Requests\Backend\PostCreateRequest;
-use App\Http\Requests\Backend\PostUpdateRequest;
+use App\Http\Requests\Backend\PostRequest;
 use App\Models\Post;
 use App\Repositories\PostRepository;
 use App\Transformers\Backend\PostTransformer;
-use Illuminate\Http\Request;
 
 class PostsController extends ApiController
 {
@@ -24,10 +22,10 @@ class PostsController extends ApiController
 
     /**
      * 获取文章列表
-     * @param Request $request
+     * @param PostRequest $request
      * @return \App\Support\Response\TransformerResponse
      */
-    public function index(Request $request)
+    public function index(PostRequest $request)
     {
         $posts = Post::applyFilter($request)
             ->withSimpleSearch()
@@ -36,13 +34,13 @@ class PostsController extends ApiController
         return $this->response()->paginator($posts, new PostTransformer())->setMeta(Post::getAllowSearchFieldsMeta() + Post::getAllowSortFieldsMeta());
     }
 
-    public function store(PostCreateRequest $request, PostRepository $postRepository)
+    public function store(PostRequest $request, PostRepository $postRepository)
     {
         $postRepository->create($request->validated());
         return $this->response()->noContent();
     }
 
-    public function update(Post $post, PostUpdateRequest $request, PostRepository $postRepository)
+    public function update(Post $post, PostRequest $request, PostRepository $postRepository)
     {
         $postRepository->update($request->validated(), $post);
         return $this->response()->noContent();

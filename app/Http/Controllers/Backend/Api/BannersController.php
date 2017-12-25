@@ -5,13 +5,11 @@ namespace App\Http\Controllers\Backend\Api;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Traits\Authorizable;
-use App\Http\Requests\Backend\BannerCreateRequest;
-use App\Http\Requests\Backend\BannerUpdateRequest;
+use App\Http\Requests\Backend\BannerRequest;
 use App\Models\Banner;
 use App\Repositories\BannerRepository;
 use App\Services\CustomOrder;
 use App\Transformers\Backend\BannerTransformer;
-use Illuminate\Http\Request;
 
 class BannersController extends ApiController
 {
@@ -21,20 +19,20 @@ class BannersController extends ApiController
         $this->middleware('auth');
     }
 
-    public function index(Request $request)
+    public function index(BannerRequest $request)
     {
         $banners = Banner::byType($request->get('type_name', null))->ancient()->get();
         $banners = app(CustomOrder::class)->order($banners);
         return $this->response()->collection($banners, new BannerTransformer());
     }
 
-    public function store(BannerCreateRequest $request, BannerRepository $bannerRepository)
+    public function store(BannerRequest $request, BannerRepository $bannerRepository)
     {
         $bannerRepository->create($request->validated());
         return $this->response()->noContent();
     }
 
-    public function update(Banner $banner, BannerUpdateRequest $request, BannerRepository $bannerRepository)
+    public function update(Banner $banner, BannerRequest $request, BannerRepository $bannerRepository)
     {
         $bannerRepository->update($request->validated(), $banner);
         return $this->response()->noContent();

@@ -3,13 +3,11 @@ namespace App\Http\Controllers\Backend\Api;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Traits\Authorizable;
-use App\Http\Requests\Backend\RoleCreateRequest;
-use App\Http\Requests\Backend\RoleUpdateRequest;
+use App\Http\Requests\Backend\RoleRequest;
 use App\Models\Role;
 use App\Repositories\RoleRepository;
 use App\Transformers\Backend\PermissionTransformer;
 use App\Transformers\Backend\RoleTransformer;
-use Illuminate\Http\Request;
 
 
 class RolesController extends ApiController
@@ -73,10 +71,10 @@ class RolesController extends ApiController
 
     /**
      * 创建角色
-     * @param RoleCreateRequest $request
+     * @param RoleRequest $request
      * @return mixed
      */
-    public function store(RoleCreateRequest $request, RoleRepository $roleRepository)
+    public function store(RoleRequest $request, RoleRepository $roleRepository)
     {
         $roleRepository->create($request->validated());
         Role::create($request->all());
@@ -86,10 +84,10 @@ class RolesController extends ApiController
     /**
      * 更新角色
      * @param Role $role
-     * @param RoleUpdateRequest $request
+     * @param RoleRequest $request
      * @return mixed
      */
-    public function update(Role $role, RoleUpdateRequest $request, RoleRepository $roleRepository)
+    public function update(Role $role, RoleRequest $request, RoleRepository $roleRepository)
     {
         $roleRepository->update($request->validated(), $role);
         return $this->response()->noContent();
@@ -98,9 +96,10 @@ class RolesController extends ApiController
     /**
      * 删除角色
      * @param Role $role
-     * @return mixed
+     * @param RoleRequest $request
+     * @return \App\Support\Response\Response
      */
-    public function destroy(Role $role, Request $request)
+    public function destroy(Role $role, RoleRequest $request)
     {
         // todo 删除关联数据
         // 删除 model_has_roles 中 role_id = $role->id 的记录即可
