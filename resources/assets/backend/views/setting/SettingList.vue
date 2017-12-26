@@ -3,7 +3,7 @@
     <ListWrapper ref="list" title="设置列表" :queryName="mixinConfig.action">
       <span slot="option"><Button @click="$router.push({name: 'addSetting'})" icon="plus-round" type="primary">添加</Button></span>
       <template slot-scope="props">
-        <TTable :columns="colums" :data="props.data"></TTable>
+        <TTable :columns="columns" :data="props.data"></TTable>
       </template>
     </ListWrapper>
   </div>
@@ -21,7 +21,7 @@
     data () {
       return {
         settings: [],
-        colums: [
+        columns: [
           {
             title: '设置项',
             key: 'name'
