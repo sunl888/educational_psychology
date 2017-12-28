@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Backend;
 
+use App\Http\Requests\Request;
 use App\Models\Setting;
 use Illuminate\Validation\Rule;
 

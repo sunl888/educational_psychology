@@ -1,12 +1,12 @@
 <template>
   <div class="type_management">
     <Modal width="700" v-model="showTypeListDialog" title="分类列表">
-      <Button style="margin-bottom: 15px;" class="add_btn" @click="showAddDialog" icon="plus-round" type="primary">添加</Button>
+      <Button class="add_btn" @click="showAddDialog" icon="plus-round" type="primary">添加</Button>
       <Table :columns="tyleCol" :data="types"></Table>
     </Modal>
     <!-- 编辑分类 -->
-    <Modal width="450" v-model="showTypeEditDialog" :title="title" @on-ok="confirm" :loading="showTypeEditLoading">
-      <Form :model="formData" :label-width="60">
+    <Modal @on-visible-change="onVisibleChange" width="450" v-model="showTypeEditDialog" :title="title" @on-ok="confirm" :loading="showTypeEditLoading">
+      <Form :model="formData" :label-width="62">
         <Form-item label="分类" :error="errors.name">
           <Input v-model="formData.name" placeholder="请设置分类，字母数字组成"></Input>        
         </Form-item>
@@ -132,6 +132,16 @@ export default {
       this.formData = this.rowFormData;
       this.init();
       this.showTypeEditDialog = true;
+    },
+    onVisibleChange (isVisible) {
+      if (!isVisible) {
+        this.formData = {
+          'name': null,
+          'display_name': null,
+          'description': null,
+          'model_name': this.typeQueryName
+        };
+      }
     }
   },
   mounted () {
@@ -153,5 +163,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-
+.add_btn{
+  margin-bottom: 15px;
+}
 </style>

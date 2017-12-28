@@ -8,7 +8,7 @@ namespace App\Http\Controllers\Backend\Api;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Traits\Authorizable;
-use App\Http\Requests\SettingRequest;
+use App\Http\Requests\Backend\SettingRequest;
 use App\Models\Setting;
 use App\Repositories\SettingRepository;
 use App\Services\CustomOrder;
