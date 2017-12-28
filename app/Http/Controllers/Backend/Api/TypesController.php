@@ -5,13 +5,11 @@ namespace App\Http\Controllers\Backend\Api;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Traits\Authorizable;
-use App\Http\Requests\Backend\TypeCreateRequest;
-use App\Http\Requests\Backend\TypeUpdateRequest;
+use App\Http\Requests\Backend\TypeRequest;
 use App\Models\InterfaceTypeable;
 use App\Models\Type;
 use App\Repositories\TypeRepository;
 use App\Transformers\Backend\TypeTransformer;
-use Illuminate\Http\Request;
 
 
 class TypesController extends ApiController
@@ -27,19 +25,19 @@ class TypesController extends ApiController
         return $this->response()->item($type, new TypeTransformer());
     }
 
-    public function index(Request $request)
+    public function index(TypeRequest $request)
     {
         $types = Type::byModel($request->get('model'))->ancient()->get();
         return $this->response()->collection($types, new TypeTransformer());
     }
 
-    public function store(TypeCreateRequest $request, TypeRepository $typeRepository)
+    public function store(TypeRequest $request, TypeRepository $typeRepository)
     {
         $typeRepository->create($request->validated());
         return $this->response()->noContent();
     }
 
-    public function update(Type $type, TypeUpdateRequest $request, TypeRepository $typeRepository)
+    public function update(Type $type, TypeRequest $request, TypeRepository $typeRepository)
     {
         $typeRepository->update($request->validated(), $type);
         return $this->response()->noContent();
@@ -48,10 +46,10 @@ class TypesController extends ApiController
     /**
      * 删除类型
      * @param Type $type
-     * @param Request $request
+     * @param TypeRequest $request
      * @return \App\Support\Response\Response
      */
-    public function destroy(Type $type, Request $request)
+    public function destroy(Type $type, TypeRequest $request)
     {
         if (class_exists($type->model_name)) {
             $model = app($type->model_name);

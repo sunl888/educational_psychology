@@ -33,6 +33,7 @@ class BannerRepository extends BaseRepository
     public function preCreate(array &$data)
     {
         $this->filterData($data);
+        // todo create_id 放到控制器里面
         $data['creator_id'] = auth()->id();
         return $data;
     }

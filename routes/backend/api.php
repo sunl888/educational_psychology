@@ -31,7 +31,7 @@ Route::apiResource('categories', 'CategoriesController');
 // 获取单页
 Route::get('categories/{category}/page', 'CategoriesController@page')->name('categories.page');
 // 创建或更新单页
-Route::post('categories/{category}/page', 'CategoriesController@savePage');
+Route::post('categories/{category}/page', 'CategoriesController@savePage')->name('categories.page');
 Route::apiResource('banners', 'BannersController');
 
 Route::apiResource('links', 'LinksController');

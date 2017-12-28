@@ -8,13 +8,11 @@ namespace App\Http\Controllers\Backend\Api;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Traits\Authorizable;
-use App\Http\Requests\SettingCreateRequest;
-use App\Http\Requests\SettingUpdateRequest;
+use App\Http\Requests\SettingRequest;
 use App\Models\Setting;
 use App\Repositories\SettingRepository;
 use App\Services\CustomOrder;
 use App\Transformers\Backend\SettingTransformer;
-use Illuminate\Http\Request;
 
 class SettingsController extends ApiController
 {
@@ -26,7 +24,7 @@ class SettingsController extends ApiController
         $this->middleware('auth');
     }
 
-    public function index(Request $request)
+    public function index(SettingRequest $request)
     {
         $settings = Setting::byType($request->get('type_name', null))
             ->withSort()
@@ -37,13 +35,13 @@ class SettingsController extends ApiController
             ->setMeta(Setting::getAllowSortFieldsMeta() + Setting::getAllowSearchFieldsMeta());
     }
 
-    public function store(SettingCreateRequest $request, SettingRepository $settingRepository)
+    public function store(SettingRequest $request, SettingRepository $settingRepository)
     {
         $settingRepository->create($request->validated());
         return $this->response()->noContent();
     }
 
-    public function update(Setting $setting, SettingUpdateRequest $request, SettingRepository $settingRepository)
+    public function update(Setting $setting, SettingRequest $request, SettingRepository $settingRepository)
     {
         $settingRepository->update($request->validated(), $setting);
         return $this->response()->noContent();
@@ -62,10 +60,10 @@ class SettingsController extends ApiController
 
     /**
      * 拖拽排序
-     * @param Request $request
+     * @param SettingRequest $request
      * @return \App\Support\Response\Response
      */
-    public function setOrder(Request $request)
+    public function setOrder(SettingRequest $request)
     {
         // todo message
         $data = $this->validate($request, [
