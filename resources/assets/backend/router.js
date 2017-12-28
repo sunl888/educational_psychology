@@ -209,7 +209,7 @@ const router = new Router({
           component: require('./views/setting/Setting.vue')
         },
         {
-          path: 'setting/list',
+          path: 'setting/list/:typeName?',
           name: 'settingList',
           component: require('./views/setting/SettingList.vue')
         }
