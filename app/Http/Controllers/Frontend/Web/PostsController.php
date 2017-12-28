@@ -57,6 +57,6 @@ class PostsController extends Controller
         $posts = Post::withSimpleSearch($keywords, ['title', 'excerpt'])
             ->applyFilter(collect(['status' => Post::STATUS_PUBLISH]))
             ->with('user')
-            ->paginate($this->perPage());
+            ->paginate($this->perPage())->appends($request->all());
         return view(config('template.theme_namespace') . '::search', ['posts' => $posts, 'keywords' => $keywords]);    }
 }

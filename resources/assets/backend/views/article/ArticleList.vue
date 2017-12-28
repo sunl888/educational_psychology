@@ -76,7 +76,7 @@ export default {
       status: 'all',
       categories: [],
       categoryId: 0,
-      colums: [
+      columns: [
         {
           title: '标题',
           key: 'title'

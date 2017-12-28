@@ -3,7 +3,7 @@
     <ListWrapper ref="list" title="用户列表" :queryName="mixinConfig.action + '?include=roles'">
       <span slot="option"><Button @click="$router.push({name: 'addUser'})" icon="plus-round" type="primary">添加</Button></span>
       <template slot-scope="props">
-        <TTable :columns="colums" :data="props.data" />
+        <TTable :columns="columns" :data="props.data" />
       </template>
     </ListWrapper>
   </div>
@@ -27,7 +27,7 @@
     mixins: [ delMixin ],
     data () {
       return {
-        colums: [
+        columns: [
           {
             title: '昵称',
             key: 'nick_name',

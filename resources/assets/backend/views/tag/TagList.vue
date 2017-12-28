@@ -3,7 +3,7 @@
     <ListWrapper ref="list" title="标签列表" :queryName="mixinConfig.action">
       <span slot="option"><Button @click="$router.push({name: 'addTag'})" icon="plus-round" type="primary">添加</Button></span>
       <template slot-scope="props">
-        <TTable :columns="colums" :data="props.data" />
+        <TTable :columns="columns" :data="props.data" />
       </template>
     </ListWrapper>
   </div>
@@ -27,7 +27,7 @@ export default {
   mixins: [ delMixin ],
   data () {
     return {
-      colums: [
+      columns: [
         {
           title: '标签明',
           key: 'name'
