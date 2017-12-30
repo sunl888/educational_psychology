@@ -20,7 +20,7 @@ class Post extends BaseModel implements PresentableInterface
 
     const STATUS_PUBLISH = 'publish', STATUS_DRAFT = 'draft';
 
-    public function scopeRecent($query)
+    public function scopeLatest($query)
     {
         return $query->orderBy('published_at', 'desc')->orderBy('created_at', 'desc');
     }
@@ -46,7 +46,7 @@ class Post extends BaseModel implements PresentableInterface
         if (isset($data['only_trashed']) && $data['only_trashed']) {
             $query->onlyTrashed();
         }
-        return $query->ordered()->recent();
+        return $query->ordered()->latest();
     }
 
     public function scopeByCategory($query, $category)

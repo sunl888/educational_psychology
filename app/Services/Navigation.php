@@ -22,7 +22,7 @@ class Navigation
     {
         return Category::nav()->topCategories()->with(['children' => function ($query) {
             $query->nav();
-        }])->ordered()->ancient()->get();
+        }])->ordered()->oldest()->get();
     }
 
     public function getAllNav()

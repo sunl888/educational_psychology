@@ -23,7 +23,7 @@ class AttachmentsController extends ApiController
 
     public function index()
     {
-        $attachments = Attachment::recent()->paginate($this->perPage());
+        $attachments = Attachment::latest()->paginate($this->perPage());
         return $this->response()->collection($attachments, new AttachmentTransformer());
     }
 

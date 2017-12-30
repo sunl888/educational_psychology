@@ -50,16 +50,16 @@ class Category extends BaseModel implements PresentableInterface
         $query = $this->posts()->byType(static::TYPE_POST)->byStatus(Post::STATUS_PUBLISH)->orderByTop();
         switch ($order) {
             case 'default':
-                $query->ordered()->recent();
+                $query->ordered()->latest();
                 break;
             case 'recent':
-                $query->recent()->ordered();
+                $query->latest()->ordered();
                 break;
             case 'popular':
-                $query->orderBy('views_count', 'desc')->recent();
+                $query->orderBy('views_count', 'desc')->latest();
                 break;
             default:
-                $query->ordered()->recent();
+                $query->ordered()->latest();
                 break;
         }
         return $query;
@@ -207,7 +207,7 @@ class Category extends BaseModel implements PresentableInterface
                 $query->where('id', '!=', $exceptPost->id);
             }
         }
-        return $query->orderBy('views_count', 'desc')->recent()->limit($limit)->get();
+        return $query->orderBy('views_count', 'desc')->latest()->limit($limit)->get();
     }
 
     public function hasChildren()

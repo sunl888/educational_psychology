@@ -44,7 +44,7 @@ class CategoriesController extends Controller
             $posts = Post::whereIn('category_id', $childrenIds)
                 ->byType(Category::TYPE_POST)
                 ->byStatus(Post::STATUS_PUBLISH)
-                ->orderByTop()->ordered()->recent()->with('user')->paginate($perPage);
+                ->orderByTop()->ordered()->latest()->with('user')->paginate($perPage);
         }
         $posts->appends($request->all());
 

@@ -21,7 +21,7 @@ class BannersController extends ApiController
 
     public function index(BannerRequest $request)
     {
-        $banners = Banner::byType($request->get('type_name', null))->ancient()->get();
+        $banners = Banner::byType($request->get('type_name', null))->oldest()->get();
         $banners = app(CustomOrder::class)->order($banners);
         return $this->response()->collection($banners, new BannerTransformer());
     }

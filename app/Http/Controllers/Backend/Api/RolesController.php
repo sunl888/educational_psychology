@@ -38,7 +38,7 @@ class RolesController extends ApiController
      */
     public function allRoles()
     {
-        $roles = Role::ordered()->recent()->get();
+        $roles = Role::ordered()->latest()->get();
         return $this->response()->collection($roles, new RoleTransformer());
     }
 
@@ -51,7 +51,7 @@ class RolesController extends ApiController
         $roles = Role::withSimpleSearch()
             ->withSort()
             ->ordered()
-            ->recent()
+            ->latest()
             ->paginate($this->perPage());
         return $this->response()->paginator($roles, new RoleTransformer())
             ->setMeta(Role::getAllowSearchFieldsMeta() + Role::getAllowSortFieldsMeta());

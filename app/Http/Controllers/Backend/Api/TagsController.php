@@ -21,7 +21,7 @@ class TagsController extends ApiController
 
     public function index()
     {
-        $tags = Tag::withSimpleSearch()->recent()->get();
+        $tags = Tag::withSimpleSearch()->latest()->get();
         return $this->response()->collection($tags, new TagTransformer());
     }
 

@@ -3,10 +3,17 @@
 namespace App\Models;
 
 
-use App\Models\Traits\Sortable;
 use Illuminate\Database\Eloquent\Model;
 
 class BaseModel extends Model
 {
-    use Sortable;
+    /**
+     * 按 order 降序排序
+     * @param $query
+     * @return mixed
+     */
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('order', 'desc');
+    }
 }

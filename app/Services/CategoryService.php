@@ -10,9 +10,9 @@ class CategoryService
     // todo cache
     public function getAllByType($type)
     {
-        $topicCategories = Category::topCategories()->ordered()->ancient()->get();
+        $topicCategories = Category::topCategories()->ordered()->oldest()->get();
         $topicCategories->load(['children' => function ($query) use ($type) {
-            $query->byType($type)->ordered()->ancient();
+            $query->byType($type)->ordered()->oldest();
         }]);
         if (!is_null($type)) {
             $topicCategories = $topicCategories->filter(function ($category) use ($type) {

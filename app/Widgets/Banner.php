@@ -21,7 +21,7 @@ class Banner extends AbstractWidget
     {
         return [
             'banners' => app(CustomOrder::class)
-                ->order(BannerModel::byType($this->config['type'])->displayable()->limit($this->config['limit'])->ancient()->get()),
+                ->order(BannerModel::byType($this->config['type'])->displayable()->limit($this->config['limit'])->oldest()->get()),
         ];
     }
 }

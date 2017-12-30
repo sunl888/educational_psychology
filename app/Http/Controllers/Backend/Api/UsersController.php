@@ -27,7 +27,7 @@ class UsersController extends ApiController
     {
         $users = User::withSimpleSearch()
             ->withSort()
-            ->recent()
+            ->latest()
             ->paginate($this->perPage());
         return $this->response()->paginator($users, new UserTransformer())->setMeta(User::getAllowSortFieldsMeta() + User::getAllowSearchFieldsMeta());
     }

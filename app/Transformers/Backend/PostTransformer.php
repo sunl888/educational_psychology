@@ -66,7 +66,7 @@ class PostTransformer extends TransformerAbstract
 
     public function includeAttachments(Post $post)
     {
-        $attachments = $post->attachments()->recent()->get();
+        $attachments = $post->attachments()->latest()->get();
         if (is_null($attachments)) {
             return $this->null();
         }

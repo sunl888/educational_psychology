@@ -29,7 +29,7 @@ class SettingsController extends ApiController
         $settings = Setting::byType($request->get('type_name', null))
             ->withSort()
             ->withSimpleSearch()
-            ->ancient()
+            ->oldest()
             ->paginate($this->perPage());
         return $this->response()->paginator($settings, new SettingTransformer())
             ->setMeta(Setting::getAllowSortFieldsMeta() + Setting::getAllowSearchFieldsMeta());

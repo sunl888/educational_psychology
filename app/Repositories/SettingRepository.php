@@ -44,7 +44,7 @@ class SettingRepository extends BaseRepository
 
     public function allSettingWithoutCache()
     {
-        return $this->model->withoutGlobalScope('notSystem')->recent()->get()->keyBy('name');
+        return $this->model->withoutGlobalScope('notSystem')->latest()->get()->keyBy('name');
     }
 
     public function set($data)
