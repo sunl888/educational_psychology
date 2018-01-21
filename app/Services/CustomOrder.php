@@ -18,6 +18,9 @@ class CustomOrder
 
     public function order(Collection $collection)
     {
+        if ($collection->isEmpty()) {
+            return $collection;
+        }
         $indexOrder = setting($this->getSettingKey($collection->first()));
         if (empty($indexOrder)) {
             return $collection;
