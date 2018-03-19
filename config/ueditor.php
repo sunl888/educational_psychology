@@ -11,7 +11,7 @@
 
 return [
     // 存储引擎: config/filesystem.php 中 disks， public 或 qiniu
-    'disk' => 'qiniu',
+    'disk' => env('UEDITOR_DISK', 'public'),
     'route' => [
         'url' => '/ueditor/server',
         'name' => 'ueditor.server',
@@ -80,7 +80,7 @@ return [
         'videoMaxSize' => 102400000, /* 上传大小限制，单位B，默认100MB */
         'videoAllowFiles' => [
             '.flv', '.swf', '.mkv', '.avi', '.rm', '.rmvb', '.mpeg', '.mpg',
-            '.ogg', '.ogv', '.mov', '.wmv', '.mp4', '.webm', '.mp3', '.wav', '.mid', ], /* 上传视频格式显示 */
+            '.ogg', '.ogv', '.mov', '.wmv', '.mp4', '.webm', '.mp3', '.wav', '.mid',], /* 上传视频格式显示 */
 
         /* 上传文件配置 */
         'fileActionName' => 'upload-file', /* controller里,执行上传视频的action名称 */
