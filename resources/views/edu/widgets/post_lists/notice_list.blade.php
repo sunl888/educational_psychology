@@ -14,7 +14,7 @@
                 <a href="{!! $post->getPresenter()->url() !!}">{!! $post->title !!}</a>
             </li>
         @empty
-            <p class="no_data">暂无数据</p>
+            <p class="no_data"><img src="{{cdn('edu/images/no_data.png')}}" alt=""></p>
         @endforelse
     </ul>
     {{--资料下载--}}

@@ -13,7 +13,7 @@
                     <span>{!! $post->published_at->format('Y-m-d')!!}</span>
                 </li>
             @empty
-                <p class="no_data">暂无数据</p>
+                <p class="no_data"><img src="{{cdn('edu/images/no_data.png')}}" alt=""></p>
             @endforelse
         </ul>
     </div>

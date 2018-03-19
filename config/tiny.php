@@ -5,7 +5,7 @@ return [
     'default_user_password' => 'test1234',
 
     'max_per_page' => 40,
-    'default_per_page' => 15,
+    'default_per_page' => 7,
 
     'default_slug_mode' => 'pinyin',
 

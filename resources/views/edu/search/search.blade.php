@@ -1,39 +1,46 @@
-@extends('jiegao.layouts.app')
+@extends(THEME_NP.'.layouts.app')
 
+@section('keywords'){!! $keywords !!}@endsection
+@section('description'){!! $keywords !!}@endsection
 @section('title'){{ Breadcrumbs::pageTitle(' - ', 'search', $keywords) }}@endsection
+
 @section('content')
-    @widget('navigation_bar')
-    <!-- 列表正文start -->
-    <div class="list_top_bg"></div>
-    <div class="list_container container">
-        <div class="nav_menu">
-            <ul>
-                <li class="active">
-                    <span class="pendant"></span>
-                    <a>搜索</a>
-                    <span class="arrow"></span>
-                </li>
-            </ul>
-        </div>
-        <div class="main_list">
-            <div class="header">
-                {{ Breadcrumbs::view('jiegao.layouts.search_breadcrumbs', 'search', $keywords) }}
+    <div class="container">
+        <!-- 头部 -->
+    @include(THEME_NP.'.layouts.particals.header')
+    <!-- 导航栏 -->
+        @widget('navigation_bar')
+        <!-- 中间部分 -->
+        <div class="list_page">
+            <div class="left_sidebar">
+                @widget('hot_post_list')
+                @include(THEME_NP.'layouts.particals.search')
             </div>
-            <ul class="post_list">
-                @forelse($posts as $post)
-                    <li>
-                        <a href="{!! $post->getPresenter()->url() !!}">{!! sign_color($post->title, $keywords, config('tiny.keywords_color')) !!}</a>
-                        <span class="time">{!! $post->published_at->format('Y年m月d日')!!}</span>
-                    </li>
-                @empty
-                    <p class="no_data">暂无数据</p>
-                @endforelse
-            </ul>
-            {!! $posts->fragment('list')->links() !!}
+            <div class="right_list">
+                <div class="header">
+                    {{ Breadcrumbs::view(THEME_NP.'.layouts.particals.search_breadcrumbs', 'search', $keywords) }}
+                </div>
+                <div class="right_main">
+                    <ul class="text_list">
+                        @forelse($posts as $post)
+                            <li>
+                                <a href="{!! $post->getPresenter()->url() !!}"
+                                   title="{!! $post->title !!}">{!! $post->title !!}</a>
+                                <span>{!! $post->published_at->format('Y-m-d')!!}</span>
+                            </li>
+                        @empty
+                            <p class="no_data"><img src="{{cdn('edu/images/no_data.png')}}" alt=""></p>
+                        @endforelse
+                    </ul>
+                    <!-- 分页 -->
+                    <div class="page_body">
+                        {!! $posts->fragment('list')->appends('keywords', $keywords)->links('vendor.pagination.default') !!}
+                    </div>
+                </div>
+            </div>
         </div>
+        <!-- 底部导航 -->
+        @include(THEME_NP.'.layouts.particals.footer')
     </div>
-    <!-- 列表正文end -->
-    @include('jiegao.layouts.particals.footer')
+
 @endsection
-
-

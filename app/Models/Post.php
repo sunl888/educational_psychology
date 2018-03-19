@@ -134,6 +134,14 @@ class Post extends BaseModel implements PresentableInterface
     {
         return $this->category->posts()->publishPost()->where('id', '>', $this->id)->first();
     }
+    /**
+     * 获取上一篇文章
+     * @return mixed
+     */
+    public function getPreviousPost()
+    {
+        return $this->category->posts()->publishPost()->where('id', '<', $this->id)->Latest()->first();
+    }
 
     public function isPublish()
     {

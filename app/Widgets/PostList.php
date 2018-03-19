@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Widgets;
 
 
@@ -35,13 +34,12 @@ class PostList extends AbstractWidget
             } catch (ModelNotFoundException $e) {
                 $category = new Category(['cate_name' => $this->config['category']]);
             }
-
         }
         if ($category->exists) {
             $posts = Post::applyFilter(collect([
                 'category_id' => $category->id,
                 'status' => $this->config['status']
-            ]))->limit($this->config['limit'])->get();
+            ]))->paginate($this->config['limit']);
         } else {
             $posts = collect();
         }

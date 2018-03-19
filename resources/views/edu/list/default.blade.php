@@ -1,34 +1,30 @@
-@extends('jiegao.layouts.app')
+@extends(THEME_NP.'.layouts.app')
 
 @section('keywords'){!! $category->getKeywords() !!}@endsection
 @section('description'){!! $category->getDescription() !!}@endsection
 @section('title'){{ Breadcrumbs::pageTitle(' - ', 'category', $category) }}@endsection
 
 @section('content')
-    @widget('navigation_bar')
-    <!-- 列表正文start -->
-    <div class="list_top_bg"></div>
-    <div class="list_container container">
-        @widget('navigation_bar',['view'=>'navigation_sidebar'])
-        <div class="main_list">
-            <div class="header">
-                {{ Breadcrumbs::render('category', $category) }}
+    <div class="container">
+        <!-- 头部 -->
+    @include(THEME_NP.'.layouts.particals.header')
+    <!-- 导航栏 -->
+        @widget('navigation_bar')
+        <!-- 中间部分 -->
+        <div class="list_page">
+            <div class="left_sidebar">
+                @widget('hot_post_list')
+                @include(THEME_NP.'layouts.particals.search')
             </div>
-            <ul class="post_list">
-                @forelse($posts as $post)
-                    <li>
-                        <a href="{!! $post->getPresenter()->url() !!}">{{$post->title}}</a>
-                        <span class="time">{!! $post->published_at->format('Y年m月d日')!!}</span>
-                    </li>
-                @empty
-                    <p class="no_data">暂无数据</p>
-                @endforelse
-            </ul>
-            {!! $posts->fragment('list')->links() !!}
+            <div class="right_list">
+                <div class="header">
+                    {{ Breadcrumbs::render('category', $category) }}
+                </div>
+                @widget('post_list', ['category' => $category->cate_name, 'view' => 'post_lists.default_list', 'limit' => 7])
+            </div>
         </div>
+        <!-- 底部导航 -->
+        @include(THEME_NP.'.layouts.particals.footer')
     </div>
-    <!-- 列表正文end -->
-    @include('jiegao.layouts.particals.footer')
+
 @endsection
-
-

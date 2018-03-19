@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="description" content="@section('description')@show">
     <meta name="keywords" content="@section('keywords')@show">
-    <title>@section('title') - 教育心理学 @show</title>
+    <title>@section('title') @show 教育心理学</title>
     <link rel="stylesheet" type="text/css" href="{{cdn('edu/css/comm.css')}}">
 </head>
 <body>
