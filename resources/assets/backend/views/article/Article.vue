@@ -45,7 +45,7 @@
           <Row>
             <Col span="12">
               <Form-item label="排序" :error="errors.order">
-                <Input-number :min="0" v-model="formData.order"></Input-number>
+                <Input-number v-model="formData.order"></Input-number>
               </Form-item>
             </Col>
             <Col span="12">

@@ -12,7 +12,7 @@
           <Input v-model="formData.description" type="textarea" :rows="4" placeholder="请输入角色描述"></Input>
         </Form-item>
         <Form-item label="排序" :error="errors.order">
-          <InputNumber :min="0" v-model="formData.order"></InputNumber>
+          <InputNumber v-model="formData.order"></InputNumber>
         </Form-item>
         <FormButtomGroup />
       </Form>
