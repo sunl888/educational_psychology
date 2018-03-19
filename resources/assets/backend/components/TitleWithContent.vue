@@ -112,16 +112,13 @@ export default {
 </script>
 
 <style lang="less">
-.ql-toolbar.ql-snow, .ql-container.ql-snow{
-  border: none;
+.edui-editor{
+  z-index: 999!important;
 }
-.ql-container .ql-editor {
-  min-height: 320px;
-  padding-bottom: 1em;
-}
+
 .article_wrapper {
   background-color: #fff;
-  padding: 35px!important;
+  padding: 20px!important;
   padding-bottom: 20px!important;
   margin-bottom: 30px;
   .title_input_wrapper {
