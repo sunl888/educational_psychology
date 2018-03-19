@@ -91,6 +91,8 @@ export default {
             'rowspacingbottom',
             'lineheight',
             '|',
+          ],
+          [
             'customstyle',
             'paragraph',
             'fontfamily',
@@ -121,9 +123,11 @@ export default {
             'insertimage',
             'emotion',
             'scrawl',
+          ],
             'insertvideo',
             // 'music',
             'attachment',
+          [
             'map',
             // 'gmap',
             'insertframe',
