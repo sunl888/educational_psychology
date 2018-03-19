@@ -25,8 +25,8 @@
                         @forelse($posts as $post)
                             <li>
                                 <a href="{!! $post->getPresenter()->url() !!}"
-                                   title="{!! $post->title !!}">{!! $post->title !!}</a>
-                                <span>{!! $post->published_at->format('Y-m-d')!!}</span>
+                                   title="{!! $post->title !!}">{!! sign_color($post->title, $keywords) !!}</a>
+                                <span class="time">{!! $post->published_at->format('Y-m-d')!!}</span>
                             </li>
                         @empty
                             <p class="no_data"><img src="{{cdn('edu/images/no_data.png')}}" alt=""></p>

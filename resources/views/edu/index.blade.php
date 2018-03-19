@@ -33,24 +33,21 @@
             $picContainer.width($imgList[0].offsetWidth * $imgList.length);
 
             function move() {
-                var current = $picContainer.css("transform").replace(/[^0-9\-,]/g, '').split(',')[4] - 1;
-                $picContainer.css("transform", "translateX(" + current + "px)");
-                if (current <= -200) {
-                    $picContainer.css("transform", "translateX(0px)");
-                    $picContainer.append($picContainer.children().first());
+                var left = $picContainer.css('left');
+                var currentLeft = parseInt(left.substring(0, left.length - 2));
+                $picContainer.css('left', currentLeft - 1);
+                if (currentLeft <= -200) {
+                    $picContainer.css('left', 0);
+                    $picContainer.append($picContainer.find('li').first());
                 }
             }
 
-            productTimer = setInterval(function () {
-                move();
-            }, 20);
+            productTimer = setInterval(move, 20);
 
             $picContainer.hover(function () {
                 clearInterval(productTimer);
             }, function () {
-                productTimer = setInterval(function () {
-                    move();
-                }, 20)
+                productTimer = setInterval(move, 20)
             })
         }())
     </script>

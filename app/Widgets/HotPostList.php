@@ -9,7 +9,7 @@ class HotPostList extends AbstractWidget
 {
 
     protected $config = [
-        'limit' => 3,
+        'limit' => 5,
         'status' => Post::STATUS_PUBLISH,
         'view' => ''
     ];
