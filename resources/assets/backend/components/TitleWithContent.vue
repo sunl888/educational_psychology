@@ -124,10 +124,10 @@ export default {
             'emotion',
             'scrawl',
           ],
+          [
             'insertvideo',
             // 'music',
             'attachment',
-          [
             'map',
             // 'gmap',
             'insertframe',
