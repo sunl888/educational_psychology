@@ -84,7 +84,7 @@
   .detail{
     display: none;
     position: absolute;
-    z-index: 20;
+    z-index: 1200;
     top: 50px;
     background-color: #fff;
     border-top: 2px solid #1296DB;
