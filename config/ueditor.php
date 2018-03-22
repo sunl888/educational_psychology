@@ -11,7 +11,7 @@
 
 return [
     // 存储引擎: config/filesystem.php 中 disks， public 或 qiniu
-    'disk' => 'qiniu',
+    'disk' => 'public',
     'route' => [
         'url' => '/ueditor/server',
         'name' => 'ueditor.server',

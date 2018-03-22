@@ -1,7 +1,7 @@
 <div class="right">
     <div class="title">
         <img src="{{cdn('edu/images/notice.png')}}" alt="">
-        <h2>通知通告</h2>
+        <h2>科学研究</h2>
         <a class="more" {!! $category->getPresenter()->linkAttribute() !!}>更多</a>
     </div>
     <ul class="notice_list">

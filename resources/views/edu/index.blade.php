@@ -11,10 +11,10 @@
         @widget('navigation_bar')
         <!-- 中间内容 -->
         <div class="index_content">
-            {{--新闻速递--}}
-            @widget('post_list', ['category' => '新闻速递', 'view' => 'post_lists.news_list', 'limit' => 7])
-            {{--通知通告--}}
-            @widget('post_list', ['category' => '通知通告', 'view' => 'post_lists.notice_list', 'limit' => 4])
+            {{--新闻通告--}}
+            @widget('post_list', ['category' => '新闻通告', 'view' => 'post_lists.news_list', 'limit' => 7])
+            {{--科学研究--}}
+            @widget('post_list', ['category' => '科学研究', 'view' => 'post_lists.notice_list', 'limit' => 4])
         </div>
         <!-- 图片滚动 -->
         @widget('banner', ['type'=>'categorys'])
