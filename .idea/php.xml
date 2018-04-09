@@ -68,7 +68,6 @@
       <path value="$PROJECT_DIR$/vendor/hamcrest/hamcrest-php" />
       <path value="$PROJECT_DIR$/vendor/maximebf/debugbar" />
       <path value="$PROJECT_DIR$/vendor/overtrue/laravel-filesystem-qiniu" />
-      <path value="$PROJECT_DIR$/vendor/overtrue/laravel-ueditor" />
       <path value="$PROJECT_DIR$/vendor/overtrue/pinyin" />
       <path value="$PROJECT_DIR$/vendor/overtrue/flysystem-qiniu" />
       <path value="$PROJECT_DIR$/vendor/overtrue/laravel-lang" />
@@ -103,6 +102,7 @@
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
       <path value="$PROJECT_DIR$/vendor/davejamesmiller/laravel-breadcrumbs" />
+      <path value="$PROJECT_DIR$/vendor/ty666/laravel-ueditor" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7" />

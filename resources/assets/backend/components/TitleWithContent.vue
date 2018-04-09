@@ -58,7 +58,114 @@ export default {
       let token = getCsrfToken();
 
       this.editor = window.UE.getEditor('ueditor_container', {
-        initialFrameHeight: 300
+        initialFrameHeight: 300,
+        toolbars: [
+          [
+            'fullscreen',
+            'source',
+            '|',
+            'undo',
+            'redo',
+            '|',
+            'bold',
+            'italic',
+            'underline',
+            'fontborder',
+            'strikethrough',
+            'superscript',
+            'subscript',
+            'removeformat',
+            'formatmatch',
+            'autotypeset',
+            'blockquote',
+            'pasteplain',
+            '|',
+            'forecolor',
+            'backcolor',
+            'insertorderedlist',
+            'insertunorderedlist',
+            'selectall',
+            'cleardoc',
+            '|',
+            'rowspacingtop',
+            'rowspacingbottom',
+            'lineheight',
+            '|',
+          ],
+          [
+            'customstyle',
+            'paragraph',
+            'fontfamily',
+            'fontsize',
+            '|',
+            'directionalityltr',
+            'directionalityrtl',
+            'indent',
+            '|',
+            'justifyleft',
+            'justifycenter',
+            'justifyright',
+            'justifyjustify',
+            '|',
+            // 'touppercase',
+            // 'tolowercase',
+            // '|',
+            'link',
+            'unlink',
+            'anchor',
+            '|',
+            'imagenone',
+            'imageleft',
+            'imageright',
+            'imagecenter',
+            '|',
+            'simpleupload',
+            'insertimage',
+            'emotion',
+            'scrawl',
+          ],
+          [
+            'insertvideo',
+            // 'music',
+            'attachment',
+            'map',
+            // 'gmap',
+            'insertframe',
+            // 'webapp',
+            'pagebreak',
+            'template',
+            'background',
+            '|',
+            // 'insertcode',
+            'horizontal',
+            'date',
+            'time',
+            'spechars',
+            'snapscreen',
+            'wordimage',
+            '|',
+            'inserttable',
+            'deletetable',
+            'insertparagraphbeforetable',
+            'insertrow',
+            'deleterow',
+            'insertcol',
+            'deletecol',
+            'mergecells',
+            'mergeright',
+            'mergedown',
+            'splittocells',
+            'splittorows',
+            'splittocols',
+            'charts',
+            '|',
+            'print',
+            'preview',
+            'searchreplace',
+            // 'drafts',
+            // 'help'
+          ]
+        ]
       });
       this.editor.ready(() => {
         this.editor.execCommand('serverparam', '_token', token);
@@ -112,16 +219,13 @@ export default {
 </script>
 
 <style lang="less">
-.ql-toolbar.ql-snow, .ql-container.ql-snow{
-  border: none;
+.edui-editor{
+  z-index: 999!important;
 }
-.ql-container .ql-editor {
-  min-height: 320px;
-  padding-bottom: 1em;
-}
+
 .article_wrapper {
   background-color: #fff;
-  padding: 35px!important;
+  padding: 20px!important;
   padding-bottom: 20px!important;
   margin-bottom: 30px;
   .title_input_wrapper {

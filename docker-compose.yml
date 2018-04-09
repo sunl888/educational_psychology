@@ -11,7 +11,7 @@ services:
       - redis
     entrypoint: /var/www/deploy/docker-entrypoint-dev.sh
     depends_on:
-      - mysql+
+      - mysql
       - redis
     environment:
       - DB_DATABASE=${DB_DATABASE}

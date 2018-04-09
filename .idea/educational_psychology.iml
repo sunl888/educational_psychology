@@ -49,7 +49,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/overtrue/laravel-filesystem-qiniu" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/overtrue/laravel-lang" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/overtrue/laravel-pinyin" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/overtrue/laravel-ueditor" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/overtrue/pinyin" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/paragonie/random_compat" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phar-io/manifest" />
@@ -103,6 +102,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/theseer/tokenizer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/tijsverkoyen/css-to-inline-styles" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/ty666/cdn-pusher" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/ty666/laravel-ueditor" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/vlucas/phpdotenv" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/assert" />
     </content>

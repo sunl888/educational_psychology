@@ -70,11 +70,16 @@ li {
     background-position: center;
     position: relative;
 }
-
+.left_name>.logo{
+    position: absolute;
+    left: -107px;
+    width: 90px;
+    top: -7px;
+}
 .left_name {
     position: absolute;
     top: 40px;
-    left: 140px;
+    left: 183px;
 }
 
 .right_img {
@@ -82,12 +87,28 @@ li {
     top: 30px;
     right: 50px;
 }
-
-.header > .left_name > img {
+.header{position: relative}
+.header>.mask,
+.header>.main{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.header>.mask{
+    background-color: #0C9EC9;
+    opacity: .28;
+    z-index: 99;
+}
+.header>.main{
+    z-index: 100;
+}
+.header .left_name > img {
     display: block;
 }
 
-.header > .left_name > img.c_name {
+.header .left_name > img.c_name {
     margin-top: 12px;
 }
 

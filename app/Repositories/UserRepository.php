@@ -7,6 +7,7 @@ use App\Exceptions\ResourceException;
 use App\Models\User;
 use Hash;
 use DB;
+use Illuminate\Support\Str;
 use Spatie\Permission\Exceptions\PermissionDoesNotExist;
 use Spatie\Permission\Exceptions\RoleDoesNotExist;
 
@@ -62,11 +63,14 @@ class UserRepository extends BaseRepository
         $this->filterData($data);
         if (isset($data['password'])) {
             $data['password'] = Hash::make($data['password']);
+            // 如果修改了密码 重制 remember_token 让之前用户登录并记住密码失效
+            $data['remember_token'] = Str::random(60);
         }
         return $data;
     }
 
-    public function updated(array &$data,User $user){
+    public function updated(array &$data, User $user)
+    {
         if (!empty($data['roles'])) {
             try {
                 $user->syncRoles($data['roles']);

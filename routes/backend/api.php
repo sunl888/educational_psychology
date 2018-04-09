@@ -19,9 +19,9 @@ Route::get('roles/{role}/permissions', 'RolesController@permissions')->name('rol
 
 Route::apiResource('posts', 'PostsController');
 // 真删除指定的文章
-Route::delete('posts/{post}/real', 'PostsController@realDestroy');
+Route::delete('posts/{post}/real', 'PostsController@realDestroy')->name('posts.real');
 // 恢复指定的被软删除的文章
-Route::post('posts/{post}/restore', 'PostsController@restore');
+Route::post('posts/{post}/restore', 'PostsController@restore')->name('posts.restore');
 // 获取模板
 Route::get('templates', 'TemplatesController@templates');
 
