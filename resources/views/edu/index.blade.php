@@ -13,8 +13,8 @@
         <div class="index_content">
             {{--新闻通告--}}
             @widget('post_list', ['category' => '新闻通告', 'view' => 'post_lists.news_list', 'limit' => 7])
-            {{--科学研究--}}
-            @widget('post_list', ['category' => '科学研究', 'view' => 'post_lists.notice_list', 'limit' => 4])
+            {{--学术前沿--}}
+            @widget('post_list', ['category' => '学术前沿', 'view' => 'post_lists.notice_list', 'limit' => 4])
         </div>
         <!-- 图片滚动 -->
         @widget('banner', ['type'=>'categorys'])

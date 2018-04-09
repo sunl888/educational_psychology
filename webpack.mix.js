@@ -23,7 +23,7 @@ mix.webpackConfig({
 });
 
 // 如果网站不是更目录 setResourceRoot 设置路径
-mix.setResourceRoot('/edu');
+mix.setResourceRoot('/edu/');
 mix.copy('resources/assets/backend/static/images/default_avatar.jpg', 'public/static/images/default_avatar.jpg')
     .js('resources/assets/backend/app.js', 'public/js/backend').version();
 
