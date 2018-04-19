@@ -10,7 +10,7 @@
         @widget('navigation_bar')
         <div class="list_page">
             <div class="left_sidebar">
-                @widget('hot_post_list')
+                @widget('navigation_bar',['view' => 'side_nav'])
                 @include(THEME_NP.'layouts.particals.search')
             </div>
             <div class="right_list">

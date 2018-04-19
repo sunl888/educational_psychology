@@ -510,6 +510,9 @@ li {
     text-decoration: none;
 }
 
+.left_sidebar .content > li.active > a{
+    color: #0C9EC9;
+}
 .left_sidebar .content > li > a:hover {
     color: #0C9EC9;
 }
